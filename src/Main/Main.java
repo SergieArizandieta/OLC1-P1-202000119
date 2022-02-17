@@ -11,10 +11,12 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import java.awt.Color;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -47,6 +49,7 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
+		JFileChooser fc= new JFileChooser();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1162, 648);
 		
@@ -58,7 +61,16 @@ public class Main extends JFrame {
 		
 		JMenuItem Item_Open = new JMenuItem("Abrir");
 		Item_Open.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {System.out.println("Esta vivo");
+			public void actionPerformed(ActionEvent e) {
+				int sellection = fc.showOpenDialog(Item_Open);
+				if(sellection == JFileChooser.APPROVE_OPTION) {
+					File fichero = fc.getSelectedFile();
+					try {
+						
+					} catch (Exception e2) {
+						// TODO: handle exception
+					}
+				}
 			}
 		});
 		Menu_archive.add(Item_Open);
