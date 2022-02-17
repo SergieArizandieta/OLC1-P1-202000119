@@ -11,6 +11,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.awt.event.ActionEvent;
@@ -133,22 +134,24 @@ public class Principal extends JFrame {
 		Label_img.setHorizontalAlignment(SwingConstants.LEFT);
 		Label_img.setBounds(10, 11, 347, 309);
 		panel.add(Label_img);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(42, 42, 2, 2);
 		contentPane.add(scrollPane);
-		
+
 		TextArea textEditable = new TextArea();
 		textEditable.setBounds(10, 21, 456, 555);
 		contentPane.add(textEditable);
-		
+
+		// Acciones
 		Item_Open.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (fc.showOpenDialog(Item_Open) == JFileChooser.APPROVE_OPTION) {
 					try {
-						//System.out.println("Archivo seleccionado de: " + fc.getSelectedFile());
+						// System.out.println("Archivo seleccionado de: " + fc.getSelectedFile());
 						String text = Files.readString(Path.of(fc.getSelectedFile().toString()));
 						System.out.println(text);
+						System.out.println(fc.getSelectedFile());
 						textEditable.setText(text);
 					} catch (Exception e2) {
 
@@ -158,6 +161,26 @@ public class Principal extends JFrame {
 				}
 			}
 		});
-		
+
+		Item_SaveHow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (fc.showSaveDialog(Item_SaveHow) == JFileChooser.APPROVE_OPTION) {
+					try {
+						System.out.println(" se ecogio");		
+						System.out.println(fc.getSelectedFile());
+						
+						File fichero = fc.getSelectedFile();
+						try (FileWriter fw = new FileWriter(fichero)) {
+							fw.write(textEditable.getText());
+						}
+					} catch (Exception e2) {
+						System.out.println("paso");
+					}
+				} else {
+					System.out.println("NO se ecogio");
+				}
+			}
+		});
+
 	}
 }
