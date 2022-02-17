@@ -1,8 +1,6 @@
 package Main;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -10,11 +8,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.awt.event.ActionEvent;
@@ -25,12 +21,12 @@ import javax.swing.JFileChooser;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.Canvas;
-import java.awt.Panel;
-import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import javax.swing.JScrollPane;
+import java.awt.TextArea;
 
-public class Main extends JFrame {
+@SuppressWarnings("serial")
+public class Principal extends JFrame {
 
 	private JPanel contentPane;
 
@@ -41,7 +37,7 @@ public class Main extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Main frame = new Main();
+					Principal frame = new Principal();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,7 +49,7 @@ public class Main extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Main() {
+	public Principal() {
 		JFileChooser fc = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("*.exp", "exp");
 		fc.setFileFilter(filter);
@@ -69,21 +65,6 @@ public class Main extends JFrame {
 		menuBar.add(Menu_archive);
 
 		JMenuItem Item_Open = new JMenuItem("Abrir");
-		Item_Open.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (fc.showOpenDialog(Item_Open) == JFileChooser.APPROVE_OPTION) {
-					try {
-						//System.out.println("Archivo seleccionado de: " + fc.getSelectedFile());
-						String actual = Files.readString(Path.of(fc.getSelectedFile().toString()));
-						System.out.println(actual);
-					} catch (Exception e2) {
-
-					}
-				} else {
-					System.out.println("NO se ecogio");
-				}
-			}
-		});
 		Menu_archive.add(Item_Open);
 
 		JMenuItem Item_SaveHow = new JMenuItem("Guardar Como");
@@ -99,10 +80,6 @@ public class Main extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
-		JTextPane textEditable = new JTextPane();
-		textEditable.setBounds(10, 21, 456, 555);
-		contentPane.add(textEditable);
 
 		JButton button_analice = new JButton("Analizar");
 		button_analice.addActionListener(new ActionListener() {
@@ -131,6 +108,7 @@ public class Main extends JFrame {
 		contentPane.add(button_view);
 
 		JTextPane textOut = new JTextPane();
+		textOut.setEnabled(false);
 		textOut.setBounds(489, 449, 636, 127);
 		contentPane.add(textOut);
 
@@ -155,5 +133,31 @@ public class Main extends JFrame {
 		Label_img.setHorizontalAlignment(SwingConstants.LEFT);
 		Label_img.setBounds(10, 11, 347, 309);
 		panel.add(Label_img);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(42, 42, 2, 2);
+		contentPane.add(scrollPane);
+		
+		TextArea textEditable = new TextArea();
+		textEditable.setBounds(10, 21, 456, 555);
+		contentPane.add(textEditable);
+		
+		Item_Open.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (fc.showOpenDialog(Item_Open) == JFileChooser.APPROVE_OPTION) {
+					try {
+						//System.out.println("Archivo seleccionado de: " + fc.getSelectedFile());
+						String text = Files.readString(Path.of(fc.getSelectedFile().toString()));
+						System.out.println(text);
+						textEditable.setText(text);
+					} catch (Exception e2) {
+
+					}
+				} else {
+					System.out.println("NO se ecogio");
+				}
+			}
+		});
+		
 	}
 }
