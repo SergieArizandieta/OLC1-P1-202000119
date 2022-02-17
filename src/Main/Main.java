@@ -53,24 +53,24 @@ public class Main extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu = new JMenu("Archivo");
-		menuBar.add(mnNewMenu);
+		JMenu Menu_archive = new JMenu("Archivo");
+		menuBar.add(Menu_archive);
 		
 		JMenuItem Item_Open = new JMenuItem("Abrir");
 		Item_Open.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {System.out.println("Esta vivo");
 			}
 		});
-		mnNewMenu.add(Item_Open);
+		Menu_archive.add(Item_Open);
 		
 		JMenuItem Item_SaveHow = new JMenuItem("Guardar Como");
-		mnNewMenu.add(Item_SaveHow);
+		Menu_archive.add(Item_SaveHow);
 		
 		JMenuItem Item_Save = new JMenuItem("Guardar");
-		mnNewMenu.add(Item_Save);
+		Menu_archive.add(Item_Save);
 		
 		JMenuItem Item_New = new JMenuItem("Nuevo");
-		mnNewMenu.add(Item_New);
+		Menu_archive.add(Item_New);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -93,10 +93,10 @@ public class Main extends JFrame {
 		button_generate.setBounds(476, 42, 145, 23);
 		contentPane.add(button_generate);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Arbol", "Siguientes"}));
-		comboBox.setBounds(767, 42, 193, 22);
-		contentPane.add(comboBox);
+		JComboBox comboBoxImage = new JComboBox();
+		comboBoxImage.setModel(new DefaultComboBoxModel(new String[] {"Arbol", "Siguientes"}));
+		comboBoxImage.setBounds(767, 42, 193, 22);
+		contentPane.add(comboBoxImage);
 		
 		JButton button_view = new JButton("Ver");
 		button_view.addActionListener(new ActionListener() {
@@ -127,9 +127,9 @@ public class Main extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_2.setBounds(10, 11, 347, 309);
-		panel.add(lblNewLabel_2);
+		JLabel Label_img = new JLabel("");
+		Label_img.setHorizontalAlignment(SwingConstants.LEFT);
+		Label_img.setBounds(10, 11, 347, 309);
+		panel.add(Label_img);
 	}
 }
