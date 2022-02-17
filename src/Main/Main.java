@@ -14,6 +14,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import java.awt.Color;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.Canvas;
+import java.awt.Panel;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 public class Main extends JFrame {
 
@@ -63,28 +71,65 @@ public class Main extends JFrame {
 		
 		JMenuItem Item_New = new JMenuItem("Nuevo");
 		mnNewMenu.add(Item_New);
-		
-		JMenu mnNewMenu_1 = new JMenu("Generar");
-		menuBar.add(mnNewMenu_1);
-		
-		JMenuItem Item_Automatas = new JMenuItem("Automatas");
-		mnNewMenu_1.add(Item_Automatas);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setBounds(10, 21, 456, 500);
-		contentPane.add(textPane);
+		JTextPane textEditable = new JTextPane();
+		textEditable.setBounds(10, 21, 456, 555);
+		contentPane.add(textEditable);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton button_analice = new JButton("Analizar");
+		button_analice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {System.out.println("Que onda");
 			}
 		});
-		btnNewButton.setBounds(493, 31, 89, 23);
-		contentPane.add(btnNewButton);
+		button_analice.setBounds(476, 11, 89, 23);
+		contentPane.add(button_analice);
+		
+		JButton button_generate = new JButton("Generar Automatas");
+		button_generate.setBounds(476, 42, 145, 23);
+		contentPane.add(button_generate);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Arbol", "Siguientes"}));
+		comboBox.setBounds(767, 42, 193, 22);
+		contentPane.add(comboBox);
+		
+		JButton button_view = new JButton("Ver");
+		button_view.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		button_view.setBounds(970, 42, 67, 23);
+		contentPane.add(button_view);
+		
+		JTextPane textOut = new JTextPane();
+		textOut.setBounds(489, 449, 636, 127);
+		contentPane.add(textOut);
+		
+		JLabel lblNewLabel = new JLabel("Archivo de entrada");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel.setForeground(Color.BLACK);
+		lblNewLabel.setBounds(342, 0, 124, 14);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Salida");
+		lblNewLabel_1.setForeground(Color.BLACK);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1.setBounds(499, 424, 46, 14);
+		contentPane.add(lblNewLabel_1);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(767, 81, 367, 331);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_2.setBounds(10, 11, 347, 309);
+		panel.add(lblNewLabel_2);
 	}
 }
