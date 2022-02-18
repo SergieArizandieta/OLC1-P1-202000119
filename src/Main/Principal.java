@@ -11,7 +11,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,8 +27,12 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
-import javax.swing.JScrollPane;
 import java.awt.TextArea;
+
+import analizadores.Analizador_Lexico;
+import analizadores.Analizador_sintactico;
+import analizadores.errorList;
+
 
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
@@ -85,11 +91,6 @@ public class Principal extends JFrame {
 		contentPane.setLayout(null);
 
 		JButton button_analice = new JButton("Analizar");
-		button_analice.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Que onda");
-			}
-		});
 		button_analice.setBounds(607, 54, 89, 23);
 		contentPane.add(button_analice);
 
@@ -147,7 +148,8 @@ public class Principal extends JFrame {
 		label_ruta.setBounds(52, 23, 569, 14);
 		contentPane.add(label_ruta);
 
-		// Acciones
+		// Acciones------------------------------------------------------------------------------------
+		//Menu------------------------------------------------------------------------------------
 		//Abrir 
 		Item_Open.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -215,6 +217,26 @@ public class Principal extends JFrame {
 				textEditable.setText("");
 			}
 		});
-
+		
+		//Botones------------------------------------------------------------------------------------
+		button_analice.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Analizador_Lexico lexico = new Analizador_Lexico(new BufferedReader(new FileReader(label_ruta.getText())));
+					Analizador_sintactico sintactico = new Analizador_sintactico(lexico);
+					sintactico.parse();
+					System.out.println("\n\n ***Reporte de errores encontrados ");
+					/*
+					for (errorList errore : Analizador_Lexico.errores) {
+					    System.out.println(errore.show());
+					}*/
+					for (errorList errore : Analizador_sintactico.errores) {
+					    System.out.println(errore.show());
+					}
+					                  
+				} catch (Exception e1) {
+				}
+			}
+		});
 	}
 }
