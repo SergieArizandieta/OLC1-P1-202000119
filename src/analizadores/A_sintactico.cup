@@ -1,0 +1,56 @@
+package analizadores;
+import java_cup.runtime.Symbol;
+import java.util.LinkedList;
+
+parser code
+{:
+    public static LinkedList<errorList> errores = new LinkedList<errorList>(); 
+
+    //Metodo al que se llama automaticamente ante algun error sintactico
+    public void syntax_error(Symbol s)
+    {        
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
+      
+        System.out.println("!!!!!!! Error Sintactico Recuperado !!!!!!!");
+        System.out.println("\t\tLexema: "+lexema);
+        System.out.println("\t\tFila: "+fila);
+        System.out.println("\t\tColumna: "+columna);
+
+        errorList tmp = new errorList("Sintactico",lexema,"Caracter no esperado",fila,columna);
+        errores.add(tmp);
+        
+    }
+
+    //Metodo al que se llama en el momento en que ya no es posible una recuperacion de errores
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+    {        
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
+        
+        System.out.println("!!!!!!! Error Sintactico, Panic Mode !!!!!!! ");
+        System.out.println("\t\tLexema: "+lexema);
+        System.out.println("\t\tFila: "+fila);
+        System.out.println("\t\tColumna: "+columna);
+        
+        errorList tmp = new errorList("Sintactico",lexema, "Caracter no esperado",fila,columna);
+        errores.add(tmp);
+     
+    }
+:}
+
+
+terminal id;
+terminal coma;
+terminal cadena;
+non terminal INICIO,E;
+start with INICIO;
+
+INICIO::= cadena E {:System.out.println("Fin de analisis de entrada");:}
+;
+
+E::= E coma id
+| id 
+;
