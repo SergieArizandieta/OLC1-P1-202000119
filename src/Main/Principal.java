@@ -148,6 +148,7 @@ public class Principal extends JFrame {
 		contentPane.add(label_ruta);
 
 		// Acciones
+		//Abrir 
 		Item_Open.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (fc.showOpenDialog(Item_Open) == JFileChooser.APPROVE_OPTION) {
@@ -166,7 +167,8 @@ public class Principal extends JFrame {
 				}
 			}
 		});
-
+		
+		//Guardar como
 		Item_SaveHow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (fc.showSaveDialog(Item_SaveHow) == JFileChooser.APPROVE_OPTION) {
@@ -189,6 +191,7 @@ public class Principal extends JFrame {
 			}
 		});
 		
+		//Guardar
 		Item_Save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(label_ruta.getText()=="Null") {
@@ -205,6 +208,7 @@ public class Principal extends JFrame {
 			}
 		});
 		
+		//Nurvo
 		Item_New.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				label_ruta.setText("Null");
