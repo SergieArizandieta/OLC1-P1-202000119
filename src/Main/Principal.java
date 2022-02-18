@@ -204,6 +204,13 @@ public class Principal extends JFrame {
 				}
 			}
 		});
+		
+		Item_New.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				label_ruta.setText("Null");
+				textEditable.setText("");
+			}
+		});
 
 	}
 }
