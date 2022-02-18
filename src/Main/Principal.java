@@ -8,10 +8,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.awt.event.ActionEvent;
@@ -57,7 +59,7 @@ public class Principal extends JFrame {
 		fc.setCurrentDirectory(new File("./Test"));
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1162, 648);
+		setBounds(100, 100, 1438, 676);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -88,16 +90,16 @@ public class Principal extends JFrame {
 				System.out.println("Que onda");
 			}
 		});
-		button_analice.setBounds(476, 11, 89, 23);
+		button_analice.setBounds(607, 54, 89, 23);
 		contentPane.add(button_analice);
 
 		JButton button_generate = new JButton("Generar Automatas");
-		button_generate.setBounds(476, 42, 145, 23);
+		button_generate.setBounds(607, 88, 145, 23);
 		contentPane.add(button_generate);
 
 		JComboBox comboBoxImage = new JComboBox();
 		comboBoxImage.setModel(new DefaultComboBoxModel(new String[] { "Arbol", "Siguientes" }));
-		comboBoxImage.setBounds(767, 42, 193, 22);
+		comboBoxImage.setBounds(1007, 54, 193, 22);
 		contentPane.add(comboBoxImage);
 
 		JButton button_view = new JButton("Ver");
@@ -105,43 +107,45 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		button_view.setBounds(970, 42, 67, 23);
+		button_view.setBounds(1210, 54, 67, 23);
 		contentPane.add(button_view);
 
 		JTextPane textOut = new JTextPane();
 		textOut.setEnabled(false);
-		textOut.setBounds(489, 449, 636, 127);
+		textOut.setBounds(607, 478, 776, 127);
 		contentPane.add(textOut);
 
-		JLabel lblNewLabel = new JLabel("Archivo de entrada");
+		JLabel lblNewLabel = new JLabel("Ruta:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel.setForeground(Color.BLACK);
-		lblNewLabel.setBounds(342, 0, 124, 14);
+		lblNewLabel.setBounds(14, 23, 46, 14);
 		contentPane.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Salida");
 		lblNewLabel_1.setForeground(Color.BLACK);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1.setBounds(499, 424, 46, 14);
+		lblNewLabel_1.setBounds(607, 453, 46, 14);
 		contentPane.add(lblNewLabel_1);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(767, 81, 367, 331);
+		panel.setBounds(959, 88, 427, 361);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		JLabel Label_img = new JLabel("");
 		Label_img.setHorizontalAlignment(SwingConstants.LEFT);
-		Label_img.setBounds(10, 11, 347, 309);
+		Label_img.setBounds(10, 11, 407, 339);
 		panel.add(Label_img);
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(42, 42, 2, 2);
-		contentPane.add(scrollPane);
-
 		TextArea textEditable = new TextArea();
-		textEditable.setBounds(10, 21, 456, 555);
+		textEditable.setBounds(14, 50, 569, 555);
 		contentPane.add(textEditable);
+		
+		JLabel label_ruta = new JLabel("Null");
+		label_ruta.setForeground(Color.BLACK);
+		label_ruta.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		label_ruta.setBounds(52, 23, 569, 14);
+		contentPane.add(label_ruta);
 
 		// Acciones
 		Item_Open.addActionListener(new ActionListener() {
@@ -153,6 +157,7 @@ public class Principal extends JFrame {
 						System.out.println(text);
 						System.out.println(fc.getSelectedFile());
 						textEditable.setText(text);
+						label_ruta.setText(fc.getSelectedFile().toString());
 					} catch (Exception e2) {
 
 					}
@@ -172,12 +177,30 @@ public class Principal extends JFrame {
 						File fichero = fc.getSelectedFile();
 						try (FileWriter fw = new FileWriter(fichero)) {
 							fw.write(textEditable.getText());
+							JOptionPane.showMessageDialog(null, "Se guardo el nuevo archivo.");
 						}
+						label_ruta.setText(fc.getSelectedFile().toString());
 					} catch (Exception e2) {
 						System.out.println("paso");
 					}
 				} else {
 					System.out.println("NO se ecogio");
+				}
+			}
+		});
+		
+		Item_Save.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(label_ruta.getText()=="Null") {
+					System.out.println("Primero debe guardar el archivo en el sistema");
+					JOptionPane.showMessageDialog(null, "Primero debe guardar el archivo en el sistema");
+				}else {
+					try (FileWriter fw = new FileWriter(label_ruta.getText())) {
+						fw.write(textEditable.getText());
+						JOptionPane.showMessageDialog(null, "Archivo guardado.");
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
