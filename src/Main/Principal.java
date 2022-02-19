@@ -232,9 +232,9 @@ public class Principal extends JFrame {
 						 * for (errorList errore : Analizador_Lexico.errores) {
 						 * System.out.println(errore.show()); }
 						 */
-						/*for (errorList errore : Analizador_sintactico.errores) {
+						for (errorList errore : Analizador_sintactico.errores) {
 							System.out.println(errore.show());
-						}*/
+						}
 						
 					} catch (Exception e1) {
 					}

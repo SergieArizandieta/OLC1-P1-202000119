@@ -23,7 +23,7 @@ NUMBER = {DIGIT}+
 ONE_LINE_COMMENT = "//" [^"\n"]* 
 MULTILINE_COMMENT =	"<!" [^"!>"]* "!>"
 S_LA = "{"
-S_LL = "}"
+S_LLC = "}"
 S_DOTS = ":"
 S_SEMICOLON =	";"
 S_ARROW =	"->"
@@ -48,19 +48,18 @@ PHRASE = "\"" [^"\""]* "\""
 %%
 
 <YYINITIAL>{
-    
+    {LETTER}    {System.out.println("Reconocio token: <LETTER>: "+yytext());
+        return new Symbol(Simbolos.LETTER, yycolumn, yyline, yytext());}
     {NUMBER}    {System.out.println("Reconocio token: <NUMBER>: "+yytext());
             return new Symbol(Simbolos.NUMBER, yycolumn, yyline, yytext());}
     
     {ONE_LINE_COMMENT}    {System.out.println("Reconocio token: <ONE_LINE_COMMENT>: "+yytext());}
-
     {MULTILINE_COMMENT}    {System.out.println("Reconocio token: <MULTILINE_COMMENT>: "+yytext());}
-
     {S_LA}    {System.out.println("Reconocio token: <S_LA>: "+yytext());
             return new Symbol(Simbolos.S_LA, yycolumn, yyline, yytext());}
 
-    {S_LL}    {System.out.println("Reconocio token: <S_LL>: "+yytext());
-            return new Symbol(Simbolos.S_LL, yycolumn, yyline, yytext());}
+    {S_LLC}    {System.out.println("Reconocio token: <S_LLC>: "+yytext());
+            return new Symbol(Simbolos.S_LLC, yycolumn, yyline, yytext());}
     
     {S_DOTS}    {System.out.println("Reconocio token: <S_DOTS>: "+yytext());
             return new Symbol(Simbolos.S_DOTS, yycolumn, yyline, yytext());}
@@ -119,8 +118,7 @@ PHRASE = "\"" [^"\""]* "\""
     {PHRASE}    {System.out.println("Reconocio token: <PHRASE>: "+yytext());
             return new Symbol(Simbolos.PHRASE, yycolumn, yyline, yytext());}
     
-    {LETTER}    {System.out.println("Reconocio token: <LETTER>: "+yytext());
-            return new Symbol(Simbolos.LETTER, yycolumn, yyline, yytext());}
+
     
 
 
