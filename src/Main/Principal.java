@@ -33,7 +33,6 @@ import analizadores.Analizador_Lexico;
 import analizadores.Analizador_sintactico;
 import analizadores.errorList;
 
-
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
 
@@ -141,7 +140,7 @@ public class Principal extends JFrame {
 		TextArea textEditable = new TextArea();
 		textEditable.setBounds(14, 50, 569, 555);
 		contentPane.add(textEditable);
-		
+
 		JLabel label_ruta = new JLabel("Null");
 		label_ruta.setForeground(Color.BLACK);
 		label_ruta.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -149,15 +148,15 @@ public class Principal extends JFrame {
 		contentPane.add(label_ruta);
 
 		// Acciones------------------------------------------------------------------------------------
-		//Menu------------------------------------------------------------------------------------
-		//Abrir 
+		// Menu------------------------------------------------------------------------------------
+		// Abrir
 		Item_Open.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (fc.showOpenDialog(Item_Open) == JFileChooser.APPROVE_OPTION) {
 					try {
 						// System.out.println("Archivo seleccionado de: " + fc.getSelectedFile());
 						String text = Files.readString(Path.of(fc.getSelectedFile().toString()));
-						System.out.println(text);
+						//System.out.println(text);
 						System.out.println(fc.getSelectedFile());
 						textEditable.setText(text);
 						label_ruta.setText(fc.getSelectedFile().toString());
@@ -169,15 +168,15 @@ public class Principal extends JFrame {
 				}
 			}
 		});
-		
-		//Guardar como
+
+		// Guardar como
 		Item_SaveHow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (fc.showSaveDialog(Item_SaveHow) == JFileChooser.APPROVE_OPTION) {
 					try {
-						System.out.println(" se ecogio");		
+						System.out.println(" se ecogio");
 						System.out.println(fc.getSelectedFile());
-						
+
 						File fichero = fc.getSelectedFile();
 						try (FileWriter fw = new FileWriter(fichero)) {
 							fw.write(textEditable.getText());
@@ -192,14 +191,14 @@ public class Principal extends JFrame {
 				}
 			}
 		});
-		
-		//Guardar
+
+		// Guardar
 		Item_Save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(label_ruta.getText()=="Null") {
+				if (label_ruta.getText() == "Null") {
 					System.out.println("Primero debe guardar el archivo en el sistema");
 					JOptionPane.showMessageDialog(null, "Primero debe guardar el archivo en el sistema");
-				}else {
+				} else {
 					try (FileWriter fw = new FileWriter(label_ruta.getText())) {
 						fw.write(textEditable.getText());
 						JOptionPane.showMessageDialog(null, "Archivo guardado.");
@@ -209,32 +208,38 @@ public class Principal extends JFrame {
 				}
 			}
 		});
-		
-		//Nurvo
+
+		// Nurvo
 		Item_New.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				label_ruta.setText("Null");
 				textEditable.setText("");
 			}
 		});
-		
-		//Botones------------------------------------------------------------------------------------
+
+		// Botones------------------------------------------------------------------------------------
 		button_analice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					Analizador_Lexico lexico = new Analizador_Lexico(new BufferedReader(new FileReader(label_ruta.getText())));
-					Analizador_sintactico sintactico = new Analizador_sintactico(lexico);
-					sintactico.parse();
-					System.out.println("\n\n ***Reporte de errores encontrados ");
-					/*
-					for (errorList errore : Analizador_Lexico.errores) {
-					    System.out.println(errore.show());
-					}*/
-					for (errorList errore : Analizador_sintactico.errores) {
-					    System.out.println(errore.show());
+				if (label_ruta.getText() != "Null") {
+					try {
+						Analizador_Lexico lexico = new Analizador_Lexico(
+								new BufferedReader(new FileReader(label_ruta.getText())));
+						Analizador_sintactico sintactico = new Analizador_sintactico(lexico);
+						sintactico.parse();
+						//System.out.println("\n\n ***Reporte de errores encontrados ");
+						/*
+						 * for (errorList errore : Analizador_Lexico.errores) {
+						 * System.out.println(errore.show()); }
+						 */
+						/*for (errorList errore : Analizador_sintactico.errores) {
+							System.out.println(errore.show());
+						}*/
+						System.out.println("\n\n\n");
+					} catch (Exception e1) {
 					}
-					                  
-				} catch (Exception e1) {
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Se debe abrir un archivo primero");
 				}
 			}
 		});

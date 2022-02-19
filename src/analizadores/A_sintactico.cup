@@ -42,15 +42,10 @@ parser code
 :}
 
 
-terminal id;
-terminal coma;
-terminal cadena;
-non terminal INICIO,E;
+terminal teting;
+non terminal INICIO;
 start with INICIO;
 
-INICIO::= cadena E {:System.out.println("Fin de analisis de entrada");:}
+INICIO::= teting {:System.out.println("Fin de analisis de entrada");:}
 ;
 
-E::= E coma id
-| id 
-;

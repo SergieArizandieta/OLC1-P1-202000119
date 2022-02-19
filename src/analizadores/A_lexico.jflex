@@ -17,32 +17,15 @@ import java.util.LinkedList;
 %ignorecase
 %line
 %unicode
-
-letra = [a-zA-Z]
-id = {letra}+
-loQuesea = [\"][^\"]*[\"]
+inicio = "<!"
+final = "!>"
 %state ESTADOCADENA
 %%
 
-
-<YYINITIAL> "," {
-System.out.println("Reconocio token:<coma> lexema: "+yytext ());
-return new Symbol(Simbolos.coma, yycolumn, yyline, yytext());
+<YYINITIAL> {inicio}{
+System.out.println("Reconocio token:<testing> lexema: "+yytext ());
+return new Symbol(Simbolos.teting, yycolumn, yyline, yytext());
 }
-
-<YYINITIAL> {id} {
-System.out.println("Reconocio token:<id> lexema:"+yytext());
-return new Symbol(Simbolos.id, yycolumn, yyline, yytext());
-}
-
-
-<YYINITIAL> {loQuesea} {
-
-    System.out.println("Entra estado cadena: " +yytext());
-    return new Symbol(Simbolos.cadena, yycolumn, yyline, yytext());
-
-}
-
 
 [ \t\r\n\f] { /* Espacios en blanco, se ignoran */ }
 
