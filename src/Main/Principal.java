@@ -222,6 +222,7 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (label_ruta.getText() != "Null") {
 					try {
+						System.out.println("\n\n\n");
 						Analizador_Lexico lexico = new Analizador_Lexico(
 								new BufferedReader(new FileReader(label_ruta.getText())));
 						Analizador_sintactico sintactico = new Analizador_sintactico(lexico);
@@ -234,7 +235,7 @@ public class Principal extends JFrame {
 						/*for (errorList errore : Analizador_sintactico.errores) {
 							System.out.println(errore.show());
 						}*/
-						System.out.println("\n\n\n");
+						
 					} catch (Exception e1) {
 					}
 
