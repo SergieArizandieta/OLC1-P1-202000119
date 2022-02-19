@@ -52,11 +52,9 @@ PHRASE = "\"" [^"\""]* "\""
     {NUMBER}    {System.out.println("Reconocio token: <NUMBER>: "+yytext());
             return new Symbol(Simbolos.NUMBER, yycolumn, yyline, yytext());}
     
-    {ONE_LINE_COMMENT}    {System.out.println("Reconocio token: <ONE_LINE_COMMENT>: "+yytext());
-            return new Symbol(Simbolos.ONE_LINE_COMMENT, yycolumn, yyline, yytext());}
+    {ONE_LINE_COMMENT}    {System.out.println("Reconocio token: <ONE_LINE_COMMENT>: "+yytext());}
 
-    {MULTILINE_COMMENT}    {System.out.println("Reconocio token: <MULTILINE_COMMENT>: "+yytext());
-            return new Symbol(Simbolos.MULTILINE_COMMENT, yycolumn, yyline, yytext());}
+    {MULTILINE_COMMENT}    {System.out.println("Reconocio token: <MULTILINE_COMMENT>: "+yytext());}
 
     {S_LA}    {System.out.println("Reconocio token: <S_LA>: "+yytext());
             return new Symbol(Simbolos.S_LA, yycolumn, yyline, yytext());}
@@ -120,6 +118,9 @@ PHRASE = "\"" [^"\""]* "\""
 
     {PHRASE}    {System.out.println("Reconocio token: <PHRASE>: "+yytext());
             return new Symbol(Simbolos.PHRASE, yycolumn, yyline, yytext());}
+    
+    {LETTER}    {System.out.println("Reconocio token: <LETTER>: "+yytext());
+            return new Symbol(Simbolos.LETTER, yycolumn, yyline, yytext());}
     
 
 

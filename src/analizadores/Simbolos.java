@@ -8,13 +8,59 @@ package analizadores;
 /** CUP generated class containing symbol constants. */
 public class Simbolos {
   /* terminals */
-  public static final int error = 1;
-  public static final int teting = 2;
+  public static final int PHRASE = 25;
+  public static final int S_DOT = 13;
+  public static final int S_PCENTS = 10;
+  public static final int RANGE = 21;
+  public static final int S_LL = 6;
+  public static final int S_ASTERISK = 15;
+  public static final int ONE_LINE_COMMENT = 3;
+  public static final int S_DOTS = 7;
+  public static final int S_LA = 5;
+  public static final int SPACE = 22;
+  public static final int S_LINE = 14;
   public static final int EOF = 0;
+  public static final int NUMBER = 2;
+  public static final int S_COLON = 12;
+  public static final int S_LBREAK = 18;
+  public static final int S_SEMICOLON = 8;
+  public static final int CONJ = 23;
+  public static final int S_DQUOTES = 20;
+  public static final int S_QUOTE = 19;
+  public static final int error = 1;
+  public static final int IDENTIFICADOR = 24;
+  public static final int S_PLUS = 16;
+  public static final int S_RANK = 11;
+  public static final int MULTILINE_COMMENT = 4;
+  public static final int S_QMARK = 17;
+  public static final int S_ARROW = 9;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
-  "teting"
+  "NUMBER",
+  "ONE_LINE_COMMENT",
+  "MULTILINE_COMMENT",
+  "S_LA",
+  "S_LL",
+  "S_DOTS",
+  "S_SEMICOLON",
+  "S_ARROW",
+  "S_PCENTS",
+  "S_RANK",
+  "S_COLON",
+  "S_DOT",
+  "S_LINE",
+  "S_ASTERISK",
+  "S_PLUS",
+  "S_QMARK",
+  "S_LBREAK",
+  "S_QUOTE",
+  "S_DQUOTES",
+  "RANGE",
+  "SPACE",
+  "CONJ",
+  "IDENTIFICADOR",
+  "PHRASE"
   };
 }
 

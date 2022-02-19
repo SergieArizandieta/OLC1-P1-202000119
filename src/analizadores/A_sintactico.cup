@@ -42,10 +42,42 @@ parser code
 :}
 
 
-terminal teting;
-non terminal INICIO;
+terminal NUMBER,S_LA,S_LLC,S_DOTS,S_SEMICOLON,S_ARROW,S_PCENTS,S_RANK, S_COLON,S_DOT, S_LINE,S_ASTERISK,S_PLUS,S_QMARK,S_LBREAK,S_QUOTE,S_DQUOTES,RANGE,SPACE,CONJ,IDENTIFICADOR,PHRASE,LETTER;
+non terminal INICIO,STARTS,CONTENIDO,CONJUNTO, CONTENIDOR, ER,DEFCONJ,SEPCOMAS,RANGO,DATOSEP,SEPCOMASR,DATORANGO,DEFER,OP,REFCONJ,CADENAS,CADENASR;
 start with INICIO;
 
-INICIO::= teting {:System.out.println("Fin de analisis de entrada");:}
+INICIO::=STARTS  {:System.out.println("Fin de analisis de entrada");:}
 ;
+
+STARTS::= S_LA CONTENIDO {:System.out.println("<INICIO>");:};
+
+CONTENIDO::= CONJUNTO DEFINICIONESR | ER DEFINICIONESR {:System.out.println("<CONTENIDO>");:};
+
+CONJUNTO ::= CONJ S_DOTS IDENTIFICADOR S_ARROW DEFCONJ {:System.out.println("<CONJUNTO>");:};
+
+DEFCONJ ::= SEPCOMAS | RANGO {:System.out.println("<DEFCONJ>");:};
+
+SEPCOMAS ::= DATOSEP SEPCOMASR {:System.out.println("<SEPCOMAS>");:};
+
+DATOSEP ::= PHRASE | NUMBER | LETTER {:System.out.println("<DATOSEP>");:};
+
+SEPCOMASR ::= S_COLON SEPCOMAS | S_SEMICOLON  {:System.out.println("<SEPCOMASR>");:};
+
+RANGO ::= DATORANGO S_RANK DATORANGO S_SEMICOLON {:System.out.println("<RANGO>");:};
+
+DATORANGO ::= RANGE | SPACE | S_ASTERISK | S_PLUS | S_COLON | S_DOT |S_DOTS | S_SEMICOLON | S_QMARK | S_LA | S_LINE | S_LLC {:System.out.println("<DATORANGO>");:};
+
+ER ::= IDENTIFICADOR S_ARROW DEFER S_SEMICOLON {:System.out.println("<ER>");:};
+
+DEFER ::= OP | REFCONJ | PHRASE | S_LBREAK | S_QUOTE | S_DQUOTES {:System.out.println("<DEFER>");:};
+
+OP ::= S_LINE | S_ASTERISK | S_PLUS | S_QMARK  {:System.out.println("<OP>");:};
+
+REFCONJ ::= S_LA IDENTIFICADOR S_LLC  {:System.out.println("<REFCONJ>");:};
+
+CONTENIDOR ::= CONTENIDO | S_PCENTS CADENAS {:System.out.println("<CONTENIDOR>");:};
+
+CADENAS ::= IDENTIFICADOR S_DOTS PHRASE S_SEMICOLON   {:System.out.println("<CADENAS>");:};
+
+CADENASR ::= CADENAS | S_LLC  {:System.out.println("<CADENASR>");:};
 

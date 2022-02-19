@@ -166,7 +166,7 @@ class CUP$Analizador_sintactico$actions {
           return CUP$Analizador_sintactico$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 1: // INICIO ::= teting 
+          case 1: // INICIO ::= NUMBER 
             {
               Object RESULT =null;
 		System.out.println("Fin de analisis de entrada");
