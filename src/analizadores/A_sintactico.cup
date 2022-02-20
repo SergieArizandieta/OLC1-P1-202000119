@@ -116,7 +116,7 @@ DEFER ::=
     | S_LBREAK:a DEFER {:System.out.println("<S_LBREAK> " + a );:}
     | S_QUOTE:a DEFER  {:System.out.println("<S_QUOTE> " + a );:}
     | S_DQUOTES:a DEFER {:System.out.println("<S_DQUOTES> " + a );:}
-    |S_SEMICOLON ;
+    |S_SEMICOLON:a {:System.out.println("<S_SEMICOLON> " + a );:};
 
 OP ::= 
     S_LINE:a DEFER {:RESULT = a;:}
@@ -129,13 +129,13 @@ REFCONJ ::=
     S_LA IDENTIFICADOR:a S_LLC DEFER {:RESULT = a;:};
 
 CONTENIDOR ::= 
-    S_PCENTS CADENAS {:System.out.println("<CONTENIDOR>");:}
-    | CONTENIDO  {:System.out.println("<CONTENIDOR>");:};
+    S_PCENTS CADENAS {:/*System.out.println("<CONTENIDOR>");*/:}
+    | CONTENIDO  {:/*System.out.println("<CONTENIDOR>");*/:};
 
 CADENAS ::= 
-    IDENTIFICADOR S_DOTS PHRASE S_SEMICOLON CADENASR  {:System.out.println("<CADENAS>");:};
+    IDENTIFICADOR:a S_DOTS PHRASE:b S_SEMICOLON CADENASR  {:System.out.println("<CADENAS> " + a + " : " + b);:};
 
 CADENASR ::= 
-     S_LLC {:System.out.println("<CADENASR>");:}
-     | CADENAS {:System.out.println("<CADENASR>");:};
+     S_LLC {:/*System.out.println("<CADENASR>");*/:}
+     | CADENAS {:/*System.out.println("<CADENASR>");*/:};
 

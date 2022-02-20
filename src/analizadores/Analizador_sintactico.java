@@ -880,7 +880,10 @@ class CUP$Analizador_sintactico$actions {
           case 50: // DEFER ::= S_SEMICOLON 
             {
               Object RESULT =null;
-
+		int aleft = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()).right;
+		Object a = (Object)((java_cup.runtime.Symbol) CUP$Analizador_sintactico$stack.peek()).value;
+		System.out.println("<S_SEMICOLON> " + a );
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("DEFER",12, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;
@@ -961,7 +964,7 @@ class CUP$Analizador_sintactico$actions {
           case 57: // CONTENIDOR ::= S_PCENTS CADENAS 
             {
               Object RESULT =null;
-		System.out.println("<CONTENIDOR>");
+		/*System.out.println("<CONTENIDOR>");*/
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("CONTENIDOR",4, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;
@@ -970,7 +973,7 @@ class CUP$Analizador_sintactico$actions {
           case 58: // CONTENIDOR ::= CONTENIDO 
             {
               Object RESULT =null;
-		System.out.println("<CONTENIDOR>");
+		/*System.out.println("<CONTENIDOR>");*/
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("CONTENIDOR",4, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;
@@ -979,7 +982,13 @@ class CUP$Analizador_sintactico$actions {
           case 59: // CADENAS ::= IDENTIFICADOR S_DOTS PHRASE S_SEMICOLON CADENASR 
             {
               Object RESULT =null;
-		System.out.println("<CADENAS>");
+		int aleft = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-4)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-4)).right;
+		Object a = (Object)((java_cup.runtime.Symbol) CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-4)).value;
+		int bleft = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-2)).left;
+		int bright = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-2)).right;
+		Object b = (Object)((java_cup.runtime.Symbol) CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-2)).value;
+		System.out.println("<CADENAS> " + a + " : " + b);
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("CADENAS",15, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-4)), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;
@@ -988,7 +997,7 @@ class CUP$Analizador_sintactico$actions {
           case 60: // CADENASR ::= S_LLC 
             {
               Object RESULT =null;
-		System.out.println("<CADENASR>");
+		/*System.out.println("<CADENASR>");*/
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("CADENASR",16, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;
@@ -997,7 +1006,7 @@ class CUP$Analizador_sintactico$actions {
           case 61: // CADENASR ::= CADENAS 
             {
               Object RESULT =null;
-		System.out.println("<CADENASR>");
+		/*System.out.println("<CADENASR>");*/
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("CADENASR",16, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;
