@@ -44,6 +44,7 @@ CONJ = ["c"|"C"]["o"|"O"]["n"|"N"]["j"|"J"]
 IDENTIFICADOR = {LETTER}({LETTER}|{DIGIT}|"_")*
 PHRASE = "\"" [^"\""]* "\""
 
+
 %state ESTADOCADENA
 %%
 

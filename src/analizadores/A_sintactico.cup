@@ -46,38 +46,52 @@ terminal NUMBER,S_LA,S_LLC,S_DOTS,S_SEMICOLON,S_ARROW,S_PCENTS,S_RANK, S_COLON,S
 non terminal INICIO,STARTS,CONTENIDO,CONJUNTO, CONTENIDOR, ER,DEFCONJ,SEPCOMAS,RANGO,DATOSEP,SEPCOMASR,DATORANGO,DEFER,OP,REFCONJ,CADENAS,CADENASR;
 start with INICIO;
 
-INICIO::=STARTS  {:System.out.println("Fin de analisis de entrada");:}
-;
+INICIO::= STARTS  {:System.out.println("Fin de analisis de entrada");:};
 
-STARTS::= S_LA CONTENIDO {:System.out.println("<INICIO>");:};
+STARTS::= S_LA CONTENIDO {:System.out.println("<STARTS>");:};
 
-CONTENIDO::= CONJUNTO CONTENIDOR | ER CONTENIDOR {:System.out.println("<CONTENIDO>");:};
+CONTENIDO::= 
+    CONJUNTO CONTENIDOR  | ER CONTENIDOR  {:System.out.println("<CONTENIDO>");:};
 
-CONJUNTO ::= CONJ S_DOTS IDENTIFICADOR S_ARROW DEFCONJ {:System.out.println("<CONJUNTO>");:};
+CONJUNTO ::= 
+    CONJ S_DOTS IDENTIFICADOR S_ARROW DEFCONJ {:System.out.println("<CONJUNTO>");:};
 
-DEFCONJ ::= SEPCOMAS | RANGO {:System.out.println("<DEFCONJ>");:};
+DEFCONJ ::= 
+    SEPCOMAS | RANGO {:System.out.println("<DEFCONJ>");:};
 
-SEPCOMAS ::= DATOSEP SEPCOMASR {:System.out.println("<SEPCOMAS>");:};
+SEPCOMAS ::= 
+    DATOSEP SEPCOMASR {:System.out.println("<SEPCOMAS>");:};
 
-DATOSEP ::= PHRASE | NUMBER | LETTER {:System.out.println("<DATOSEP>");:};
+DATOSEP ::=  
+    NUMBER  |  LETTER | RANGE | S_ASTERISK | S_PLUS | S_COLON | S_DOT  |  S_DOTS  | S_SEMICOLON |  S_QMARK  | S_LA  |  S_LINE  |  S_LLC |S_DQUOTES | S_QUOTE {:System.out.println("<DATOSEP>");:};
 
-SEPCOMASR ::= S_COLON SEPCOMAS | S_SEMICOLON  {:System.out.println("<SEPCOMASR>");:};
+SEPCOMASR ::= 
+    S_COLON SEPCOMAS | S_SEMICOLON  {:System.out.println("<SEPCOMASR>");:};
 
-RANGO ::= DATORANGO S_RANK DATORANGO S_SEMICOLON {:System.out.println("<RANGO>");:};
+RANGO ::= 
+    DATORANGO S_RANK DATORANGO S_SEMICOLON {:System.out.println("<RANGO>");:};
 
-DATORANGO ::= RANGE | SPACE | S_ASTERISK | S_PLUS | S_COLON | S_DOT |S_DOTS | S_SEMICOLON | S_QMARK | S_LA | S_LINE | S_LLC {:System.out.println("<DATORANGO>");:};
+DATORANGO ::= 
+    NUMBER | LETTER | RANGE | SPACE | S_ASTERISK | S_PLUS | S_COLON | S_DOT |S_DOTS | S_SEMICOLON | S_QMARK | S_LA | S_LINE | S_LLC |S_DQUOTES | S_QUOTE  {:System.out.println("<DATORANGO>");:};
 
-ER ::= IDENTIFICADOR S_ARROW DEFER  {:System.out.println("<ER>");:};
+ER ::= 
+    IDENTIFICADOR S_ARROW DEFER  {:System.out.println("<ER>");:};
 
-DEFER ::= OP | REFCONJ | PHRASE DEFER | S_LBREAK DEFER | S_QUOTE DEFER | S_DQUOTES DEFER |S_SEMICOLON  {:System.out.println("<DEFER>");:};
+DEFER ::= 
+    OP | REFCONJ | PHRASE DEFER | S_LBREAK DEFER | S_QUOTE DEFER | S_DQUOTES DEFER |S_SEMICOLON  {:System.out.println("<DEFER>");:};
 
-OP ::= S_LINE DEFER | S_ASTERISK DEFER | S_PLUS DEFER | S_QMARK DEFER | S_DOT DEFER {:System.out.println("<OP>");:};
+OP ::= 
+    S_LINE DEFER | S_ASTERISK DEFER | S_PLUS DEFER | S_QMARK DEFER | S_DOT DEFER {:System.out.println("<OP>");:};
 
-REFCONJ ::= S_LA IDENTIFICADOR S_LLC DEFER {:System.out.println("<REFCONJ>");:};
+REFCONJ ::= 
+    S_LA IDENTIFICADOR S_LLC DEFER {:System.out.println("<REFCONJ>");:};
 
-CONTENIDOR ::= CONTENIDO | S_PCENTS CADENAS {:System.out.println("<CONTENIDOR>");:};
+CONTENIDOR ::= 
+    S_PCENTS CADENAS | CONTENIDO  {:System.out.println("<CONTENIDOR>");:};
 
-CADENAS ::= IDENTIFICADOR S_DOTS PHRASE S_SEMICOLON   {:System.out.println("<CADENAS>");:};
+CADENAS ::= 
+    IDENTIFICADOR S_DOTS PHRASE S_SEMICOLON CADENASR  {:System.out.println("<CADENAS>");:};
 
-CADENASR ::= CADENAS | S_LLC  {:System.out.println("<CADENASR>");:};
+CADENASR ::= 
+     S_LLC | CADENAS {:System.out.println("<CADENASR>");:};
 

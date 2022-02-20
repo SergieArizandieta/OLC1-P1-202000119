@@ -1,8 +1,10 @@
 {
 /////CONJUNTOS
 
-////CONJ: letra -> a~z;
-/////CONJ: digito -> 0~9;
+CONJ: letra -> a~z;
+CONJ: digito -> 0~9;
+
+
 
 //// EXPRESIONES REGULARES
 ExpReg1 ->.{letra} * |"_" | {letra} {digito};
@@ -10,8 +12,11 @@ ExpresionReg2 ->. {digito} ."."+{digito};
 RegEx3 ->. {digito} *|"_"| {letra} {digito};
 
 %%
-%%
-
+//// TEXTOS DE PRUEBA
+<! 
+NO SE QUE HACE \
+!>
 ExpReg1: "primerLexemaCokoa";
 ExpresionReg2 : "34.44";
+
 }
