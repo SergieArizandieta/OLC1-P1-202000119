@@ -5,7 +5,9 @@ import java.util.LinkedList;
 parser code
 {:
     public static LinkedList<errorList> errores = new LinkedList<errorList>(); 
-
+    public static LinkedList<tokens> TokensList  = new LinkedList<tokens>();
+    public static LinkedList<SimpleER> ERList  = new LinkedList<SimpleER>();
+    SimpleER temp;
     //Metodo al que se llama automaticamente ante algun error sintactico
     public void syntax_error(Symbol s)
     {        
@@ -107,16 +109,19 @@ DATORANGO ::=
     | S_QUOTE:a {:RESULT =a; :}  ;
 
 ER ::= 
-    IDENTIFICADOR:a S_ARROW DEFER {:System.out.println("<ER> " + a + " : ");:};
+    IDENTIFICADOR:a S_ARROW DEFER {:System.out.println("<ER> " + a + " : ");ERList.add(temp);:};
 
 DEFER ::= 
-    OP:a {:System.out.println("<OP> " + a );:}
-    | REFCONJ:a {:System.out.println("<REFCONJ> " + a );:}
-    | PHRASE:a DEFER {:System.out.println("<PHRASE> " + a );:}
-    | S_LBREAK:a DEFER {:System.out.println("<S_LBREAK> " + a );:}
-    | S_QUOTE:a DEFER  {:System.out.println("<S_QUOTE> " + a );:}
-    | S_DQUOTES:a DEFER {:System.out.println("<S_DQUOTES> " + a );:}
-    |S_SEMICOLON:a {:System.out.println("<S_SEMICOLON> " + a );:};
+    OP:a {:System.out.println("<OP> " + a );temp.insert(a,"OP");:}
+    | REFCONJ:a {:System.out.println("<REFCONJ> " + a ); temp.insert(a,"REFCONJ");:}
+    | PHRASE:a DEFER {:System.out.println("<PHRASE> " + a );temp.insert(a,"PHRASE");:}
+    | S_LBREAK:a DEFER {:System.out.println("<S_LBREAK> " + a );temp.insert(a,"S_LBREAK");:}
+    | S_QUOTE:a DEFER  {:System.out.println("<S_QUOTE> " + a );temp.insert(a,"S_QUOTE");:}
+    | S_DQUOTES:a DEFER {:System.out.println("<S_DQUOTES> " + a );temp.insert(a,"S_DQUOTES");:}
+    |S_SEMICOLON:a {:System.out.println("<S_SEMICOLON> " + a );
+                    temp = new SimpleER();
+    
+                    :};
 
 OP ::= 
     S_LINE:a DEFER {:RESULT = a;:}

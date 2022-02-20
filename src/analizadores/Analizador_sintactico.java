@@ -238,7 +238,9 @@ public class Analizador_sintactico extends java_cup.runtime.lr_parser {
 
 
     public static LinkedList<errorList> errores = new LinkedList<errorList>(); 
-
+    public static LinkedList<tokens> TokensList  = new LinkedList<tokens>();
+    public static LinkedList<SimpleER> ERList  = new LinkedList<SimpleER>();
+    SimpleER temp;
     //Metodo al que se llama automaticamente ante algun error sintactico
     public void syntax_error(Symbol s)
     {        
@@ -799,7 +801,7 @@ class CUP$Analizador_sintactico$actions {
 		int aleft = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-2)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-2)).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-2)).value;
-		System.out.println("<ER> " + a + " : ");
+		System.out.println("<ER> " + a + " : ");ERList.add(temp);
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("ER",5, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-2)), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;
@@ -811,7 +813,7 @@ class CUP$Analizador_sintactico$actions {
 		int aleft = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$Analizador_sintactico$stack.peek()).value;
-		System.out.println("<OP> " + a );
+		System.out.println("<OP> " + a );temp.insert(a,"OP");
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("DEFER",12, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;
@@ -823,7 +825,7 @@ class CUP$Analizador_sintactico$actions {
 		int aleft = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$Analizador_sintactico$stack.peek()).value;
-		System.out.println("<REFCONJ> " + a );
+		System.out.println("<REFCONJ> " + a ); temp.insert(a,"REFCONJ");
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("DEFER",12, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;
@@ -835,7 +837,7 @@ class CUP$Analizador_sintactico$actions {
 		int aleft = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)).value;
-		System.out.println("<PHRASE> " + a );
+		System.out.println("<PHRASE> " + a );temp.insert(a,"PHRASE");
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("DEFER",12, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;
@@ -847,7 +849,7 @@ class CUP$Analizador_sintactico$actions {
 		int aleft = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)).value;
-		System.out.println("<S_LBREAK> " + a );
+		System.out.println("<S_LBREAK> " + a );temp.insert(a,"S_LBREAK");
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("DEFER",12, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;
@@ -859,7 +861,7 @@ class CUP$Analizador_sintactico$actions {
 		int aleft = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)).value;
-		System.out.println("<S_QUOTE> " + a );
+		System.out.println("<S_QUOTE> " + a );temp.insert(a,"S_QUOTE");
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("DEFER",12, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;
@@ -871,7 +873,7 @@ class CUP$Analizador_sintactico$actions {
 		int aleft = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)).value;
-		System.out.println("<S_DQUOTES> " + a );
+		System.out.println("<S_DQUOTES> " + a );temp.insert(a,"S_DQUOTES");
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("DEFER",12, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;
@@ -884,6 +886,9 @@ class CUP$Analizador_sintactico$actions {
 		int aright = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$Analizador_sintactico$stack.peek()).value;
 		System.out.println("<S_SEMICOLON> " + a );
+                    temp = new SimpleER();
+    
+                    
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("DEFER",12, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;

@@ -850,7 +850,7 @@ public class Analizador_Lexico implements java_cup.runtime.Scanner {
           case 46: break;
           case 20:
             { System.out.println("Reconocio token: <ONE_LINE_COMMENT>: "+yytext());
-    tokens tmp= new tokens( yytext(), yyline, yycolumn);
+        tokens tmp= new tokens( yytext(), yyline, yycolumn);
         TokensList.add(tmp);
             }
             // fall through
@@ -892,8 +892,8 @@ public class Analizador_Lexico implements java_cup.runtime.Scanner {
           case 52: break;
           case 26:
             { System.out.println("Reconocio token: <MULTILINE_COMMENT>: "+yytext());
-    tokens tmp= new tokens( yytext(), yyline, yycolumn);
-        TokensList.add(tmp);
+                tokens tmp= new tokens( yytext(), yyline, yycolumn);
+                TokensList.add(tmp);
             }
             // fall through
           case 53: break;

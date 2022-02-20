@@ -33,6 +33,7 @@ import analizadores.Analizador_Lexico;
 import analizadores.Analizador_sintactico;
 import analizadores.errorList;
 import analizadores.tokens;
+import analizadores.SimpleER;
 
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
@@ -233,9 +234,14 @@ public class Principal extends JFrame {
 						 * for (errorList errore : Analizador_Lexico.errores) {
 						 * System.out.println(errore.show()); }
 						 */
-						System.out.println("Tokens");
+						/*System.out.println("Tokens");
 						for (tokens token : Analizador_Lexico.TokensList) {
 							System.out.println(token.show());
+						}*/
+						System.out.println("Mostrando ER");
+						for (SimpleER er : Analizador_sintactico.ERList) {
+							System.out.println("=========ER=========");
+							er.showList();
 						}
 						for (errorList errore : Analizador_sintactico.errores) {
 							System.out.println(errore.show());
