@@ -728,103 +728,103 @@ public class Analizador_Lexico implements java_cup.runtime.Scanner {
             // fall through
           case 29: break;
           case 3:
-            { System.out.println("Reconocio token: <RANGE>: "+yytext());
+            { //System.out.println("Reconocio token: <RANGE>: "+yytext());
             return new Symbol(Simbolos.RANGE, yycolumn, yyline, yytext());
             }
             // fall through
           case 30: break;
           case 4:
-            { System.out.println("Reconocio token: <S_ASTERISK>: "+yytext());
+            { //System.out.println("Reconocio token: <S_ASTERISK>: "+yytext());
             return new Symbol(Simbolos.S_ASTERISK, yycolumn, yyline, yytext());
             }
             // fall through
           case 31: break;
           case 5:
-            { System.out.println("Reconocio token: <S_PLUS>: "+yytext());
+            { //System.out.println("Reconocio token: <S_PLUS>: "+yytext());
             return new Symbol(Simbolos.S_PLUS, yycolumn, yyline, yytext());
             }
             // fall through
           case 32: break;
           case 6:
-            { System.out.println("Reconocio token: <S_COLON>: "+yytext());
+            { //System.out.println("Reconocio token: <S_COLON>: "+yytext());
             return new Symbol(Simbolos.S_COLON, yycolumn, yyline, yytext());
             }
             // fall through
           case 33: break;
           case 7:
-            { System.out.println("Reconocio token: <S_DOT>: "+yytext());
+            { //System.out.println("Reconocio token: <S_DOT>: "+yytext());
             return new Symbol(Simbolos.S_DOT, yycolumn, yyline, yytext());
             }
             // fall through
           case 34: break;
           case 8:
-            { System.out.println("Reconocio token: <NUMBER>: "+yytext());
+            { //System.out.println("Reconocio token: <NUMBER>: "+yytext());
             return new Symbol(Simbolos.NUMBER, yycolumn, yyline, yytext());
             }
             // fall through
           case 35: break;
           case 9:
-            { System.out.println("Reconocio token: <S_DOTS>: "+yytext());
+            { //System.out.println("Reconocio token: <S_DOTS>: "+yytext());
             return new Symbol(Simbolos.S_DOTS, yycolumn, yyline, yytext());
             }
             // fall through
           case 36: break;
           case 10:
-            { System.out.println("Reconocio token: <S_SEMICOLON>: "+yytext());
+            { //System.out.println("Reconocio token: <S_SEMICOLON>: "+yytext());
             return new Symbol(Simbolos.S_SEMICOLON, yycolumn, yyline, yytext());
             }
             // fall through
           case 37: break;
           case 11:
-            { System.out.println("Reconocio token: <S_QMARK>: "+yytext());
+            { //System.out.println("Reconocio token: <S_QMARK>: "+yytext());
             return new Symbol(Simbolos.S_QMARK, yycolumn, yyline, yytext());
             }
             // fall through
           case 38: break;
           case 12:
-            { System.out.println("Reconocio token: <LETTER>: "+yytext());
+            { //System.out.println("Reconocio token: <LETTER>: "+yytext());
         return new Symbol(Simbolos.LETTER, yycolumn, yyline, yytext());
             }
             // fall through
           case 39: break;
           case 13:
-            { System.out.println("Reconocio token: <S_LA>: "+yytext());
+            { //System.out.println("Reconocio token: <S_LA>: "+yytext());
             return new Symbol(Simbolos.S_LA, yycolumn, yyline, yytext());
             }
             // fall through
           case 40: break;
           case 14:
-            { System.out.println("Reconocio token: <S_LINE>: "+yytext());
+            { //System.out.println("Reconocio token: <S_LINE>: "+yytext());
             return new Symbol(Simbolos.S_LINE, yycolumn, yyline, yytext());
             }
             // fall through
           case 41: break;
           case 15:
-            { System.out.println("Reconocio token: <S_LLC>: "+yytext());
+            { //System.out.println("Reconocio token: <S_LLC>: "+yytext());
             return new Symbol(Simbolos.S_LLC, yycolumn, yyline, yytext());
             }
             // fall through
           case 42: break;
           case 16:
-            { System.out.println("Reconocio token: <S_RANK>: "+yytext());
+            { //System.out.println("Reconocio token: <S_RANK>: "+yytext());
             return new Symbol(Simbolos.S_RANK, yycolumn, yyline, yytext());
             }
             // fall through
           case 43: break;
           case 17:
-            { System.out.println("Reconocio token: <PHRASE>: "+yytext());
+            { //System.out.println("Reconocio token: <PHRASE>: "+yytext());
             return new Symbol(Simbolos.PHRASE, yycolumn, yyline, yytext());
             }
             // fall through
           case 44: break;
           case 18:
-            { System.out.println("Reconocio token: <S_PCENTS>: "+yytext());
+            { //System.out.println("Reconocio token: <S_PCENTS>: "+yytext());
             return new Symbol(Simbolos.S_PCENTS, yycolumn, yyline, yytext());
             }
             // fall through
           case 45: break;
           case 19:
-            { System.out.println("Reconocio token: <S_ARROW>: "+yytext());
+            { //System.out.println("Reconocio token: <S_ARROW>: "+yytext());
             return new Symbol(Simbolos.S_ARROW, yycolumn, yyline, yytext());
             }
             // fall through
@@ -835,31 +835,31 @@ public class Analizador_Lexico implements java_cup.runtime.Scanner {
             // fall through
           case 47: break;
           case 21:
-            { System.out.println("Reconocio token: <IDENTIFICADOR>: "+yytext());
+            { //System.out.println("Reconocio token: <IDENTIFICADOR>: "+yytext());
             return new Symbol(Simbolos.IDENTIFICADOR, yycolumn, yyline, yytext());
             }
             // fall through
           case 48: break;
           case 22:
-            { System.out.println("Reconocio token: <S_DQUOTES>: "+yytext());
+            { //System.out.println("Reconocio token: <S_DQUOTES>: "+yytext());
             return new Symbol(Simbolos.S_DQUOTES, yycolumn, yyline, yytext());
             }
             // fall through
           case 49: break;
           case 23:
-            { System.out.println("Reconocio token: <S_QUOTE>: "+yytext());
+            { //System.out.println("Reconocio token: <S_QUOTE>: "+yytext());
             return new Symbol(Simbolos.S_QUOTE, yycolumn, yyline, yytext());
             }
             // fall through
           case 50: break;
           case 24:
-            { System.out.println("Reconocio token: <S_LBREAK>: "+yytext());
+            { //System.out.println("Reconocio token: <S_LBREAK>: "+yytext());
             return new Symbol(Simbolos.S_LBREAK, yycolumn, yyline, yytext());
             }
             // fall through
           case 51: break;
           case 25:
-            { System.out.println("Reconocio token: <SPACE>: "+yytext());
+            { //System.out.println("Reconocio token: <SPACE>: "+yytext());
             return new Symbol(Simbolos.SPACE, yycolumn, yyline, yytext());
             }
             // fall through
@@ -870,7 +870,7 @@ public class Analizador_Lexico implements java_cup.runtime.Scanner {
             // fall through
           case 53: break;
           case 27:
-            { System.out.println("Reconocio token: <CONJ>: "+yytext());
+            { //System.out.println("Reconocio token: <CONJ>: "+yytext());
             return new Symbol(Simbolos.CONJ, yycolumn, yyline, yytext());
             }
             // fall through
