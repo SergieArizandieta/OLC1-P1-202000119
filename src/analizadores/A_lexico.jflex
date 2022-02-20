@@ -60,11 +60,11 @@ PHRASE = "\"" [^"\""]* "\""
             return new Symbol(Simbolos.NUMBER, yycolumn, yyline, yytext());}   
 
     {ONE_LINE_COMMENT}    {System.out.println("Reconocio token: <ONE_LINE_COMMENT>: "+yytext());
-    tokens tmp= new tokens( yytext(), yyline, yycolumn);
+        tokens tmp= new tokens( yytext(), yyline, yycolumn);
         TokensList.add(tmp);}
     {MULTILINE_COMMENT}    {System.out.println("Reconocio token: <MULTILINE_COMMENT>: "+yytext());
-    tokens tmp= new tokens( yytext(), yyline, yycolumn);
-        TokensList.add(tmp);}
+                tokens tmp= new tokens( yytext(), yyline, yycolumn);
+                TokensList.add(tmp);}
 
     {S_LA}    {tokens tmp= new tokens( yytext(), yyline, yycolumn);
         TokensList.add(tmp);//System.out.println("Reconocio token: <S_LA>: "+yytext());
