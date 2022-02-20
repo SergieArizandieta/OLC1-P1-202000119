@@ -32,6 +32,7 @@ import java.awt.TextArea;
 import analizadores.Analizador_Lexico;
 import analizadores.Analizador_sintactico;
 import analizadores.errorList;
+import analizadores.tokens;
 
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
@@ -232,6 +233,10 @@ public class Principal extends JFrame {
 						 * for (errorList errore : Analizador_Lexico.errores) {
 						 * System.out.println(errore.show()); }
 						 */
+						System.out.println("Tokens");
+						for (tokens token : Analizador_Lexico.TokensList) {
+							System.out.println(token.show());
+						}
 						for (errorList errore : Analizador_sintactico.errores) {
 							System.out.println(errore.show());
 						}

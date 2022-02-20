@@ -306,6 +306,7 @@ public class Analizador_Lexico implements java_cup.runtime.Scanner {
 
   /* user code: */
     public static LinkedList<errorList> errores  = new LinkedList<errorList>();
+    public static LinkedList<tokens> TokensList  = new LinkedList<tokens>();
 
 
   /**
@@ -783,6 +784,8 @@ public class Analizador_Lexico implements java_cup.runtime.Scanner {
           case 38: break;
           case 12:
             { //System.out.println("Reconocio token: <LETTER>: "+yytext());
+     tokens tmp= new tokens( yytext(), yyline, yycolumn);
+     TokensList.add(tmp);
         return new Symbol(Simbolos.LETTER, yycolumn, yyline, yytext());
             }
             // fall through
