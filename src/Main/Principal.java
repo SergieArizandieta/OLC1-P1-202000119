@@ -31,6 +31,7 @@ import java.awt.TextArea;
 
 import analizadores.Analizador_Lexico;
 import analizadores.Analizador_sintactico;
+import analizadores.Cadenas;
 import analizadores.errorList;
 import analizadores.tokens;
 import analizadores.SimpleER;
@@ -239,6 +240,7 @@ public class Principal extends JFrame {
 						for (tokens token : Analizador_Lexico.TokensList) {
 							System.out.println(token.show());
 						}*/
+						/*
 						System.out.println("Mostrando ER");
 						for (SimpleER er : Analizador_sintactico.ERList) {
 							System.out.println("=========ER=========");
@@ -246,6 +248,9 @@ public class Principal extends JFrame {
 						}
 						for (Conj conjunto : Analizador_sintactico.ConjList) {
 							System.out.println(conjunto.show());
+						}*/
+						for (Cadenas cadenas : Analizador_sintactico.CadenasList) {
+							System.out.println(cadenas.show());
 						}
 						for (errorList errore : Analizador_sintactico.errores) {
 							System.out.println(errore.show());

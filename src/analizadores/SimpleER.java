@@ -4,7 +4,7 @@ package analizadores;
 public class SimpleER {
 
 	Nodo_Simple_ER primero;
-
+	String name;
 	public SimpleER() {
 		this.primero = null;
 	}
@@ -28,8 +28,9 @@ public class SimpleER {
 	public void showList() {
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
+			System.out.println(this.name);
 			while (actual != null) {
-				System.out.println(actual.info);
+				System.out.println(actual.info + " - " + actual.tipo);
 				actual = actual.next;
 			}
 		}

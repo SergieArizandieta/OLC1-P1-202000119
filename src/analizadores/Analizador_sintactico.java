@@ -241,6 +241,8 @@ public class Analizador_sintactico extends java_cup.runtime.lr_parser {
     public static LinkedList<tokens> TokensList  = new LinkedList<tokens>();
     public static LinkedList<SimpleER> ERList  = new LinkedList<SimpleER>();
     public static LinkedList<Conj> ConjList  = new LinkedList<Conj>();
+    public static LinkedList<Cadenas> CadenasList  = new LinkedList<Cadenas>();
+    Cadenas CadenasTemp;
     SimpleER temp;
     Conj ConjTemp;
     String TempConjText = "";
@@ -248,6 +250,7 @@ public class Analizador_sintactico extends java_cup.runtime.lr_parser {
     String TempConjType = "";
     String TempConjVar2 = "";
     String TempConjVar1 = "";
+    String TempNameEr = "";
     //Metodo al que se llama automaticamente ante algun error sintactico
     public void syntax_error(Symbol s)
     {        
@@ -816,7 +819,7 @@ class CUP$Analizador_sintactico$actions {
 		int aleft = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-2)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-2)).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-2)).value;
-		System.out.println("<ER> " + a + " : ");ERList.add(temp);
+		System.out.println("<ER> " + a + " : ");temp.name = (String) a;ERList.add(temp);
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("ER",5, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-2)), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;
@@ -1009,6 +1012,9 @@ class CUP$Analizador_sintactico$actions {
 		int bright = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-2)).right;
 		Object b = (Object)((java_cup.runtime.Symbol) CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-2)).value;
 		System.out.println("<CADENAS> " + a + " : " + b);
+    CadenasTemp = new Cadenas((String) a , (String) b);
+    CadenasList.add(CadenasTemp);
+    
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("CADENAS",15, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-4)), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;

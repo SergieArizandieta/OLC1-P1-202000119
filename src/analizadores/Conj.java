@@ -40,7 +40,7 @@ public class Conj {
 		}else{
 			data += "\nletras: ";
 			for (String contenido : letras) {
-				data +=   contenido + ",";
+				data +=   contenido + "-";
 			}
 		}
 		return data;

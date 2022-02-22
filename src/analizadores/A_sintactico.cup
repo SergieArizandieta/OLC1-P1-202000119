@@ -8,6 +8,8 @@ parser code
     public static LinkedList<tokens> TokensList  = new LinkedList<tokens>();
     public static LinkedList<SimpleER> ERList  = new LinkedList<SimpleER>();
     public static LinkedList<Conj> ConjList  = new LinkedList<Conj>();
+    public static LinkedList<Cadenas> CadenasList  = new LinkedList<Cadenas>();
+    Cadenas CadenasTemp;
     SimpleER temp;
     Conj ConjTemp;
     String TempConjText = "";
@@ -15,6 +17,7 @@ parser code
     String TempConjType = "";
     String TempConjVar2 = "";
     String TempConjVar1 = "";
+    String TempNameEr = "";
     //Metodo al que se llama automaticamente ante algun error sintactico
     public void syntax_error(Symbol s)
     {        
@@ -121,7 +124,7 @@ DATORANGO ::=
     | S_QUOTE:a {:RESULT =a; :}  ;
 
 ER ::= 
-    IDENTIFICADOR:a S_ARROW DEFER {:System.out.println("<ER> " + a + " : ");ERList.add(temp);:};
+    IDENTIFICADOR:a S_ARROW DEFER {:System.out.println("<ER> " + a + " : ");temp.name = (String) a;ERList.add(temp);:};
 
 DEFER ::= 
     OP:a {:System.out.println("<OP> " + a );temp.insert(a,"OP");:}
@@ -150,7 +153,10 @@ CONTENIDOR ::=
     | CONTENIDO  {:/*System.out.println("<CONTENIDOR>");*/:};
 
 CADENAS ::= 
-    IDENTIFICADOR:a S_DOTS PHRASE:b S_SEMICOLON CADENASR  {:System.out.println("<CADENAS> " + a + " : " + b);:};
+    IDENTIFICADOR:a S_DOTS PHRASE:b S_SEMICOLON CADENASR  {:System.out.println("<CADENAS> " + a + " : " + b);
+    CadenasTemp = new Cadenas((String) a , (String) b);
+    CadenasList.add(CadenasTemp);
+    :};
 
 CADENASR ::= 
      S_LLC {:/*System.out.println("<CADENASR>");*/:}
