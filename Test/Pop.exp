@@ -1,4 +1,18 @@
-,
+{
+
+//conjunto1
+CONJ: letra -> a~z;
+
+//conjunto2
+CONJ: digito -> 0~9;
+CONJ: digito -> 0,1,2,3,4;
+
+%%
+
+//CADENA1
+ExpReg1: "primerLexemaCokoa";
+
+}
 
 
 

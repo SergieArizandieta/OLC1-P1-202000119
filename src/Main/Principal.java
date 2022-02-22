@@ -34,6 +34,7 @@ import analizadores.Analizador_sintactico;
 import analizadores.errorList;
 import analizadores.tokens;
 import analizadores.SimpleER;
+import analizadores.Conj;
 
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
@@ -242,6 +243,9 @@ public class Principal extends JFrame {
 						for (SimpleER er : Analizador_sintactico.ERList) {
 							System.out.println("=========ER=========");
 							er.showList();
+						}
+						for (errorList errore : Analizador_sintactico.errores) {
+							System.out.println(errore.show());
 						}
 						for (errorList errore : Analizador_sintactico.errores) {
 							System.out.println(errore.show());

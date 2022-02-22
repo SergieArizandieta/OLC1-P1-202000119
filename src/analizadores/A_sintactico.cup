@@ -7,7 +7,14 @@ parser code
     public static LinkedList<errorList> errores = new LinkedList<errorList>(); 
     public static LinkedList<tokens> TokensList  = new LinkedList<tokens>();
     public static LinkedList<SimpleER> ERList  = new LinkedList<SimpleER>();
+    public static LinkedList<Conj> ConjList  = new LinkedList<Conj>();
     SimpleER temp;
+    Conj ConjTemp;
+    String TempConjText = "";
+    String TempConjName = "";
+    String TempConjType = "";
+    String TempConjVar2 = "";
+    String TempConjVar1 = "";
     //Metodo al que se llama automaticamente ante algun error sintactico
     public void syntax_error(Symbol s)
     {        
@@ -57,14 +64,18 @@ CONTENIDO::=
     | ER CONTENIDOR  {:System.out.println("<CONTENIDO>");:};
 
 CONJUNTO ::= 
-    CONJ S_DOTS IDENTIFICADOR S_ARROW DEFCONJ {:System.out.println("<CONJUNTO>");:};
+    CONJ S_DOTS IDENTIFICADOR:a S_ARROW DEFCONJ {:System.out.println("<CONJUNTO>: " + a);TempConjName =(String) a;
+                                                ConjTemp = new Conj(TempConjType,(String) a,TempConjVar1,TempConjVar2,TempConjText);
+                                                ConjList.add(ConjTemp);
+                                                TempConjText = "";TempConjVar1="";TempConjVar2="";
+                                                :};
 
 DEFCONJ ::= 
-    SEPCOMAS {:System.out.println("<DEFCONJ> COMAS: ");:}
-    | RANGO {:System.out.println("<DEFCONJ> RANGO: ");:};
+    SEPCOMAS {:System.out.println("<DEFCONJ> COMAS: ");TempConjType="comas";:}
+    | RANGO {:System.out.println("<DEFCONJ> RANGO: ");TempConjType="rango";:};
 
 SEPCOMAS ::= 
-    DATOSEP:a SEPCOMASR {:System.out.println("<SEPCOMAS> : " + a);:};
+    DATOSEP:a SEPCOMASR {:System.out.println("<SEPCOMAS> : " + a);TempConjText += a + ",";:};
 
 DATOSEP ::=  
     NUMBER:a {:RESULT = a;:}  
@@ -88,7 +99,8 @@ SEPCOMASR ::=
     | S_SEMICOLON  {:/*System.out.println("<SEPCOMASR>");*/:};
 
 RANGO ::= 
-    DATORANGO:a S_RANK DATORANGO:b S_SEMICOLON {:System.out.println("<RANGO> " + a + " a " + b);:};
+    DATORANGO:a S_RANK DATORANGO:b S_SEMICOLON {:System.out.println("<RANGO> " + a + " a " + b);
+    TempConjVar1 =(String) a; TempConjVar2 =(String) b;:};
 
 DATORANGO ::= 
     NUMBER:a {:RESULT =a; :}

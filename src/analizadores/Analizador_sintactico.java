@@ -240,7 +240,14 @@ public class Analizador_sintactico extends java_cup.runtime.lr_parser {
     public static LinkedList<errorList> errores = new LinkedList<errorList>(); 
     public static LinkedList<tokens> TokensList  = new LinkedList<tokens>();
     public static LinkedList<SimpleER> ERList  = new LinkedList<SimpleER>();
+    public static LinkedList<Conj> ConjList  = new LinkedList<Conj>();
     SimpleER temp;
+    Conj ConjTemp;
+    String TempConjText = "";
+    String TempConjName = "";
+    String TempConjType = "";
+    String TempConjVar2 = "";
+    String TempConjVar1 = "";
     //Metodo al que se llama automaticamente ante algun error sintactico
     public void syntax_error(Symbol s)
     {        
@@ -354,7 +361,14 @@ class CUP$Analizador_sintactico$actions {
           case 5: // CONJUNTO ::= CONJ S_DOTS IDENTIFICADOR S_ARROW DEFCONJ 
             {
               Object RESULT =null;
-		System.out.println("<CONJUNTO>");
+		int aleft = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-2)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-2)).right;
+		Object a = (Object)((java_cup.runtime.Symbol) CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-2)).value;
+		System.out.println("<CONJUNTO>: " + a);TempConjName =(String) a;
+                                                ConjTemp = new Conj(TempConjType,(String) a,TempConjVar1,TempConjVar2,TempConjText);
+                                                ConjList.add(ConjTemp);
+                                                TempConjText = "";TempConjVar1="";TempConjVar2="";
+                                                
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("CONJUNTO",3, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-4)), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;
@@ -363,7 +377,7 @@ class CUP$Analizador_sintactico$actions {
           case 6: // DEFCONJ ::= SEPCOMAS 
             {
               Object RESULT =null;
-		System.out.println("<DEFCONJ> COMAS: ");
+		System.out.println("<DEFCONJ> COMAS: ");TempConjType="comas";
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("DEFCONJ",6, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;
@@ -372,7 +386,7 @@ class CUP$Analizador_sintactico$actions {
           case 7: // DEFCONJ ::= RANGO 
             {
               Object RESULT =null;
-		System.out.println("<DEFCONJ> RANGO: ");
+		System.out.println("<DEFCONJ> RANGO: ");TempConjType="rango";
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("DEFCONJ",6, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;
@@ -384,7 +398,7 @@ class CUP$Analizador_sintactico$actions {
 		int aleft = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)).value;
-		System.out.println("<SEPCOMAS> : " + a);
+		System.out.println("<SEPCOMAS> : " + a);TempConjText += a + ",";
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("SEPCOMAS",7, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;
@@ -598,6 +612,7 @@ class CUP$Analizador_sintactico$actions {
 		int bright = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)).right;
 		Object b = (Object)((java_cup.runtime.Symbol) CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-1)).value;
 		System.out.println("<RANGO> " + a + " a " + b);
+    TempConjVar1 =(String) a; TempConjVar2 =(String) b;
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("RANGO",8, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-3)), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);
             }
           return CUP$Analizador_sintactico$result;

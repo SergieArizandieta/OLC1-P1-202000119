@@ -1,26 +1,33 @@
 package analizadores;
 
+
 public class SimpleER {
 
-	Nodo_Simple primero;
+	Nodo_Simple_ER primero;
 
 	public SimpleER() {
 		this.primero = null;
 	}
 
 	public void insert(Object info,String tipo) {
-		Nodo_Simple new_node = new Nodo_Simple(info,tipo);
+		Nodo_Simple_ER new_node = new Nodo_Simple_ER(info,tipo);
 		if (isNone()) {
 			this.primero = new_node;
 		} else {
-			new_node.next = this.primero;
-			this.primero = new_node;
-		}
+			Nodo_Simple_ER actual = this.primero;
+
+			while (actual.next != null) {
+
+				actual = actual.next;
+			}
+
+			actual.next = new_node;
 	}
+		}
 
 	public void showList() {
 		if (isNone() == false) {
-			Nodo_Simple actual = this.primero;
+			Nodo_Simple_ER actual = this.primero;
 			while (actual != null) {
 				System.out.println(actual.info);
 				actual = actual.next;
@@ -30,7 +37,7 @@ public class SimpleER {
 
 	public void Search(Object data) {
 		if (isNone() == false) {
-			Nodo_Simple actual = this.primero;
+			Nodo_Simple_ER actual = this.primero;
 			while (actual != null && actual.info != data) {
 				actual = actual.next;
 				if (actual == null) {
@@ -46,8 +53,8 @@ public class SimpleER {
 
 	public void Delete(Object data) {
 		if (isNone() == false) {
-			Nodo_Simple actual = this.primero;
-			Nodo_Simple anterior = null;
+			Nodo_Simple_ER actual = this.primero;
+			Nodo_Simple_ER anterior = null;
 
 			while (actual != null && actual.info != data) {
 				anterior = actual;
@@ -72,13 +79,13 @@ public class SimpleER {
 	}
 }
 
-class Nodo_Simple {
+class Nodo_Simple_ER {
 
-	Nodo_Simple next;
+	Nodo_Simple_ER next;
 	Object info;
 	String tipo;
 
-	public Nodo_Simple(Object info,String tipo) {
+	public Nodo_Simple_ER(Object info,String tipo) {
 		this.next = null;
 		this.info = info;
 		this.tipo = tipo;
