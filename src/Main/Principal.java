@@ -244,8 +244,8 @@ public class Principal extends JFrame {
 							System.out.println("=========ER=========");
 							er.showList();
 						}
-						for (errorList errore : Analizador_sintactico.errores) {
-							System.out.println(errore.show());
+						for (Conj conjunto : Analizador_sintactico.ConjList) {
+							System.out.println(conjunto.show());
 						}
 						for (errorList errore : Analizador_sintactico.errores) {
 							System.out.println(errore.show());
