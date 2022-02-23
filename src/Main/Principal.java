@@ -269,6 +269,7 @@ public class Principal extends JFrame {
 						}
 						
 					} catch (Exception e1) {
+						System.out.println(e1);
 					}
 
 				} else {

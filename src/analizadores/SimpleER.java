@@ -23,8 +23,9 @@ public class SimpleER {
 				actual.previous = anterior;
 				
 			}
-
+			
 			actual.next = new_node;
+			actual.next.previous = actual;
 		}
 	}
 
@@ -71,8 +72,10 @@ public class SimpleER {
 		Integer idActual = 1;
 		Integer AuxContado = 0;
 
-		while (Op!= null) {
-
+		while (true) {
+			if(Op.next == null ) {
+				break;
+			}
 			while (validdacionOp) {
 
 				if (Op.tipo.equals("OP") && Op.IDPadre == 0) {
