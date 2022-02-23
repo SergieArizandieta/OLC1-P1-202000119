@@ -273,8 +273,8 @@ public class Principal extends JFrame {
 								// er.initialize();
 								
 								er.GestionArbol();
-								 er.showList();
-								 er.showListInverse();
+								// er.showList();
+								 //er.showListInverse();
 							}
 
 							System.out.println("=====================================");

@@ -77,7 +77,7 @@ public class SimpleER {
 	
 	public void showListInverse() {
 		System.out.println("======Show list Inverse ======");
-		if (this.ultimo != null) {
+		if (isNoneLast() == false) {
 			Nodo_Simple_ER actual = this.ultimo;
 			System.out.println(this.name);
 			while (actual != null) {
@@ -88,22 +88,6 @@ public class SimpleER {
 				}
 
 				actual = actual.previous;
-			}
-		}
-	}
-
-	public void Search(Object data) {
-		if (isNone() == false) {
-			Nodo_Simple_ER actual = this.primero;
-			while (actual != null && actual.info != data) {
-				actual = actual.next;
-				if (actual == null) {
-					System.out.println("No se encontro el dato: " + data);
-					break;
-				}
-			}
-			if (actual != null && actual.info == data) {
-				System.out.println("Dato encontrado: " + data);
 			}
 		}
 	}
@@ -181,41 +165,56 @@ public class SimpleER {
 			validdacionHijo2 = true;
 			idActual += 1;
 		}
+		
 		AsignarAnulables();
+		verNoAnulables();
 		verAnulables();
 	}
 	
-	public void reverse() {
-		if (isNone() == false) {
-			Nodo_Simple_ER previus = null;
-			Nodo_Simple_ER actual = this.primero;
-			Nodo_Simple_ER next = null;
-			while (actual != null) {
-				next = actual.next;
-				actual.next = previus;
-				previus = actual;
-				actual = next;
-			}
-			this.primero = previus;
-		}else {
-			System.out.println("Pila vacia");
-		}
-	}
-	
+
 	public void AsignarAnulables() {
+		System.out.println("====== Asignando Anulables ======");
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
 			System.out.println(this.name);
-			System.out.println("========= Asignar Anulables ========");
-			while (true) {
-				
-				break;	
-				
+			
+			while (actual != null) {
+				if (actual.tipo.equals("OP")) {
+					
+					if(actual.info.equals("|")) {
+						if(actual.hijo1.Anulable || actual.hijo2.Anulable) {
+							actual.Anulable = true;
+						}else {
+							actual.Anulable = false;
+						}
+					}
+					
+					if(actual.info.equals(".")) {
+						if(actual.hijo1.Anulable && actual.hijo2.Anulable) {
+							actual.Anulable = true;
+						}else {
+							actual.Anulable = false;
+						}
+					}
+					
+					if(actual.info.equals("*") || actual.info.equals("?") ) {
+						actual.Anulable = true;
+					}
+					
+					if(actual.info.equals("+")) {
+						if(actual.hijo1.Anulable) {
+							actual.Anulable = true;
+						}else {
+							actual.Anulable = false;
+						}
+					}
+				} 
+				actual = actual.next;
 			}
 		}
 	}
 
-	public void verAnulables() {
+	public void verNoAnulables() {
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
 			System.out.println(this.name);
@@ -223,6 +222,23 @@ public class SimpleER {
 			while (actual != null) {
 				if (actual.Anulable != null) {
 					if (actual.Anulable == false) {
+						System.out.println(actual.info + " - " + actual.tipo );
+					}
+				}
+
+				actual = actual.next;
+			}
+		}
+	}
+	
+	public void verAnulables() {
+		if (isNone() == false) {
+			Nodo_Simple_ER actual = this.primero;
+			System.out.println(this.name);
+			System.out.println("======= anulables ========");
+			while (actual != null) {
+				if (actual.Anulable != null) {
+					if (actual.Anulable) {
 						System.out.println(actual.info + " - " + actual.tipo );
 					}
 				}
@@ -246,17 +262,29 @@ public class SimpleER {
 	public Boolean isNone() {
 		return this.primero == null;
 	}
-	/*
-	 * public void estado_inicial() { if (isNone() == false) { Nodo_Simple_ER actual
-	 * = this.primero; System.out.println(this.name); while (actual != null) {
-	 * 
-	 * actual.IDPadre=0; actual.IDHijo=0; actual.hijo1 =null; actual.hijo2 =null;
-	 * 
-	 * actual = actual.next; } } }
-	 */
+	
+	public Boolean isNoneLast() {
+		return this.ultimo == null;
+	}
 
 	public void SetHojas() {
 		this.hojas++;
+	}
+	
+	public void Search(Object data) {
+		if (isNone() == false) {
+			Nodo_Simple_ER actual = this.primero;
+			while (actual != null && actual.info != data) {
+				actual = actual.next;
+				if (actual == null) {
+					System.out.println("No se encontro el dato: " + data);
+					break;
+				}
+			}
+			if (actual != null && actual.info == data) {
+				System.out.println("Dato encontrado: " + data);
+			}
+		}
 	}
 
 }
