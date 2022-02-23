@@ -1,5 +1,7 @@
 package analizadores;
 
+
+
 public class SimpleER {
 
 	Nodo_Simple_ER primero;
@@ -12,14 +14,20 @@ public class SimpleER {
 
 	public void insert(String info, String tipo,Boolean hoja) {
 		Nodo_Simple_ER new_node = new Nodo_Simple_ER(info, tipo,hoja);
-		if(hoja) {
-			SetHojas();
-		}
+		
 		if (isNone()) {
 			this.primero = new_node;
+			if(hoja) {
+				SetHojas();
+				new_node.noHoja = this.hojas;
+			}
 		} else {
 			Nodo_Simple_ER actual = this.primero;
 			Nodo_Simple_ER anterior = null;
+			if(hoja) {
+				SetHojas();
+				new_node.noHoja = this.hojas;
+			}
 
 			while (actual.next != null) {
 				anterior = actual;
@@ -32,14 +40,29 @@ public class SimpleER {
 			actual.next.previous = actual;
 		}
 	}
+	
+	public void insertHead(String info, String tipo,Boolean hoja) {
+		Nodo_Simple_ER new_node = new Nodo_Simple_ER(info, tipo,hoja);
+			if(hoja) {
+				SetHojas();
+				new_node.noHoja = this.hojas;
+			}
+			new_node.next = this.primero;
+			this.primero = new_node;
+		
+	}
 
 	public void showList() {
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
 			System.out.println(this.name);
 			while (actual != null) {
-			
-					System.out.println(actual.info + " - " + actual.tipo + " HOJA: " + actual.hoja );
+					if(actual.hoja) {
+						System.out.println(actual.info + " - " + actual.tipo + " hoja " + actual.noHoja );
+					}else {
+						System.out.println(actual.info + " - " + actual.tipo  );
+					}
+					
 	
 				actual = actual.next;
 			}
@@ -63,8 +86,8 @@ public class SimpleER {
 	}
 
 	public void GestionArbol() {
-		//this.insert('$', "Finalizacion", true);
-		//this.insert('.', "OP", false);
+		this.insertHead("$", "Finalizacion", true);
+		this.insert(".", "OP", false);
 		//Nodo_Simple_ER OpAnterior = null;
 		//Nodo_Simple_ER actual = this.primero;
 		//Boolean validdacionGeneral = true;
@@ -179,13 +202,19 @@ public class SimpleER {
 class Nodo_Simple_ER {
 
 	Nodo_Simple_ER next, previous;
+	//nodos hijos y padres
+		Nodo_Simple_ER hijo1,hijo2;
+	
+	//primeros	
+	Integer noHoja;
+		
+	//info
 	String info;
 	String tipo;
+	
+	//validacion
 	Boolean hoja;
-	
-	//nodos hijos y padres
-	Nodo_Simple_ER hijo1,hijo2;
-	
+
 	//correlativos
 	Integer IDPadre = 0;
 	Integer IDHijo = 0;
