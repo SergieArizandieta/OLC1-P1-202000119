@@ -271,8 +271,10 @@ public class Principal extends JFrame {
 								System.out.println("\nArbol tiene hojas: " + er.hojas);
 								System.out.println("=========ER=========");
 								// er.initialize();
-								// er.showList();
+								
 								er.GestionArbol();
+								 er.showList();
+								 er.showListInverse();
 							}
 
 							System.out.println("=====================================");
