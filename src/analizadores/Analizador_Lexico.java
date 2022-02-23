@@ -305,8 +305,8 @@ public class Analizador_Lexico implements java_cup.runtime.Scanner {
   private boolean zzEOFDone;
 
   /* user code: */
-    public static LinkedList<errorList> errores  = new LinkedList<errorList>();
-    public static LinkedList<tokens> TokensList  = new LinkedList<tokens>();
+    public LinkedList<errorList> errores  = new LinkedList<errorList>();
+    public LinkedList<tokens> TokensList  = new LinkedList<tokens>();
 
 
   /**

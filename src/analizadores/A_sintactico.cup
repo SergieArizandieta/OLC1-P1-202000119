@@ -55,7 +55,7 @@ parser code
 
 
 terminal NUMBER,S_LA,S_LLC,S_DOTS,S_SEMICOLON,S_ARROW,S_PCENTS,S_RANK, S_COLON,S_DOT, S_LINE,S_ASTERISK,S_PLUS,S_QMARK,S_LBREAK,S_QUOTE,S_DQUOTES,RANGE,SPACE,CONJ,IDENTIFICADOR,PHRASE,LETTER;
-non terminal INICIO,STARTS,CONTENIDO,CONJUNTO, CONTENIDOR, ER,DEFCONJ,SEPCOMAS,RANGO,DATOSEP,SEPCOMASR,DATORANGO,DEFER,OP,REFCONJ,CADENAS,CADENASR;
+non terminal INICIO,STARTS,CONTENIDO,CONJUNTO, CONTENIDOR, ER,DEFCONJ,SEPCOMAS,RANGO,DATOSEP,SEPCOMASR,DATORANGO,DEFER,OP,REFCONJ,CADENAS,CADENASR,NAMECOBJ;
 start with INICIO;
 
 INICIO::= STARTS  {:System.out.println("Fin de analisis de entrada");:};
@@ -127,12 +127,12 @@ ER ::=
     IDENTIFICADOR:a S_ARROW DEFER {:System.out.println("<ER> " + a + " : ");temp.name = (String) a;ERList.add(temp);:};
 
 DEFER ::= 
-    OP:a {:/*System.out.println("<OP> " + a );*/temp.insert(a,"OP",false);:}
-    | REFCONJ:a {:/*System.out.println("<REFCONJ> " + a );*/ temp.insert(a,"REFCONJ",true);:}
-    | PHRASE:a DEFER {:/*System.out.println("<PHRASE> " + a );*/temp.insert(a,"PHRASE",true);:}
-    | S_LBREAK:a DEFER {:/*System.out.println("<S_LBREAK> " + a );*/temp.insert(a,"S_LBREAK",true);:}
-    | S_QUOTE:a DEFER  {:/*System.out.println("<S_QUOTE> " + a );*/temp.insert(a,"S_QUOTE",true);:}
-    | S_DQUOTES:a DEFER {:/*System.out.println("<S_DQUOTES> " + a );*/temp.insert(a,"S_DQUOTES",true);:}
+    OP:a {:/*System.out.println("<OP> " + a );*/temp.insert((String)a,"OP",false);:}
+    | REFCONJ:a {:/*System.out.println("<REFCONJ> " + a );*/ temp.insert((String)a,"REFCONJ",true);:}
+    | PHRASE:a DEFER {:/*System.out.println("<PHRASE> " + a );*/temp.insert((String)a,"PHRASE",true);:}
+    | S_LBREAK:a DEFER {:/*System.out.println("<S_LBREAK> " + a );*/temp.insert((String)a,"S_LBREAK",true);:}
+    | S_QUOTE:a DEFER  {:/*System.out.println("<S_QUOTE> " + a );*/temp.insert((String)a,"S_QUOTE",true);:}
+    | S_DQUOTES:a DEFER {:/*System.out.println("<S_DQUOTES> " + a );*/temp.insert((String)a,"S_DQUOTES",true);:}
     |S_SEMICOLON:a {:/*System.out.println("<S_SEMICOLON> " + a );*/
                     temp = new SimpleER();
     
@@ -146,7 +146,10 @@ OP ::=
     | S_DOT:a DEFER {:RESULT = a;:};
 
 REFCONJ ::= 
-    S_LA IDENTIFICADOR:a S_LLC DEFER {:RESULT = a;:};
+    S_LA NAMECOBJ:a S_LLC DEFER {:RESULT = a;:};
+
+NAMECOBJ::=IDENTIFICADOR:a {:RESULT = a;:}
+            | LETTER:a {:RESULT = a;:};
 
 CONTENIDOR ::= 
     S_PCENTS CADENAS {:/*System.out.println("<CONTENIDOR>");*/:}

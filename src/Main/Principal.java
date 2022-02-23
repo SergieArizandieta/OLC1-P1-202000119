@@ -163,9 +163,9 @@ public class Principal extends JFrame {
 				if (fc.showOpenDialog(Item_Open) == JFileChooser.APPROVE_OPTION) {
 					try {
 						// System.out.println("Archivo seleccionado de: " + fc.getSelectedFile());
-						//String text = Files.readString(Path.of(fc.getSelectedFile().toString()));
-						//System.out.println(fc.getSelectedFile());
-						String text = readUnicodeClassic( fc.getSelectedFile().toString());
+						// String text = Files.readString(Path.of(fc.getSelectedFile().toString()));
+						// System.out.println(fc.getSelectedFile());
+						String text = readUnicodeClassic(fc.getSelectedFile().toString());
 						textEditable.setText(text);
 						label_ruta.setText(fc.getSelectedFile().toString());
 					} catch (Exception e2) {
@@ -230,6 +230,7 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (label_ruta.getText() != "Null") {
 					try {
+
 						System.out.println("\n\n\n");
 						Analizador_Lexico lexico = new Analizador_Lexico(
 								new BufferedReader(new FileReader(label_ruta.getText())));
@@ -239,35 +240,47 @@ public class Principal extends JFrame {
 						System.out.println("=====================================");
 						System.out.println("=====================================");
 						System.out.println("=====================================");
-						//System.out.println("\n\n ***Reporte de errores encontrados ");
-						/*
-						 * for (errorList errore : Analizador_Lexico.errores) {
-						 * System.out.println(errore.show()); }
-						 */
-						/*System.out.println("Tokens");
-						for (tokens token : Analizador_Lexico.TokensList) {
-							System.out.println(token.show());
-						}*/
-						/*
+						try {
+							// System.out.println("\n\n ***Reporte de errores encontrados ");
+							/*
+							for (errorList errore : lexico.errores) {
+								System.out.println(errore.show());
+							}
+
+							System.out.println("Tokens");
+							for (tokens token : lexico.TokensList) {
+								System.out.println(token.show());
+							}
+
+							for (Conj conjunto : sintactico.ConjList) {
+								System.out.println(conjunto.show());
+							}
+							for (Cadenas cadenas : sintactico.CadenasList) {
+								System.out.println(cadenas.show());
+							}
+							
+							for (errorList errore : sintactico.errores) {
+								System.out.println(errore.show());
+							}
+							
+							*/
+							System.out.println("Mostrando ER");
+
+							for (SimpleER er : sintactico.ERList) {
+								//er.estado_inicial();
+								System.out.println("\nArbol tiene hojas: " + er.hojas);
+								System.out.println("=========ER=========");
+								// er.initialize();
+								// er.showList();
+								er.GestionArbol();
+							}
+
+							System.out.println("=====================================");
 						
-						for (Conj conjunto : Analizador_sintactico.ConjList) {
-							System.out.println(conjunto.show());
+
+						} catch (Exception e2) {
+							System.out.println(e2);
 						}
-						for (Cadenas cadenas : Analizador_sintactico.CadenasList) {
-							System.out.println(cadenas.show());
-						}*/
-						System.out.println("Mostrando ER");
-						for (SimpleER er : Analizador_sintactico.ERList) {
-							System.out.println("=========ER=========");
-							//er.initialize();
-							//er.showList();
-							er.GestionArbol();
-						}
-						System.out.println("=====================================");
-						for (errorList errore : Analizador_sintactico.errores) {
-							System.out.println(errore.show());
-						}
-						
 					} catch (Exception e1) {
 						System.out.println(e1);
 					}
@@ -278,28 +291,26 @@ public class Principal extends JFrame {
 			}
 		});
 	}
-	
-	 public String readUnicodeClassic(String fileName) {
 
-	        File file = new File(fileName);
+	public String readUnicodeClassic(String fileName) {
 
-	        try (FileInputStream fis = new FileInputStream(file);
-	             InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8);
-	             BufferedReader reader = new BufferedReader(isr)
-	        ) {
+		File file = new File(fileName);
 
-	            String str;
-	            String cadea = "";
-	            while ((str = reader.readLine()) != null) {
-	            	cadea += str + "\n";
-	                
-	            }
-	            return cadea;
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	        return "";
-	    }
-	
-	
+		try (FileInputStream fis = new FileInputStream(file);
+				InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8);
+				BufferedReader reader = new BufferedReader(isr)) {
+
+			String str;
+			String cadea = "";
+			while ((str = reader.readLine()) != null) {
+				cadea += str + "\n";
+
+			}
+			return cadea;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+
 }

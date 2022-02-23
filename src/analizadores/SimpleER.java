@@ -4,13 +4,17 @@ public class SimpleER {
 
 	Nodo_Simple_ER primero;
 	String name;
+	public Integer hojas=0;
 
 	public SimpleER() {
 		this.primero = null;
 	}
 
-	public void insert(Object info, String tipo,Boolean hoja) {
+	public void insert(String info, String tipo,Boolean hoja) {
 		Nodo_Simple_ER new_node = new Nodo_Simple_ER(info, tipo,hoja);
+		if(hoja) {
+			SetHojas();
+		}
 		if (isNone()) {
 			this.primero = new_node;
 		} else {
@@ -59,6 +63,8 @@ public class SimpleER {
 	}
 
 	public void GestionArbol() {
+		//this.insert('$', "Finalizacion", true);
+		//this.insert('.', "OP", false);
 		//Nodo_Simple_ER OpAnterior = null;
 		//Nodo_Simple_ER actual = this.primero;
 		//Boolean validdacionGeneral = true;
@@ -147,7 +153,26 @@ public class SimpleER {
 	public Boolean isNone() {
 		return this.primero == null;
 	}
-
+	/*
+	public void estado_inicial() {
+		if (isNone() == false) {
+			Nodo_Simple_ER actual = this.primero;
+			System.out.println(this.name);
+			while (actual != null) {
+			
+				actual.IDPadre=0;
+				actual.IDHijo=0;
+				actual.hijo1 =null;
+				actual.hijo2 =null;
+	
+				actual = actual.next;
+			}
+		}
+	}*/
+	
+	public void SetHojas() {
+		this.hojas ++;
+	}
 
 }
 
@@ -167,10 +192,10 @@ class Nodo_Simple_ER {
 	
 
 
-	public Nodo_Simple_ER(Object info, String tipo,Boolean hoja) {
+	public Nodo_Simple_ER(String info, String tipo,Boolean hoja) {
 		this.next =null;
 		this.previous = null;
-		this.info = (String) info;
+		this.info =  info;
 		this.tipo = tipo;
 		this.hoja=hoja;
 		
@@ -179,6 +204,7 @@ class Nodo_Simple_ER {
 		this.hijo2 =null;
 		
 		this.IDHijo = 0;
+		this.IDPadre = 0;
 		
 		
 	}

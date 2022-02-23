@@ -4,7 +4,7 @@
 CONJ: letra -> a~z;
 
 //ER1
-ExpReg1 ->.{letra} * |"_" | {letra} {digito};
+ExpReg1 ->|."#"{L}.?{L}*|{L}{D};
 
 %%
 
