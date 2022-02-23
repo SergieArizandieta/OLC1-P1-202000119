@@ -9,8 +9,8 @@ public class SimpleER {
 		this.primero = null;
 	}
 
-	public void insert(Object info, String tipo) {
-		Nodo_Simple_ER new_node = new Nodo_Simple_ER(info, tipo);
+	public void insert(Object info, String tipo,Boolean hoja) {
+		Nodo_Simple_ER new_node = new Nodo_Simple_ER(info, tipo,hoja);
 		if (isNone()) {
 			this.primero = new_node;
 		} else {
@@ -35,7 +35,7 @@ public class SimpleER {
 			System.out.println(this.name);
 			while (actual != null) {
 			
-					System.out.println(actual.info + " - " + actual.tipo + " id: " + actual.id );
+					System.out.println(actual.info + " - " + actual.tipo + " HOJA: " + actual.hoja );
 	
 				actual = actual.next;
 			}
@@ -59,18 +59,25 @@ public class SimpleER {
 	}
 
 	public void GestionArbol() {
-		Nodo_Simple_ER aux1 = null;
 		//Nodo_Simple_ER OpAnterior = null;
-		Nodo_Simple_ER Op = null;
 		//Nodo_Simple_ER actual = this.primero;
-		Integer hijos = 0;
-		Boolean validdacionOp = true;
 		//Boolean validdacionGeneral = true;
-		Boolean validdacionHijo2 = true;
-		Op = this.primero;
-
+		
+		Nodo_Simple_ER aux1 = null;
+		Nodo_Simple_ER Op = null;
+		Nodo_Simple_ER padre = null;
+		Nodo_Simple_ER hijo = null;
+		
+		Integer hijos = 0;
 		Integer idActual = 1;
 		Integer AuxContado = 0;
+		
+		Boolean validdacionOp = true;
+		Boolean validdacionHijo2 = true;
+		
+		Op = this.primero;
+
+	
 
 		while (true) {
 			if(Op.next == null ) {
@@ -82,7 +89,8 @@ public class SimpleER {
 					hijos = Operator(Op.info);
 					validdacionOp = false;
 					Op.IDPadre = idActual;
-					System.out.println(Op.tipo + " = " + Op.info + " padre: " + Op.IDPadre);
+					padre = Op;
+					//System.out.println(Op.tipo + " = " + Op.info + " padre: " + Op.IDPadre );
 					continue;
 				}
 				Op = Op.next;
@@ -92,16 +100,30 @@ public class SimpleER {
 			AuxContado = 1;
 			while (validdacionHijo2) {
 				if (AuxContado <= hijos) {
+					
 					if (aux1.IDHijo == 0) {
 						aux1.IDHijo = idActual;
+						
+						if(AuxContado==1) {
+							Op.hijo1 = aux1;
+						}else if (AuxContado ==2 ) {
+							Op.hijo2 = aux1;
+						}
+						
 						AuxContado++;
-						System.out.println(aux1.tipo + " = " + aux1.info + " hijo: " + aux1.IDHijo);
+						//System.out.println(aux1.tipo + " = " + aux1.info + " hijo: " + aux1.IDHijo + " hijo de: " );
 					}
+					
 					aux1 = aux1.previous;
 				} else {
 					validdacionHijo2 = false;
 					continue;
 				}
+			}
+			if( Op.hijo2 != null) {
+				System.out.println(Op.info + " Padre de: 1:" + Op.hijo1.info + " 2: " + Op.hijo2.info );
+			}else {
+				System.out.println(Op.info + " Padre de: 1:" + Op.hijo1.info );
 			}
 			
 			validdacionOp = true;
@@ -110,10 +132,6 @@ public class SimpleER {
 		}
 	}
 
-	public void SearchArbolData(Integer hijos,Integer id) {
-		
-		//sad
-	}
 
 	public int Operator(String text) {
 		if (text.equals("|") || text.equals(".")) {
@@ -130,18 +148,7 @@ public class SimpleER {
 		return this.primero == null;
 	}
 
-	public void initialize() {
-		Integer countador = 1;
-		if (isNone() == false) {
-			Nodo_Simple_ER actual = this.primero;
-			System.out.println(this.name);
-			while (actual != null) {
-				actual.id = countador;
-				actual = actual.next;
-				countador++;
-			}
-		}
-	}
+
 }
 
 class Nodo_Simple_ER {
@@ -149,15 +156,30 @@ class Nodo_Simple_ER {
 	Nodo_Simple_ER next, previous;
 	String info;
 	String tipo;
+	Boolean hoja;
+	
+	//nodos hijos y padres
+	Nodo_Simple_ER hijo1,hijo2;
+	
+	//correlativos
 	Integer IDPadre = 0;
 	Integer IDHijo = 0;
-	Integer id = 0;
+	
 
-	public Nodo_Simple_ER(Object info, String tipo) {
+
+	public Nodo_Simple_ER(Object info, String tipo,Boolean hoja) {
 		this.next =null;
 		this.previous = null;
 		this.info = (String) info;
 		this.tipo = tipo;
+		this.hoja=hoja;
+		
+		//this.Padre =null;
+		this.hijo1 =null;
+		this.hijo2 =null;
+		
 		this.IDHijo = 0;
+		
+		
 	}
 }

@@ -127,12 +127,12 @@ ER ::=
     IDENTIFICADOR:a S_ARROW DEFER {:System.out.println("<ER> " + a + " : ");temp.name = (String) a;ERList.add(temp);:};
 
 DEFER ::= 
-    OP:a {:/*System.out.println("<OP> " + a );*/temp.insert(a,"OP");:}
-    | REFCONJ:a {:/*System.out.println("<REFCONJ> " + a );*/ temp.insert(a,"REFCONJ");:}
-    | PHRASE:a DEFER {:/*System.out.println("<PHRASE> " + a );*/temp.insert(a,"PHRASE");:}
-    | S_LBREAK:a DEFER {:/*System.out.println("<S_LBREAK> " + a );*/temp.insert(a,"S_LBREAK");:}
-    | S_QUOTE:a DEFER  {:/*System.out.println("<S_QUOTE> " + a );*/temp.insert(a,"S_QUOTE");:}
-    | S_DQUOTES:a DEFER {:/*System.out.println("<S_DQUOTES> " + a );*/temp.insert(a,"S_DQUOTES");:}
+    OP:a {:/*System.out.println("<OP> " + a );*/temp.insert(a,"OP",false);:}
+    | REFCONJ:a {:/*System.out.println("<REFCONJ> " + a );*/ temp.insert(a,"REFCONJ",true);:}
+    | PHRASE:a DEFER {:/*System.out.println("<PHRASE> " + a );*/temp.insert(a,"PHRASE",true);:}
+    | S_LBREAK:a DEFER {:/*System.out.println("<S_LBREAK> " + a );*/temp.insert(a,"S_LBREAK",true);:}
+    | S_QUOTE:a DEFER  {:/*System.out.println("<S_QUOTE> " + a );*/temp.insert(a,"S_QUOTE",true);:}
+    | S_DQUOTES:a DEFER {:/*System.out.println("<S_DQUOTES> " + a );*/temp.insert(a,"S_DQUOTES",true);:}
     |S_SEMICOLON:a {:/*System.out.println("<S_SEMICOLON> " + a );*/
                     temp = new SimpleER();
     
