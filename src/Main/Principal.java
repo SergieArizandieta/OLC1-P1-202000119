@@ -13,11 +13,15 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import java.awt.Color;
@@ -159,9 +163,9 @@ public class Principal extends JFrame {
 				if (fc.showOpenDialog(Item_Open) == JFileChooser.APPROVE_OPTION) {
 					try {
 						// System.out.println("Archivo seleccionado de: " + fc.getSelectedFile());
-						String text = Files.readString(Path.of(fc.getSelectedFile().toString()));
-						//System.out.println(text);
-						System.out.println(fc.getSelectedFile());
+						//String text = Files.readString(Path.of(fc.getSelectedFile().toString()));
+						//System.out.println(fc.getSelectedFile());
+						String text = readUnicodeClassic( fc.getSelectedFile().toString());
 						textEditable.setText(text);
 						label_ruta.setText(fc.getSelectedFile().toString());
 					} catch (Exception e2) {
@@ -231,6 +235,10 @@ public class Principal extends JFrame {
 								new BufferedReader(new FileReader(label_ruta.getText())));
 						Analizador_sintactico sintactico = new Analizador_sintactico(lexico);
 						sintactico.parse();
+						System.out.println("=====================================");
+						System.out.println("=====================================");
+						System.out.println("=====================================");
+						System.out.println("=====================================");
 						//System.out.println("\n\n ***Reporte de errores encontrados ");
 						/*
 						 * for (errorList errore : Analizador_Lexico.errores) {
@@ -241,17 +249,21 @@ public class Principal extends JFrame {
 							System.out.println(token.show());
 						}*/
 						/*
+						
+						for (Conj conjunto : Analizador_sintactico.ConjList) {
+							System.out.println(conjunto.show());
+						}
+						for (Cadenas cadenas : Analizador_sintactico.CadenasList) {
+							System.out.println(cadenas.show());
+						}*/
 						System.out.println("Mostrando ER");
 						for (SimpleER er : Analizador_sintactico.ERList) {
 							System.out.println("=========ER=========");
-							er.showList();
+							//er.initialize();
+							//er.showList();
+							er.GestionArbol();
 						}
-						for (Conj conjunto : Analizador_sintactico.ConjList) {
-							System.out.println(conjunto.show());
-						}*/
-						for (Cadenas cadenas : Analizador_sintactico.CadenasList) {
-							System.out.println(cadenas.show());
-						}
+						System.out.println("=====================================");
 						for (errorList errore : Analizador_sintactico.errores) {
 							System.out.println(errore.show());
 						}
@@ -265,4 +277,28 @@ public class Principal extends JFrame {
 			}
 		});
 	}
+	
+	 public String readUnicodeClassic(String fileName) {
+
+	        File file = new File(fileName);
+
+	        try (FileInputStream fis = new FileInputStream(file);
+	             InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8);
+	             BufferedReader reader = new BufferedReader(isr)
+	        ) {
+
+	            String str;
+	            String cadea = "";
+	            while ((str = reader.readLine()) != null) {
+	            	cadea += str + "\n";
+	                
+	            }
+	            return cadea;
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        return "";
+	    }
+	
+	
 }

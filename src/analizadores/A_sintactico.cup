@@ -63,11 +63,11 @@ INICIO::= STARTS  {:System.out.println("Fin de analisis de entrada");:};
 STARTS::= S_LA CONTENIDO {:System.out.println("<STARTS>");:};
 
 CONTENIDO::= 
-    CONJUNTO CONTENIDOR  {:System.out.println("<CONTENIDO>");:}
-    | ER CONTENIDOR  {:System.out.println("<CONTENIDO>");:};
+    CONJUNTO CONTENIDOR  {:/*System.out.println("<CONTENIDO>");*/:}
+    | ER CONTENIDOR  {:/*System.out.println("<CONTENIDO>");*/:};
 
 CONJUNTO ::= 
-    CONJ S_DOTS IDENTIFICADOR:a S_ARROW DEFCONJ {:System.out.println("<CONJUNTO>: " + a);TempConjName =(String) a;
+    CONJ S_DOTS IDENTIFICADOR:a S_ARROW DEFCONJ {:/*System.out.println("<CONJUNTO>: " + a);*/TempConjName =(String) a;
                                                 ConjTemp = new Conj(TempConjType,(String) a,TempConjVar1,TempConjVar2,TempConjText);
                                                 ConjList.add(ConjTemp);
                                                 TempConjText = "";TempConjVar1="";TempConjVar2="";
@@ -78,7 +78,7 @@ DEFCONJ ::=
     | RANGO {:System.out.println("<DEFCONJ> RANGO: ");TempConjType="rango";:};
 
 SEPCOMAS ::= 
-    DATOSEP:a SEPCOMASR {:System.out.println("<SEPCOMAS> : " + a);TempConjText += a + ",";:};
+    DATOSEP:a SEPCOMASR {:/*System.out.println("<SEPCOMAS> : " + a);*/TempConjText += a + ",";:};
 
 DATOSEP ::=  
     NUMBER:a {:RESULT = a;:}  
@@ -102,7 +102,7 @@ SEPCOMASR ::=
     | S_SEMICOLON  {:/*System.out.println("<SEPCOMASR>");*/:};
 
 RANGO ::= 
-    DATORANGO:a S_RANK DATORANGO:b S_SEMICOLON {:System.out.println("<RANGO> " + a + " a " + b);
+    DATORANGO:a S_RANK DATORANGO:b S_SEMICOLON {:/*System.out.println("<RANGO> " + a + " a " + b);*/
     TempConjVar1 =(String) a; TempConjVar2 =(String) b;:};
 
 DATORANGO ::= 
@@ -127,13 +127,13 @@ ER ::=
     IDENTIFICADOR:a S_ARROW DEFER {:System.out.println("<ER> " + a + " : ");temp.name = (String) a;ERList.add(temp);:};
 
 DEFER ::= 
-    OP:a {:System.out.println("<OP> " + a );temp.insert(a,"OP");:}
-    | REFCONJ:a {:System.out.println("<REFCONJ> " + a ); temp.insert(a,"REFCONJ");:}
-    | PHRASE:a DEFER {:System.out.println("<PHRASE> " + a );temp.insert(a,"PHRASE");:}
-    | S_LBREAK:a DEFER {:System.out.println("<S_LBREAK> " + a );temp.insert(a,"S_LBREAK");:}
-    | S_QUOTE:a DEFER  {:System.out.println("<S_QUOTE> " + a );temp.insert(a,"S_QUOTE");:}
-    | S_DQUOTES:a DEFER {:System.out.println("<S_DQUOTES> " + a );temp.insert(a,"S_DQUOTES");:}
-    |S_SEMICOLON:a {:System.out.println("<S_SEMICOLON> " + a );
+    OP:a {:/*System.out.println("<OP> " + a );*/temp.insert(a,"OP");:}
+    | REFCONJ:a {:/*System.out.println("<REFCONJ> " + a );*/ temp.insert(a,"REFCONJ");:}
+    | PHRASE:a DEFER {:/*System.out.println("<PHRASE> " + a );*/temp.insert(a,"PHRASE");:}
+    | S_LBREAK:a DEFER {:/*System.out.println("<S_LBREAK> " + a );*/temp.insert(a,"S_LBREAK");:}
+    | S_QUOTE:a DEFER  {:/*System.out.println("<S_QUOTE> " + a );*/temp.insert(a,"S_QUOTE");:}
+    | S_DQUOTES:a DEFER {:/*System.out.println("<S_DQUOTES> " + a );*/temp.insert(a,"S_DQUOTES");:}
+    |S_SEMICOLON:a {:/*System.out.println("<S_SEMICOLON> " + a );*/
                     temp = new SimpleER();
     
                     :};
@@ -154,7 +154,8 @@ CONTENIDOR ::=
 
 CADENAS ::= 
     IDENTIFICADOR:a S_DOTS PHRASE:b S_SEMICOLON CADENASR  {:System.out.println("<CADENAS> " + a + " : " + b);
-    CadenasTemp = new Cadenas((String) a , (String) b);
+    String temptext = (String) b;
+    CadenasTemp = new Cadenas((String) a ,((String) b).replace("\"",""));
     CadenasList.add(CadenasTemp);
     :};
 
