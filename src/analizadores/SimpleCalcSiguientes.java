@@ -3,11 +3,11 @@ package analizadores;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleSiguientes {
+public class SimpleCalcSiguientes {
 
 	Nodo_Simple primero;
 
-	public SimpleSiguientes() {
+	public SimpleCalcSiguientes() {
 		this.primero = null;
 	}
 
@@ -74,6 +74,7 @@ public class SimpleSiguientes {
 
 
 	public Boolean isNone() {
+		
 		return this.primero == null;
 	}
 }
@@ -81,6 +82,10 @@ public class SimpleSiguientes {
 class Nodo_Simple {
 
 	Nodo_Simple next;
+	
+	Integer estado;
+	
+	
 	String info;
 	String tipo;
 	Integer Hoja;

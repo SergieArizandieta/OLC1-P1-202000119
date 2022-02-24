@@ -8,7 +8,7 @@ public class SimpleER {
 
 	Nodo_Simple_ER primero, ultimo;
 	String name;
-	SimpleSiguientes siguientes = new SimpleSiguientes();;
+	SimpleCalcSiguientes siguientes = new SimpleCalcSiguientes();;
 	public Integer hojas = 0;
 
 	public SimpleER() {
@@ -377,8 +377,27 @@ public class SimpleER {
 				actual = actual.next;
 			}
 		}
+		//this.siguientes.InsertarSIguiente(6, -1);
 		//showListUltimos();
 		this.siguientes.showList();
+		TablaTransiciones();
+	}
+	
+	public void TablaTransiciones() {
+		System.out.println("====== Tabla de transiciones ======");
+		System.out.println(this.ultimo.primeros);
+		List<Integer> asdsda = new ArrayList<>();
+		asdsda.add(1);
+		asdsda.add(2);
+		asdsda.add(3);
+		asdsda.add(4);
+		asdsda.add(6);
+		System.out.println(asdsda);
+		if(asdsda.equals(this.ultimo.primeros) ) {
+			System.out.println("Son iguales");
+		}else {
+			System.out.println("son distintos");
+		}
 		
 	}
 	

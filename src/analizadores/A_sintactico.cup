@@ -130,6 +130,7 @@ DEFER ::=
     OP:a {:/*System.out.println("<OP> " + a );*/temp.insert((String)a,"OP",false);:}
     | REFCONJ:a {:/*System.out.println("<REFCONJ> " + a );*/ temp.insert((String)a,"REFCONJ",true);:}
     | PHRASE:a DEFER {:/*System.out.println("<PHRASE> " + a );*/temp.insert((String)a,"PHRASE",true);:}
+    | SPACE:a DEFER {:/*System.out.println("<SPACE> " + a );*/temp.insert((String)a,"SPACE",true);:}
     | S_LBREAK:a DEFER {:/*System.out.println("<S_LBREAK> " + a );*/temp.insert((String)a,"S_LBREAK",true);:}
     | S_QUOTE:a DEFER  {:/*System.out.println("<S_QUOTE> " + a );*/temp.insert((String)a,"S_QUOTE",true);:}
     | S_DQUOTES:a DEFER {:/*System.out.println("<S_DQUOTES> " + a );*/temp.insert((String)a,"S_DQUOTES",true);:}
