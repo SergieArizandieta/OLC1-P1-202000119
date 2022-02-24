@@ -1,10 +1,12 @@
 package analizadores;
 
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SimpleER {
 
-	Nodo_Simple_ER primero,ultimo;
+	Nodo_Simple_ER primero, ultimo;
 	String name;
 	public Integer hojas = 0;
 
@@ -74,7 +76,7 @@ public class SimpleER {
 			}
 		}
 	}
-	
+
 	public void showListInverse() {
 		System.out.println("======Show list Inverse ======");
 		if (isNoneLast() == false) {
@@ -165,55 +167,139 @@ public class SimpleER {
 			validdacionHijo2 = true;
 			idActual += 1;
 		}
-		
+
 		AsignarAnulables();
-		verNoAnulables();
-		verAnulables();
+		// verNoAnulables();
+		// verAnulables();
 	}
-	
 
 	public void AsignarAnulables() {
 		System.out.println("====== Asignando Anulables ======");
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
 			System.out.println(this.name);
-			
+
 			while (actual != null) {
 				if (actual.tipo.equals("OP")) {
-					
-					if(actual.info.equals("|")) {
-						if(actual.hijo1.Anulable || actual.hijo2.Anulable) {
+
+					if (actual.info.equals("|")) {
+						if (actual.hijo1.Anulable || actual.hijo2.Anulable) {
 							actual.Anulable = true;
-						}else {
+						} else {
 							actual.Anulable = false;
 						}
 					}
-					
-					if(actual.info.equals(".")) {
-						if(actual.hijo1.Anulable && actual.hijo2.Anulable) {
+
+					if (actual.info.equals(".")) {
+						if (actual.hijo1.Anulable && actual.hijo2.Anulable) {
 							actual.Anulable = true;
-						}else {
+						} else {
 							actual.Anulable = false;
 						}
 					}
-					
-					if(actual.info.equals("*") || actual.info.equals("?") ) {
+
+					if (actual.info.equals("*") || actual.info.equals("?")) {
 						actual.Anulable = true;
 					}
-					
-					if(actual.info.equals("+")) {
-						if(actual.hijo1.Anulable) {
+
+					if (actual.info.equals("+")) {
+						if (actual.hijo1.Anulable) {
 							actual.Anulable = true;
-						}else {
+						} else {
 							actual.Anulable = false;
 						}
 					}
-				} 
+				}
+				actual = actual.next;
+			}
+		}
+		//probando();
+		PrimeroHojas();
+		InsertarPrimeros();
+	}
+	
+	public void probando() {
+		List<Integer> asd = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			asd.add(i);
+		}
+		asd.add(1);
+		asd.add(2);
+		asd.add(3);
+		asd.add(4);
+		
+		for (Integer integer : asd) {
+			System.out.println("valor: " + integer);
+		}
+		
+		asd = asd.stream().distinct().collect(Collectors.toList());
+		asd.forEach(System.out::println);
+		
+	}
+
+	public void PrimeroHojas() {
+		if (isNone() == false) {
+			Nodo_Simple_ER actual = this.primero;
+			System.out.println(this.name);
+			while (actual != null) {
+				if (actual.hoja) {
+					actual.primeros.add(actual.noHoja);
+				}
+
 				actual = actual.next;
 			}
 		}
 	}
 
+	public void InsertarPrimeros() {
+		System.out.println("====== Asignando Anulables ======");
+		if (isNone() == false) {
+			Nodo_Simple_ER actual = this.primero;
+			System.out.println(this.name);
+
+			while (actual != null) {
+				if (actual.tipo.equals("OP")) {
+
+					if (actual.info.equals("|")) {
+						for (Integer i : actual.hijo1.primeros) {
+							actual.primeros.add(i);
+						}
+						for (Integer i : actual.hijo2.primeros) {
+							actual.primeros.add(i);
+						}
+					}
+
+					if (actual.info.equals(".")) {
+						if (actual.hijo1.Anulable) {
+							for (Integer i : actual.hijo1.primeros) {
+								actual.primeros.add(i);
+							}
+							for (Integer i : actual.hijo2.primeros) {
+								actual.primeros.add(i);
+							}
+						} else {
+							for (Integer i : actual.hijo1.primeros) {
+								actual.primeros.add(i);
+							}
+						}
+					}
+
+					if (actual.info.equals("*") || actual.info.equals("?") || actual.info.equals("+")) {
+						for (Integer i : actual.hijo1.primeros) {
+							actual.primeros.add(i);
+						}
+					}
+					QuitarDupicados(actual.primeros);
+				}
+				actual = actual.next;
+			}
+		}
+	}
+
+	public void QuitarDupicados(List<Integer> lista) {
+		lista = lista.stream().distinct().collect(Collectors.toList());
+	}
+	
 	public void verNoAnulables() {
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
@@ -222,7 +308,7 @@ public class SimpleER {
 			while (actual != null) {
 				if (actual.Anulable != null) {
 					if (actual.Anulable == false) {
-						System.out.println(actual.info + " - " + actual.tipo );
+						System.out.println(actual.info + " - " + actual.tipo);
 					}
 				}
 
@@ -230,7 +316,7 @@ public class SimpleER {
 			}
 		}
 	}
-	
+
 	public void verAnulables() {
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
@@ -239,7 +325,7 @@ public class SimpleER {
 			while (actual != null) {
 				if (actual.Anulable != null) {
 					if (actual.Anulable) {
-						System.out.println(actual.info + " - " + actual.tipo );
+						System.out.println(actual.info + " - " + actual.tipo);
 					}
 				}
 
@@ -262,7 +348,7 @@ public class SimpleER {
 	public Boolean isNone() {
 		return this.primero == null;
 	}
-	
+
 	public Boolean isNoneLast() {
 		return this.ultimo == null;
 	}
@@ -270,7 +356,7 @@ public class SimpleER {
 	public void SetHojas() {
 		this.hojas++;
 	}
-	
+
 	public void Search(Object data) {
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
@@ -298,6 +384,8 @@ class Nodo_Simple_ER {
 	// ===ARBOLL======
 	// primeros
 	Integer noHoja;
+	List<Integer> primeros = new ArrayList<>();
+	List<Integer> ultimos = new ArrayList<>();
 	Boolean Anulable;
 
 	// validacion
