@@ -8,6 +8,7 @@ public class SimpleER {
 
 	Nodo_Simple_ER primero, ultimo;
 	String name;
+	SimpleSiguientes siguientes = new SimpleSiguientes();;
 	public Integer hojas = 0;
 
 	public SimpleER() {
@@ -244,12 +245,14 @@ public class SimpleER {
 	
 			while (actual != null) {
 				if (actual.hoja) {
+					this.siguientes.insert(actual.info, actual.tipo,actual.noHoja);
 					actual.primeros.add(actual.noHoja);
 					actual.ultimos.add(actual.noHoja);
 				}
 
 				actual = actual.next;
 			}
+			//this.siguientes.showList();
 		}
 	}
 
@@ -296,7 +299,7 @@ public class SimpleER {
 				actual = actual.next;
 			}
 		}
-		showListPrimeros();
+		//showListPrimeros();
 		InsertarUltimos();
 	}
 	
@@ -343,7 +346,40 @@ public class SimpleER {
 				actual = actual.next;
 			}
 		}
-		showListUltimos();
+		//showListUltimos();
+		InsertarSiguientes();
+	}
+	
+	public void InsertarSiguientes() {
+		System.out.println("====== Asignando Siguientes ======");
+		if (isNone() == false) {
+			Nodo_Simple_ER actual = this.primero;
+	
+			while (actual != null) {
+				if (actual.tipo.equals("OP")) {
+
+
+					if (actual.info.equals(".")) {
+						for (Integer primeroHijo2 : actual.hijo2.primeros) {
+							for (Integer UltimosHijo1 : actual.hijo1.ultimos) {
+								this.siguientes.InsertarSIguiente(UltimosHijo1, primeroHijo2);
+							}
+						}
+					}
+					if (actual.info.equals("*") || actual.info.equals("+")) {
+						for (Integer ultimoH : actual.ultimos) {
+							for (Integer primeroH : actual.ultimos) {
+								this.siguientes.InsertarSIguiente(primeroH, ultimoH);
+							}
+						}
+					}			
+				}
+				actual = actual.next;
+			}
+		}
+		//showListUltimos();
+		this.siguientes.showList();
+		
 	}
 	
 	public void showListUltimos() {
