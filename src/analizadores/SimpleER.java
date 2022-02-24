@@ -81,7 +81,7 @@ public class SimpleER {
 		System.out.println("======Show list Inverse ======");
 		if (isNoneLast() == false) {
 			Nodo_Simple_ER actual = this.ultimo;
-			System.out.println(this.name);
+		
 			while (actual != null) {
 				if (actual.hoja) {
 					System.out.println(actual.info + " - " + actual.tipo + " hoja " + actual.noHoja);
@@ -178,7 +178,7 @@ public class SimpleER {
 		System.out.println("====== Asignando Anulables ======");
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
-			System.out.println(this.name);
+
 
 			while (actual != null) {
 				if (actual.tipo.equals("OP")) {
@@ -215,7 +215,7 @@ public class SimpleER {
 			}
 		}
 		//probando();
-		PrimeroHojas();
+		Primero_Ultimos_Hojas();
 		InsertarPrimeros();
 	}
 	
@@ -238,13 +238,14 @@ public class SimpleER {
 		
 	}
 
-	public void PrimeroHojas() {
+	public void Primero_Ultimos_Hojas() {
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
-			System.out.println(this.name);
+	
 			while (actual != null) {
 				if (actual.hoja) {
 					actual.primeros.add(actual.noHoja);
+					actual.ultimos.add(actual.noHoja);
 				}
 
 				actual = actual.next;
@@ -256,7 +257,7 @@ public class SimpleER {
 		System.out.println("====== Asignando Anulables ======");
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
-			System.out.println(this.name);
+			
 
 			while (actual != null) {
 				if (actual.tipo.equals("OP")) {
@@ -296,13 +297,74 @@ public class SimpleER {
 			}
 		}
 		showListPrimeros();
+		InsertarUltimos();
+	}
+	
+	public void InsertarUltimos() {
+		System.out.println("====== Asignando Anulables ======");
+		if (isNone() == false) {
+			Nodo_Simple_ER actual = this.primero;
+		
+
+			while (actual != null) {
+				if (actual.tipo.equals("OP")) {
+
+					if (actual.info.equals("|")) {
+						for (Integer i : actual.hijo1.ultimos) {
+							actual.ultimos.add(i);
+						}
+						for (Integer i : actual.hijo2.ultimos) {
+							actual.ultimos.add(i);
+						}
+					}
+
+					if (actual.info.equals(".")) {
+						if (actual.hijo2.Anulable) {
+							for (Integer i : actual.hijo1.ultimos) {
+								actual.ultimos.add(i);
+							}
+							for (Integer i : actual.hijo2.ultimos) {
+								actual.ultimos.add(i);
+							}
+						} else {
+							for (Integer i : actual.hijo2.ultimos) {
+								actual.ultimos.add(i);
+							}
+						}
+					}
+
+					if (actual.info.equals("*") || actual.info.equals("?") || actual.info.equals("+")) {
+						for (Integer i : actual.hijo1.ultimos) {
+							actual.ultimos.add(i);
+						}
+					}
+					QuitarDupicados(actual.primeros);
+				}
+				actual = actual.next;
+			}
+		}
+		showListUltimos();
+	}
+	
+	public void showListUltimos() {
+		System.out.println("======Show list ultimos ======");
+		if (isNone() == false) {
+			Nodo_Simple_ER actual = this.primero;
+
+			while (actual != null) {
+				System.out.println("====== " + actual.info + " ====== ");
+				actual.ultimos.forEach(System.out::println);
+
+				actual = actual.next;
+			}
+		}
 	}
 	
 	public void showListPrimeros() {
-		System.out.println("======Show list ======");
+		System.out.println("======Show list primeros ======");
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
-			System.out.println(this.name);
+
 			while (actual != null) {
 				System.out.println("====== " + actual.info + " ====== ");
 				actual.primeros.forEach(System.out::println);
@@ -319,7 +381,7 @@ public class SimpleER {
 	public void verNoAnulables() {
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
-			System.out.println(this.name);
+
 			System.out.println("=======No anulables ========");
 			while (actual != null) {
 				if (actual.Anulable != null) {
@@ -336,7 +398,7 @@ public class SimpleER {
 	public void verAnulables() {
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
-			System.out.println(this.name);
+		
 			System.out.println("======= anulables ========");
 			while (actual != null) {
 				if (actual.Anulable != null) {
