@@ -95,7 +95,7 @@ public class SimpleER {
 	}
 
 	public void GestionArbol() {
-		this.insertHead("$", "Finalizacion", true);
+		this.insert("$", "Finalizacion", true);
 		this.insert(".", "OP", false);
 		// Nodo_Simple_ER OpAnterior = null;
 		// Nodo_Simple_ER actual = this.primero;
@@ -143,7 +143,8 @@ public class SimpleER {
 						if (AuxContado == 1) {
 							Op.hijo1 = aux1;
 						} else if (AuxContado == 2) {
-							Op.hijo2 = aux1;
+							Op.hijo2 = Op.hijo1;
+							Op.hijo1 = aux1;
 						}
 
 						AuxContado++;
@@ -291,6 +292,21 @@ public class SimpleER {
 					}
 					QuitarDupicados(actual.primeros);
 				}
+				actual = actual.next;
+			}
+		}
+		showListPrimeros();
+	}
+	
+	public void showListPrimeros() {
+		System.out.println("======Show list ======");
+		if (isNone() == false) {
+			Nodo_Simple_ER actual = this.primero;
+			System.out.println(this.name);
+			while (actual != null) {
+				System.out.println("====== " + actual.info + " ====== ");
+				actual.primeros.forEach(System.out::println);
+
 				actual = actual.next;
 			}
 		}
