@@ -234,6 +234,7 @@ public class Principal extends JFrame {
 						System.out.println("\n\n\n");
 						Analizador_Lexico lexico = new Analizador_Lexico(
 								new BufferedReader(new FileReader(label_ruta.getText())));
+						@SuppressWarnings("deprecation")
 						Analizador_sintactico sintactico = new Analizador_sintactico(lexico);
 						sintactico.parse();
 						System.out.println("=====================================");

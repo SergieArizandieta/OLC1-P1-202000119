@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SimpleER {
-
+	Estados Estado_Inicial;
 	Nodo_Simple_ER primero, ultimo;
 	String name;
-	SimpleCalcSiguientes siguientes = new SimpleCalcSiguientes();;
+	SimpleCalcSiguientes siguientes = new SimpleCalcSiguientes();
 	public Integer hojas = 0;
 
 	public SimpleER() {
@@ -379,13 +379,18 @@ public class SimpleER {
 		}
 		//this.siguientes.InsertarSIguiente(6, -1);
 		//showListUltimos();
-		this.siguientes.showList();
+		//this.siguientes.showList();
 		TablaTransiciones();
 	}
 	
 	public void TablaTransiciones() {
 		System.out.println("====== Tabla de transiciones ======");
 		System.out.println(this.ultimo.primeros);
+		
+		Estado_Inicial = new Estados(0,false,this.ultimo.primeros);
+		Estado_Inicial.insertTransiciones(this.siguientes);
+		Estado_Inicial.shoInitial();
+		/*
 		List<Integer> asdsda = new ArrayList<>();
 		asdsda.add(1);
 		asdsda.add(2);
@@ -397,7 +402,7 @@ public class SimpleER {
 			System.out.println("Son iguales");
 		}else {
 			System.out.println("son distintos");
-		}
+		}*/
 		
 	}
 	
