@@ -3,21 +3,23 @@ package analizadores;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import analizadores.Estados;
 
 public class SimpleSiguientesTransiciones {
-	Integer RegulacionEstado;
+	//Integer RegulacionEstado;
 	Integer RegulacionNumeroacion = 0;
 	Nodo_SimpleSiguientesTransiciones primero, ultimo;
 	SimpleCalcSiguientes Calcsiguientes = new SimpleCalcSiguientes();
 
-	public SimpleSiguientesTransiciones(SimpleCalcSiguientes siguientes, Integer RegulacionEstado) {
+	public SimpleSiguientesTransiciones(SimpleCalcSiguientes siguientes) {
 		this.primero = null;
 		this.primero = null;
 		this.Calcsiguientes = siguientes;
-		this.RegulacionEstado = RegulacionEstado;
+		//this.RegulacionEstado = RegulacionEstado;
 	}
 
 	public void insert(Valor_Tipo valor_tipo, List<Integer> siguinetes, SimpleCalcSiguientes siguientes) {
+	
 		RegulacionNumeroacion++;
 		Nodo_SimpleSiguientesTransiciones new_node = new Nodo_SimpleSiguientesTransiciones(valor_tipo, siguinetes,
 				siguientes);
@@ -122,8 +124,9 @@ public class SimpleSiguientesTransiciones {
 		if (isNone() == false) {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
 			while (actual != null) {
-				RegulacionEstado++;
-				actual.Estado = RegulacionEstado;
+				Estados.estadosGestion++;
+	
+				actual.Estado = Estados.estadosGestion;
 				actual = actual.next;
 			}
 		}
@@ -252,6 +255,6 @@ class Nodo_SimpleSiguientesTransiciones {
 		this.previous = null;
 		this.data = data;
 		this.primeros = siguinetes;
-		this.listado = new SimpleSiguientesTransiciones(siguientes, 0);
+		this.listado = new SimpleSiguientesTransiciones(siguientes);
 	}
 }

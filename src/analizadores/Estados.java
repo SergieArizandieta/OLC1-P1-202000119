@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class Estados {
-
+	static Integer estadosGestion=0;
 	
 	Integer Estado;
 	Boolean Aceptacion;
@@ -18,7 +18,7 @@ public class Estados {
 		this.Estado =Estado;
 		this.Aceptacion =Aceptacion;
 		this.Valores =Siguientes;
-		this.listado = new SimpleSiguientesTransiciones(siguientes,0);
+		this.listado = new SimpleSiguientesTransiciones(siguientes);
 	}
 
 	public void show() {
