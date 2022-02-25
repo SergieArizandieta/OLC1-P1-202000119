@@ -49,7 +49,7 @@ public class Estados {
 				listado.insert(valor_tipo, Primeros, siguientes);	
 			}
 		}
-		listado.showList();
+
 		listado.AgregarDatos_Aceptados();
 		listado.showList();
 	}

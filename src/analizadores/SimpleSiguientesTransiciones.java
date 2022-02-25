@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
-
 public class SimpleSiguientesTransiciones {
 	Integer RegulacionEstado;
 	Integer RegulacionNumeroacion = 0;
@@ -96,7 +94,7 @@ public class SimpleSiguientesTransiciones {
 							} else {
 								actual = actual.next;
 							}
-						}else {
+						} else {
 							break;
 						}
 					}
@@ -116,6 +114,32 @@ public class SimpleSiguientesTransiciones {
 				}
 			}
 		}
+
+		agregarValorEstado();
+	}
+
+	public void agregarValorEstado() {
+		if (isNone() == false) {
+			Nodo_SimpleSiguientesTransiciones actual = this.primero;
+			while (actual != null) {
+				RegulacionEstado++;
+				actual.Estado = RegulacionEstado;
+				actual = actual.next;
+			}
+		}
+
+		CrearEstadosnuevos();
+	}
+
+	public void CrearEstadosnuevos() {
+		if (isNone() == false) {
+			Nodo_SimpleSiguientesTransiciones actual = this.primero;
+			while (actual != null) {
+
+				actual = actual.next;
+			}
+		}
+
 	}
 
 	public void Delete(Nodo_SimpleSiguientesTransiciones actualReverse) {
@@ -125,24 +149,21 @@ public class SimpleSiguientesTransiciones {
 			while (actual != null && actual != actualReverse) {
 				actual = actual.next;
 			}
-			
-			if  (actual == null) {
-				//System.out.println("No se encontro el dato a eliminar: " + actualReverse);
-			}else {
-				
+
+			if (actual == null) {
+			} else {
+
 				if (actual.previous == null) {
 					this.primero = actual.next;
-					System.out.println("Se elimino el dato: " + actualReverse);
 				} else if (actual != null) {
 					actual.previous.next = actual.next;
 					actual.next = null;
-					//System.out.println("Se elimino el dato: " + actualReverse);
 				}
 			}
-			 
+
 		}
 	}
-	
+
 	public List<Valor_Tipo> QuitarDupicadosAceptacion(List<Valor_Tipo> lista) {
 		lista = lista.stream().distinct().collect(Collectors.toList());
 		return lista;
@@ -157,10 +178,10 @@ public class SimpleSiguientesTransiciones {
 		if (isNone() == false) {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
 			while (actual != null) {
-				System.out.println(actual.data.valor + " : " + actual.primeros + " : " + actual.DatosAceptados);
-				/*
-				 * for (Integer i : actual.siguientes) { System.out.println(i); }
-				 */
+				System.out.println(actual.Estado + " datos de aceptacion ");
+				for (Valor_Tipo i : actual.DatosAceptados) {
+					System.out.println(i.valor);
+				}
 				actual = actual.next;
 			}
 		}
