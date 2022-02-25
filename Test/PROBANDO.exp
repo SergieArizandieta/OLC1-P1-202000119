@@ -1,5 +1,5 @@
 {
-ExpReg21 ->.*||{L}{D}"_"{L};
+ExpresionReg2 ->. {digito} ."."+{digito};
 
 %%
 

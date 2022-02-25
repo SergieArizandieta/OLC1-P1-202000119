@@ -171,8 +171,8 @@ public class SimpleER {
 		}
 
 		AsignarAnulables();
-		verNoAnulables();
-		verAnulables();
+		//verNoAnulables();
+		//verAnulables();
 	}
 
 	public void AsignarAnulables() {

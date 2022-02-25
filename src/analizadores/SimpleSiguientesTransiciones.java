@@ -291,7 +291,7 @@ public class SimpleSiguientesTransiciones {
 					System.out.println("S" + actual.Estado + " a:");
 				}
 				
-				System.out.println("");
+				
 				verArbolRecursivo(actual);
 				actual = actual.next;
 			}
@@ -319,12 +319,14 @@ public class SimpleSiguientesTransiciones {
 					}
 					
 				}
-				verArbolSubconjunto(actual.listado.primero);
-				
 				for (Valor_Tipo i : actual.DatosAceptados) {
 					System.out.print(i.valor + ",");
 				}
 				System.out.println("");
+				verArbolSubconjunto(actual.listado.primero);
+				
+				
+				
 				actual = actual.next;
 			}
 		}
