@@ -128,20 +128,41 @@ public class SimpleSiguientesTransiciones {
 			}
 		}
 
-		CrearEstadosnuevos();
+		//tabla_transiciones_EstadosNuevos();
 	}
 
-	public void CrearEstadosnuevos() {
+
+
+	public void tabla_transiciones_EstadosNuevos() {
+		
+		System.out.println("==== Tabla de transiciones para nuevos estados ====" );
+		String Tipo,Valor;
+		Valor_Tipo valor_tipo;
+		List<Integer> Primeros;
+		
 		if (isNone() == false) {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
 			while (actual != null) {
-
+				
+				for (Integer i :  actual.primeros) {
+					Tipo = this.Calcsiguientes.SerachTipo(i);
+					if(Tipo.equals("Finalizacion")) {
+						actual.Aceptacion=true;
+					}else {
+						Valor = this.Calcsiguientes.SerachInfo(i);
+						valor_tipo = new Valor_Tipo(Valor, Tipo);
+						Primeros = this.Calcsiguientes.SerachPrimeros(i);
+						actual.listado.insert(valor_tipo, Primeros, this.Calcsiguientes);	
+					}
+				}
+				
+				actual.listado.AgregarDatos_Aceptados();
+				actual.listado.showList();
 				actual = actual.next;
 			}
 		}
-
 	}
-
+	
 	public void Delete(Nodo_SimpleSiguientesTransiciones actualReverse) {
 		if (isNone() == false) {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
@@ -178,10 +199,10 @@ public class SimpleSiguientesTransiciones {
 		if (isNone() == false) {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
 			while (actual != null) {
-				System.out.println(actual.Estado + " datos de aceptacion ");
-				for (Valor_Tipo i : actual.DatosAceptados) {
+				System.out.println(actual.Estado + " datos de aceptacion: " + actual.primeros );
+				/*for (Valor_Tipo i : actual.DatosAceptados) {
 					System.out.println(i.valor);
-				}
+				}*/
 				actual = actual.next;
 			}
 		}
@@ -223,6 +244,7 @@ class Nodo_SimpleSiguientesTransiciones {
 	List<Valor_Tipo> DatosAceptados = new ArrayList<>();
 	List<Integer> primeros = new ArrayList<>();
 	SimpleSiguientesTransiciones listado;
+	Boolean Aceptacion = false;
 
 	public Nodo_SimpleSiguientesTransiciones(Valor_Tipo data, List<Integer> siguinetes,
 			SimpleCalcSiguientes siguientes) {

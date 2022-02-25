@@ -51,6 +51,10 @@ public class Estados {
 		}
 
 		listado.AgregarDatos_Aceptados();
+		System.out.println("asd");
+		listado.tabla_transiciones_EstadosNuevos();
+		System.out.println("Primeros");
+		
 		listado.showList();
 	}
 
