@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+
 public class SimpleSiguientesTransiciones {
 	Integer RegulacionEstado;
 	Integer RegulacionNumeroacion = 0;
@@ -103,6 +105,7 @@ public class SimpleSiguientesTransiciones {
 							for (Valor_Tipo i : actualReverse.DatosAceptados) {
 								actual.DatosAceptados.add(i);
 							}
+							Delete(actualReverse);
 							actual.DatosAceptados = QuitarDupicadosAceptacion(actual.DatosAceptados);
 						}
 					}
@@ -115,6 +118,31 @@ public class SimpleSiguientesTransiciones {
 		}
 	}
 
+	public void Delete(Nodo_SimpleSiguientesTransiciones actualReverse) {
+		if (isNone() == false) {
+			Nodo_SimpleSiguientesTransiciones actual = this.primero;
+
+			while (actual != null && actual != actualReverse) {
+				actual = actual.next;
+			}
+			
+			if  (actual == null) {
+				//System.out.println("No se encontro el dato a eliminar: " + actualReverse);
+			}else {
+				
+				if (actual.previous == null) {
+					this.primero = actual.next;
+					System.out.println("Se elimino el dato: " + actualReverse);
+				} else if (actual != null) {
+					actual.previous.next = actual.next;
+					actual.next = null;
+					//System.out.println("Se elimino el dato: " + actualReverse);
+				}
+			}
+			 
+		}
+	}
+	
 	public List<Valor_Tipo> QuitarDupicadosAceptacion(List<Valor_Tipo> lista) {
 		lista = lista.stream().distinct().collect(Collectors.toList());
 		return lista;
