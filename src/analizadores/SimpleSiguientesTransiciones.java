@@ -139,44 +139,50 @@ public class SimpleSiguientesTransiciones {
 
 	public void verificacionDesdeEncabezado(List<Integer> primeros,
 			Nodo_SimpleSiguientesTransiciones ActualVerificando) {
-		System.out.println("_____________________PROBANDO_____________________");
+		// System.out.println("_____________________PROBANDO_____________________");
 		if (isNone() == false) {
 
 			Nodo_SimpleSiguientesTransiciones actual = Estados.encabezadoEstado;
 			while (actual != null) {
 				if (actual != ActualVerificando) {
-					System.out.println(actual.Estado + " datos de aceptacion: " + actual.primeros);
+					// System.out.println(actual.Estado + " datos de aceptacion: " +
+					// actual.primeros);
 
 					if (primeros.equals(actual.primeros)) {
 						ActualVerificando.EstadoRepetido = true;
 						ActualVerificando.EstadoDestino = actual.Estado;
 					}
 
-					// verificacionDesdeOtraparte(primeros,ActualVerificando,actual);
-					actual = actual.next;
+					verificacionDesdeOtraparte(primeros, ActualVerificando, actual);
 				}
+				actual = actual.next;
 			}
 		}
-		System.out.println("_____________________FIN PROBANDO_____________________");
+		// System.out.println("_____________________FIN PROBANDO_____________________");
 	}
 
 	public void verificacionDesdeOtraparte(List<Integer> primeros, Nodo_SimpleSiguientesTransiciones ActualVerificando,
 			Nodo_SimpleSiguientesTransiciones actualAnterior) {
+		// System.out.println("_____________________PROBANDO_____________________");
 		if (isNone() == false) {
 
 			Nodo_SimpleSiguientesTransiciones actual = actualAnterior.listado.primero;
+
 			while (actual != null) {
 				if (actual != ActualVerificando) {
-
+					// System.out.println(actual.Estado + " datos de aceptacion: " +
+					// actual.primeros);
 					if (primeros.equals(actual.primeros)) {
 						ActualVerificando.EstadoRepetido = true;
 						ActualVerificando.EstadoDestino = actual.Estado;
 					}
-					// verificacionDesdeOtraparte(primeros,ActualVerificando,actual);
-					actual = actual.next;
+					verificacionDesdeOtraparte(primeros, ActualVerificando, actual);
+
 				}
+				actual = actual.next;
 			}
 		}
+		// System.out.println("_____________________FIN PROBANDO_____________________");
 	}
 
 	public void agregarValorEstado() {
@@ -193,7 +199,7 @@ public class SimpleSiguientesTransiciones {
 			}
 		}
 
-		// tabla_transiciones_EstadosNuevos();
+		//tabla_transiciones_EstadosNuevos();
 	}
 
 	public void tabla_transiciones_EstadosNuevos() {
@@ -206,22 +212,23 @@ public class SimpleSiguientesTransiciones {
 		if (isNone() == false) {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
 			while (actual != null) {
-
-				for (Integer i : actual.primeros) {
-					Tipo = this.Calcsiguientes.SerachTipo(i);
-					if (Tipo.equals("Finalizacion")) {
-						actual.Aceptacion = true;
-					} else {
-						Valor = this.Calcsiguientes.SerachInfo(i);
-						valor_tipo = new Valor_Tipo(Valor, Tipo);
-						Primeros = this.Calcsiguientes.SerachPrimeros(i);
-						actual.listado.insert(valor_tipo, Primeros, this.Calcsiguientes);
+				if (actual.EstadoRepetido == false) {
+					for (Integer i : actual.primeros) {
+						Tipo = this.Calcsiguientes.SerachTipo(i);
+						if (Tipo.equals("Finalizacion")) {
+							actual.Aceptacion = true;
+						} else {
+							Valor = this.Calcsiguientes.SerachInfo(i);
+							valor_tipo = new Valor_Tipo(Valor, Tipo);
+							Primeros = this.Calcsiguientes.SerachPrimeros(i);
+							actual.listado.insert(valor_tipo, Primeros, this.Calcsiguientes);
+						}
 					}
-				}
 
-				actual.listado.AgregarDatos_Aceptados();
-				actual.listado.showList();
-				actual = actual.next;
+					actual.listado.AgregarDatos_Aceptados();
+					actual.listado.showList();
+					actual = actual.next;
+				}
 			}
 		}
 	}
@@ -262,10 +269,15 @@ public class SimpleSiguientesTransiciones {
 		if (isNone() == false) {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
 			while (actual != null) {
-				System.out.println(actual.Estado + " datos de aceptacion: " + actual.primeros + " DESTINO " + actual.EstadoDestino);
-				/*
-				 * for (Valor_Tipo i : actual.DatosAceptados) { System.out.println(i.valor); }
-				 */
+				System.out.println(actual.Estado + " datos de aceptacion: " + actual.primeros + " DESTINO "
+						+ actual.EstadoDestino + " finalizacion: " + actual.Aceptacion);
+				for (Valor_Tipo i : actual.DatosAceptados) {
+					System.out.println(i.valor);
+				}
+
+				// System.out.println(actual.Estado + " DESTINO " + actual.EstadoDestino + "
+				// finalizacion: " + actual.Aceptacion);
+
 				actual = actual.next;
 			}
 		}
