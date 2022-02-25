@@ -247,7 +247,7 @@ public class Analizador_sintactico extends java_cup.runtime.lr_parser {
 
     public static LinkedList<errorList> errores = new LinkedList<errorList>(); 
     public static LinkedList<tokens> TokensList  = new LinkedList<tokens>();
-    public static LinkedList<SimpleER> ERList  = new LinkedList<SimpleER>();
+    public LinkedList<SimpleER> ERList  = new LinkedList<SimpleER>();
     public static LinkedList<Conj> ConjList  = new LinkedList<Conj>();
     public static LinkedList<Cadenas> CadenasList  = new LinkedList<Cadenas>();
     Cadenas CadenasTemp;

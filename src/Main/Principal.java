@@ -269,12 +269,12 @@ public class Principal extends JFrame {
 
 							for (SimpleER er : sintactico.ERList) {
 								//er.estado_inicial();
-								System.out.println("\nArbol tiene hojas: " + er.hojas);
-								System.out.println("=========ER=========");
+								//System.out.println("\nArbol tiene hojas: " + er.hojas);
+								System.out.println("=========ER=========  " + er.name);
 								// er.initialize();
-								
+								er.showList();
 								er.GestionArbol();
-								// er.showList();
+								
 								 //er.showListInverse();
 							}
 

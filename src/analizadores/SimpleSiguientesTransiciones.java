@@ -265,7 +265,11 @@ public class SimpleSiguientesTransiciones {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
 			while (actual != null) {
 
-				System.out.print("\tS" + actual.Estado + " con ");
+				if(actual.Aceptacion) {
+					System.out.print("\tS*" + actual.Estado + " con ");
+				}else {
+					System.out.print("\tS" + actual.Estado + " con ");
+				}
 				for (Valor_Tipo i : actual.DatosAceptados) {
 					System.out.print(i.valor + ",");
 				}
@@ -300,11 +304,22 @@ public class SimpleSiguientesTransiciones {
 			while (actual != null) {
 
 				if (actual.EstadoRepetido == false) {
-					System.out.print("\tS" + actual.Estado + " con ");
-					verArbolSubconjunto(actual.listado.primero);
+					if(actual.Aceptacion) {
+						System.out.print("\tS*" + actual.Estado + " con ");
+					}else {
+						System.out.print("\tS" + actual.Estado + " con ");
+					}
+					
+					
 				}else {
-					System.out.print("\tS" + actual.EstadoDestino + " con ");
+					if(actual.Aceptacion) {
+						System.out.print("\tS*" + actual.EstadoDestino + " con ");
+					}else {
+						System.out.print("\tS" + actual.EstadoDestino + " con ");
+					}
+					
 				}
+				verArbolSubconjunto(actual.listado.primero);
 				
 				for (Valor_Tipo i : actual.DatosAceptados) {
 					System.out.print(i.valor + ",");

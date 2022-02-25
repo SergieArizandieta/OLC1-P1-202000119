@@ -8,6 +8,7 @@ public class Estados {
 	static Integer estadosGestion=0;
 	static Nodo_SimpleSiguientesTransiciones encabezadoEstado;
 	
+	String name;
 	Integer Estado;
 	Boolean Aceptacion;
 	List<Integer> Valores = new ArrayList<>();
@@ -15,11 +16,12 @@ public class Estados {
 	List<String> CaracteresAceptados = new ArrayList<>();
 
 	
-	public Estados(Integer Estado , Boolean Aceptacion, List<Integer> Siguientes,SimpleCalcSiguientes siguientes ) {
+	public Estados(Integer Estado , Boolean Aceptacion, List<Integer> Siguientes,SimpleCalcSiguientes siguientes,String name ) {
 		this.Estado =Estado;
 		this.Aceptacion =Aceptacion;
 		this.Valores =Siguientes;
 		this.listado = new SimpleSiguientesTransiciones(siguientes);
+		this.name = name;
 	}
 
 	public void show() {
@@ -58,6 +60,8 @@ public class Estados {
 		
 		listado.showList();
 		System.out.println("==============Mostrando Arbol==============");
+		estadosGestion=0;
+		System.out.println(this.name);
 		listado.verArbol(this.Aceptacion);
 		
 		/*List<Integer> Primerasdasdos =new ArrayList<>();

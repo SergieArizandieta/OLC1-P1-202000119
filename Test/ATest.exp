@@ -1,7 +1,8 @@
 {
 
-ExpReg1 ->|.{L}"#".?{L}*|{D}{L};
+//ExpReg1 ->|.{L}"#".?{L}*|{D}{L};
 
+ExpReg1 -> |.*|{L}{D}?{L}."#"{L};
 %%
 
 ExpresionReg2 : "34.44";

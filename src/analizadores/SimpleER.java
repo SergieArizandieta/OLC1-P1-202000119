@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class SimpleER {
 	Estados Estado_Inicial;
 	Nodo_Simple_ER primero, ultimo;
-	String name;
+	public String name;
 	SimpleCalcSiguientes siguientes = new SimpleCalcSiguientes();
 	public Integer hojas = 0;
 
@@ -82,7 +82,7 @@ public class SimpleER {
 		System.out.println("======Show list Inverse ======");
 		if (isNoneLast() == false) {
 			Nodo_Simple_ER actual = this.ultimo;
-		
+
 			while (actual != null) {
 				if (actual.hoja) {
 					System.out.println(actual.info + " - " + actual.tipo + " hoja " + actual.noHoja);
@@ -96,7 +96,7 @@ public class SimpleER {
 	}
 
 	public void GestionArbol() {
-		this.insert("$", "Finalizacion", true);
+		this.insertHead("$", "Finalizacion", true);
 		this.insert(".", "OP", false);
 		// Nodo_Simple_ER OpAnterior = null;
 		// Nodo_Simple_ER actual = this.primero;
@@ -144,8 +144,8 @@ public class SimpleER {
 						if (AuxContado == 1) {
 							Op.hijo1 = aux1;
 						} else if (AuxContado == 2) {
-							Op.hijo2 = Op.hijo1;
-							Op.hijo1 = aux1;
+							Op.hijo2 = aux1;
+							Op.hijo1 = Op.hijo1;
 						}
 
 						AuxContado++;
@@ -171,15 +171,14 @@ public class SimpleER {
 		}
 
 		AsignarAnulables();
-		// verNoAnulables();
-		// verAnulables();
+		verNoAnulables();
+		verAnulables();
 	}
 
 	public void AsignarAnulables() {
 		System.out.println("====== Asignando Anulables ======");
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
-
 
 			while (actual != null) {
 				if (actual.tipo.equals("OP")) {
@@ -215,11 +214,36 @@ public class SimpleER {
 				actual = actual.next;
 			}
 		}
-		//probando();
+		// probando();
+		RedefiniendoHojas();
 		Primero_Ultimos_Hojas();
 		InsertarPrimeros();
+
 	}
-	
+
+	public void RedefiniendoHojas() {
+		System.out.println("________________________________________");
+		
+		
+
+		System.out.println("======Show list Inverse ======");
+		
+		if (isNone() == false) {
+			Nodo_Simple_ER actual = this.primero;
+
+			while (actual != null) {
+				if (actual.hoja) {
+					System.out.println( this.hojas + " : " + actual.info);
+					actual.noHoja = this.hojas;
+					this.hojas--;
+				} 
+
+				actual = actual.next;
+			}
+		}
+		System.out.println("________________________________________");
+	}
+
 	public void probando() {
 		List<Integer> asd = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
@@ -229,38 +253,37 @@ public class SimpleER {
 		asd.add(2);
 		asd.add(3);
 		asd.add(4);
-		
+
 		for (Integer integer : asd) {
 			System.out.println("valor: " + integer);
 		}
-		
+
 		asd = asd.stream().distinct().collect(Collectors.toList());
 		asd.forEach(System.out::println);
-		
+
 	}
 
 	public void Primero_Ultimos_Hojas() {
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
-	
+
 			while (actual != null) {
 				if (actual.hoja) {
-					this.siguientes.insert(actual.info, actual.tipo,actual.noHoja);
+					this.siguientes.insert(actual.info, actual.tipo, actual.noHoja);
 					actual.primeros.add(actual.noHoja);
 					actual.ultimos.add(actual.noHoja);
 				}
 
 				actual = actual.next;
 			}
-			//this.siguientes.showList();
+			// this.siguientes.showList();
 		}
 	}
 
 	public void InsertarPrimeros() {
-		System.out.println("====== Asignando Anulables ======");
+		System.out.println("====== Asignando Primeros ======");
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
-			
 
 			while (actual != null) {
 				if (actual.tipo.equals("OP")) {
@@ -299,15 +322,14 @@ public class SimpleER {
 				actual = actual.next;
 			}
 		}
-		//showListPrimeros();
+		showListPrimeros();
 		InsertarUltimos();
 	}
-	
+
 	public void InsertarUltimos() {
-		System.out.println("====== Asignando Anulables ======");
+		System.out.println("====== Asignando Ultimos ======");
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
-		
 
 			while (actual != null) {
 				if (actual.tipo.equals("OP")) {
@@ -346,18 +368,17 @@ public class SimpleER {
 				actual = actual.next;
 			}
 		}
-		//showListUltimos();
+		showListUltimos();
 		InsertarSiguientes();
 	}
-	
+
 	public void InsertarSiguientes() {
 		System.out.println("====== Asignando Siguientes ======");
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
-	
+
 			while (actual != null) {
 				if (actual.tipo.equals("OP")) {
-
 
 					if (actual.info.equals(".")) {
 						for (Integer primeroHijo2 : actual.hijo2.primeros) {
@@ -372,40 +393,33 @@ public class SimpleER {
 								this.siguientes.InsertarSIguiente(primeroH, ultimoH);
 							}
 						}
-					}			
+					}
 				}
 				actual = actual.next;
 			}
 		}
-		//this.siguientes.InsertarSIguiente(6, -1);
-		//showListUltimos();
-		//this.siguientes.showList();
+		// this.siguientes.InsertarSIguiente(6, -1);
+		// showListUltimos();
+		this.siguientes.showList();
 		TablaTransiciones();
 	}
-	
+
 	public void TablaTransiciones() {
 		System.out.println("====== Tabla de transiciones ======");
 		System.out.println(this.ultimo.primeros);
-		
-		Estado_Inicial = new Estados(0,false,this.ultimo.primeros,this.siguientes);
+
+		Estado_Inicial = new Estados(0, false, this.ultimo.primeros, this.siguientes, this.name);
 		Estado_Inicial.Inciando_tabla_transiciones(this.siguientes);
-		//Estado_Inicial.show();
+		// Estado_Inicial.show();
 		/*
-		List<Integer> asdsda = new ArrayList<>();
-		asdsda.add(1);
-		asdsda.add(2);
-		asdsda.add(3);
-		asdsda.add(4);
-		asdsda.add(6);
-		System.out.println(asdsda);
-		if(asdsda.equals(this.ultimo.primeros) ) {
-			System.out.println("Son iguales");
-		}else {
-			System.out.println("son distintos");
-		}*/
-		
+		 * List<Integer> asdsda = new ArrayList<>(); asdsda.add(1); asdsda.add(2);
+		 * asdsda.add(3); asdsda.add(4); asdsda.add(6); System.out.println(asdsda);
+		 * if(asdsda.equals(this.ultimo.primeros) ) { System.out.println("Son iguales");
+		 * }else { System.out.println("son distintos"); }
+		 */
+
 	}
-	
+
 	public void showListUltimos() {
 		System.out.println("======Show list ultimos ======");
 		if (isNone() == false) {
@@ -419,7 +433,7 @@ public class SimpleER {
 			}
 		}
 	}
-	
+
 	public void showListPrimeros() {
 		System.out.println("======Show list primeros ======");
 		if (isNone() == false) {
@@ -437,7 +451,7 @@ public class SimpleER {
 	public void QuitarDupicados(List<Integer> lista) {
 		lista = lista.stream().distinct().collect(Collectors.toList());
 	}
-	
+
 	public void verNoAnulables() {
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
@@ -458,7 +472,7 @@ public class SimpleER {
 	public void verAnulables() {
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
-		
+
 			System.out.println("======= anulables ========");
 			while (actual != null) {
 				if (actual.Anulable != null) {
