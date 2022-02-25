@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 public class SimpleSiguientesTransiciones {
 	Integer RegulacionEstado;
+	Integer RegulacionNumeroacion = 0;
 	Nodo_SimpleSiguientesTransiciones primero, ultimo;
 	SimpleCalcSiguientes Calcsiguientes = new SimpleCalcSiguientes();
 
@@ -17,8 +18,10 @@ public class SimpleSiguientesTransiciones {
 	}
 
 	public void insert(Valor_Tipo valor_tipo, List<Integer> siguinetes, SimpleCalcSiguientes siguientes) {
+		RegulacionNumeroacion++;
 		Nodo_SimpleSiguientesTransiciones new_node = new Nodo_SimpleSiguientesTransiciones(valor_tipo, siguinetes,
 				siguientes);
+		new_node.Numeracion = RegulacionNumeroacion;
 		new_node.DatosAceptados.add(new_node.data);
 		if (isNone()) {
 
@@ -75,34 +78,46 @@ public class SimpleSiguientesTransiciones {
 					// ======================================
 					Nodo_SimpleSiguientesTransiciones actual = this.primero;
 					while (actual != null && actual.primeros != actualReverse.primeros) {
-						if (actual != actualReverse) {
-							if (actual.primeros.equals(actualReverse.primeros)) {
-								break;
+
+						if (actual.Numeracion > actualReverse.Numeracion) {
+
+							if (actual.hashCode() != actualReverse.hashCode()) {
+								if (actual.primeros.equals(actualReverse.primeros)) {
+									break;
+								} else {
+									actual = actual.next;
+									if (actual == null) {
+										break;
+									}
+								}
+
 							} else {
 								actual = actual.next;
-								if (actual == null) {
-									break;
-								}
 							}
-
-						} else {
-							actual = actual.next;
+						}else {
+							break;
 						}
 					}
 					if (actual != null && actual.primeros.equals(actualReverse.primeros)) {
-						for (Valor_Tipo i : actualReverse.DatosAceptados) {
-							actual.DatosAceptados.add(i);
+						if (actual.hashCode() != actualReverse.hashCode()) {
+							for (Valor_Tipo i : actualReverse.DatosAceptados) {
+								actual.DatosAceptados.add(i);
+							}
+							actual.DatosAceptados = QuitarDupicadosAceptacion(actual.DatosAceptados);
 						}
-
-						actual.primeros = QuitarDupicados(actual.primeros);
-
 					}
 
 					// =========================================
 					actualReverse = actualReverse.previous;
+
 				}
 			}
 		}
+	}
+
+	public List<Valor_Tipo> QuitarDupicadosAceptacion(List<Valor_Tipo> lista) {
+		lista = lista.stream().distinct().collect(Collectors.toList());
+		return lista;
 	}
 
 	public List<Integer> QuitarDupicados(List<Integer> lista) {
@@ -151,6 +166,8 @@ public class SimpleSiguientesTransiciones {
 
 class Nodo_SimpleSiguientesTransiciones {
 	Nodo_SimpleSiguientesTransiciones next, previous;
+
+	Integer Numeracion;
 
 	Integer Estado;
 	Valor_Tipo data;
