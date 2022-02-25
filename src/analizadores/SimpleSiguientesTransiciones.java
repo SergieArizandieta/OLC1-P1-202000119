@@ -254,8 +254,13 @@ public class SimpleSiguientesTransiciones {
 		}
 	}
 
-	public void verArbol() {
-		System.out.println("S0 a:");
+	public void verArbol(Boolean Aceptacion) {
+		if(Aceptacion) {
+			System.out.println("S0* a:");
+		}else {
+			System.out.println("S0 a:");
+		}
+		
 		if (isNone() == false) {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
 			while (actual != null) {
@@ -276,7 +281,12 @@ public class SimpleSiguientesTransiciones {
 		if (isNone() == false) {
 			Nodo_SimpleSiguientesTransiciones actual = cabezera;
 			while (actual != null) {
-				System.out.println("S" + actual.Estado + " a:");
+				if(actual.Aceptacion) {
+					System.out.println("S" + actual.Estado + "* a:");
+				}else {
+					System.out.println("S" + actual.Estado + " a:");
+				}
+				
 				System.out.println("");
 				verArbolRecursivo(actual);
 				actual = actual.next;
@@ -291,11 +301,11 @@ public class SimpleSiguientesTransiciones {
 
 				if (actual.EstadoRepetido == false) {
 					System.out.print("\tS" + actual.Estado + " con ");
-					
+					verArbolSubconjunto(actual.listado.primero);
 				}else {
 					System.out.print("\tS" + actual.EstadoDestino + " con ");
-					
 				}
+				
 				for (Valor_Tipo i : actual.DatosAceptados) {
 					System.out.print(i.valor + ",");
 				}

@@ -57,7 +57,8 @@ public class Estados {
 		System.out.println("Primeros");
 		
 		listado.showList();
-		listado.verArbol();
+		System.out.println("==============Mostrando Arbol==============");
+		listado.verArbol(this.Aceptacion);
 		
 		/*List<Integer> Primerasdasdos =new ArrayList<>();
 		Primerasdasdos.add(1);
