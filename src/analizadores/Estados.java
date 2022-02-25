@@ -5,42 +5,55 @@ import java.util.List;
 
 
 public class Estados {
-	SimpleCalcSiguientes Calcsiguientes = new SimpleCalcSiguientes();
+
 	
 	Integer Estado;
 	Boolean Aceptacion;
-	List<Integer> Siguientes = new ArrayList<>();
+	List<Integer> Valores = new ArrayList<>();
 	SimpleSiguientesTransiciones listado;
+	List<String> CaracteresAceptados = new ArrayList<>();
 
 	
-	public Estados(Integer Estado , Boolean Aceptacion, List<Integer> Siguientes ) {
+	public Estados(Integer Estado , Boolean Aceptacion, List<Integer> Siguientes,SimpleCalcSiguientes siguientes ) {
 		this.Estado =Estado;
 		this.Aceptacion =Aceptacion;
-		this.Siguientes =Siguientes;
-		this.listado = null;
-		this.Calcsiguientes = null;
+		this.Valores =Siguientes;
+		this.listado = new SimpleSiguientesTransiciones(siguientes,0);
 	}
 
 	public void show() {
 		String data = "";
-		data += "\nEstado:" + Estado;
-		data += "\nAceptacion:" + Aceptacion;
-		data += "\nSiguientes:" + Siguientes;
-		System.out.println(data);
-	}
-	
-	public void shoInitial() {
-		String data = "";
-		data += "\nEstado:" + Estado;
-		data += "\nAceptacion:" + Aceptacion;
-		data += "\nSiguientes:" + Siguientes;
+		data += "\nEstado:" +  this.Estado;
+		data += "\nAceptacion:" +  this.Aceptacion;
+		data += "\nValores:" +  this.Valores;
 		data += "\nTransiciones:"; 
 		
 		System.out.println(data);
-		Calcsiguientes.showList();;
+		this.listado.Calcsiguientes.showList();;
 	}
 	
-	public void insertTransiciones(SimpleCalcSiguientes siguientes) {
-		this.Calcsiguientes = siguientes;
+	public void Inciando_tabla_transiciones(SimpleCalcSiguientes siguientes) {
+		System.out.println("==== editando valores de estado: " +  this.Estado + " ====" );
+		String Tipo,Valor;
+		Valor_Tipo valor_tipo;
+		List<Integer> Primeros;
+		
+		for (Integer i :  this.Valores) {
+			Tipo =siguientes.SerachTipo(i);
+			if(Tipo.equals("Finalizacion")) {
+				this.Aceptacion=true;
+			}else {
+				Valor = siguientes.SerachInfo(i);
+				valor_tipo = new Valor_Tipo(Valor, Tipo);
+				Primeros = siguientes.SerachPrimeros(i);
+				listado.insert(valor_tipo, Primeros, siguientes);	
+			}
+		}
+		listado.showList();
+		listado.AgregarDatos_Aceptados();
+		listado.showList();
 	}
+
+	
+
 }

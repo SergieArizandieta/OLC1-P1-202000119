@@ -1,44 +1,129 @@
 package analizadores;
 
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SimpleSiguientesTransiciones {
-
-	Nodo_SimpleSiguientesTransiciones primero;
+	Integer RegulacionEstado;
+	Nodo_SimpleSiguientesTransiciones primero, ultimo;
 	SimpleCalcSiguientes Calcsiguientes = new SimpleCalcSiguientes();
-	
-	public SimpleSiguientesTransiciones(SimpleCalcSiguientes siguientes ) {
+
+	public SimpleSiguientesTransiciones(SimpleCalcSiguientes siguientes, Integer RegulacionEstado) {
+		this.primero = null;
 		this.primero = null;
 		this.Calcsiguientes = siguientes;
+		this.RegulacionEstado = RegulacionEstado;
 	}
 
-	public void insert(Estados nuevoEstado) {
-		Nodo_SimpleSiguientesTransiciones new_node = new Nodo_SimpleSiguientesTransiciones(nuevoEstado);
+	public void insert(Valor_Tipo valor_tipo, List<Integer> siguinetes, SimpleCalcSiguientes siguientes) {
+		Nodo_SimpleSiguientesTransiciones new_node = new Nodo_SimpleSiguientesTransiciones(valor_tipo, siguinetes,
+				siguientes);
+		new_node.DatosAceptados.add(new_node.data);
 		if (isNone()) {
+
 			this.primero = new_node;
+			this.ultimo = this.primero;
 		} else {
+
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
-			while (actual.next != null) {
-				actual = actual.next;
+
+			if (BuscarRepetido(new_node)) {
+				this.ultimo = new_node;
+				while (actual.next != null) {
+					actual = actual.next;
+				}
+				actual.next = new_node;
+				actual.next.previous = actual;
 			}
-			actual.next = new_node;
+
 		}
+	}
+
+	public boolean BuscarRepetido(Nodo_SimpleSiguientesTransiciones actualagregar) {
+
+		Nodo_SimpleSiguientesTransiciones actual = this.primero;
+		while (actual != null && actual.data.valor != actualagregar.data.valor) {
+			if (actual.data.valor.equals(actualagregar.data.valor)) {
+				break;
+			} else {
+				actual = actual.next;
+				if (actual == null) {
+					return true;
+				}
+			}
+
+		}
+		if (actual != null && actual.data.valor.equals(actualagregar.data.valor)) {
+			for (Integer i : actualagregar.primeros) {
+				actual.primeros.add(i);
+			}
+
+			actual.primeros = QuitarDupicados(actual.primeros);
+			return false;
+		}
+		return true;
+
+	}
+
+	public void AgregarDatos_Aceptados() {
+		System.out.println("====== agregar aceptados ======");
+		if (isNoneLast() == false) {
+			Nodo_SimpleSiguientesTransiciones actualReverse = this.ultimo;
+			if (isNone() == false) {
+				while (actualReverse != null) {
+					// ======================================
+					Nodo_SimpleSiguientesTransiciones actual = this.primero;
+					while (actual != null && actual.primeros != actualReverse.primeros) {
+						if (actual != actualReverse) {
+							if (actual.primeros.equals(actualReverse.primeros)) {
+								break;
+							} else {
+								actual = actual.next;
+								if (actual == null) {
+									break;
+								}
+							}
+
+						} else {
+							actual = actual.next;
+						}
+					}
+					if (actual != null && actual.primeros.equals(actualReverse.primeros)) {
+						for (Valor_Tipo i : actualReverse.DatosAceptados) {
+							actual.DatosAceptados.add(i);
+						}
+
+						actual.primeros = QuitarDupicados(actual.primeros);
+
+					}
+
+					// =========================================
+					actualReverse = actualReverse.previous;
+				}
+			}
+		}
+	}
+
+	public List<Integer> QuitarDupicados(List<Integer> lista) {
+		lista = lista.stream().distinct().collect(Collectors.toList());
+		return lista;
 	}
 
 	public void showList() {
 		if (isNone() == false) {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
 			while (actual != null) {
-				System.out.println(actual.data.Estado + " : " + actual.data.Siguientes);
-				/*for (Integer i : actual.siguientes) {
-					System.out.println(i);
-				}*/
+				System.out.println(actual.data.valor + " : " + actual.primeros + " : " + actual.DatosAceptados);
+				/*
+				 * for (Integer i : actual.siguientes) { System.out.println(i); }
+				 */
 				actual = actual.next;
 			}
 		}
 	}
 
-	public void Search(Estados data) {
+	public void Search(Valor_Tipo data) {
 		if (isNone() == false) {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
 			while (actual != null && actual.data != data) {
@@ -48,26 +133,37 @@ public class SimpleSiguientesTransiciones {
 					break;
 				}
 			}
-			if (actual != null && actual.data  == data) {
+			if (actual != null && actual.data == data) {
 				System.out.println("Dato encontrado: " + data);
 			}
 		}
 	}
-	
+
 	public Boolean isNone() {
-		
+
 		return this.primero == null;
+	}
+
+	public Boolean isNoneLast() {
+		return this.ultimo == null;
 	}
 }
 
-class Nodo_SimpleSiguientesTransiciones{
-	Nodo_SimpleSiguientesTransiciones next;
-	
-	Estados data;
-	
-	public Nodo_SimpleSiguientesTransiciones(Estados Estado) {
-		this.next = null;
-		this.data = Estado;
+class Nodo_SimpleSiguientesTransiciones {
+	Nodo_SimpleSiguientesTransiciones next, previous;
 
+	Integer Estado;
+	Valor_Tipo data;
+	List<Valor_Tipo> DatosAceptados = new ArrayList<>();
+	List<Integer> primeros = new ArrayList<>();
+	SimpleSiguientesTransiciones listado;
+
+	public Nodo_SimpleSiguientesTransiciones(Valor_Tipo data, List<Integer> siguinetes,
+			SimpleCalcSiguientes siguientes) {
+		this.next = null;
+		this.previous = null;
+		this.data = data;
+		this.primeros = siguinetes;
+		this.listado = new SimpleSiguientesTransiciones(siguientes, 0);
 	}
 }

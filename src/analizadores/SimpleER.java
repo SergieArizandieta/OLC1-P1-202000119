@@ -387,9 +387,9 @@ public class SimpleER {
 		System.out.println("====== Tabla de transiciones ======");
 		System.out.println(this.ultimo.primeros);
 		
-		Estado_Inicial = new Estados(0,false,this.ultimo.primeros);
-		Estado_Inicial.insertTransiciones(this.siguientes);
-		Estado_Inicial.shoInitial();
+		Estado_Inicial = new Estados(0,false,this.ultimo.primeros,this.siguientes);
+		Estado_Inicial.Inciando_tabla_transiciones(this.siguientes);
+		//Estado_Inicial.show();
 		/*
 		List<Integer> asdsda = new ArrayList<>();
 		asdsda.add(1);

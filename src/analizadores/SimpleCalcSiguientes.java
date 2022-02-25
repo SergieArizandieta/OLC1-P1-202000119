@@ -36,7 +36,7 @@ public class SimpleCalcSiguientes {
 			}
 		}
 	}
-
+	
 	public void Search(Object data) {
 		if (isNone() == false) {
 			Nodo_Simple actual = this.primero;
@@ -51,6 +51,60 @@ public class SimpleCalcSiguientes {
 				System.out.println("Dato encontrado: " + data);
 			}
 		}
+	}
+
+	public String SerachInfo(Integer data) {
+		if (isNone() == false) {
+			Nodo_Simple actual = this.primero;
+			while (actual != null && actual.Hoja != data) {
+				actual = actual.next;
+				if (actual == null) {
+					//System.out.println("No se encontro el dato: " + data);
+					break;
+				}
+			}
+			if (actual != null && actual.Hoja == data) {
+				//System.out.println("Dato encontrado: " + data);
+				return actual.info;
+			}
+		}
+		return null;
+	}
+	
+	public String SerachTipo(Integer data) {
+		if (isNone() == false) {
+			Nodo_Simple actual = this.primero;
+			while (actual != null && actual.Hoja != data) {
+				actual = actual.next;
+				if (actual == null) {
+					//System.out.println("No se encontro el dato: " + data);
+					break;
+				}
+			}
+			if (actual != null && actual.Hoja == data) {
+				//System.out.println("Dato encontrado: " + data);
+				return actual.tipo;
+			}
+		}
+		return null;
+	}
+	
+	public List<Integer> SerachPrimeros(Integer data) {
+		if (isNone() == false) {
+			Nodo_Simple actual = this.primero;
+			while (actual != null && actual.Hoja != data) {
+				actual = actual.next;
+				if (actual == null) {
+					//System.out.println("No se encontro el dato: " + data);
+					break;
+				}
+			}
+			if (actual != null && actual.Hoja == data) {
+				//System.out.println("Dato encontrado: " + data);
+				return actual.siguientes;
+			}
+		}
+		return null;
 	}
 	
 	
