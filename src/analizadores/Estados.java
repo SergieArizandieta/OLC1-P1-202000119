@@ -57,14 +57,15 @@ public class Estados {
 		System.out.println("Primeros");
 		
 		listado.showList();
+		listado.verArbol();
 		
-		List<Integer> Primerasdasdos =new ArrayList<>();
+		/*List<Integer> Primerasdasdos =new ArrayList<>();
 		Primerasdasdos.add(1);
 		Primerasdasdos.add(2);
 		Primerasdasdos.add(3);
 		Primerasdasdos.add(4);
 		System.out.println("primera posicion");
-		System.out.println(Primerasdasdos.get(0));
+		System.out.println(Primerasdasdos.get(0));*/
 	}
 
 	
