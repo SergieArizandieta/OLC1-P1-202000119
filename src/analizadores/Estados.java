@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Estados {
 	static Integer estadosGestion=0;
+	static Nodo_SimpleSiguientesTransiciones encabezadoEstado;
 	
 	Integer Estado;
 	Boolean Aceptacion;
@@ -49,7 +50,7 @@ public class Estados {
 				listado.insert(valor_tipo, Primeros, siguientes);	
 			}
 		}
-
+		encabezadoEstado = listado.primero;
 		listado.AgregarDatos_Aceptados();
 		System.out.println("asd");
 		listado.tabla_transiciones_EstadosNuevos();

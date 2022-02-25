@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 import analizadores.Estados;
 
 public class SimpleSiguientesTransiciones {
-	//Integer RegulacionEstado;
+	// Integer RegulacionEstado;
+
 	Integer RegulacionNumeroacion = 0;
 	Nodo_SimpleSiguientesTransiciones primero, ultimo;
 	SimpleCalcSiguientes Calcsiguientes = new SimpleCalcSiguientes();
@@ -15,11 +16,11 @@ public class SimpleSiguientesTransiciones {
 		this.primero = null;
 		this.primero = null;
 		this.Calcsiguientes = siguientes;
-		//this.RegulacionEstado = RegulacionEstado;
+		// this.RegulacionEstado = RegulacionEstado;
 	}
 
 	public void insert(Valor_Tipo valor_tipo, List<Integer> siguinetes, SimpleCalcSiguientes siguientes) {
-	
+
 		RegulacionNumeroacion++;
 		Nodo_SimpleSiguientesTransiciones new_node = new Nodo_SimpleSiguientesTransiciones(valor_tipo, siguinetes,
 				siguientes);
@@ -116,56 +117,115 @@ public class SimpleSiguientesTransiciones {
 				}
 			}
 		}
-
+		verificadionEstadosRepetidos();
 		agregarValorEstado();
+	}
+
+	public void verificadionEstadosRepetidos() {
+		if (isNone() == false) {
+
+			if (Estados.encabezadoEstado == this.primero) {
+				System.out.println("_________SeSALTO________");
+			} else {
+
+				Nodo_SimpleSiguientesTransiciones actual = this.primero;
+				while (actual != null) {
+					verificacionDesdeEncabezado(actual.primeros, actual);
+					actual = actual.next;
+				}
+			}
+		}
+	}
+
+	public void verificacionDesdeEncabezado(List<Integer> primeros,
+			Nodo_SimpleSiguientesTransiciones ActualVerificando) {
+		System.out.println("_____________________PROBANDO_____________________");
+		if (isNone() == false) {
+
+			Nodo_SimpleSiguientesTransiciones actual = Estados.encabezadoEstado;
+			while (actual != null) {
+				if (actual != ActualVerificando) {
+					System.out.println(actual.Estado + " datos de aceptacion: " + actual.primeros);
+
+					if (primeros.equals(actual.primeros)) {
+						ActualVerificando.EstadoRepetido = true;
+						ActualVerificando.EstadoDestino = actual.Estado;
+					}
+
+					// verificacionDesdeOtraparte(primeros,ActualVerificando,actual);
+					actual = actual.next;
+				}
+			}
+		}
+		System.out.println("_____________________FIN PROBANDO_____________________");
+	}
+
+	public void verificacionDesdeOtraparte(List<Integer> primeros, Nodo_SimpleSiguientesTransiciones ActualVerificando,
+			Nodo_SimpleSiguientesTransiciones actualAnterior) {
+		if (isNone() == false) {
+
+			Nodo_SimpleSiguientesTransiciones actual = actualAnterior.listado.primero;
+			while (actual != null) {
+				if (actual != ActualVerificando) {
+
+					if (primeros.equals(actual.primeros)) {
+						ActualVerificando.EstadoRepetido = true;
+						ActualVerificando.EstadoDestino = actual.Estado;
+					}
+					// verificacionDesdeOtraparte(primeros,ActualVerificando,actual);
+					actual = actual.next;
+				}
+			}
+		}
 	}
 
 	public void agregarValorEstado() {
 		if (isNone() == false) {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
 			while (actual != null) {
-				Estados.estadosGestion++;
-	
-				actual.Estado = Estados.estadosGestion;
+				if (actual.EstadoRepetido == false) {
+					Estados.estadosGestion++;
+
+					actual.Estado = Estados.estadosGestion;
+				}
 				actual = actual.next;
+
 			}
 		}
 
-		//tabla_transiciones_EstadosNuevos();
+		// tabla_transiciones_EstadosNuevos();
 	}
 
-
-
 	public void tabla_transiciones_EstadosNuevos() {
-		
-		System.out.println("==== Tabla de transiciones para nuevos estados ====" );
-		String Tipo,Valor;
+
+		System.out.println("==== Tabla de transiciones para nuevos estados ====");
+		String Tipo, Valor;
 		Valor_Tipo valor_tipo;
 		List<Integer> Primeros;
-		
+
 		if (isNone() == false) {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
 			while (actual != null) {
-				
-				for (Integer i :  actual.primeros) {
+
+				for (Integer i : actual.primeros) {
 					Tipo = this.Calcsiguientes.SerachTipo(i);
-					if(Tipo.equals("Finalizacion")) {
-						actual.Aceptacion=true;
-					}else {
+					if (Tipo.equals("Finalizacion")) {
+						actual.Aceptacion = true;
+					} else {
 						Valor = this.Calcsiguientes.SerachInfo(i);
 						valor_tipo = new Valor_Tipo(Valor, Tipo);
 						Primeros = this.Calcsiguientes.SerachPrimeros(i);
-						actual.listado.insert(valor_tipo, Primeros, this.Calcsiguientes);	
+						actual.listado.insert(valor_tipo, Primeros, this.Calcsiguientes);
 					}
 				}
-				
+
 				actual.listado.AgregarDatos_Aceptados();
 				actual.listado.showList();
 				actual = actual.next;
 			}
 		}
 	}
-	
+
 	public void Delete(Nodo_SimpleSiguientesTransiciones actualReverse) {
 		if (isNone() == false) {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
@@ -202,10 +262,10 @@ public class SimpleSiguientesTransiciones {
 		if (isNone() == false) {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
 			while (actual != null) {
-				System.out.println(actual.Estado + " datos de aceptacion: " + actual.primeros );
-				/*for (Valor_Tipo i : actual.DatosAceptados) {
-					System.out.println(i.valor);
-				}*/
+				System.out.println(actual.Estado + " datos de aceptacion: " + actual.primeros + " DESTINO " + actual.EstadoDestino);
+				/*
+				 * for (Valor_Tipo i : actual.DatosAceptados) { System.out.println(i.valor); }
+				 */
 				actual = actual.next;
 			}
 		}
@@ -248,6 +308,8 @@ class Nodo_SimpleSiguientesTransiciones {
 	List<Integer> primeros = new ArrayList<>();
 	SimpleSiguientesTransiciones listado;
 	Boolean Aceptacion = false;
+	Boolean EstadoRepetido = false;
+	Integer EstadoDestino = 0;
 
 	public Nodo_SimpleSiguientesTransiciones(Valor_Tipo data, List<Integer> siguinetes,
 			SimpleCalcSiguientes siguientes) {
