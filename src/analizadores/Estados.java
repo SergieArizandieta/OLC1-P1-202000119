@@ -53,10 +53,18 @@ public class Estados {
 		encabezadoEstado = listado.primero;
 		listado.AgregarDatos_Aceptados();
 		System.out.println("asd");
-		listado.tabla_transiciones_EstadosNuevos();
+		//listado.tabla_transiciones_EstadosNuevos();
 		System.out.println("Primeros");
 		
 		listado.showList();
+		
+		List<Integer> Primerasdasdos =new ArrayList<>();
+		Primerasdasdos.add(1);
+		Primerasdasdos.add(2);
+		Primerasdasdos.add(3);
+		Primerasdasdos.add(4);
+		System.out.println("primera posicion");
+		System.out.println(Primerasdasdos.get(0));
 	}
 
 	

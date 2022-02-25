@@ -198,8 +198,19 @@ public class SimpleSiguientesTransiciones {
 
 			}
 		}
-
-		//tabla_transiciones_EstadosNuevos();
+		if (Estados.encabezadoEstado == this.primero) {
+		tabla_transiciones_EstadosNuevos();
+		}else {
+			/*Nodo_SimpleSiguientesTransiciones actual = this.primero;
+			System.out.println("________________________LLEGAN________________________");
+			System.out.println(actual.Estado + " datos de aceptacion: " + actual.primeros + " DESTINO "
+					+ actual.EstadoDestino + " finalizacion: " + actual.Aceptacion + " REPETIDO " + actual.EstadoRepetido );
+			for (Valor_Tipo i : actual.DatosAceptados) {
+				System.out.println(i.valor);
+			}
+			System.out.println("______SE VA ________________________");*/
+			tabla_transiciones_EstadosNuevos();
+		}
 	}
 
 	public void tabla_transiciones_EstadosNuevos() {
@@ -213,22 +224,31 @@ public class SimpleSiguientesTransiciones {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
 			while (actual != null) {
 				if (actual.EstadoRepetido == false) {
-					for (Integer i : actual.primeros) {
-						Tipo = this.Calcsiguientes.SerachTipo(i);
-						if (Tipo.equals("Finalizacion")) {
-							actual.Aceptacion = true;
-						} else {
-							Valor = this.Calcsiguientes.SerachInfo(i);
-							valor_tipo = new Valor_Tipo(Valor, Tipo);
-							Primeros = this.Calcsiguientes.SerachPrimeros(i);
-							actual.listado.insert(valor_tipo, Primeros, this.Calcsiguientes);
-						}
-					}
 
-					actual.listado.AgregarDatos_Aceptados();
-					actual.listado.showList();
-					actual = actual.next;
+					if (this.Calcsiguientes.SerachTipo(actual.primeros.get(0)) != "Finalizacion") {
+						if (actual.Verificado == false) {
+							actual.Verificado = true;
+							for (Integer i : actual.primeros) {
+								Tipo = this.Calcsiguientes.SerachTipo(i);
+								if (Tipo.equals("Finalizacion")) {
+									actual.Aceptacion = true;
+								} else {
+									Valor = this.Calcsiguientes.SerachInfo(i);
+									valor_tipo = new Valor_Tipo(Valor, Tipo);
+									Primeros = this.Calcsiguientes.SerachPrimeros(i);
+									actual.listado.insert(valor_tipo, Primeros, this.Calcsiguientes);
+								}
+							}
+
+							actual.listado.AgregarDatos_Aceptados();
+							actual.listado.showList();
+							
+						}
+					}else {
+						actual.Aceptacion = true;
+					}
 				}
+				actual = actual.next;
 			}
 		}
 	}
@@ -313,7 +333,7 @@ class Nodo_SimpleSiguientesTransiciones {
 	Nodo_SimpleSiguientesTransiciones next, previous;
 
 	Integer Numeracion;
-
+	Boolean Verificado = false;
 	Integer Estado;
 	Valor_Tipo data;
 	List<Valor_Tipo> DatosAceptados = new ArrayList<>();
