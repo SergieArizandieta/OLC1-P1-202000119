@@ -62,7 +62,8 @@ public class Estados {
 		System.out.println("==============Mostrando Arbol==============");
 		estadosGestion=0;
 		System.out.println(this.name);
-		listado.verArbol(this.Aceptacion);
+		listado.verArbolMain(this.Aceptacion);
+		//listado.verArbol(this.Aceptacion);
 		
 		/*List<Integer> Primerasdasdos =new ArrayList<>();
 		Primerasdasdos.add(1);

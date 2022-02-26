@@ -244,9 +244,7 @@ public class Principal extends JFrame {
 						try {
 							// System.out.println("\n\n ***Reporte de errores encontrados ");
 							/*
-							for (errorList errore : lexico.errores) {
-								System.out.println(errore.show());
-							}
+							
 
 							System.out.println("Tokens");
 							for (tokens token : lexico.TokensList) {
@@ -260,11 +258,19 @@ public class Principal extends JFrame {
 								System.out.println(cadenas.show());
 							}
 							
-							for (errorList errore : sintactico.errores) {
+						
+							
+							*/
+							
+							/*
+							for (errorList errore : lexico.errores) {
 								System.out.println(errore.show());
 							}
 							
-							*/
+							for (errorList errore : sintactico.errores) {
+								System.out.println(errore.show());
+							}*/
+							
 							System.out.println("Mostrando ER");
 
 							for (SimpleER er : sintactico.ERList) {
@@ -272,7 +278,7 @@ public class Principal extends JFrame {
 								//System.out.println("\nArbol tiene hojas: " + er.hojas);
 								System.out.println("=========ER=========  " + er.name);
 								// er.initialize();
-								er.showList();
+								//er.showList();
 								er.GestionArbol();
 								
 								 //er.showListInverse();

@@ -322,7 +322,7 @@ public class SimpleER {
 				actual = actual.next;
 			}
 		}
-		showListPrimeros();
+		//showListPrimeros();
 		InsertarUltimos();
 	}
 
@@ -368,7 +368,7 @@ public class SimpleER {
 				actual = actual.next;
 			}
 		}
-		showListUltimos();
+		//showListUltimos();
 		InsertarSiguientes();
 	}
 
@@ -400,7 +400,7 @@ public class SimpleER {
 		}
 		// this.siguientes.InsertarSIguiente(6, -1);
 		// showListUltimos();
-		this.siguientes.showList();
+		//this.siguientes.showList();
 		TablaTransiciones();
 	}
 

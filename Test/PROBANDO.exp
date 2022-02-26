@@ -1,8 +1,0 @@
-{
-ExpresionReg2 ->. {digito} ."."+{digito};
-
-%%
-
-ExpresionReg2 : "34.44";
-
-}
