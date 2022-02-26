@@ -8,6 +8,7 @@ import analizadores.Estados;
 public class SimpleSiguientesTransiciones {
 	// Integer RegulacionEstado;
 
+
 	Integer RegulacionNumeroacion = 0;
 	Nodo_SimpleSiguientesTransiciones primero, ultimo;
 	SimpleCalcSiguientes Calcsiguientes = new SimpleCalcSiguientes();
@@ -266,13 +267,25 @@ public class SimpleSiguientesTransiciones {
 		}
 	}
 
-	public void verArbolMain(Boolean Aceptacion) {
+	public void verArbolMain(Boolean Aceptacion,String Name) {
+		Estados.dot = new StringBuilder();
+		Estados.dot.append("digraph finite_state_machine {\n");
+		Estados.dot.append("fontname=\"Helvetica,Arial,sans-serif\"\n");
+		String name = "label= " + Name;
+		Estados.dot.append(name + "\n");
+		Estados.dot.append("node [fontname=\"Helvetica,Arial,sans-serif\"]\n");
+		Estados.dot.append("digraph finite_state_machine {");
+		Estados.dot.append("edge [fontname=\"Helvetica,Arial,sans-serif\"]\n");
+		Estados.dot.append("rankdir=LR;\n");
+		
+		System.out.println(Estados.dot);
+
 		if (Aceptacion) {
 			System.out.println("S0* a:");
 		} else {
 			System.out.println("S0 a:");
 		}
-
+		
 		if (isNone() == false) {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
 			while (actual != null) {

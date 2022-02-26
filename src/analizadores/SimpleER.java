@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SimpleER {
+		
 	Estados Estado_Inicial;
 	Nodo_Simple_ER primero, ultimo;
 	public String name;

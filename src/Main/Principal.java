@@ -43,7 +43,7 @@ import analizadores.Conj;
 
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
-
+	boolean analizado =false;
 	private JPanel contentPane;
 
 	/**
@@ -102,6 +102,7 @@ public class Principal extends JFrame {
 		contentPane.add(button_analice);
 
 		JButton button_generate = new JButton("Generar Automatas");
+		
 		button_generate.setBounds(607, 88, 145, 23);
 		contentPane.add(button_generate);
 
@@ -165,9 +166,11 @@ public class Principal extends JFrame {
 						// System.out.println("Archivo seleccionado de: " + fc.getSelectedFile());
 						// String text = Files.readString(Path.of(fc.getSelectedFile().toString()));
 						// System.out.println(fc.getSelectedFile());
+						
 						String text = readUnicodeClassic(fc.getSelectedFile().toString());
 						textEditable.setText(text);
 						label_ruta.setText(fc.getSelectedFile().toString());
+						analizado = false;
 					} catch (Exception e2) {
 
 					}
@@ -189,6 +192,7 @@ public class Principal extends JFrame {
 						try (FileWriter fw = new FileWriter(fichero)) {
 							fw.write(textEditable.getText());
 							JOptionPane.showMessageDialog(null, "Se guardo el nuevo archivo.");
+							analizado = false;
 						}
 						label_ruta.setText(fc.getSelectedFile().toString());
 					} catch (Exception e2) {
@@ -208,6 +212,7 @@ public class Principal extends JFrame {
 					JOptionPane.showMessageDialog(null, "Primero debe guardar el archivo en el sistema");
 				} else {
 					try (FileWriter fw = new FileWriter(label_ruta.getText())) {
+						analizado = false;
 						fw.write(textEditable.getText());
 						JOptionPane.showMessageDialog(null, "Archivo guardado.");
 					} catch (IOException e1) {
@@ -220,6 +225,7 @@ public class Principal extends JFrame {
 		// Nurvo
 		Item_New.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				analizado = false;
 				label_ruta.setText("Null");
 				textEditable.setText("");
 			}
@@ -258,19 +264,23 @@ public class Principal extends JFrame {
 						
 							
 							*/
-							
+							/*
 							System.out.println("Tokens");
 							for (tokens token : lexico.TokensList) {
 								System.out.println(token.show());
-							}
+							}*/
+							System.out.println("=======ERRORES=========");
 							for (errorList errore : lexico.errores) {
+								JOptionPane.showMessageDialog(null, "Ocurrio un error Lexico, revisar tabla de errores");
 								System.out.println(errore.show());
 							}
 							
 							for (errorList errore : sintactico.errores) {
+								JOptionPane.showMessageDialog(null, "Ocurrio un error Sintactico, revisar tabla de errores");
 								System.out.println(errore.show());
 							}
 							
+							System.out.println("=======ERRORES FIN=========");
 							System.out.println("Mostrando ER");
 
 							for (SimpleER er : sintactico.ERList) {
@@ -283,11 +293,13 @@ public class Principal extends JFrame {
 								
 								 //er.showListInverse();
 							}
-
+							analizado = true;
+							
 							System.out.println("=====================================");
-						
+							JOptionPane.showMessageDialog(null, "Archivo analizado con exito");
 
 						} catch (Exception e2) {
+							JOptionPane.showMessageDialog(null, "Ocurrio un error, revisar archivos de entrada");
 							System.out.println(e2);
 						}
 					} catch (Exception e1) {
@@ -299,6 +311,19 @@ public class Principal extends JFrame {
 				}
 			}
 		});
+		
+		button_generate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(analizado) {
+					
+					
+					JOptionPane.showMessageDialog(null, "Se crearon Automatas correctamente");
+				}else {
+					JOptionPane.showMessageDialog(null, "Debe analisar el archivo primero");
+				}
+			}
+		});
+		
 	}
 
 	public String readUnicodeClassic(String fileName) {
