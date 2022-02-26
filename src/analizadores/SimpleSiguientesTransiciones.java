@@ -73,8 +73,8 @@ public class SimpleSiguientesTransiciones {
 	}
 
 	public void AgregarDatos_Aceptados() {
-		System.out.println("====== agregar aceptados ======");
-		
+		// System.out.println("====== agregar aceptados ======");
+
 		if (isNoneLast() == false) {
 			Nodo_SimpleSiguientesTransiciones actualReverse = this.ultimo;
 			if (isNone() == false) {
@@ -126,6 +126,7 @@ public class SimpleSiguientesTransiciones {
 		if (isNone() == false) {
 
 			if (Estados.encabezadoEstado == this.primero) {
+				System.out.println("cabezera");
 			} else {
 
 				Nodo_SimpleSiguientesTransiciones actual = this.primero;
@@ -149,6 +150,9 @@ public class SimpleSiguientesTransiciones {
 					// actual.primeros);
 
 					if (primeros.equals(actual.primeros)) {
+						if(actual.Aceptacion) {
+							ActualVerificando.Aceptacion = actual.Aceptacion;
+						}
 						ActualVerificando.EstadoRepetido = true;
 						ActualVerificando.EstadoDestino = actual.Estado;
 					}
@@ -158,7 +162,7 @@ public class SimpleSiguientesTransiciones {
 				actual = actual.next;
 			}
 		}
-	
+
 		// System.out.println("_____________________FIN PROBANDO_____________________");
 	}
 
@@ -173,6 +177,9 @@ public class SimpleSiguientesTransiciones {
 				if (actual != ActualVerificando && actual.EstadoRepetido == false) {
 					// System.out.println(actual.Estado + " datos de aceptacion: " +
 					// actual.primeros);
+					if(actual.Aceptacion) {
+						ActualVerificando.Aceptacion = actual.Aceptacion;
+					}
 					if (primeros.equals(actual.primeros)) {
 						ActualVerificando.EstadoRepetido = true;
 						ActualVerificando.EstadoDestino = actual.Estado;
@@ -227,50 +234,52 @@ public class SimpleSiguientesTransiciones {
 			while (actual != null) {
 				if (actual.EstadoRepetido == false) {
 
-				
-						if (actual.Verificado == false) {
-							actual.Verificado = true;
-							for (Integer i : actual.primeros) {
-								Tipo = this.Calcsiguientes.SerachTipo(i);
-								if (Tipo.equals("Finalizacion")) {
-									actual.Aceptacion = true;
-								} else {
-									Valor = this.Calcsiguientes.SerachInfo(i);
-									valor_tipo = new Valor_Tipo(Valor, Tipo);
-									Primeros = this.Calcsiguientes.SerachPrimeros(i);
-									actual.listado.insert(valor_tipo, Primeros, this.Calcsiguientes);
-								}
-							}
-							if (this.Calcsiguientes.SerachTipo(actual.primeros.get(0)) == "Finalizacion") {
-								
+					if (actual.Verificado == false) {
+						actual.Verificado = true;
+						for (Integer i : actual.primeros) {
+							Tipo = this.Calcsiguientes.SerachTipo(i);
+							if (Tipo.equals("Finalizacion")) {
 								actual.Aceptacion = true;
+							} else {
+								Valor = this.Calcsiguientes.SerachInfo(i);
+								valor_tipo = new Valor_Tipo(Valor, Tipo);
+								Primeros = this.Calcsiguientes.SerachPrimeros(i);
+								actual.listado.insert(valor_tipo, Primeros, this.Calcsiguientes);
 							}
-							actual.listado.AgregarDatos_Aceptados();
-							System.out.println(actual.Estado);
-							actual.listado.showList();
-
 						}
-					
+						if (this.Calcsiguientes.SerachTipo(actual.primeros.get(0)) == "Finalizacion") {
+
+							actual.Aceptacion = true;
+						}
+						actual.listado.AgregarDatos_Aceptados();
+
+						actual.listado.showList();
+						if (actual.Estado == 5) {
+							System.out.println("Aqui es");
+						}
+						System.out.println(actual.Estado);
+					}
+
 				}
 				actual = actual.next;
 			}
 		}
 	}
-	
+
 	public void verArbolMain(Boolean Aceptacion) {
-		if(Aceptacion) {
+		if (Aceptacion) {
 			System.out.println("S0* a:");
-		}else {
+		} else {
 			System.out.println("S0 a:");
 		}
-		
+
 		if (isNone() == false) {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
 			while (actual != null) {
 
-				if(actual.Aceptacion) {
+				if (actual.Aceptacion) {
 					System.out.print("\tS*" + actual.Estado + " con ");
-				}else {
+				} else {
 					System.out.print("\tS" + actual.Estado + " con ");
 				}
 				for (Valor_Tipo i : actual.DatosAceptados) {
@@ -282,141 +291,112 @@ public class SimpleSiguientesTransiciones {
 		}
 		ShowArbol(this.primero);
 	}
-	
-	
+
 	public void ShowArbol(Nodo_SimpleSiguientesTransiciones cabezera) {
-		if (cabezera!= null) {
+		if (cabezera != null) {
 			Nodo_SimpleSiguientesTransiciones actual = cabezera;
 			while (actual != null) {
-				
-				if(actual.Aceptacion) {
+
+				if (actual.Aceptacion) {
 					System.out.println("S" + actual.Estado + "* a:");
-				}else {
+				} else {
 					System.out.println("S" + actual.Estado + " a:");
 				}
-				
+				if (actual.Estado == 5) {
+					System.out.print("");
+				}
 
 				System.out.println("");
+
 				ShowAceptaciones(actual.listado.primero);
 				actual = actual.next;
 			}
 		}
 	}
-	
+
 	public void ShowAceptaciones(Nodo_SimpleSiguientesTransiciones cabezera) {
+
 		if (cabezera != null) {
 			Nodo_SimpleSiguientesTransiciones actual = cabezera;
 			while (actual != null) {
-				
+
 				if (actual.EstadoRepetido == false) {
-					
-					if(actual.Aceptacion) {
+
+					if (actual.Aceptacion) {
 						System.out.print("\tS" + actual.Estado + "* con ");
-					}else {
+					} else {
 						System.out.print("\tS" + actual.Estado + " con ");
 					}
-					
-					
-				}else {
-					
-					if(actual.Aceptacion) {
+
+				} else {
+
+					if (actual.Aceptacion) {
 						System.out.print("\tS" + actual.EstadoDestino + "* con ");
-					}else {
+					} else {
 						System.out.print("\tS" + actual.EstadoDestino + " con ");
 					}
-					
+
 				}
-				
+
 				for (Valor_Tipo i : actual.DatosAceptados) {
 					System.out.print(i.valor + ",");
 				}
-				
+
 				System.out.println("");
-				
-				ShowArbol(actual.listado.primero);
-				actual = actual.next;
-			}
-		}
-	}
-
-	public void verArbol(Boolean Aceptacion) {
-		if(Aceptacion) {
-			System.out.println("S0* a:");
-		}else {
-			System.out.println("S0 a:");
-		}
 		
-		if (isNone() == false) {
-			Nodo_SimpleSiguientesTransiciones actual = this.primero;
-			while (actual != null) {
-
-				if(actual.Aceptacion) {
-					System.out.print("\tS*" + actual.Estado + " con ");
-				}else {
-					System.out.print("\tS" + actual.Estado + " con ");
-				}
-				for (Valor_Tipo i : actual.DatosAceptados) {
-					System.out.print(i.valor + ",");
-				}
-				System.out.println("");
-				actual = actual.next;
-			}
-		}
-		verArbolSubconjunto(this.primero);
-	}
-
-	public void verArbolSubconjunto(Nodo_SimpleSiguientesTransiciones cabezera) {
-
-		if (isNone() == false) {
-			Nodo_SimpleSiguientesTransiciones actual = cabezera;
-			while (actual != null) {
-				if(actual.Aceptacion) {
-					System.out.println("S" + actual.Estado + "* a:");
-				}else {
-					System.out.println("S" + actual.Estado + " a:");
-				}
-				
-				
-				verArbolRecursivo(actual);
-				actual = actual.next;
-			}
-		}
-	}
-
-	public void verArbolRecursivo(Nodo_SimpleSiguientesTransiciones actual2) {
-		
-		Nodo_SimpleSiguientesTransiciones actual = actual2.listado.primero;
-		if (actual != null) {
-			while (actual != null) {
-
 				if (actual.EstadoRepetido == false) {
-					if(actual.Aceptacion) {
-						System.out.print("\tS*" + actual.Estado + " con ");
-					}else {
-						System.out.print("\tS" + actual.Estado + " con ");
-					}
-					
-					
-				}else {
-					if(actual.Aceptacion) {
-						System.out.print("\tS*" + actual.EstadoDestino + " con ");
-					}else {
-						System.out.print("\tS" + actual.EstadoDestino + " con ");
-					}
-					
+					ShowArbol(actual);
 				}
-				for (Valor_Tipo i : actual.DatosAceptados) {
-					System.out.print(i.valor + ",");
-				}
-				System.out.println("");
-				verArbolSubconjunto(actual.listado.primero);
-				
-				
-				
 				actual = actual.next;
 			}
 		}
+		// recorrerhijosdehijos(cabezera);
 	}
+
+	/*
+	 * public void verArbol(Boolean Aceptacion) { if(Aceptacion) {
+	 * System.out.println("S0* a:"); }else { System.out.println("S0 a:"); }
+	 * 
+	 * if (isNone() == false) { Nodo_SimpleSiguientesTransiciones actual =
+	 * this.primero; while (actual != null) {
+	 * 
+	 * if(actual.Aceptacion) { System.out.print("\tS*" + actual.Estado + " con ");
+	 * }else { System.out.print("\tS" + actual.Estado + " con "); } for (Valor_Tipo
+	 * i : actual.DatosAceptados) { System.out.print(i.valor + ","); }
+	 * System.out.println(""); actual = actual.next; } }
+	 * verArbolSubconjunto(this.primero); }
+	 * 
+	 * public void verArbolSubconjunto(Nodo_SimpleSiguientesTransiciones cabezera) {
+	 * 
+	 * if (isNone() == false) { Nodo_SimpleSiguientesTransiciones actual = cabezera;
+	 * while (actual != null) { if(actual.Aceptacion) { System.out.println("S" +
+	 * actual.Estado + "* a:"); }else { System.out.println("S" + actual.Estado +
+	 * " a:"); }
+	 * 
+	 * 
+	 * //verArbolRecursivo(actual); actual = actual.next; } } }
+	 * 
+	 * public void verArbolRecursivo(Nodo_SimpleSiguientesTransiciones actual2) {
+	 * 
+	 * Nodo_SimpleSiguientesTransiciones actual = actual2.listado.primero; if
+	 * (actual != null) { while (actual != null) {
+	 * 
+	 * if (actual.EstadoRepetido == false) { if(actual.Aceptacion) {
+	 * System.out.print("\tS*" + actual.Estado + " con "); }else {
+	 * System.out.print("\tS" + actual.Estado + " con "); }
+	 * 
+	 * 
+	 * }else { if(actual.Aceptacion) { System.out.print("\tS*" +
+	 * actual.EstadoDestino + " con "); }else { System.out.print("\tS" +
+	 * actual.EstadoDestino + " con "); }
+	 * 
+	 * } for (Valor_Tipo i : actual.DatosAceptados) { System.out.print(i.valor +
+	 * ","); } System.out.println(""); verArbolSubconjunto(actual.listado.primero);
+	 * 
+	 * 
+	 * 
+	 * actual = actual.next; } } }
+	 */
 
 	public void Delete(Nodo_SimpleSiguientesTransiciones actualReverse) {
 		if (isNone() == false) {
@@ -454,12 +434,13 @@ public class SimpleSiguientesTransiciones {
 		if (isNone() == false) {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
 			while (actual != null) {
-			
-				if(actual.EstadoRepetido) {
-					System.out.print( "Repedtido datos de aceptacion: " + actual.primeros + " DESTINO "
+
+				if (actual.EstadoRepetido) {
+					System.out.print("Repedtido datos de aceptacion: " + actual.primeros + " DESTINO "
 							+ actual.EstadoDestino + " finalizacion: " + actual.Aceptacion);
-				}else {
-					System.out.print(actual.Estado + " datos de aceptacion: " + actual.primeros + " finalizacion: " + actual.Aceptacion);
+				} else {
+					System.out.print(actual.Estado + " datos de aceptacion: " + actual.primeros + " finalizacion: "
+							+ actual.Aceptacion);
 				}
 				System.out.print("::::");
 				for (Valor_Tipo i : actual.DatosAceptados) {
@@ -523,4 +504,41 @@ class Nodo_SimpleSiguientesTransiciones {
 		this.primeros = siguinetes;
 		this.listado = new SimpleSiguientesTransiciones(siguientes);
 	}
+
+	public void ShowAceptacionesNodos(Nodo_SimpleSiguientesTransiciones cabezera) {
+
+		if (cabezera != null) {
+			Nodo_SimpleSiguientesTransiciones actual = cabezera;
+			while (actual != null) {
+
+				if (actual.EstadoRepetido == false) {
+
+					if (actual.Aceptacion) {
+						System.out.print("\tS" + actual.Estado + "* con ");
+					} else {
+						System.out.print("\tS" + actual.Estado + " con ");
+					}
+
+				} else {
+
+					if (actual.Aceptacion) {
+						System.out.print("\tS" + actual.EstadoDestino + "* con ");
+					} else {
+						System.out.print("\tS" + actual.EstadoDestino + " con ");
+					}
+
+				}
+
+				for (Valor_Tipo i : actual.DatosAceptados) {
+					System.out.print(i.valor + ",");
+				}
+
+				System.out.println("");
+
+				// ShowArbol(actual.listado.primero);
+				actual = actual.next;
+			}
+		}
+	}
+
 }
