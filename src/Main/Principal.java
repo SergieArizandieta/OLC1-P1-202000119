@@ -246,10 +246,7 @@ public class Principal extends JFrame {
 							/*
 							
 
-							System.out.println("Tokens");
-							for (tokens token : lexico.TokensList) {
-								System.out.println(token.show());
-							}
+							
 
 							for (Conj conjunto : sintactico.ConjList) {
 								System.out.println(conjunto.show());
@@ -262,14 +259,17 @@ public class Principal extends JFrame {
 							
 							*/
 							
-							/*
+							System.out.println("Tokens");
+							for (tokens token : lexico.TokensList) {
+								System.out.println(token.show());
+							}
 							for (errorList errore : lexico.errores) {
 								System.out.println(errore.show());
 							}
 							
 							for (errorList errore : sintactico.errores) {
 								System.out.println(errore.show());
-							}*/
+							}
 							
 							System.out.println("Mostrando ER");
 
