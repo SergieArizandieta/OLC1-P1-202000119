@@ -1,5 +1,7 @@
 package analizadores;
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,8 +10,8 @@ import analizadores.Estados;
 public class SimpleSiguientesTransiciones {
 	// Integer RegulacionEstado;
 
-	List<Integer> EstadosAceptacion ;
-	
+	List<Integer> EstadosAceptacion;
+
 	Integer RegulacionNumeroacion = 0;
 	Nodo_SimpleSiguientesTransiciones primero, ultimo;
 	SimpleCalcSiguientes Calcsiguientes = new SimpleCalcSiguientes();
@@ -152,7 +154,7 @@ public class SimpleSiguientesTransiciones {
 					// actual.primeros);
 
 					if (primeros.equals(actual.primeros)) {
-						if(actual.Aceptacion) {
+						if (actual.Aceptacion) {
 							ActualVerificando.Aceptacion = actual.Aceptacion;
 						}
 						ActualVerificando.EstadoRepetido = true;
@@ -179,7 +181,7 @@ public class SimpleSiguientesTransiciones {
 				if (actual != ActualVerificando && actual.EstadoRepetido == false) {
 					// System.out.println(actual.Estado + " datos de aceptacion: " +
 					// actual.primeros);
-					if(actual.Aceptacion) {
+					if (actual.Aceptacion) {
 						ActualVerificando.Aceptacion = actual.Aceptacion;
 					}
 					if (primeros.equals(actual.primeros)) {
@@ -269,52 +271,226 @@ public class SimpleSiguientesTransiciones {
 	}
 
 	public void AgregarAceptacionAvReporte() {
-		Integer contador=1;
-		
+		Integer contador = 1;
+
 		for (Integer integer : EstadosAceptacion) {
-			Estados.dot.append(integer);
-			if(contador< EstadosAceptacion.size()) {
-				Estados.dot.append(",");
-			}else {
-				Estados.dot.append(";");
+			Estados.dot+= integer;
+			if (contador < EstadosAceptacion.size()) {
+				Estados.dot+= ",";
+			} else {
+				Estados.dot +=";\n";
 			}
-			
+
 			contador++;
 		}
-		Estados.dot.append("node [shape = circle, color = \"#2CB5FF\" fillcolor=\"#E3FFFA\" style =filled];\n\n");
-		verReporte();
+		Estados.dot +=("	node [shape = circle, color = \"#2CB5FF\" fillcolor=\"#E3FFFA\" style =filled];\n\n");
+		verArbolMainReporte();
+
 	}
-	
-	public void verReporte() {
+
+	public void verArbolMainReporte() {
+
+		if (isNone() == false) {
+			Nodo_SimpleSiguientesTransiciones actual = this.primero;
+			while (actual != null) {
+				Integer contador=1;
+				Estados.dot+=("0->");
+				Estados.dot+=(actual.Estado);
+				Estados.dot+=("[label = \"");
+
+				for (Valor_Tipo i : actual.DatosAceptados) {
+
+					validacionTipo(i);
+					if (contador < actual.DatosAceptados.size()) {
+						Estados.dot+=(",");
+					} else {
+						Estados.dot+=("\"];\n");
+					}
+					contador++;
+				}
+
+				actual = actual.next;
+			}
+		}
+		ShowArbolReporte(this.primero);
+
+	}
+
+	public void validacionTipo(Valor_Tipo text) {
+		if (text.tipo.equals("PHRASE") || text.tipo.equals("SPACE")) {
+			for (int letra = 0; letra < text.valor.length(); letra++) {
+				if (letra == 0) {
+					Estados.dot+=("\\\"");
+				} else if (letra + 1 == text.valor.length()) {
+					Estados.dot+=("\\\"");
+				} else {
+					Estados.dot+=(text.valor.charAt(letra));
+				}
+			}
+
+		} else if (text.tipo.equals("S_DQUOTES")) {
+			
+			Estados.dot+=("\\\\\\\"");
+		} else if (text.tipo.equals("S_QUOTE")) {
+			Estados.dot+=("\\\\'");
+		} else if (text.tipo.equals("S_LBREAK")) {
+			Estados.dot+=("\\\\n");
+			
+			
+		} else {
+			Estados.dot+=(text.valor);
+		}
+	}
+
+	public void ShowArbolReporte(Nodo_SimpleSiguientesTransiciones cabezera) {
+		if (cabezera != null) {
+			Nodo_SimpleSiguientesTransiciones actual = cabezera;
+			while (actual != null) {
+
+		
+				
+			
+				ShowAceptacionesReporte(actual.listado.primero,actual.Estado);
+				actual = actual.next;
+			}
+		}
+	}
+
+	public void ShowAceptacionesReporte(Nodo_SimpleSiguientesTransiciones cabezera,Integer estado) {
+
+		if (cabezera != null) {
+			Nodo_SimpleSiguientesTransiciones actual = cabezera;
+			while (actual != null) {
+				Integer contador = 1;
+				Estados.dot+=(estado + "->");
+				if (actual.EstadoRepetido == false) {
+					Estados.dot+=(actual.Estado);
+
+				} else {
+					Estados.dot+=(actual.EstadoDestino);
+
+				}
+				
+				Estados.dot+=("[label = \"");
+				
+				
+				for (Valor_Tipo i : actual.DatosAceptados) {
+					
+					validacionTipo(i);
+					if (contador < actual.DatosAceptados.size()) {
+						Estados.dot+=(",");
+					} else {
+						Estados.dot+=("\"];\n");
+					}
+					contador++;
+				}
+
+				System.out.println("");
+
+				if (actual.EstadoRepetido == false) {
+					ShowArbolReporte(actual);
+				}
+				actual = actual.next;
+			}
+		}
+	}
+
+	public void verReporte(String name) {
+		Estados.dot += "label= "  + name;
+		Estados.dot+=("}");
+		
 		System.out.println(Estados.dot);
-	
+
 	}
 	
-	public void verArbolMain(Boolean Aceptacion,String Name) {
-		Estados.dot = new StringBuilder();
-		Estados.dot.append("digraph finite_state_machine {\n");
-		Estados.dot.append("bgcolor = \"#F6FFE3\"\n");
-		Estados.dot.append("	node [fontname=\"Helvetica,Arial,sans-serif\" ]\n");
-		Estados.dot.append("	edge [fontname=\"Helvetica,Arial,sans-serif\"]\n");
-		Estados.dot.append("	rankdir=LR;\n");
-		Estados.dot.append("	node [shape = doublecircle, color = gold fillcolor=\"#EBE3FF\" style =filled];");		
+	//create the dot dile
+		private void Create_File(String route, String contents) {
+
+			FileWriter fw = null;
+			PrintWriter pw = null;
+			try {
+				fw = new FileWriter(route);
+				pw = new PrintWriter(fw);
+				pw.write(contents);
+				pw.close();
+				fw.close();
+			} catch (Exception ex) {
+				System.out.println(ex.getMessage());
+			} finally {
+				if (pw != null)
+					pw.close();
+			}
+
+		}
 		
+		//draw the graph
+		public void Draw_Graphiz(String name) {
+
+			try {
+				if(isNone()) {
+					String graph = "digraph L {\r\n"
+							+ "node[shape=note fillcolor=\"#A181FF\" style =filled]\r\n"
+							+ "subgraph cluster_p{\r\n"
+							+ "    label= \" Cola Recepcion \"\r\n"
+							+ "    bgcolor = \"#FF7878\"\r\n"
+							+ "Nodo1008925772[label=\"Vacio\",fillcolor=\"#81FFDA\"]\r\n"
+							+ "\r\n"
+							+ "}}";
+					Create_File(name+".dot", graph);
+				}else {
+					
+					Create_File(name+".dot",Estados.dot);
+				}
+				
+				//System.out.println(Text_Graphivz());
+				ProcessBuilder pb;
+				pb = new ProcessBuilder("dot", "-Tpng", "-o", name+".png",  name+".dot");
+				pb.redirectErrorStream(true);
+				pb.start();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public void openimg(String name) {
+			try {
+				String url = name+".png";
+				ProcessBuilder p = new ProcessBuilder();
+				p.command("cmd.exe", "/c", url);
+				p.start();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+
+	public void verArbolMain(Boolean Aceptacion, String Name) {
+		Estados.dot ="";
+		Estados.dot+=("digraph finite_state_machine {\n");
+		Estados.dot+=("	bgcolor = \"#F6FFE3\"\n");
+		Estados.dot+=("	node [fontname=\"Helvetica,Arial,sans-serif\" ]\n");
+		Estados.dot+=("	edge [fontname=\"Helvetica,Arial,sans-serif\"]\n");
+		Estados.dot+=("	rankdir=LR;\n");
+		Estados.dot+=("	node [shape = doublecircle, color = gold fillcolor=\"#EBE3FF\" style =filled];");
+
 		EstadosAceptacion = new ArrayList<>();
-		
+
 		if (Aceptacion) {
 			System.out.println("S0* a:");
 			EstadosAceptacion.add(0);
 		} else {
 			System.out.println("S0 a:");
 		}
-		
+
 		if (isNone() == false) {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
 			while (actual != null) {
 
 				if (actual.Aceptacion) {
 					System.out.print("\tS" + actual.Estado + "* con ");
-					EstadosAceptacion.add( actual.Estado);
+					EstadosAceptacion.add(actual.Estado);
 					EstadosAceptacion = QuitarDupicados(EstadosAceptacion);
 				} else {
 					System.out.print("\tS" + actual.Estado + " con ");
@@ -336,7 +512,7 @@ public class SimpleSiguientesTransiciones {
 
 				if (actual.Aceptacion) {
 					System.out.println("S" + actual.Estado + "* a:");
-					EstadosAceptacion.add( actual.Estado);
+					EstadosAceptacion.add(actual.Estado);
 					EstadosAceptacion = QuitarDupicados(EstadosAceptacion);
 				} else {
 					System.out.println("S" + actual.Estado + " a:");
@@ -363,7 +539,7 @@ public class SimpleSiguientesTransiciones {
 
 					if (actual.Aceptacion) {
 						System.out.print("\tS" + actual.Estado + "* con ");
-						EstadosAceptacion.add( actual.Estado);
+						EstadosAceptacion.add(actual.Estado);
 						EstadosAceptacion = QuitarDupicados(EstadosAceptacion);
 					} else {
 						System.out.print("\tS" + actual.Estado + " con ");
@@ -371,13 +547,19 @@ public class SimpleSiguientesTransiciones {
 
 				} else {
 
-					if (actual.Aceptacion) {
+				
+						System.out.print("\tS" + actual.EstadoDestino + " con ");
+					
+					
+					/*
+					 * 	if (actual.Aceptacion) {
 						System.out.print("\tS" + actual.EstadoDestino + "* con ");
-						EstadosAceptacion.add( actual.EstadoDestino);
+						EstadosAceptacion.add(actual.EstadoDestino);
 						EstadosAceptacion = QuitarDupicados(EstadosAceptacion);
 					} else {
 						System.out.print("\tS" + actual.EstadoDestino + " con ");
 					}
+					 * */
 
 				}
 
@@ -386,7 +568,7 @@ public class SimpleSiguientesTransiciones {
 				}
 
 				System.out.println("");
-		
+
 				if (actual.EstadoRepetido == false) {
 					ShowArbol(actual);
 				}

@@ -389,7 +389,7 @@ public class SimpleER {
 						}
 					}
 					if (actual.info.equals("*") || actual.info.equals("+")) {
-						for (Integer ultimoH : actual.ultimos) {
+						for (Integer ultimoH : actual.primeros) {
 							for (Integer primeroH : actual.ultimos) {
 								this.siguientes.InsertarSIguiente(primeroH, ultimoH);
 							}
@@ -401,7 +401,7 @@ public class SimpleER {
 		}
 		// this.siguientes.InsertarSIguiente(6, -1);
 		// showListUltimos();
-		//this.siguientes.showList();
+		this.siguientes.showList();
 		TablaTransiciones();
 	}
 

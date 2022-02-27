@@ -1,0 +1,9 @@
+{
+ExpReg1 ->.."a"*|"a""b""b";
+ExpReg2 -> ..?{S}*"0"|+{D}.*{D}.{P}+{D};
+ExpReg3 -> .+|.{A}{B}.{A}{C}.{D}?{A};
+
+%%
+
+ExpresionReg2 : "34.444";
+}

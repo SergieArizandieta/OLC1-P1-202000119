@@ -7,7 +7,7 @@ import java.util.List;
 public class Estados {
 	
 	
-	static StringBuilder dot;
+	static String dot;
 	static Integer estadosGestion=0;
 	static Nodo_SimpleSiguientesTransiciones encabezadoEstado;
 	
@@ -39,10 +39,7 @@ public class Estados {
 	}
 	
 	public void Inciando_tabla_transiciones(SimpleCalcSiguientes siguientes) {
-		if(dot != null) {
-			dot.delete(0, dot.length());
-		}
-		
+		dot = "";
 		
 		System.out.println("==== editando valores de estado: " +  this.Estado + " ====" );
 		String Tipo,Valor;
@@ -73,6 +70,9 @@ public class Estados {
 		System.out.println(this.name);
 		listado.verArbolMain(this.Aceptacion,this.name);
 		listado.AgregarAceptacionAvReporte();
+		listado.verReporte(this.name);
+		listado.Draw_Graphiz(this.name);
+		listado.openimg(this.name);
 		//listado.verArbol(this.Aceptacion);
 		
 		/*List<Integer> Primerasdasdos =new ArrayList<>();
