@@ -429,12 +429,11 @@ public class SimpleSiguientesTransiciones {
 				String graph = "digraph L {\r\n"
 						+ "node[shape=note fillcolor=\"#A181FF\" style =filled]\r\n"
 						+ "subgraph cluster_p{\r\n"
-						+ "    label= \" Cola Recepcion \"\r\n"
 						+ "    bgcolor = \"#FF7878\"\r\n"
 						+ "Nodo1008925772[label=\"Vacio\",fillcolor=\"#81FFDA\"]\r\n"
 						+ "\r\n"
 						+ "}}";
-				Create_File(name+".dot", graph);
+				Create_File("AFD_202000119\\"+name+".dot", graph);
 			}else {
 				
 				Create_File("AFD_202000119\\"+ name+".dot",Estados.dot);

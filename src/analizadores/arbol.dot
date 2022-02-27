@@ -1,6 +1,8 @@
 digraph structs {
   bgcolor = "#E3FFFA"
+ 
    node [shape=Mrecord fillcolor="#FFE3FF" style =filled];
+    label =" atjshdafjkl"
     struct690631499    [label="{{[1, 5, 6, 9, 12, 15]|<here>.|[18]}|No Anulable}"];
     struct690631499-> struct1401339950
     struct1401339950    [label="{{[1, 5, 6, 9, 12, 15]|<here>\||[1, 2, 3, 4, 5, 8, 9, 11, 14, 17]}|No Anulable}"];

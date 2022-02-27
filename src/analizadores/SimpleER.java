@@ -1,5 +1,7 @@
 package analizadores;
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -391,25 +393,19 @@ public class SimpleER {
 		System.out.println("====== Tabla de transiciones ======");
 		// System.out.println(this.ultimo.primeros);
 		DOT = "digraph structs {\n  bgcolor = \"#E3FFFA\"\n   node [shape=Mrecord fillcolor=\"#FFE3FF\" style =filled];\n";
+		DOT+= "label =\"" + this.name + "\"\n";
+		
 		Estado_Inicial = new Estados(0, false, this.ultimo.primeros, this.siguientes, this.name);
+		
 		if (isNoneLast() == false) {
 			Nodo_Simple_ER actual = this.ultimo;
 			GenerarArbol(actual);
 		}
 		DOT += "\n}";
-		System.out.println(DOT);
-
-		//
-
-		// Estado_Inicial.show();
-
-		/*
-		 * List<Integer> asdsda = new ArrayList<>(); asdsda.add(1); asdsda.add(2);
-		 * asdsda.add(3); asdsda.add(4); asdsda.add(6); System.out.println(asdsda);
-		 * if(asdsda.equals(this.ultimo.primeros) ) { System.out.println("Son iguales");
-		 * }else { System.out.println("son distintos"); }
-		 */
-
+		Draw_Graphiz(this.name);
+		
+		//System.out.println(DOT);
+		openimg(this.name);
 	}
 
 	public void GenerarArbol(Nodo_Simple_ER actual) {
@@ -442,6 +438,68 @@ public class SimpleER {
 		}
 
 	}
+	
+	private void Create_File(String route, String contents) {
+
+		FileWriter fw = null;
+		PrintWriter pw = null;
+		try {
+			fw = new FileWriter(route);
+			pw = new PrintWriter(fw);
+			pw.write(contents);
+			pw.close();
+			fw.close();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			if (pw != null)
+				pw.close();
+		}
+
+	}
+	
+	//draw the graph
+	public void Draw_Graphiz(String name) {
+
+		try {
+			if(isNone()) {
+				String graph = "digraph L {\r\n"
+						+ "node[shape=note fillcolor=\"#A181FF\" style =filled]\r\n"
+						+ "subgraph cluster_p{\r\n"
+						+ "    bgcolor = \"#FF7878\"\r\n"
+						+ "Nodo1008925772[label=\"Vacio\",fillcolor=\"#81FFDA\"]\r\n"
+						+ "\r\n"
+						+ "}}";
+				Create_File("ARBOLES_202000119\\Arbol_"+ name+".dot", graph);
+			}else {
+				
+				Create_File("ARBOLES_202000119\\Arbol_"+ name+".dot",DOT);
+			}
+			
+			//System.out.println(Text_Graphivz());
+			ProcessBuilder pb;
+			//AFD_202000119
+			pb = new ProcessBuilder("dot", "-Tpng", "-o", "ARBOLES_202000119\\Arbol_"+name+".png", "ARBOLES_202000119\\Arbol_"+ name+".dot");
+			pb.redirectErrorStream(true);
+			pb.start();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void openimg(String name) {
+			try {
+				String url ="ARBOLES_202000119\\Arbol_"+ name+".png";
+				ProcessBuilder p = new ProcessBuilder();
+				p.command("cmd.exe", "/c", url);
+				p.start();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	}
+	
 	
 	
 	public void validacionTipo(Valor_Tipo text) {
