@@ -41,7 +41,7 @@ public class Estados {
 	public void Inciando_tabla_transiciones(SimpleCalcSiguientes siguientes) {
 		dot = "";
 		
-		System.out.println("==== editando valores de estado: " +  this.Estado + " ====" );
+		//System.out.println("==== editando valores de estado: " +  this.Estado + " ====" );
 		String Tipo,Valor;
 		Valor_Tipo valor_tipo;
 		List<Integer> Primeros;
@@ -60,11 +60,11 @@ public class Estados {
 		}
 		encabezadoEstado = listado.primero;
 		listado.AgregarDatos_Aceptados();
-		System.out.println("asd");
+		//System.out.println("asd");
 		//listado.tabla_transiciones_EstadosNuevos();
-		System.out.println("Primeros");
+		//System.out.println("Primeros");
 		
-		listado.showList();
+		//slistado.showList();
 		System.out.println("==============Mostrando Arbol==============");
 		estadosGestion=0;
 		System.out.println(this.name);

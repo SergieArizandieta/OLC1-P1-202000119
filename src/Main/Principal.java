@@ -244,10 +244,20 @@ public class Principal extends JFrame {
 						Analizador_sintactico sintactico = new Analizador_sintactico(lexico);
 						sintactico.parse();
 						System.out.println("=====================================");
-						System.out.println("=====================================");
-						System.out.println("=====================================");
-						System.out.println("=====================================");
 						try {
+							
+							System.out.println("=======ERRORES LEXICOS=========");
+							for (errorList errore : lexico.errores) {
+								JOptionPane.showMessageDialog(null, "Ocurrio un error Lexico, revisar tabla de errores");
+								System.out.println(errore.show());
+							}
+							System.out.println("=======ERRORES SINTACTICOS=========");
+							for (errorList errore : sintactico.errores) {
+								JOptionPane.showMessageDialog(null, "Ocurrio un error Sintactico, revisar tabla de errores");
+								System.out.println(errore.show());
+							}
+							System.out.println("=======ERRORES FIN=========");
+							
 							// System.out.println("\n\n ***Reporte de errores encontrados ");
 							/*
 							
@@ -269,19 +279,8 @@ public class Principal extends JFrame {
 							for (tokens token : lexico.TokensList) {
 								System.out.println(token.show());
 							}*/
-							System.out.println("=======ERRORES=========");
-							for (errorList errore : lexico.errores) {
-								JOptionPane.showMessageDialog(null, "Ocurrio un error Lexico, revisar tabla de errores");
-								System.out.println(errore.show());
-							}
-							
-							for (errorList errore : sintactico.errores) {
-								JOptionPane.showMessageDialog(null, "Ocurrio un error Sintactico, revisar tabla de errores");
-								System.out.println(errore.show());
-							}
-							
-							System.out.println("=======ERRORES FIN=========");
-							System.out.println("Mostrando ER");
+
+							System.out.println("\n\nMostrando ERs");
 
 							for (SimpleER er : sintactico.ERList) {
 								//er.estado_inicial();
@@ -295,7 +294,7 @@ public class Principal extends JFrame {
 							}
 							analizado = true;
 							
-							System.out.println("=====================================");
+							//System.out.println("=====================================");
 							JOptionPane.showMessageDialog(null, "Archivo analizado con exito");
 
 						} catch (Exception e2) {

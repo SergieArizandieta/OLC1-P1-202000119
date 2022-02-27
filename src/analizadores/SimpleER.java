@@ -161,9 +161,9 @@ public class SimpleER {
 				}
 			}
 			if (Op.hijo2 != null) {
-				System.out.println(Op.info + " Padre de: 1:" + Op.hijo1.info + " 2: " + Op.hijo2.info);
+				//System.out.println(Op.info + " Padre de: 1:" + Op.hijo1.info + " 2: " + Op.hijo2.info);
 			} else {
-				System.out.println(Op.info + " Padre de: 1:" + Op.hijo1.info);
+				//System.out.println(Op.info + " Padre de: 1:" + Op.hijo1.info);
 			}
 
 			validdacionOp = true;
@@ -223,18 +223,18 @@ public class SimpleER {
 	}
 
 	public void RedefiniendoHojas() {
-		System.out.println("________________________________________");
+		//System.out.println("________________________________________");
 		
 		
 
-		System.out.println("======Show list Inverse ======");
+		//System.out.println("======Show list Inverse ======");
 		
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
 
 			while (actual != null) {
 				if (actual.hoja) {
-					System.out.println( this.hojas + " : " + actual.info);
+					//System.out.println( this.hojas + " : " + actual.info);
 					actual.noHoja = this.hojas;
 					this.hojas--;
 				} 
@@ -242,26 +242,7 @@ public class SimpleER {
 				actual = actual.next;
 			}
 		}
-		System.out.println("________________________________________");
-	}
-
-	public void probando() {
-		List<Integer> asd = new ArrayList<>();
-		for (int i = 0; i < 10; i++) {
-			asd.add(i);
-		}
-		asd.add(1);
-		asd.add(2);
-		asd.add(3);
-		asd.add(4);
-
-		for (Integer integer : asd) {
-			System.out.println("valor: " + integer);
-		}
-
-		asd = asd.stream().distinct().collect(Collectors.toList());
-		asd.forEach(System.out::println);
-
+		//System.out.println("________________________________________");
 	}
 
 	public void Primero_Ultimos_Hojas() {
@@ -401,13 +382,13 @@ public class SimpleER {
 		}
 		// this.siguientes.InsertarSIguiente(6, -1);
 		// showListUltimos();
-		this.siguientes.showList();
+		//this.siguientes.showList();
 		TablaTransiciones();
 	}
 
 	public void TablaTransiciones() {
 		System.out.println("====== Tabla de transiciones ======");
-		System.out.println(this.ultimo.primeros);
+		//System.out.println(this.ultimo.primeros);
 
 		Estado_Inicial = new Estados(0, false, this.ultimo.primeros, this.siguientes, this.name);
 		Estado_Inicial.Inciando_tabla_transiciones(this.siguientes);

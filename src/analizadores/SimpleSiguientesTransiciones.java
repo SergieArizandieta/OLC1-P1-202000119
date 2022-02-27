@@ -130,7 +130,7 @@ public class SimpleSiguientesTransiciones {
 		if (isNone() == false) {
 
 			if (Estados.encabezadoEstado == this.primero) {
-				System.out.println("cabezera");
+				//System.out.println("cabezera");
 			} else {
 
 				Nodo_SimpleSiguientesTransiciones actual = this.primero;
@@ -228,7 +228,7 @@ public class SimpleSiguientesTransiciones {
 
 	public void tabla_transiciones_EstadosNuevos() {
 
-		System.out.println("==== Tabla de transiciones para nuevos estados ====");
+		//System.out.println("==== Tabla de transiciones para nuevos estados ====");
 		String Tipo, Valor;
 		Valor_Tipo valor_tipo;
 		List<Integer> Primeros;
@@ -257,11 +257,9 @@ public class SimpleSiguientesTransiciones {
 						}
 						actual.listado.AgregarDatos_Aceptados();
 
-						actual.listado.showList();
-						if (actual.Estado == 5) {
-							System.out.println("Aqui es");
-						}
-						System.out.println(actual.Estado);
+						//actual.listado.showList();
+			
+						//System.out.println(actual.Estado);
 					}
 
 				}
@@ -399,7 +397,7 @@ public class SimpleSiguientesTransiciones {
 		Estados.dot += "label= "  + name;
 		Estados.dot+=("}");
 		
-		System.out.println(Estados.dot);
+		//System.out.println(Estados.dot);
 
 	}
 	
