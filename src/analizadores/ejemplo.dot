@@ -1,11 +1,13 @@
 digraph finite_state_machine {
+	 bgcolor = "#F6FFE3"
 	fontname="Helvetica,Arial,sans-serif"
     label= " Cola impresora Blaco y Negro "
-	node [fontname="Helvetica,Arial,sans-serif"]
+	node [fontname="Helvetica,Arial,sans-serif" ]
 	edge [fontname="Helvetica,Arial,sans-serif"]
 	rankdir=LR;
-	node [shape = doublecircle, color = gold]; 0 3 4 8;
-	node [shape = circle, color = skyblue];
+	node [shape = doublecircle, color = gold fillcolor="#EBE3FF" style =filled]; 0 3 4 8;
+	node [shape = circle, color = "#2CB5FF" fillcolor="#E3FFFA" style =filled];
+	  
 	0 -> 2 [label = "SS(B)"];
 	0 -> 1 [label = "SS(S)"];
 	1 -> 3 [label = "S($end)"];

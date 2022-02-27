@@ -58,6 +58,7 @@ public class Estados {
 				valor_tipo = new Valor_Tipo(Valor, Tipo);
 				Primeros = siguientes.SerachPrimeros(i);
 				listado.insert(valor_tipo, Primeros, siguientes);	
+				
 			}
 		}
 		encabezadoEstado = listado.primero;
@@ -71,6 +72,7 @@ public class Estados {
 		estadosGestion=0;
 		System.out.println(this.name);
 		listado.verArbolMain(this.Aceptacion,this.name);
+		listado.AgregarAceptacionAvReporte();
 		//listado.verArbol(this.Aceptacion);
 		
 		/*List<Integer> Primerasdasdos =new ArrayList<>();
