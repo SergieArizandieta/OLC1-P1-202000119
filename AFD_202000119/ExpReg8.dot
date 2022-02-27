@@ -16,4 +16,4 @@ digraph finite_state_machine {
 2->3[label = "P"];
 3->4[label = "D"];
 4->4[label = "D"];
-label= ExpReg2}
+label= ExpReg8}

@@ -72,7 +72,7 @@ public class Estados {
 		listado.AgregarAceptacionAvReporte();
 		listado.verReporte(this.name);
 		listado.Draw_Graphiz(this.name);
-		listado.openimg(this.name);
+		
 		//listado.verArbol(this.Aceptacion);
 		
 		/*List<Integer> Primerasdasdos =new ArrayList<>();
@@ -83,7 +83,9 @@ public class Estados {
 		System.out.println("primera posicion");
 		System.out.println(Primerasdasdos.get(0));*/
 	}
-
 	
-
+	public void verGrafo() {
+		listado.openimg(this.name);
+	}
+	
 }

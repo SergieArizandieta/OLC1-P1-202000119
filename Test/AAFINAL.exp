@@ -1,0 +1,16 @@
+{
+ExpReg1 -> |.*|{L}{D}?{L}."#"{L};
+ExpReg2 ->.{letra} * |"_" | {letra} {digito};
+ExpReg3 ->. {digito} ."."+{digito};
+ExpReg4 ->. {digito} *|"_"| {letra} {digito};
+ExpReg5 -> |||.{L}*||{L}{D}"_"{S}|..{MILLAS}*{LOKSEA}{MILLAS}+{D}|..."#"{E}.{E}{E}..{E}{E}{E}.."@""@"."@""@";
+ExpReg6 -> |||.{L}*||{L}{D}"_"{S}|..{MILLAS}*{LOKSEA}{MILLAS}.+{D}?.","+{D}|.."#"*{LOKSEAN}\n..\"*{LOKEAEAMILLAS}\";
+ExpReg7 ->.."a"*|"a""b""b";
+ExpReg8 -> ..?{S}*"0"|+{D}.*{D}.{P}+{D};
+ExpReg9 -> .+|.{A}{B}.{A}{C}.{D}?{A};
+
+%%
+
+ExpresionReg2 : "34.44";
+
+}

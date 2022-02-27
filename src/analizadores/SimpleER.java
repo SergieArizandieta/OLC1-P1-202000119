@@ -391,8 +391,12 @@ public class SimpleER {
 		//System.out.println(this.ultimo.primeros);
 
 		Estado_Inicial = new Estados(0, false, this.ultimo.primeros, this.siguientes, this.name);
-		Estado_Inicial.Inciando_tabla_transiciones(this.siguientes);
+		//
+		
+		
+		
 		// Estado_Inicial.show();
+		
 		/*
 		 * List<Integer> asdsda = new ArrayList<>(); asdsda.add(1); asdsda.add(2);
 		 * asdsda.add(3); asdsda.add(4); asdsda.add(6); System.out.println(asdsda);
@@ -400,6 +404,14 @@ public class SimpleER {
 		 * }else { System.out.println("son distintos"); }
 		 */
 
+	}
+	
+	public void GenrarGrafo() {
+		Estado_Inicial.Inciando_tabla_transiciones(this.siguientes);
+	}
+	
+	public void verGrafo() {
+		Estado_Inicial.verGrafo();
 	}
 
 	public void showListUltimos() {

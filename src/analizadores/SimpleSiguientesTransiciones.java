@@ -402,58 +402,59 @@ public class SimpleSiguientesTransiciones {
 	}
 	
 	//create the dot dile
-		private void Create_File(String route, String contents) {
+	private void Create_File(String route, String contents) {
 
-			FileWriter fw = null;
-			PrintWriter pw = null;
-			try {
-				fw = new FileWriter(route);
-				pw = new PrintWriter(fw);
-				pw.write(contents);
+		FileWriter fw = null;
+		PrintWriter pw = null;
+		try {
+			fw = new FileWriter(route);
+			pw = new PrintWriter(fw);
+			pw.write(contents);
+			pw.close();
+			fw.close();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			if (pw != null)
 				pw.close();
-				fw.close();
-			} catch (Exception ex) {
-				System.out.println(ex.getMessage());
-			} finally {
-				if (pw != null)
-					pw.close();
-			}
-
 		}
-		
-		//draw the graph
-		public void Draw_Graphiz(String name) {
 
-			try {
-				if(isNone()) {
-					String graph = "digraph L {\r\n"
-							+ "node[shape=note fillcolor=\"#A181FF\" style =filled]\r\n"
-							+ "subgraph cluster_p{\r\n"
-							+ "    label= \" Cola Recepcion \"\r\n"
-							+ "    bgcolor = \"#FF7878\"\r\n"
-							+ "Nodo1008925772[label=\"Vacio\",fillcolor=\"#81FFDA\"]\r\n"
-							+ "\r\n"
-							+ "}}";
-					Create_File(name+".dot", graph);
-				}else {
-					
-					Create_File(name+".dot",Estados.dot);
-				}
+	}
+	
+	//draw the graph
+	public void Draw_Graphiz(String name) {
+
+		try {
+			if(isNone()) {
+				String graph = "digraph L {\r\n"
+						+ "node[shape=note fillcolor=\"#A181FF\" style =filled]\r\n"
+						+ "subgraph cluster_p{\r\n"
+						+ "    label= \" Cola Recepcion \"\r\n"
+						+ "    bgcolor = \"#FF7878\"\r\n"
+						+ "Nodo1008925772[label=\"Vacio\",fillcolor=\"#81FFDA\"]\r\n"
+						+ "\r\n"
+						+ "}}";
+				Create_File(name+".dot", graph);
+			}else {
 				
-				//System.out.println(Text_Graphivz());
-				ProcessBuilder pb;
-				pb = new ProcessBuilder("dot", "-Tpng", "-o", name+".png",  name+".dot");
-				pb.redirectErrorStream(true);
-				pb.start();
-
-			} catch (Exception e) {
-				e.printStackTrace();
+				Create_File("AFD_202000119\\"+ name+".dot",Estados.dot);
 			}
+			
+			//System.out.println(Text_Graphivz());
+			ProcessBuilder pb;
+			//AFD_202000119
+			pb = new ProcessBuilder("dot", "-Tpng", "-o", "AFD_202000119\\"+name+".png", "AFD_202000119\\"+ name+".dot");
+			pb.redirectErrorStream(true);
+			pb.start();
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		public void openimg(String name) {
+	}
+	
+	public void openimg(String name) {
 			try {
-				String url = name+".png";
+				String url ="AFD_202000119\\"+ name+".png";
 				ProcessBuilder p = new ProcessBuilder();
 				p.command("cmd.exe", "/c", url);
 				p.start();
@@ -681,41 +682,4 @@ class Nodo_SimpleSiguientesTransiciones {
 		this.primeros = siguinetes;
 		this.listado = new SimpleSiguientesTransiciones(siguientes);
 	}
-
-	public void ShowAceptacionesNodos(Nodo_SimpleSiguientesTransiciones cabezera) {
-
-		if (cabezera != null) {
-			Nodo_SimpleSiguientesTransiciones actual = cabezera;
-			while (actual != null) {
-
-				if (actual.EstadoRepetido == false) {
-
-					if (actual.Aceptacion) {
-						System.out.print("\tS" + actual.Estado + "* con ");
-					} else {
-						System.out.print("\tS" + actual.Estado + " con ");
-					}
-
-				} else {
-
-					if (actual.Aceptacion) {
-						System.out.print("\tS" + actual.EstadoDestino + "* con ");
-					} else {
-						System.out.print("\tS" + actual.EstadoDestino + " con ");
-					}
-
-				}
-
-				for (Valor_Tipo i : actual.DatosAceptados) {
-					System.out.print(i.valor + ",");
-				}
-
-				System.out.println("");
-
-				// ShowArbol(actual.listado.primero);
-				actual = actual.next;
-			}
-		}
-	}
-
 }

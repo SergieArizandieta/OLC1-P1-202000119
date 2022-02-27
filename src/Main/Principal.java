@@ -43,8 +43,12 @@ import analizadores.Conj;
 
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
-	boolean analizado =false;
+	boolean analizado = false;
+	boolean generado = false;
 	private JPanel contentPane;
+
+	Analizador_Lexico lexico;
+	Analizador_sintactico sintactico;
 
 	/**
 	 * Launch the application.
@@ -102,7 +106,7 @@ public class Principal extends JFrame {
 		contentPane.add(button_analice);
 
 		JButton button_generate = new JButton("Generar Automatas");
-		
+
 		button_generate.setBounds(607, 88, 145, 23);
 		contentPane.add(button_generate);
 
@@ -166,11 +170,12 @@ public class Principal extends JFrame {
 						// System.out.println("Archivo seleccionado de: " + fc.getSelectedFile());
 						// String text = Files.readString(Path.of(fc.getSelectedFile().toString()));
 						// System.out.println(fc.getSelectedFile());
-						
+
 						String text = readUnicodeClassic(fc.getSelectedFile().toString());
 						textEditable.setText(text);
 						label_ruta.setText(fc.getSelectedFile().toString());
 						analizado = false;
+						generado =false;
 					} catch (Exception e2) {
 
 					}
@@ -193,6 +198,7 @@ public class Principal extends JFrame {
 							fw.write(textEditable.getText());
 							JOptionPane.showMessageDialog(null, "Se guardo el nuevo archivo.");
 							analizado = false;
+							generado =false;
 						}
 						label_ruta.setText(fc.getSelectedFile().toString());
 					} catch (Exception e2) {
@@ -213,6 +219,7 @@ public class Principal extends JFrame {
 				} else {
 					try (FileWriter fw = new FileWriter(label_ruta.getText())) {
 						analizado = false;
+						generado =false;
 						fw.write(textEditable.getText());
 						JOptionPane.showMessageDialog(null, "Archivo guardado.");
 					} catch (IOException e1) {
@@ -226,6 +233,7 @@ public class Principal extends JFrame {
 		Item_New.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				analizado = false;
+				generado =false;
 				label_ruta.setText("Null");
 				textEditable.setText("");
 			}
@@ -233,68 +241,67 @@ public class Principal extends JFrame {
 
 		// Botones------------------------------------------------------------------------------------
 		button_analice.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if (label_ruta.getText() != "Null") {
 					try {
 
 						System.out.println("\n\n\n");
-						Analizador_Lexico lexico = new Analizador_Lexico(
-								new BufferedReader(new FileReader(label_ruta.getText())));
-						@SuppressWarnings("deprecation")
-						Analizador_sintactico sintactico = new Analizador_sintactico(lexico);
+						lexico = new Analizador_Lexico(new BufferedReader(new FileReader(label_ruta.getText())));
+
+						sintactico = new Analizador_sintactico(lexico);
 						sintactico.parse();
 						System.out.println("=====================================");
 						try {
-							
+
 							System.out.println("=======ERRORES LEXICOS=========");
 							for (errorList errore : lexico.errores) {
-								JOptionPane.showMessageDialog(null, "Ocurrio un error Lexico, revisar tabla de errores");
+								JOptionPane.showMessageDialog(null,
+										"Ocurrio un error Lexico, revisar tabla de errores");
 								System.out.println(errore.show());
 							}
 							System.out.println("=======ERRORES SINTACTICOS=========");
 							for (errorList errore : sintactico.errores) {
-								JOptionPane.showMessageDialog(null, "Ocurrio un error Sintactico, revisar tabla de errores");
+								JOptionPane.showMessageDialog(null,
+										"Ocurrio un error Sintactico, revisar tabla de errores");
 								System.out.println(errore.show());
 							}
 							System.out.println("=======ERRORES FIN=========");
-							
+
 							// System.out.println("\n\n ***Reporte de errores encontrados ");
 							/*
-							
-
-							
-
-							for (Conj conjunto : sintactico.ConjList) {
-								System.out.println(conjunto.show());
-							}
-							for (Cadenas cadenas : sintactico.CadenasList) {
-								System.out.println(cadenas.show());
-							}
-							
-						
-							
-							*/
+							 * 
+							 * 
+							 * 
+							 * 
+							 * for (Conj conjunto : sintactico.ConjList) {
+							 * System.out.println(conjunto.show()); } for (Cadenas cadenas :
+							 * sintactico.CadenasList) { System.out.println(cadenas.show()); }
+							 * 
+							 * 
+							 * 
+							 */
 							/*
-							System.out.println("Tokens");
-							for (tokens token : lexico.TokensList) {
-								System.out.println(token.show());
-							}*/
+							 * System.out.println("Tokens"); for (tokens token : lexico.TokensList) {
+							 * System.out.println(token.show()); }
+							 */
 
 							System.out.println("\n\nMostrando ERs");
 
 							for (SimpleER er : sintactico.ERList) {
-								//er.estado_inicial();
-								//System.out.println("\nArbol tiene hojas: " + er.hojas);
+								// er.estado_inicial();
+								// System.out.println("\nArbol tiene hojas: " + er.hojas);
 								System.out.println("=========ER=========  " + er.name);
 								// er.initialize();
-								//er.showList();
+								// er.showList();
 								er.GestionArbol();
-								
-								 //er.showListInverse();
+
+								// er.showListInverse();
 							}
+							System.out.println("=====Analidis completado=====");
 							analizado = true;
-							
-							//System.out.println("=====================================");
+
+							// System.out.println("=====================================");
 							JOptionPane.showMessageDialog(null, "Archivo analizado con exito");
 
 						} catch (Exception e2) {
@@ -310,19 +317,28 @@ public class Principal extends JFrame {
 				}
 			}
 		});
-		
+		// Genrar grafos
 		button_generate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(analizado) {
-					
-					
-					JOptionPane.showMessageDialog(null, "Se crearon Automatas correctamente");
-				}else {
+				if (analizado) {
+					if (generado == false) {
+						JOptionPane.showMessageDialog(null, "Se crearon Automatas correctamente");
+						for (SimpleER er : sintactico.ERList) {
+							System.out.println("=========ER=========  " + er.name);
+							er.GenrarGrafo();
+							er.verGrafo();
+						}
+						generado = true;
+						System.out.println("=====Creacion de Automatas finalizada=====");
+					}else {
+						JOptionPane.showMessageDialog(null, "Ya se han generado Automatas");
+					}
+				} else {
 					JOptionPane.showMessageDialog(null, "Debe analisar el archivo primero");
 				}
 			}
 		});
-		
+
 	}
 
 	public String readUnicodeClassic(String fileName) {
