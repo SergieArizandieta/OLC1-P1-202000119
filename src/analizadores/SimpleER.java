@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import net.miginfocom.layout.AC;
+
 public class SimpleER {
-		
+	String DOT = "digraph structs {\n    node [shape=Mrecord];\n";
 	Estados Estado_Inicial;
 	Nodo_Simple_ER primero, ultimo;
 	public String name;
@@ -161,9 +163,10 @@ public class SimpleER {
 				}
 			}
 			if (Op.hijo2 != null) {
-				//System.out.println(Op.info + " Padre de: 1:" + Op.hijo1.info + " 2: " + Op.hijo2.info);
+				// System.out.println(Op.info + " Padre de: 1:" + Op.hijo1.info + " 2: " +
+				// Op.hijo2.info);
 			} else {
-				//System.out.println(Op.info + " Padre de: 1:" + Op.hijo1.info);
+				// System.out.println(Op.info + " Padre de: 1:" + Op.hijo1.info);
 			}
 
 			validdacionOp = true;
@@ -172,8 +175,8 @@ public class SimpleER {
 		}
 
 		AsignarAnulables();
-		//verNoAnulables();
-		//verAnulables();
+		// verNoAnulables();
+		// verAnulables();
 	}
 
 	public void AsignarAnulables() {
@@ -223,26 +226,24 @@ public class SimpleER {
 	}
 
 	public void RedefiniendoHojas() {
-		//System.out.println("________________________________________");
-		
-		
+		// System.out.println("________________________________________");
 
-		//System.out.println("======Show list Inverse ======");
-		
+		// System.out.println("======Show list Inverse ======");
+
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
 
 			while (actual != null) {
 				if (actual.hoja) {
-					//System.out.println( this.hojas + " : " + actual.info);
+					// System.out.println( this.hojas + " : " + actual.info);
 					actual.noHoja = this.hojas;
 					this.hojas--;
-				} 
+				}
 
 				actual = actual.next;
 			}
 		}
-		//System.out.println("________________________________________");
+		// System.out.println("________________________________________");
 	}
 
 	public void Primero_Ultimos_Hojas() {
@@ -304,7 +305,7 @@ public class SimpleER {
 				actual = actual.next;
 			}
 		}
-		//showListPrimeros();
+		// showListPrimeros();
 		InsertarUltimos();
 	}
 
@@ -350,7 +351,7 @@ public class SimpleER {
 				actual = actual.next;
 			}
 		}
-		//showListUltimos();
+		// showListUltimos();
 		InsertarSiguientes();
 	}
 
@@ -382,21 +383,26 @@ public class SimpleER {
 		}
 		// this.siguientes.InsertarSIguiente(6, -1);
 		// showListUltimos();
-		//this.siguientes.showList();
+		// this.siguientes.showList();
 		TablaTransiciones();
 	}
 
 	public void TablaTransiciones() {
 		System.out.println("====== Tabla de transiciones ======");
-		//System.out.println(this.ultimo.primeros);
-
+		// System.out.println(this.ultimo.primeros);
+		DOT = "digraph structs {\n  bgcolor = \"#E3FFFA\"\n   node [shape=Mrecord fillcolor=\"#FFE3FF\" style =filled];\n";
 		Estado_Inicial = new Estados(0, false, this.ultimo.primeros, this.siguientes, this.name);
+		if (isNoneLast() == false) {
+			Nodo_Simple_ER actual = this.ultimo;
+			GenerarArbol(actual);
+		}
+		DOT += "\n}";
+		System.out.println(DOT);
+
 		//
-		
-		
-		
+
 		// Estado_Inicial.show();
-		
+
 		/*
 		 * List<Integer> asdsda = new ArrayList<>(); asdsda.add(1); asdsda.add(2);
 		 * asdsda.add(3); asdsda.add(4); asdsda.add(6); System.out.println(asdsda);
@@ -405,11 +411,70 @@ public class SimpleER {
 		 */
 
 	}
+
+	public void GenerarArbol(Nodo_Simple_ER actual) {
+
+		DOT += "    struct" + actual.hashCode() + "    [label=\"{{" + actual.primeros + "|<here>" ;
+		Valor_Tipo data = new Valor_Tipo(actual.info,actual.tipo);
+		validacionTipo(data);
+		DOT+=  "|"+ actual.ultimos + "}|";
 	
+			
+		if (actual.Anulable) {
+			DOT += "Anulable}\"];\n";
+		} else {
+			DOT += "No Anulable}\"];\n";
+		}
+
+		if (actual.hoja) {
+
+		} else {
+
+			if (actual.hijo1 != null) {
+				DOT += "    struct" + actual.hashCode() + "-> struct" + actual.hijo1.hashCode() + "\n";
+				GenerarArbol(actual.hijo1);
+			}
+			if (actual.hijo2 != null) {
+				DOT += "    struct" + actual.hashCode() + "-> struct" + actual.hijo2.hashCode() + "\n";
+				GenerarArbol(actual.hijo2);
+			}
+
+		}
+
+	}
+	
+	
+	public void validacionTipo(Valor_Tipo text) {
+		if (text.tipo.equals("PHRASE") || text.tipo.equals("SPACE")) {
+			for (int letra = 0; letra < text.valor.length(); letra++) {
+				if (letra == 0) {
+					DOT+=("\\\"");
+				} else if (letra + 1 == text.valor.length()) {
+					DOT+=("\\\"");
+				} else {
+					DOT+=(text.valor.charAt(letra));
+				}
+			}
+
+		} else if (text.tipo.equals("S_DQUOTES")) {
+			
+			DOT+=("\\\\\\\"");
+		} else if (text.tipo.equals("S_QUOTE")) {
+			DOT+=("\\\\'");
+		} else if (text.tipo.equals("S_LBREAK")) {
+			DOT+=("\\\\n");
+		} else if (text.valor.equals("|")) {
+			DOT+=("\\|");
+			
+		} else {
+			DOT+=(text.valor);
+		}
+	}
+
 	public void GenrarGrafo() {
 		Estado_Inicial.Inciando_tabla_transiciones(this.siguientes);
 	}
-	
+
 	public void verGrafo() {
 		Estado_Inicial.verGrafo();
 	}
