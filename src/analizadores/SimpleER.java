@@ -411,7 +411,7 @@ public class SimpleER {
 		
 		Draw_GraphizSiguientes(this.name);
 		Draw_GraphizArbol(this.name);
-		openimgSiguientes(this.name);
+		//openimgSiguientes(this.name);
 		//openimgArbol(this.name);
 		
 	}
