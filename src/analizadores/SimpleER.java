@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import java_cup.reduce_action;
 import net.miginfocom.layout.AC;
 
 public class SimpleER {
+	String SiguinetesDot="";
 	String DOT = "digraph structs {\n    node [shape=Mrecord];\n";
 	Estados Estado_Inicial;
 	Nodo_Simple_ER primero, ultimo;
@@ -400,19 +402,25 @@ public class SimpleER {
 		if (isNoneLast() == false) {
 			Nodo_Simple_ER actual = this.ultimo;
 			GenerarArbol(actual);
+			SiguinetesDot = this.siguientes.CrearGrafo(this.name);
 		}
-		DOT += "\n}";
-		Draw_Graphiz(this.name);
 		
-		//System.out.println(DOT);
-		openimg(this.name);
+		System.out.println(SiguinetesDot);
+		
+		DOT += "\n}";
+		
+		Draw_GraphizSiguientes(this.name);
+		Draw_GraphizArbol(this.name);
+		openimgSiguientes(this.name);
+		//openimgArbol(this.name);
+		
 	}
 
 	public void GenerarArbol(Nodo_Simple_ER actual) {
 
 		DOT += "    struct" + actual.hashCode() + "    [label=\"{{" + actual.primeros + "|<here>" ;
 		Valor_Tipo data = new Valor_Tipo(actual.info,actual.tipo);
-		validacionTipo(data);
+		DOT += validacionTipo(data);
 		DOT+=  "|"+ actual.ultimos + "}|";
 	
 			
@@ -439,6 +447,52 @@ public class SimpleER {
 
 	}
 	
+	
+
+	
+	public void Draw_GraphizSiguientes(String name) {
+
+		try {
+			if(isNone()) {
+				String graph = "digraph L {\r\n"
+						+ "node[shape=note fillcolor=\"#A181FF\" style =filled]\r\n"
+						+ "subgraph cluster_p{\r\n"
+						+ "    bgcolor = \"#FF7878\"\r\n"
+						+ "Nodo1008925772[label=\"Vacio\",fillcolor=\"#81FFDA\"]\r\n"
+						+ "\r\n"
+						+ "}}";
+				Create_File("SIGUIENTES_202000119\\Siguientes_"+ name+".dot", graph);
+			}else {
+				
+				Create_File("SIGUIENTES_202000119\\Siguientes_"+ name+".dot",SiguinetesDot);
+			}
+			
+			//System.out.println(Text_Graphivz());
+			ProcessBuilder pb;
+			//AFD_202000119
+			pb = new ProcessBuilder("dot", "-Tpng", "-o", "SIGUIENTES_202000119\\Siguientes_"+name+".png", "SIGUIENTES_202000119\\Siguientes_"+ name+".dot");
+			pb.redirectErrorStream(true);
+			pb.start();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void openimgSiguientes(String name) {
+			try {
+				String url ="SIGUIENTES_202000119\\Siguientes_"+ name+".png";
+				ProcessBuilder p = new ProcessBuilder();
+				p.command("cmd.exe", "/c", url);
+				p.start();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	}
+	//-----------------------------------------------------------
+	
+	//Creacion arbol graphivz
 	private void Create_File(String route, String contents) {
 
 		FileWriter fw = null;
@@ -458,8 +512,7 @@ public class SimpleER {
 
 	}
 	
-	//draw the graph
-	public void Draw_Graphiz(String name) {
+	public void Draw_GraphizArbol(String name) {
 
 		try {
 			if(isNone()) {
@@ -488,7 +541,7 @@ public class SimpleER {
 		}
 	}
 	
-	public void openimg(String name) {
+	public void openimgArbol(String name) {
 			try {
 				String url ="ARBOLES_202000119\\Arbol_"+ name+".png";
 				ProcessBuilder p = new ProcessBuilder();
@@ -499,10 +552,14 @@ public class SimpleER {
 				e.printStackTrace();
 			}
 	}
+	//-----------------------------------------------------------
+
 	
 	
 	
-	public void validacionTipo(Valor_Tipo text) {
+	
+	public String validacionTipo(Valor_Tipo text) {
+		String DOT ="";
 		if (text.tipo.equals("PHRASE") || text.tipo.equals("SPACE")) {
 			for (int letra = 0; letra < text.valor.length(); letra++) {
 				if (letra == 0) {
@@ -527,6 +584,7 @@ public class SimpleER {
 		} else {
 			DOT+=(text.valor);
 		}
+		return DOT;
 	}
 
 	public void GenrarGrafo() {
