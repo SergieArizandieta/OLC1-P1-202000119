@@ -3,6 +3,7 @@ package analizadores;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,7 +13,7 @@ import analizadores.Estados;
 
 public class SimpleSiguientesTransiciones {
 	// Integer RegulacionEstado;
-	Integer ContadorGeneral=0;
+	Integer ContadorGeneral = 0;
 	String TransicionesDot;
 	List<Valor_Tipo> Terminales;
 	List<Integer> EstadosAceptacion;
@@ -671,96 +672,124 @@ public class SimpleSiguientesTransiciones {
 			TransicionesDot += i.valor;
 			TransicionesDot += "</TD>\n";
 
-			System.out.println(i.valor);
+			//System.out.println(i.valor);
 			ContadorGeneral++;
 		}
 		TransicionesDot += "  </TR>\n";
 		verArbolMainTransiciones(Aceptacion);
-		System.out.println("==========================");
-		TransicionesDot+="\n</TABLE>>];}}";
+		System.out.println("=============das=============");
+		TransicionesDot += "\n</TABLE>>];}}";
 		System.out.println(TransicionesDot);
 	}
 
+	public List<String> QuitarDupicadosString(List<String> lista) {
+		lista = lista.stream().distinct().collect(Collectors.toList());
+		return lista;
+	}
+
+
 	public void verArbolMainTransiciones(Boolean Aceptacion) {
-		TransicionesDot += "  <TR>\n";
+		
+		List<String> CopiaDatosAceptados;
+
+		Boolean descartado = true;
+
+		Integer contador = 0;
 		Boolean encontrado = false;
+		Boolean haydatos = true;
+
+		TransicionesDot += "  <TR>\n";
+
 		if (Aceptacion) {
 			TransicionesDot += "      <TD border=\"3\" bgcolor=\"gold\">0/$ S0</TD>\n";
 		} else {
 			TransicionesDot += "      <TD border=\"3\" bgcolor=\"gold\">0 S0</TD>\n";
 		}
-
 		if (isNone() == false) {
-
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
+			List<String> Temp = new ArrayList<>();
+			List<Valor_Tipo> CopyTerminales = new ArrayList<>();
 			while (actual != null) {
-				for (Valor_Tipo i : Terminales) {
-					for (Valor_Tipo j : actual.DatosAceptados) {
-						if (i.valor.equals(j.valor)) {
-							TransicionesDot += "      <TD border=\"3\"> S" + actual.Estado + "</TD>\n";
-							encontrado = true;
-							break;
-						}
-
-					}
-					
+				for (Valor_Tipo i : actual.DatosAceptados) {
+					Temp.add(i.valor);
 				}
-				if (encontrado == false) {
-					TransicionesDot += "      <TD border=\"3\"> -- </TD>\n";
-				} else {
-					encontrado = false;
-				}
-
 				actual = actual.next;
 			}
+			
+			Temp = QuitarDupicadosString(Temp);
+
+			Boolean continuar = true;
+
+			for (Valor_Tipo i : Terminales) {
+				CopyTerminales.add(i);
+			}
+			System.out.println("==========================");
+			while (descartado) {
+			
+
+				if (CopyTerminales.size() != 0) {
+					for (Valor_Tipo i : CopyTerminales) {
+						continuar = true;
+							if (Temp.size() != 0) {
+								for (String string : Temp) {
+									if (i.valor.equals(string)) {
+										Temp.remove(string);
+										CopyTerminales.remove(i);
+										continuar = false;
+										break;
+									} 
+								}
+							} else {descartado = false;}
+						if (continuar ==false) {break;} 
+					}
+				} else {descartado = false;}
+			}
+
+			for (Valor_Tipo valor_Tipo : CopyTerminales) {
+				System.out.println(valor_Tipo.valor);
+			}
 		}
-		
-		TransicionesDot += "  </TR>\n";
-		ShowArbolTransiciones(this.primero);
 
 	}
 
 	public void ShowArbolTransiciones(Nodo_SimpleSiguientesTransiciones cabezera) {
 		if (cabezera != null) {
 			Nodo_SimpleSiguientesTransiciones actual = cabezera;
-			
+
 			;
 			while (actual != null) {
 				TransicionesDot += "  <TR>\n";
 				if (actual.Aceptacion) {
-					TransicionesDot += "      <TD border=\"3\" bgcolor=\"gold\"  >$ S" + actual.Estado   + "</TD>\n";
-					
+					TransicionesDot += "      <TD border=\"3\" bgcolor=\"gold\"  >$ S" + actual.Estado + "</TD>\n";
+
 				} else {
-					TransicionesDot += "      <TD border=\"3\" bgcolor=\"gold\">S" +  actual.Estado  +"</TD>\n";
+					TransicionesDot += "      <TD border=\"3\" bgcolor=\"gold\">S" + actual.Estado + "</TD>\n";
 				}
-	
-			
-	
+
 				ShowAceptacionesTransiociones(actual.listado.primero);
-				
+
 				actual = actual.next;
 			}
 		}
 	}
 
 	public void ShowAceptacionesTransiociones(Nodo_SimpleSiguientesTransiciones cabezera) {
-		Boolean agregar =true;
-		Integer contador=0;
+		Boolean agregar = true;
+		Integer contador = 0;
 		if (cabezera != null) {
 			Nodo_SimpleSiguientesTransiciones actual = cabezera;
 			while (actual != null) {
 				Boolean encontrado = false;
 
-
 				for (Valor_Tipo i : Terminales) {
 					for (Valor_Tipo j : actual.DatosAceptados) {
 						if (i.valor.equals(j.valor)) {
-							if(actual.EstadoRepetido) {
+							if (actual.EstadoRepetido) {
 								TransicionesDot += "      <TD border=\"3\"> S" + actual.EstadoDestino + "</TD>\n";
-							}else {
+							} else {
 								TransicionesDot += "      <TD border=\"3\" > S" + actual.Estado + "</TD>\n";
 							}
-							
+
 							encontrado = true;
 							break;
 						}
@@ -770,54 +799,47 @@ public class SimpleSiguientesTransiciones {
 					} else {
 						encontrado = false;
 					}
-					
+
 				}
-				
-
-
 
 				if (actual.EstadoRepetido == false) {
 					TransicionesDot += "  </TR>\n";
 					ShowArbolTransiciones(actual);
-					agregar =false;
+					agregar = false;
 				}
-				
-				
+
 				actual = actual.next;
 			}
 		}
-		if(cabezera == null) {
+		if (cabezera == null) {
 			for (int i = 0; i < ContadorGeneral; i++) {
 				TransicionesDot += "      <TD border=\"3\"> -- </TD>\n";
 			}
 		}
-	
-		if(agregar) {
-		TransicionesDot += "  </TR>\n";
+
+		if (agregar) {
+			TransicionesDot += "  </TR>\n";
 		}
 	}
-	
+
 	public void Draw_GraphizTransiciones(String name) {
 
 		try {
-			if(isNone()) {
-				String graph = "digraph L {\r\n"
-						+ "node[shape=note fillcolor=\"#A181FF\" style =filled]\r\n"
-						+ "subgraph cluster_p{\r\n"
-						+ "    bgcolor = \"#FF7878\"\r\n"
-						+ "Nodo1008925772[label=\"Vacio\",fillcolor=\"#81FFDA\"]\r\n"
-						+ "\r\n"
-						+ "}}";
-				Create_File("TRANSICIONES_202000119\\Transiciones"+ name+".dot", graph);
-			}else {
-				
-				Create_File("TRANSICIONES_202000119\\Transiciones"+ name+".dot",TransicionesDot);
+			if (isNone()) {
+				String graph = "digraph L {\r\n" + "node[shape=note fillcolor=\"#A181FF\" style =filled]\r\n"
+						+ "subgraph cluster_p{\r\n" + "    bgcolor = \"#FF7878\"\r\n"
+						+ "Nodo1008925772[label=\"Vacio\",fillcolor=\"#81FFDA\"]\r\n" + "\r\n" + "}}";
+				Create_File("TRANSICIONES_202000119\\Transiciones" + name + ".dot", graph);
+			} else {
+
+				Create_File("TRANSICIONES_202000119\\Transiciones" + name + ".dot", TransicionesDot);
 			}
-			
-			//System.out.println(Text_Graphivz());
+
+			// System.out.println(Text_Graphivz());
 			ProcessBuilder pb;
-			//AFD_202000119
-			pb = new ProcessBuilder("dot", "-Tpng", "-o", "TRANSICIONES_202000119\\Transiciones"+name+".png", "TRANSICIONES_202000119\\Transiciones"+ name+".dot");
+			// AFD_202000119
+			pb = new ProcessBuilder("dot", "-Tpng", "-o", "TRANSICIONES_202000119\\Transiciones" + name + ".png",
+					"TRANSICIONES_202000119\\Transiciones" + name + ".dot");
 			pb.redirectErrorStream(true);
 			pb.start();
 
@@ -825,17 +847,17 @@ public class SimpleSiguientesTransiciones {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void openimgTransiciones(String name) {
-			try {
-				String url ="TRANSICIONES_202000119\\Transiciones"+ name+".png";
-				ProcessBuilder p = new ProcessBuilder();
-				p.command("cmd.exe", "/c", url);
-				p.start();
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		try {
+			String url = "TRANSICIONES_202000119\\Transiciones" + name + ".png";
+			ProcessBuilder p = new ProcessBuilder();
+			p.command("cmd.exe", "/c", url);
+			p.start();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
 
