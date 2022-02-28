@@ -5,11 +5,15 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.sound.midi.Soundbank;
+
 import analizadores.Estados;
 
 public class SimpleSiguientesTransiciones {
 	// Integer RegulacionEstado;
-
+	String TransicionesDot;
+	List<Valor_Tipo> Terminales ;
 	List<Integer> EstadosAceptacion;
 
 	Integer RegulacionNumeroacion = 0;
@@ -657,6 +661,38 @@ public class SimpleSiguientesTransiciones {
 	public Boolean isNoneLast() {
 		return this.ultimo == null;
 	}
+	
+	public void ObtenerCopia(String name) {
+		TransicionesDot = "";
+		TransicionesDot+="digraph G { bgcolor=\"black\"\n ";
+		TransicionesDot+="  fontname=\"Helvetica,Arial,sans-serif\"\n";
+		TransicionesDot+="  edge [fontname=\"Helvetica,Arial,sans-serif\"]\n";
+		TransicionesDot+="  subgraph cluster1 {fillcolor=\"skyblue\" style=\"filled\"\n";
+		TransicionesDot+="  node [shape=Msquare fillcolor=\"gold:brown\" style=\"radial\" gradientangle=180]\n";
+		TransicionesDot+="  label = \" Tabla de transiciones de: " + name +"\"\n";
+		TransicionesDot+="  a0 [label=<  \n";
+		TransicionesDot+="  <TABLE border=\"10\" cellspacing=\"10\" cellpadding=\"10\" style=\"rounded\" gradientangle=\"315\">\n";
+
+		
+		Terminales = new ArrayList<>();
+		Terminales = this.Calcsiguientes.CrearCopiaTerminales();
+		
+		TransicionesDot+="  <TR>\n";
+		TransicionesDot+="      <TD border=\"3\">Estados\\Terminales  </TD>\n";
+		for (Valor_Tipo i : Terminales) {
+			TransicionesDot+="      <TD border=\"3\">";
+			TransicionesDot+= i.valor;
+			TransicionesDot+="</TD>\n";
+			
+			System.out.println(i.valor);
+		}
+		TransicionesDot+="  </TR>";
+		
+		
+		System.out.println("==========================");
+		System.out.println(TransicionesDot);
+	}
+	
 }
 
 class Nodo_SimpleSiguientesTransiciones {

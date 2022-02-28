@@ -84,6 +84,15 @@ public class Estados {
 		System.out.println(Primerasdasdos.get(0));*/
 	}
 	
+	public String Generar_transiciones() {
+		String dot="";
+		System.out.println("==== ========= COPIA =================");
+		this.listado.ObtenerCopia(this.name);
+		
+		
+		return dot;
+	}
+	
 	public void verGrafo() {
 		listado.openimg(this.name);
 	}

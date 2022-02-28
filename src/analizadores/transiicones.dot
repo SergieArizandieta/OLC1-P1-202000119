@@ -3,18 +3,19 @@ digraph G { bgcolor="black"
   node [fontname="Helvetica,Arial,sans-serif"]
   edge [fontname="Helvetica,Arial,sans-serif"]
   subgraph cluster1 {fillcolor="skyblue" style="filled"
-    node [shape=Msquare fillcolor="gold:brown" style="radial" gradientangle=180]
-    label = "Tabla de transiciones"
-    a0 [label=<
-    
- <TABLE border="10" cellspacing="10" cellpadding="10" style="rounded" gradientangle="315">
+  node [shape=Msquare fillcolor="gold:brown" style="radial" gradientangle=180]
+  label = "Tabla de transiciones"
+  a0 [label=<  
+  <TABLE border="10" cellspacing="10" cellpadding="10" style="rounded" gradientangle="315">
  
   <TR>
       <TD border="3">Estados\Terminales  </TD>
-      <TD border="3">a</TD>
-      <TD border="3">b</TD>
-      <TD border="3">c</TD>
+      <TD border="3">L</TD>
+      <TD border="3">D</TD>
+      <TD border="3">"#"</TD>
+      <TD border="3">$</TD>
   </TR>
+
 
   <TR>
       <TD border="3">S0</TD>
@@ -23,8 +24,4 @@ digraph G { bgcolor="black"
       <TD border="3">S3</TD>
   </TR>
   
-</TABLE>>];
-
-}
-
-}
+</TABLE>>];}}

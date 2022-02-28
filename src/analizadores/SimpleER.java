@@ -10,6 +10,7 @@ import java_cup.reduce_action;
 import net.miginfocom.layout.AC;
 
 public class SimpleER {
+	String TransicionesDot="";
 	String SiguinetesDot="";
 	String DOT = "digraph structs {\n    node [shape=Mrecord];\n";
 	Estados Estado_Inicial;
@@ -398,14 +399,23 @@ public class SimpleER {
 		DOT+= "label =\"" + this.name + "\"\n";
 		
 		Estado_Inicial = new Estados(0, false, this.ultimo.primeros, this.siguientes, this.name);
+		Estado_Inicial.Inciando_tabla_transiciones(this.siguientes);
 		
 		if (isNoneLast() == false) {
 			Nodo_Simple_ER actual = this.ultimo;
 			GenerarArbol(actual);
+			
+		}
+		if(this.siguientes.isNone() == false) {
 			SiguinetesDot = this.siguientes.CrearGrafo(this.name);
 		}
 		
-		System.out.println(SiguinetesDot);
+		if(Estado_Inicial.listado.isNone() == false) {
+			TransicionesDot = Estado_Inicial.Generar_transiciones();
+		}
+		
+		
+		System.out.println(TransicionesDot);
 		
 		DOT += "\n}";
 		
@@ -588,7 +598,8 @@ public class SimpleER {
 	}
 
 	public void GenrarGrafo() {
-		Estado_Inicial.Inciando_tabla_transiciones(this.siguientes);
+		//Estado_Inicial.Inciando_tabla_transiciones(this.siguientes);
+		verGrafo();
 	}
 
 	public void verGrafo() {

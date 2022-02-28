@@ -2,9 +2,10 @@ package analizadores;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SimpleCalcSiguientes {
-
+	
 	Nodo_Simple primero,ultimo;
 
 	public SimpleCalcSiguientes() {
@@ -75,6 +76,36 @@ public class SimpleCalcSiguientes {
 		return null;
 	}
 	
+
+	public List<Valor_Tipo> CrearCopiaTerminales() {
+		List<Valor_Tipo> Terminales = new ArrayList<>();
+		
+		if (this.ultimo != null) {
+			Nodo_Simple actual = this.ultimo;
+			
+			while (actual != null) {
+				
+				Boolean agregar = true;
+				
+				for (Valor_Tipo i : Terminales) {
+					if(actual.info.equals(i.valor)) {
+						agregar =false;
+					}
+				}
+				
+				if(agregar) {
+					Valor_Tipo data= new Valor_Tipo(actual.info,actual.tipo);
+					Terminales.add(data);
+				}
+				
+				actual= actual.previous;
+			}
+			
+			return Terminales;
+		}
+		return null;
+	}
+
 	public String validacionTipo(Valor_Tipo text) {
 		String DOT ="";
 		if (text.tipo.equals("PHRASE") || text.tipo.equals("SPACE")) {
@@ -190,8 +221,6 @@ public class SimpleCalcSiguientes {
 			}
 		}
 	}
-
-
 
 	public Boolean isNone() {
 		
