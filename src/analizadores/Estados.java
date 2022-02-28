@@ -87,8 +87,10 @@ public class Estados {
 	public String Generar_transiciones() {
 		String dot="";
 		System.out.println("==== ========= COPIA =================");
-		this.listado.ObtenerCopia(this.name);
-		
+		listado.DotTraniscisiones(this.name,this.Aceptacion);
+		listado.Draw_GraphizTransiciones(this.name);
+		listado.openimgTransiciones(this.name);
+	
 		
 		return dot;
 	}

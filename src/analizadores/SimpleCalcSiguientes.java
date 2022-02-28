@@ -95,7 +95,13 @@ public class SimpleCalcSiguientes {
 				
 				if(agregar) {
 					Valor_Tipo data= new Valor_Tipo(actual.info,actual.tipo);
-					Terminales.add(data);
+					if(data.tipo.equals("Finalizacion")){
+						
+					}else {
+						Terminales.add(data);
+					}
+						
+					
 				}
 				
 				actual= actual.previous;
