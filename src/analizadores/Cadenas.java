@@ -1,7 +1,8 @@
 package analizadores;
 
 public class Cadenas {
-	String string, name;
+	public String string;
+	public String name;
 
 	
 	public Cadenas(String name , String string) {
