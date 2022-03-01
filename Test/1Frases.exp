@@ -1,6 +1,6 @@
 {
 
-ExpReg1 -> |"hola""h";
+ExpReg1 -> |" hola ""h";
 %%
 %%
 %%
