@@ -321,8 +321,11 @@ public class main extends JFrame {
 									System.out.println("=========ER=========  " + er.name);
 									// er.initialize();
 									// er.showList();
+									
+									er.QuitarCadenas();
+									/*
 									er.GestionArbol();
-
+									*/
 									// er.showListInverse();
 								}
 								System.out.println("=====Analidis completado=====");

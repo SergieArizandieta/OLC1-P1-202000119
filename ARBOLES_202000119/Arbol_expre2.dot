@@ -1,0 +1,21 @@
+digraph structs {
+  bgcolor = "#E3FFFA"
+   node [shape=Mrecord fillcolor="#FFE3FF" style =filled];
+label ="expre2"
+    struct1932354021    [label="{{[1]|<here>.|[4]}|No Anulable}"];
+    struct1932354021-> struct1336106727
+    struct1336106727    [label="{{[1]|<here>.|[3]}|No Anulable}"];
+    struct1336106727-> struct68956144
+    struct68956144    [label="{{[1]|<here>\"cadena\"|[1]}|No Anulable}"];
+    struct1336106727-> struct685494134
+    struct685494134    [label="{{[2]|<here>.|[3]}|No Anulable}"];
+    struct685494134-> struct811704769
+    struct811704769    [label="{{[2]|<here>\"a\"|[2]}|No Anulable}"];
+    struct685494134-> struct1700824396
+    struct1700824396    [label="{{[3]|<here>+|[3]}|No Anulable}"];
+    struct1700824396-> struct15095231
+    struct15095231    [label="{{[3]|<here>grupo_1|[3]}|No Anulable}"];
+    struct1932354021-> struct1991281322
+    struct1991281322    [label="{{[4]|<here>$|[4]}|No Anulable}"];
+
+}

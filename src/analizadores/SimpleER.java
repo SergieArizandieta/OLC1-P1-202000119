@@ -86,6 +86,30 @@ public class SimpleER {
 		}
 	}
 
+
+	public void QuitarCadenas() {
+		System.out.println("======Show list ======");
+		if (isNone() == false) {
+			Nodo_Simple_ER actual = this.primero;
+			System.out.println(this.name);
+			while (actual != null) {
+				if (actual.tipo.equals("PHRASE")) {
+					String temp = actual.info.replace("\"","" );
+					if (temp.length() > 1) {
+						System.out.println(temp);
+						System.out.println(actual.info + " - " + actual.tipo + " hoja " + actual.noHoja);
+					}
+				}
+
+				actual = actual.next;
+			}
+		}
+		
+		
+		
+		
+	}
+	
 	public void showListInverse() {
 		System.out.println("======Show list Inverse ======");
 		if (isNoneLast() == false) {
@@ -397,7 +421,7 @@ public class SimpleER {
 		// System.out.println(this.ultimo.primeros);
 		DOT = "digraph structs {\n  bgcolor = \"#E3FFFA\"\n   node [shape=Mrecord fillcolor=\"#FFE3FF\" style =filled];\n";
 		DOT+= "label =\"" + this.name + "\"\n";
-		this.showList();
+		
 		
 		Estado_Inicial = new Estados(0, false, this.ultimo.primeros, this.siguientes, this.name);
 		Estado_Inicial.Inciando_tabla_transiciones(this.siguientes);

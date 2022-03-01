@@ -1,0 +1,11 @@
+digraph structs { 
+  bgcolor = "#FFE8E3"   
+ node [shape=Mrecord fillcolor="#E3EBFF" style =filled];
+label ="expre2"
+struct1 [label="SIGUIENTES| { Valor | Hoja| Siguinetes } | 
+{ \"cadena\"| 1 | [2]}|
+{ \"a\"| 2 | [3]}|
+{ grupo_1| 3 | [3, 4]}|
+{ $| 4 | []}
+"];
+ }
