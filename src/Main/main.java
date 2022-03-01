@@ -353,8 +353,8 @@ public class main extends JFrame {
 						JOptionPane.showMessageDialog(null, "Se crearon Automatas correctamente");
 						for (SimpleER er : sintactico.ERList) {
 							System.out.println("=========ER=========  " + er.name);
-							er.GenrarGrafo();
-							er.verGrafo();
+							//er.GenrarGrafo();
+							//er.verGrafo();
 						}
 						generado = true;
 						System.out.println("=====Creacion de Automatas finalizada=====");
@@ -367,6 +367,7 @@ public class main extends JFrame {
 				}
 			}
 		});
+		
 		// comprobar cadenas
 		button_ComprobarCadeas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
