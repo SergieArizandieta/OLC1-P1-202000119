@@ -1,0 +1,11 @@
+digraph finite_state_machine {
+	bgcolor = "#F6FFE3"
+	node [fontname="Helvetica,Arial,sans-serif" ]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	rankdir=LR;
+	node [shape = doublecircle, color = gold fillcolor="#EBE3FF" style =filled];1;
+	node [shape = circle, color = "#2CB5FF" fillcolor="#E3FFFA" style =filled];
+
+0->1[label = "digito"];
+1->1[label = "\"_\",digito,letra"];
+label= ExpReg4}

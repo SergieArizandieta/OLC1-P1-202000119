@@ -1,0 +1,14 @@
+digraph structs { 
+  bgcolor = "#FFE8E3"   
+ node [shape=Mrecord fillcolor="#E3EBFF" style =filled];
+label ="ExpReg9"
+struct1 [label="SIGUIENTES| { Valor | Hoja| Siguinetes } | 
+{ A| 1 | [2, 4, 4]}|
+{ B| 2 | [1, 3, 5]}|
+{ A| 3 | [4]}|
+{ C| 4 | [1, 3, 5]}|
+{ D| 5 | [6, 7]}|
+{ A| 6 | [7]}|
+{ $| 7 | []}
+"];
+ }
