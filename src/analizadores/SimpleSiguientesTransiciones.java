@@ -678,9 +678,9 @@ public class SimpleSiguientesTransiciones {
 		}
 		TransicionesDot += "  </TR>\n";
 		verArbolMainTransiciones(Aceptacion);
-		System.out.println("=============das=============");
+		//System.out.println("=============das=============");
 		TransicionesDot += "\n</TABLE>>];}}";
-		System.out.println(TransicionesDot);
+		//System.out.println(TransicionesDot);
 	}
 
 	public List<String> QuitarDupicadosString(List<String> lista) {
@@ -749,11 +749,11 @@ public class SimpleSiguientesTransiciones {
 				actual = actual.next;
 			}
 			probando = QuitarDupicadosAceptacion(probando);
-			System.out.println("_________________________________________");
-			for (Valor_Tipo valor_Tipo : probando) {
+			//System.out.println("_________________________________________");
+			//for (Valor_Tipo valor_Tipo : probando) {
 				// System.out.println(valor_Tipo.valor + " = " + valor_Tipo.Estado);
-			}
-			System.out.println("_________________________________________");
+			//}
+			//System.out.println("_________________________________________");
 			Temp = QuitarDupicadosString(Temp);
 
 			Boolean continuar = true;
@@ -761,7 +761,7 @@ public class SimpleSiguientesTransiciones {
 			for (Valor_Tipo i : Terminales) {
 				CopyTerminales.add(i);
 			}
-			System.out.println("==========================");
+			//System.out.println("==========================");
 			while (descartado) {
 
 				if (CopyTerminales.size() != 0) {
@@ -788,9 +788,9 @@ public class SimpleSiguientesTransiciones {
 				}
 			}
 
-			for (Valor_Tipo valor_Tipo : CopyTerminales) {
-				System.out.println(valor_Tipo.valor);
-			}
+			//for (Valor_Tipo valor_Tipo : CopyTerminales) {
+				//System.out.println(valor_Tipo.valor);
+			//}
 
 		}
 	
