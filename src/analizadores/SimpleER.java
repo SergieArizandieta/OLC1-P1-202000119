@@ -456,10 +456,7 @@ public class SimpleER {
 		}
 
 	}
-	
-	
 
-	
 	public void Draw_GraphizSiguientes(String name) {
 
 		try {
