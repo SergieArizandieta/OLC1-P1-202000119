@@ -1,0 +1,41 @@
+digraph structs {
+  bgcolor = "#E3FFFA"
+   node [shape=Mrecord fillcolor="#FFE3FF" style =filled];
+label ="expre2"
+    struct165697174    [label="{{[1]|<here>.|[9]}|No Anulable}"];
+    struct165697174-> struct1544076444
+    struct1544076444    [label="{{[1]|<here>.|[8]}|No Anulable}"];
+    struct1544076444-> struct1731467977
+    struct1731467977    [label="{{[1]|<here>.|[6]}|No Anulable}"];
+    struct1731467977-> struct675925215
+    struct675925215    [label="{{[1]|<here>\"c\"|[1]}|No Anulable}"];
+    struct1731467977-> struct597060518
+    struct597060518    [label="{{[2]|<here>.|[6]}|No Anulable}"];
+    struct597060518-> struct988012308
+    struct988012308    [label="{{[2]|<here>\"a\"|[2]}|No Anulable}"];
+    struct597060518-> struct2101770451
+    struct2101770451    [label="{{[3]|<here>.|[6]}|No Anulable}"];
+    struct2101770451-> struct462388368
+    struct462388368    [label="{{[3]|<here>\"d\"|[3]}|No Anulable}"];
+    struct2101770451-> struct198504220
+    struct198504220    [label="{{[4]|<here>.|[6]}|No Anulable}"];
+    struct198504220-> struct795580941
+    struct795580941    [label="{{[4]|<here>\"e\"|[4]}|No Anulable}"];
+    struct198504220-> struct1629880275
+    struct1629880275    [label="{{[5]|<here>.|[6]}|No Anulable}"];
+    struct1629880275-> struct19821723
+    struct19821723    [label="{{[5]|<here>\"n\"|[5]}|No Anulable}"];
+    struct1629880275-> struct766429101
+    struct766429101    [label="{{[6]|<here>\"a\"|[6]}|No Anulable}"];
+    struct1544076444-> struct1583782887
+    struct1583782887    [label="{{[7]|<here>.|[8]}|No Anulable}"];
+    struct1583782887-> struct275987615
+    struct275987615    [label="{{[7]|<here>\"a\"|[7]}|No Anulable}"];
+    struct1583782887-> struct1644894374
+    struct1644894374    [label="{{[8]|<here>+|[8]}|No Anulable}"];
+    struct1644894374-> struct960706789
+    struct960706789    [label="{{[8]|<here>grupo_1|[8]}|No Anulable}"];
+    struct165697174-> struct1393567113
+    struct1393567113    [label="{{[9]|<here>$|[9]}|No Anulable}"];
+
+}
