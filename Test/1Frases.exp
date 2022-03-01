@@ -2,7 +2,11 @@
 //ExpresionReg2 : "34.44";
 ExpReg1 -> |" hola ""h";
 %%
+%%
+%%
+%%
+%%
 
-
-
+%%
+ExpresionReg2 : "34.44";
 }
