@@ -1,15 +1,11 @@
 package Main;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JButton;
+import java.awt.Font;
+import java.awt.TextArea;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,30 +15,40 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextPane;
-import java.awt.Color;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.Font;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
-import java.awt.TextArea;
+import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import analizadores.Analizador_Lexico;
 import analizadores.Analizador_sintactico;
-import analizadores.errorList;
-import analizadores.SimpleER;
+import analizadores.Cadenas;
 import analizadores.Reportes;
+import analizadores.SimpleER;
+import analizadores.errorList;
 
-@SuppressWarnings("serial")
-public class Principal extends JFrame {
+public class main extends JFrame {
+
 	boolean analizado = false;
 	boolean generado = false;
+	boolean AutomataCreado = false;
 	private JPanel contentPane;
 
 	Analizador_Lexico lexico;
 	Analizador_sintactico sintactico;
+	private JButton button_ComprobarCadeas;
 
 	/**
 	 * Launch the application.
@@ -51,7 +57,7 @@ public class Principal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Principal frame = new Principal();
+					main frame = new main();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -63,7 +69,7 @@ public class Principal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Principal() {
+	public main() {
 		JFileChooser fc = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("*.exp", "exp");
 		fc.setFileFilter(filter);
@@ -154,6 +160,11 @@ public class Principal extends JFrame {
 		label_ruta.setBounds(52, 23, 569, 14);
 		contentPane.add(label_ruta);
 
+		button_ComprobarCadeas = new JButton("Comprobar Cadenas");
+
+		button_ComprobarCadeas.setBounds(607, 122, 161, 23);
+		contentPane.add(button_ComprobarCadeas);
+
 		// Acciones------------------------------------------------------------------------------------
 		// Menu------------------------------------------------------------------------------------
 		// Abrir
@@ -170,6 +181,7 @@ public class Principal extends JFrame {
 						label_ruta.setText(fc.getSelectedFile().toString());
 						analizado = false;
 						generado = false;
+						AutomataCreado = false;
 					} catch (Exception e2) {
 
 					}
@@ -192,6 +204,7 @@ public class Principal extends JFrame {
 							fw.write(textEditable.getText());
 							JOptionPane.showMessageDialog(null, "Se guardo el nuevo archivo.");
 							analizado = false;
+							AutomataCreado = false;
 							generado = false;
 						}
 						label_ruta.setText(fc.getSelectedFile().toString());
@@ -213,6 +226,7 @@ public class Principal extends JFrame {
 				} else {
 					try (FileWriter fw = new FileWriter(label_ruta.getText())) {
 						analizado = false;
+						AutomataCreado = false;
 						generado = false;
 						fw.write(textEditable.getText());
 						JOptionPane.showMessageDialog(null, "Archivo guardado.");
@@ -227,6 +241,7 @@ public class Principal extends JFrame {
 		Item_New.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				analizado = false;
+				AutomataCreado = false;
 				generado = false;
 				label_ruta.setText("Null");
 				textEditable.setText("");
@@ -269,6 +284,7 @@ public class Principal extends JFrame {
 								}
 								Errores = true;
 								analizado = false;
+								AutomataCreado = false;
 
 							} else {
 								System.out.println("Todo Bien!!!");
@@ -337,16 +353,30 @@ public class Principal extends JFrame {
 						JOptionPane.showMessageDialog(null, "Se crearon Automatas correctamente");
 						for (SimpleER er : sintactico.ERList) {
 							System.out.println("=========ER=========  " + er.name);
-							er.GenrarGrafo();
-							er.verGrafo();
+							//er.GenrarGrafo();
+							//er.verGrafo();
 						}
 						generado = true;
 						System.out.println("=====Creacion de Automatas finalizada=====");
+						AutomataCreado = true;
 					} else {
 						JOptionPane.showMessageDialog(null, "Ya se han generado Automatas");
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Debe analisar el archivo primero");
+				}
+			}
+		});
+		
+		// comprobar cadenas
+		button_ComprobarCadeas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (AutomataCreado) {
+					for (Cadenas i : sintactico.CadenasList) {
+						System.out.println(i.name + " - " + i.string);
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Se deben genera Automatas para validar cadenas");
 				}
 			}
 		});
@@ -373,5 +403,4 @@ public class Principal extends JFrame {
 		}
 		return "";
 	}
-
 }
