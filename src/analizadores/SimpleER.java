@@ -792,6 +792,11 @@ public class SimpleER {
 			}
 		}
 	}
+	
+	public void ValidarCadena(String cadena) {
+		
+		Estado_Inicial.validadarCadena(cadena);
+	}
 
 }
 

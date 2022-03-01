@@ -8,6 +8,7 @@ import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.DataOutput;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
@@ -320,12 +321,10 @@ public class main extends JFrame {
 									// System.out.println("\nArbol tiene hojas: " + er.hojas);
 									System.out.println("=========ER=========  " + er.name);
 									// er.initialize();
-									 //er.showList();
-									
-									
-									
+									// er.showList();
+
 									er.GestionArbol();
-									
+
 									// er.showListInverse();
 								}
 								System.out.println("=====Analidis completado=====");
@@ -356,8 +355,8 @@ public class main extends JFrame {
 						JOptionPane.showMessageDialog(null, "Se crearon Automatas correctamente");
 						for (SimpleER er : sintactico.ERList) {
 							System.out.println("=========ER=========  " + er.name);
-							//er.GenrarGrafo();
-							//er.verGrafo();
+							// er.GenrarGrafo();
+							// er.verGrafo();
 						}
 						generado = true;
 						System.out.println("=====Creacion de Automatas finalizada=====");
@@ -370,18 +369,49 @@ public class main extends JFrame {
 				}
 			}
 		});
-		
+
 		// comprobar cadenas
 		button_ComprobarCadeas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (AutomataCreado) {
-					for (Cadenas i : sintactico.CadenasList) {
-						System.out.println(i.name + " - " + i.string);
+
+				try {
+
+					if (AutomataCreado) {
+						System.out.println("==== Validando Cadenas ====");
+
+						if (sintactico.CadenasList.size() > 0) {
+
+							boolean encontrado = false;
+
+							for (Cadenas i : sintactico.CadenasList) {
+								encontrado = false;
+
+								for (SimpleER er : sintactico.ERList) {
+									if (i.name.equals(er.name)) {
+										System.out.println("cadena: " + i.string + " para: " + er.name);
+										er.ValidarCadena(i.string);
+										encontrado = true;
+										break;
+									}
+
+								}
+								if (encontrado == false) {
+									System.out.println("No se encontro er: " + i.name + " para la cadena: " + i.string);
+
+								}
+							}
+
+						}else {
+							System.out.println("no hay cadenas");
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "Se deben genera Automatas para validar cadenas");
 					}
-				}else {
-					JOptionPane.showMessageDialog(null, "Se deben genera Automatas para validar cadenas");
+				} catch (Exception e2) {
+					System.out.println(e2);
 				}
 			}
+
 		});
 
 	}

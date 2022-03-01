@@ -86,6 +86,14 @@ public class Estados {
 		return dot;
 	}
 	
+	public void validadarCadena(String cadena) {
+		System.out.println(cadena);
+		for (int i = 0; i < cadena.length(); i++) {
+			System.out.println(cadena.charAt(i));
+
+		}
+	}
+	
 	public void verGrafo() {
 		listado.openimg(this.name);
 	}

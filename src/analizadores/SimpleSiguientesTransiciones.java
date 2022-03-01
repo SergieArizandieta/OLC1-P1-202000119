@@ -912,7 +912,8 @@ public class SimpleSiguientesTransiciones {
 
 class Nodo_SimpleSiguientesTransiciones {
 	Nodo_SimpleSiguientesTransiciones next, previous;
-
+	String CadenaAceptacion="";
+	
 	Integer Numeracion;
 	Boolean Verificado = false;
 	Integer Estado;
