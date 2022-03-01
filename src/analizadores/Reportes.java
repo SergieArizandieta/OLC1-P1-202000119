@@ -122,7 +122,7 @@ public class Reportes {
 							+ "<head>\r\n"
 							+ "<meta charset=\"UTF-8\">\r\n"
 							+ "<meta name=\"name\" content=\"Sergie Daniel Arizandieta Yol\">\r\n"
-							+ "<meta name=\"description\" content=\"Reportes de Errores\">\r\n"
+							+ "<meta name=\"description\" content=\"Reporte de Errores\">\r\n"
 							+ "<meta name=\"keywods\" content=\"Creacion de AFDS\">\r\n"
 							+ "<meta name=\"robots\" content=\"Index, Follow\">\r\n"
 							+ "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n"
