@@ -1,0 +1,26 @@
+{
+	<!   Este es un 
+	comentario de 
+	muchas lineas
+	!>
+
+	//este comentario es de una linea
+
+	CONJ:digito -> 0~9;
+	
+	decimal-> . + {digito} . "." + {digito};
+	decimal2-> . {digito} . "." + {digito};
+	
+	%%
+	%%
+    //ahora toca evaluar las cadenas
+
+	decimal:"1545.15";  //esta cadena es CORRECTA
+	decimal:"4.15";  //esta cadena es CORRECTA
+    decimal:"12"; //esta cadena es INCORRECTA  
+    decimal:"105."; <! esta cadena es INCORRECTA !>
+
+	decimal2:"1545.15";  //esta cadena es INCORRECTA
+	decimal2:"5.15";  //esta cadena es CORRECTA	
+
+}

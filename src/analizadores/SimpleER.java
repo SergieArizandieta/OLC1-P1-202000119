@@ -397,6 +397,7 @@ public class SimpleER {
 		// System.out.println(this.ultimo.primeros);
 		DOT = "digraph structs {\n  bgcolor = \"#E3FFFA\"\n   node [shape=Mrecord fillcolor=\"#FFE3FF\" style =filled];\n";
 		DOT+= "label =\"" + this.name + "\"\n";
+		this.showList();
 		
 		Estado_Inicial = new Estados(0, false, this.ultimo.primeros, this.siguientes, this.name);
 		Estado_Inicial.Inciando_tabla_transiciones(this.siguientes);

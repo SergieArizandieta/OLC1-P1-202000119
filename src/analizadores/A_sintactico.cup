@@ -6,7 +6,7 @@ parser code
 {:
     public static LinkedList<errorList> errores = new LinkedList<errorList>(); 
     public static LinkedList<tokens> TokensList  = new LinkedList<tokens>();
-    public static LinkedList<SimpleER> ERList  = new LinkedList<SimpleER>();
+    public  LinkedList<SimpleER> ERList  = new LinkedList<SimpleER>();
     public static LinkedList<Conj> ConjList  = new LinkedList<Conj>();
     public static LinkedList<Cadenas> CadenasList  = new LinkedList<Cadenas>();
     Cadenas CadenasTemp;
@@ -156,8 +156,8 @@ CONTENIDOR ::=
     S_PCENTS CADENAS {:/*System.out.println("<CONTENIDOR>");*/:}
     | CONTENIDO  {:/*System.out.println("<CONTENIDOR>");*/:};
 
-CADENAS ::= 
-    IDENTIFICADOR:a S_DOTS PHRASE:b S_SEMICOLON CADENASR  {:System.out.println("<CADENAS> " + a + " : " + b);
+CADENAS ::= S_PCENTS CADENASR
+    |IDENTIFICADOR:a S_DOTS PHRASE:b S_SEMICOLON CADENASR  {:System.out.println("<CADENAS> " + a + " : " + b);
     String temptext = (String) b;
     CadenasTemp = new Cadenas((String) a ,((String) b).replace("\"",""));
     CadenasList.add(CadenasTemp);
