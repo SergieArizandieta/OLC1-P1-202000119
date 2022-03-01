@@ -19,9 +19,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import java.awt.Color;
@@ -32,14 +29,11 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.TextArea;
-
 import analizadores.Analizador_Lexico;
 import analizadores.Analizador_sintactico;
-import analizadores.Cadenas;
 import analizadores.errorList;
-import analizadores.tokens;
 import analizadores.SimpleER;
-import analizadores.Conj;
+import analizadores.Reportes;
 
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
@@ -175,7 +169,7 @@ public class Principal extends JFrame {
 						textEditable.setText(text);
 						label_ruta.setText(fc.getSelectedFile().toString());
 						analizado = false;
-						generado =false;
+						generado = false;
 					} catch (Exception e2) {
 
 					}
@@ -198,7 +192,7 @@ public class Principal extends JFrame {
 							fw.write(textEditable.getText());
 							JOptionPane.showMessageDialog(null, "Se guardo el nuevo archivo.");
 							analizado = false;
-							generado =false;
+							generado = false;
 						}
 						label_ruta.setText(fc.getSelectedFile().toString());
 					} catch (Exception e2) {
@@ -219,7 +213,7 @@ public class Principal extends JFrame {
 				} else {
 					try (FileWriter fw = new FileWriter(label_ruta.getText())) {
 						analizado = false;
-						generado =false;
+						generado = false;
 						fw.write(textEditable.getText());
 						JOptionPane.showMessageDialog(null, "Archivo guardado.");
 					} catch (IOException e1) {
@@ -233,7 +227,7 @@ public class Principal extends JFrame {
 		Item_New.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				analizado = false;
-				generado =false;
+				generado = false;
 				label_ruta.setText("Null");
 				textEditable.setText("");
 			}
@@ -245,29 +239,46 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (label_ruta.getText() != "Null") {
 					try {
-
+						Reportes reportes = new Reportes();
+						Boolean Errores = false;
 						System.out.println("\n\n\n");
 						lexico = new Analizador_Lexico(new BufferedReader(new FileReader(label_ruta.getText())));
 
 						sintactico = new Analizador_sintactico(lexico);
 						sintactico.parse();
-						System.out.println("=====================================");
+						System.out.println("===============ERRORES ===================");
 						try {
+							if (lexico.errores.size() > 0 || sintactico.errores.size() > 0) {
+								if (lexico.errores.size() > 0) {
+									System.out.println("=======ERRORES LEXICOS=========");
+									JOptionPane.showMessageDialog(null,
+											"Ocurrio un error Lexico, revisar tabla de errores");
+									for (errorList errore : lexico.errores) {
 
-							System.out.println("=======ERRORES LEXICOS=========");
-							for (errorList errore : lexico.errores) {
-								JOptionPane.showMessageDialog(null,
-										"Ocurrio un error Lexico, revisar tabla de errores");
-								System.out.println(errore.show());
+										System.out.println(errore.show());
+									}
+								}
+								if (sintactico.errores.size() > 0) {
+									System.out.println("=======ERRORES SINTACTICOS=========");
+									JOptionPane.showMessageDialog(null,
+											"Ocurrio un error Sintactico, revisar tabla de errores");
+									for (errorList errore : sintactico.errores) {
+
+										System.out.println(errore.show());
+									}
+								}
+								Errores = true;
+								analizado = false;
+
+							} else {
+								System.out.println("Todo Bien!!!");
+								Errores = false;
+
 							}
-							System.out.println("=======ERRORES SINTACTICOS=========");
-							for (errorList errore : sintactico.errores) {
-								JOptionPane.showMessageDialog(null,
-										"Ocurrio un error Sintactico, revisar tabla de errores");
-								System.out.println(errore.show());
-							}
+
 							System.out.println("=======ERRORES FIN=========");
 
+							reportes.GenerarReporte(lexico.errores, sintactico.errores);
 							// System.out.println("\n\n ***Reporte de errores encontrados ");
 							/*
 							 * 
@@ -285,27 +296,28 @@ public class Principal extends JFrame {
 							 * System.out.println("Tokens"); for (tokens token : lexico.TokensList) {
 							 * System.out.println(token.show()); }
 							 */
+							if (Errores == false) {
+								System.out.println("\n\nMostrando ERs");
 
-							System.out.println("\n\nMostrando ERs");
+								for (SimpleER er : sintactico.ERList) {
+									// er.estado_inicial();
+									// System.out.println("\nArbol tiene hojas: " + er.hojas);
+									System.out.println("=========ER=========  " + er.name);
+									// er.initialize();
+									// er.showList();
+									er.GestionArbol();
 
-							for (SimpleER er : sintactico.ERList) {
-								// er.estado_inicial();
-								// System.out.println("\nArbol tiene hojas: " + er.hojas);
-								System.out.println("=========ER=========  " + er.name);
-								// er.initialize();
-								// er.showList();
-								er.GestionArbol();
+									// er.showListInverse();
+								}
+								System.out.println("=====Analidis completado=====");
+								analizado = true;
 
-								// er.showListInverse();
+								// System.out.println("=====================================");
+								JOptionPane.showMessageDialog(null, "Archivo analizado con exito");
 							}
-							System.out.println("=====Analidis completado=====");
-							analizado = true;
-
-							// System.out.println("=====================================");
-							JOptionPane.showMessageDialog(null, "Archivo analizado con exito");
-
 						} catch (Exception e2) {
-							JOptionPane.showMessageDialog(null, "Ocurrio un error, revisar archivos de entrada");
+							JOptionPane.showMessageDialog(null,
+									"Ocurrio un error, revisar archivo de entreda y tabla de errores");
 							System.out.println(e2);
 						}
 					} catch (Exception e1) {
@@ -330,7 +342,7 @@ public class Principal extends JFrame {
 						}
 						generado = true;
 						System.out.println("=====Creacion de Automatas finalizada=====");
-					}else {
+					} else {
 						JOptionPane.showMessageDialog(null, "Ya se han generado Automatas");
 					}
 				} else {

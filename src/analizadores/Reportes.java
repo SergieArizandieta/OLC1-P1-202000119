@@ -1,112 +1,111 @@
 package analizadores;
 
 import java.io.FileWriter;
+import java.util.LinkedList;
 
 public class Reportes {
 	//Reportes Start
 
 	
-	static String ReporteInicio="",ReporteFinal="",ReporteJuntar="";
-	static String ReporteMamiferos="",ReporteMoluscos="";
+	 String ReporteInicio="",ReporteFinal="",ReporteJuntar="";
+	 String ReporteLexico="",ReporteSintactico="";
+	 String ReporteMamiferos="",ReporteMoluscos="";
 	
 	
-	//Mami
-	public static void Mami(String nombre,String nombre_cientigfico, String Reino, String huesos,int hueso,String Desplazamiento, String Sangre) {
+	public void GenerarReporte(LinkedList<errorList> errores, LinkedList<errorList> errores2) {
+		Starrt();
+		ReporteLexico(errores);
+		ReporteSintactico(errores2);
+		ReporteJuntar();
+		ReporteMostrar();
+	}
+	
+	public void ReporteLexico(LinkedList<errorList> errores) {
+		//String tipo,String lexema,String descripcion, int linea, int columna
 		
-
-		
-		ReporteMamiferos= "<table class=\"steelBlueCols\">\r\n"
+		ReporteLexico= "<table class=\"steelBlueCols\">\r\n"
 				+ "<thead>\r\n"
 				+ "<tr>\r\n"
-				+ "<th>Reino</th>\r\n"
-				+ "<th>Nombre</th>\r\n"
-				+ "<th>Nombre Cientifico</th>\r\n"
-				+ "<th>Huesos</th>\r\n"
-				+ "<th>Cantidad de Huesos</th>\r\n"
-				+ "<th>Dezplasamiento</th>\r\n"
-				+ "<th>Sangre</th>\r\n"
+				+ "<th>Linea</th>\r\n"
+				+ "<th>Columna</th>\r\n"
+				+ "<th>Lexema</th>\r\n"
+				+ "<th>Tipo</th>\r\n"
+				+ "<th>Descripcion</th>\r\n"
 				+ "</tr>\r\n"
 				+ "</thead>\r\n"
 				+ "<tbody>\r\n"
 				+ "<tr>\r\n";
 		
-		
-	
-		ReporteMamiferos+="<td>" + Reino +" </td> " ;
- 					
-		ReporteMamiferos+="<td>" + nombre +" </td> " ;
- 		
-		ReporteMamiferos+="<td>" +nombre_cientigfico  +" </td> " ;
- 	
-		ReporteMamiferos+="<td>" + huesos+" </td> " ;
-		
-		ReporteMamiferos+="<td>" + hueso +" </td> " ;
-		
-		ReporteMamiferos+="<td>" + Desplazamiento +" </td> " ;
-		
-		ReporteMamiferos+="<td>" + Sangre +" </td> " ;
-
-		ReporteMamiferos += "</tr></tbody></table><br> ";
-		}
-	
-	
-	
-	//moluscos
-		public static void molu(String nombre,String nombre_cientigfico, String Reino , String Carece, String ExoEsqueleto,
-				 String  Respiracion, String Concha) {
+		for (errorList errorList : errores) {
+			ReporteLexico+= "<tr>\r\n";
 			
-
-			
-			ReporteMoluscos= "<table class=\"steelBlueCols\">\r\n"
-					+ "<thead>\r\n"
-					+ "<tr>\r\n"
-					+ "<th>Reino</th>\r\n"
-					+ "<th>Nombre</th>\r\n"
-					+ "<th>Nombre Cientifico</th>\r\n"
-					+ "<th>Huesos</th>\r\n"
-					+ "<th>Cuerpos</th>\r\n"
-					+ "<th>Respiracion</th>\r\n"
-					+ "<th>Concha</th>\r\n"
-					+ "</tr>\r\n"
-					+ "</thead>\r\n"
-					+ "<tbody>\r\n"
-					+ "<tr>\r\n";
-			
-			
-		
-			ReporteMoluscos+="<td>" + Reino +" </td> " ;
-	 					
-			ReporteMoluscos+="<td>" + nombre +" </td> " ;
+			ReporteLexico+="<td>" + errorList.linea +" </td> " ;
+				
+			ReporteLexico+="<td>" + errorList.columna +" </td> " ;
 	 		
-			ReporteMoluscos+="<td>" +nombre_cientigfico  +" </td> " ;
+			ReporteLexico+="<td>" + errorList.lexema+" </td> " ;
+			
+			ReporteLexico+="<td>" + errorList.tipo +" </td> " ;
+			
+			ReporteLexico+="<td>" + errorList.descripcion +" </td> " ;
+			
+			ReporteLexico+= "</tr>\r\n";
+			
+		}
+		ReporteLexico += "</tbody></table><br> ";
+	}
+	
+	public void ReporteSintactico(LinkedList<errorList> errores) {
+		ReporteSintactico= "</br></br></br><table class=\"steelBlueCols\">\r\n"
+				+ "<thead>\r\n"
+				+ "<tr>\r\n"
+				+ "<th>Linea</th>\r\n"
+				+ "<th>Columna</th>\r\n"
+				+ "<th>Lexema</th>\r\n"
+				+ "<th>Tipo</th>\r\n"
+				+ "<th>Descripcion</th>\r\n"
+				+ "</tr>\r\n"
+				+ "</thead>\r\n"
+				+ "<tbody>\r\n"
+				+ "<tr>\r\n";
+		
+		for (errorList errorList : errores) {
+			ReporteSintactico+= "<tr>\r\n";
+			
+			ReporteSintactico+="<td>" + errorList.linea +" </td> " ;
+				
+			ReporteSintactico+="<td>" + errorList.columna +" </td> " ;
+	 		
 	 	
-			ReporteMoluscos+="<td>" + Carece+" </td> " ;
+			ReporteSintactico+="<td>" + errorList.lexema+" </td> " ;
 			
-			ReporteMoluscos+="<td>" + ExoEsqueleto +" </td> " ;
+			ReporteSintactico+="<td>" + errorList.tipo +" </td> " ;
 			
-			ReporteMoluscos+="<td>" + Respiracion +" </td> " ;
+			ReporteSintactico+="<td>" + errorList.descripcion +" </td> " ;
 			
-			ReporteMoluscos+="<td>" + Concha +" </td> " ;
+			ReporteSintactico+= "</tr>\r\n";
 			
-			ReporteMoluscos += "</tr></tbody></table><br> ";
-			}
+		}
+		ReporteSintactico += "</tbody></table><br></br></br> ";
+	}
+	
+
 	
 	
 	//REPORTE JUNTA
-	public static void ReporteJuntar() {
+	public  void ReporteJuntar() {
 	
-		ReporteJuntar = ReporteMamiferos + ReporteMoluscos;
-		ReporteMostrar();
-		
-		
+		ReporteJuntar = ReporteLexico + ReporteSintactico;
+
+			
 	}
 	
 	//Reporte mostrear 
-	public static void ReporteMostrar() {
+	public  void ReporteMostrar() {
 
 		try{
 			
-			FileWriter archivo = new FileWriter("ERRORES_202000119/Errores.html");
+			FileWriter archivo = new FileWriter("./ERRORES_202000119/Errores.html");
 			archivo.write(ReporteInicio + ReporteJuntar +   ReporteFinal );
 			
 			archivo.close();
@@ -116,15 +115,15 @@ public class Reportes {
 		}
 	
 	//Reportes incio
-		public static void Starrt() {
+		public  void Starrt() {
 
 					ReporteInicio="<!DOCTYPE html>\r\n"
 							+ "<html>\r\n"
 							+ "<head>\r\n"
 							+ "<meta charset=\"UTF-8\">\r\n"
 							+ "<meta name=\"name\" content=\"Sergie Daniel Arizandieta Yol\">\r\n"
-							+ "<meta name=\"description\" content=\"Reportes sobre opraciones de la practica 2\">\r\n"
-							+ "<meta name=\"keywods\" content=\"Opraciones de usuarios en Java\">\r\n"
+							+ "<meta name=\"description\" content=\"Reportes de Errores\">\r\n"
+							+ "<meta name=\"keywods\" content=\"Creacion de AFDS\">\r\n"
 							+ "<meta name=\"robots\" content=\"Index, Follow\">\r\n"
 							+ "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n"
 							+ "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/styles.css\"/>\r\n"
@@ -134,9 +133,11 @@ public class Reportes {
 							+ "<body>\r\n"
 							+ "\r\n"
 							+ "<center>\r\n"
-							+ "<h1 class=\"titulos\"><font size=\"30px\"><b> Reporte: por Sergie Arizandieta, 202000119</b></h1></center>";
+							+ "<h1 class=\"titulos\"><font size=\"30px\"><b>Reportes de Errores </b></h1></center><center>";
 					
-					ReporteFinal="</body>\r\n"
+					ReporteFinal="</center> <marquee behavior=\"alternate\">\r\n"
+							+ "   Sergie Daniel Arizandieta Yol - 202000119\r\n"
+							+ "  </marquee></body>\r\n"
 							+ "</html>";
 					
 				}
