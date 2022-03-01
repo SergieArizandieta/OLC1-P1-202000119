@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import javax.sound.midi.Soundbank;
 
 import analizadores.Estados;
+import jflex.exceptions.MacroException;
 
 public class SimpleSiguientesTransiciones {
 	// Integer RegulacionEstado;
@@ -672,7 +673,7 @@ public class SimpleSiguientesTransiciones {
 			TransicionesDot += i.valor;
 			TransicionesDot += "</TD>\n";
 
-			//System.out.println(i.valor);
+			// System.out.println(i.valor);
 			ContadorGeneral++;
 		}
 		TransicionesDot += "  </TR>\n";
@@ -687,35 +688,72 @@ public class SimpleSiguientesTransiciones {
 		return lista;
 	}
 
-
 	public void verArbolMainTransiciones(Boolean Aceptacion) {
-		
-		List<String> CopiaDatosAceptados;
-
-		Boolean descartado = true;
-
-		Integer contador = 0;
-		Boolean encontrado = false;
-		Boolean haydatos = true;
+		List<Valor_Tipo> CopyTerminales = new ArrayList<>();
+		CopyTerminales = obtenerListaTerminalesNulas(this.primero);
 
 		TransicionesDot += "  <TR>\n";
 
 		if (Aceptacion) {
-			TransicionesDot += "      <TD border=\"3\" bgcolor=\"gold\">0/$ S0</TD>\n";
+			TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">0/$ S0</TD>\n";
 		} else {
-			TransicionesDot += "      <TD border=\"3\" bgcolor=\"gold\">0 S0</TD>\n";
+			TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">0 S0</TD>\n";
 		}
-		if (isNone() == false) {
-			Nodo_SimpleSiguientesTransiciones actual = this.primero;
-			List<String> Temp = new ArrayList<>();
-			List<Valor_Tipo> CopyTerminales = new ArrayList<>();
+
+		CopyTerminales = obtenerListaTerminalesNulas(this.primero);
+		Boolean hayDatos = false;
+
+		for (Valor_Tipo k : Terminales) {
+			hayDatos = false;
+			for (Valor_Tipo valor_Tipo : CopyTerminales) {
+				if (k.valor.equals(valor_Tipo.valor)) {
+
+					TransicionesDot += "      <TD border=\"3\" > S" + valor_Tipo.Estado + "</TD>\n";
+					CopyTerminales.remove(valor_Tipo);
+					hayDatos = true;
+					break;
+				}
+			}
+			if (hayDatos == false) {
+				TransicionesDot += "      <TD border=\"3\" > -- </TD>\n";
+			}
+
+		}
+		TransicionesDot += "  </TR>\n";
+		ShowAceptacionesTransiociones(this.primero);
+
+	}
+
+	public List<Valor_Tipo> obtenerListaTerminalesNulas(Nodo_SimpleSiguientesTransiciones primero) {
+		Boolean descartado = true;
+		List<String> Temp = new ArrayList<>();
+		List<Valor_Tipo> CopyTerminales = new ArrayList<>();
+		List<Valor_Tipo> probando = new ArrayList<>();
+		if (primero != null) {
+			Nodo_SimpleSiguientesTransiciones actual = primero;
+
 			while (actual != null) {
 				for (Valor_Tipo i : actual.DatosAceptados) {
 					Temp.add(i.valor);
 				}
+				for (Valor_Tipo i : actual.DatosAceptados) {
+					Valor_Tipo data = new Valor_Tipo(i.valor, i.tipo);
+					if (actual.EstadoRepetido) {
+						data.Estado = actual.EstadoDestino;
+					} else {
+						data.Estado = actual.Estado;
+					}
+
+					probando.add(data);
+				}
 				actual = actual.next;
 			}
-			
+			probando = QuitarDupicadosAceptacion(probando);
+			System.out.println("_________________________________________");
+			for (Valor_Tipo valor_Tipo : probando) {
+				// System.out.println(valor_Tipo.valor + " = " + valor_Tipo.Estado);
+			}
+			System.out.println("_________________________________________");
 			Temp = QuitarDupicadosString(Temp);
 
 			Boolean continuar = true;
@@ -725,99 +763,109 @@ public class SimpleSiguientesTransiciones {
 			}
 			System.out.println("==========================");
 			while (descartado) {
-			
 
 				if (CopyTerminales.size() != 0) {
 					for (Valor_Tipo i : CopyTerminales) {
 						continuar = true;
-							if (Temp.size() != 0) {
-								for (String string : Temp) {
-									if (i.valor.equals(string)) {
-										Temp.remove(string);
-										CopyTerminales.remove(i);
-										continuar = false;
-										break;
-									} 
+						if (Temp.size() != 0) {
+							for (String string : Temp) {
+								if (i.valor.equals(string)) {
+									Temp.remove(string);
+									CopyTerminales.remove(i);
+									continuar = false;
+									break;
 								}
-							} else {descartado = false;}
-						if (continuar ==false) {break;} 
+							}
+						} else {
+							descartado = false;
+						}
+						if (continuar == false) {
+							break;
+						}
 					}
-				} else {descartado = false;}
+				} else {
+					descartado = false;
+				}
 			}
 
 			for (Valor_Tipo valor_Tipo : CopyTerminales) {
 				System.out.println(valor_Tipo.valor);
 			}
+
 		}
+		// return CopyTerminales;
 
-	}
+		return probando;
 
-	public void ShowArbolTransiciones(Nodo_SimpleSiguientesTransiciones cabezera) {
-		if (cabezera != null) {
-			Nodo_SimpleSiguientesTransiciones actual = cabezera;
-
-			;
-			while (actual != null) {
-				TransicionesDot += "  <TR>\n";
-				if (actual.Aceptacion) {
-					TransicionesDot += "      <TD border=\"3\" bgcolor=\"gold\"  >$ S" + actual.Estado + "</TD>\n";
-
-				} else {
-					TransicionesDot += "      <TD border=\"3\" bgcolor=\"gold\">S" + actual.Estado + "</TD>\n";
-				}
-
-				ShowAceptacionesTransiociones(actual.listado.primero);
-
-				actual = actual.next;
-			}
-		}
 	}
 
 	public void ShowAceptacionesTransiociones(Nodo_SimpleSiguientesTransiciones cabezera) {
-		Boolean agregar = true;
-		Integer contador = 0;
+
 		if (cabezera != null) {
 			Nodo_SimpleSiguientesTransiciones actual = cabezera;
 			while (actual != null) {
-				Boolean encontrado = false;
 
-				for (Valor_Tipo i : Terminales) {
-					for (Valor_Tipo j : actual.DatosAceptados) {
-						if (i.valor.equals(j.valor)) {
-							if (actual.EstadoRepetido) {
-								TransicionesDot += "      <TD border=\"3\"> S" + actual.EstadoDestino + "</TD>\n";
-							} else {
-								TransicionesDot += "      <TD border=\"3\" > S" + actual.Estado + "</TD>\n";
-							}
-
-							encontrado = true;
-							break;
-						}
-					}
-					if (encontrado == false) {
-						TransicionesDot += "      <TD border=\"3\"> -- </TD>\n";
+				TransicionesDot += "  <TR>\n";
+				if (actual.EstadoRepetido) {
+					if (actual.Aceptacion) {
+						TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">$  S" + actual.EstadoDestino
+								+ "</TD>\n";
 					} else {
-						encontrado = false;
+						TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">S" + actual.EstadoDestino
+								+ "</TD>\n";
 					}
 
+				} else {
+					if (actual.Aceptacion) {
+						TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">$  S" + actual.Estado + "</TD>\n";
+					} else {
+						TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">S" + actual.Estado + "</TD>\n";
+					}
 				}
-
-				if (actual.EstadoRepetido == false) {
-					TransicionesDot += "  </TR>\n";
-					ShowArbolTransiciones(actual);
-					agregar = false;
-				}
-
+				Nodo_SimpleSiguientesTransiciones temp = actual;
 				actual = actual.next;
-			}
-		}
-		if (cabezera == null) {
-			for (int i = 0; i < ContadorGeneral; i++) {
-				TransicionesDot += "      <TD border=\"3\"> -- </TD>\n";
+
+				if (temp.EstadoRepetido == false) {
+					subpartes(temp.listado.primero);
+				}
+
 			}
 		}
 
-		if (agregar) {
+	}
+
+	public void subpartes(Nodo_SimpleSiguientesTransiciones cabezera) {
+		List<Valor_Tipo> CopyTerminales = new ArrayList<>();
+		if (cabezera != null) {
+			CopyTerminales = obtenerListaTerminalesNulas(cabezera);
+			Boolean hayDatos = false;
+
+			for (Valor_Tipo k : Terminales) {
+				hayDatos = false;
+				for (Valor_Tipo valor_Tipo : CopyTerminales) {
+					if (k.valor.equals(valor_Tipo.valor)) {
+
+						TransicionesDot += "      <TD border=\"3\" > S" + valor_Tipo.Estado + "</TD>\n";
+						CopyTerminales.remove(valor_Tipo);
+						hayDatos = true;
+						break;
+					}
+				}
+				if (hayDatos == false) {
+					TransicionesDot += "      <TD border=\"3\" > -- </TD>\n";
+				}
+
+			}
+			TransicionesDot += "  </TR>\n";
+			if (cabezera.EstadoRepetido == false) {
+				ShowAceptacionesTransiociones(cabezera);
+			}
+
+		} else {
+			for (int i = 0; i < ContadorGeneral; i++) {
+				TransicionesDot += "      <TD border=\"3\" > -- </TD>\n";
+
+			}
 			TransicionesDot += "  </TR>\n";
 		}
 	}
