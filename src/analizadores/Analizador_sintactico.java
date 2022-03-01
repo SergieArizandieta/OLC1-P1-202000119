@@ -248,11 +248,11 @@ public class Analizador_sintactico extends java_cup.runtime.lr_parser {
 
 
 
-    public static LinkedList<errorList> errores = new LinkedList<errorList>(); 
-    public static LinkedList<tokens> TokensList  = new LinkedList<tokens>();
+    public  LinkedList<errorList> errores = new LinkedList<errorList>(); 
+    public  LinkedList<tokens> TokensList  = new LinkedList<tokens>();
     public  LinkedList<SimpleER> ERList  = new LinkedList<SimpleER>();
-    public static LinkedList<Conj> ConjList  = new LinkedList<Conj>();
-    public static LinkedList<Cadenas> CadenasList  = new LinkedList<Cadenas>();
+    public  LinkedList<Conj> ConjList  = new LinkedList<Conj>();
+    public  LinkedList<Cadenas> CadenasList  = new LinkedList<Cadenas>();
     Cadenas CadenasTemp;
     SimpleER temp;
     Conj ConjTemp;
@@ -291,7 +291,7 @@ public class Analizador_sintactico extends java_cup.runtime.lr_parser {
         System.out.println("\t\tFila: "+fila);
         System.out.println("\t\tColumna: "+columna);
         
-        errorList tmp = new errorList("Sintactico",lexema, "Caracter no esperado",fila,columna);
+        errorList tmp = new errorList("Sintactico",lexema, "Caracter no esperado, No se pudo recuperar",fila,columna);
         errores.add(tmp);
      
     }
