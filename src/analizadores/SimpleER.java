@@ -10,8 +10,8 @@ import java_cup.reduce_action;
 import net.miginfocom.layout.AC;
 
 public class SimpleER {
-	String TransicionesDot="";
-	String SiguinetesDot="";
+	String TransicionesDot = "";
+	String SiguinetesDot = "";
 	String DOT = "digraph structs {\n    node [shape=Mrecord];\n";
 	Estados Estado_Inicial;
 	Nodo_Simple_ER primero, ultimo;
@@ -31,19 +31,58 @@ public class SimpleER {
 			this.primero = new_node;
 			this.ultimo = this.primero;
 			if (hoja) {
-				SetHojas();
-				new_node.noHoja = this.hojas;
-				new_node.Anulable = false;
+
+				if (comprobarCaderna(new_node) == false) {
+					SetHojas();
+					new_node.noHoja = this.hojas;
+					new_node.Anulable = false;
+				} else {
+					QuitarCadenas(new_node);
+				}
 			}
 		} else {
 			this.ultimo = new_node;
 			Nodo_Simple_ER actual = this.primero;
 			Nodo_Simple_ER anterior = null;
+
+			while (actual.next != null) {
+				anterior = actual;
+				actual = actual.next;
+				actual.previous = anterior;
+
+			}
+			if (comprobarCaderna(new_node) == false) {
+				if (hoja) {
+					SetHojas();
+
+					new_node.noHoja = this.hojas;
+					new_node.Anulable = false;
+				}
+				actual.next = new_node;
+				actual.next.previous = actual;
+			} else {
+				QuitarCadenas(new_node);
+			}
+		}
+	}
+
+	public void insertNormal(String info, String tipo, Boolean hoja) {
+		Nodo_Simple_ER new_node = new Nodo_Simple_ER(info, tipo, hoja);
+
+		if (isNone()) {
+			this.primero = new_node;
+			this.ultimo = this.primero;
 			if (hoja) {
+
 				SetHojas();
 				new_node.noHoja = this.hojas;
 				new_node.Anulable = false;
+
 			}
+		} else {
+			this.ultimo = new_node;
+			Nodo_Simple_ER actual = this.primero;
+			Nodo_Simple_ER anterior = null;
 
 			while (actual.next != null) {
 				anterior = actual;
@@ -52,8 +91,15 @@ public class SimpleER {
 
 			}
 
+			if (hoja) {
+				SetHojas();
+
+				new_node.noHoja = this.hojas;
+				new_node.Anulable = false;
+			}
 			actual.next = new_node;
 			actual.next.previous = actual;
+
 		}
 	}
 
@@ -67,6 +113,18 @@ public class SimpleER {
 		new_node.next = this.primero;
 		this.primero = new_node;
 
+	}
+
+	public Boolean comprobarCaderna(Nodo_Simple_ER actual) {
+		boolean velidado = false;
+		if (actual.tipo.equals("PHRASE")) {
+			String temp = actual.info.replace("\"", "");
+			if (temp.length() > 1) {
+				velidado = true;
+			}
+		}
+
+		return velidado;
 	}
 
 	public void showList() {
@@ -86,30 +144,45 @@ public class SimpleER {
 		}
 	}
 
+	public void QuitarCadenas(Nodo_Simple_ER actual) {
 
-	public void QuitarCadenas() {
-		System.out.println("======Show list ======");
-		if (isNone() == false) {
-			Nodo_Simple_ER actual = this.primero;
-			System.out.println(this.name);
-			while (actual != null) {
-				if (actual.tipo.equals("PHRASE")) {
-					String temp = actual.info.replace("\"","" );
-					if (temp.length() > 1) {
-						System.out.println(temp);
-						System.out.println(actual.info + " - " + actual.tipo + " hoja " + actual.noHoja);
-					}
+		String temp = actual.info.replace("\"", "");
+		Integer contador = 1;
+		Boolean primeraVez = true;
+		System.out.println(temp);
+		SimpleER SimpleTemp = new SimpleER();
+
+		for (int i = temp.length() - 1; i >= 0; i--) {
+			String letter = String.valueOf(temp.charAt(i));
+			System.out.println(letter);
+			if (primeraVez) {
+				if (contador - 1 == 2) {
+					this.insertNormal(".", "OP", false);
+					primeraVez = false;
+					contador = null;
 				}
-
-				actual = actual.next;
 			}
+
+			if (letter.equals(" ")) {
+				this.insertNormal("\"" + letter + "\"", "SPACE", true);
+				// SimpleTemp.insertNormal("\"" + letter + "\"", "SPACE", true);
+			} else {
+				this.insertNormal("\"" + letter + "\"", "SPACE", true);
+				// SimpleTemp.insertNormal("\"" + letter + "\"", "PHRASE", true);
+			}
+
+			if (primeraVez == false) {
+				this.insertNormal(".", "OP", false);
+			}
+			if (primeraVez) {
+				contador++;
+			}
+
 		}
-		
-		
-		
-		
+
+		SimpleTemp.showList();
 	}
-	
+
 	public void showListInverse() {
 		System.out.println("======Show list Inverse ======");
 		if (isNoneLast() == false) {
@@ -420,45 +493,42 @@ public class SimpleER {
 		System.out.println("====== Tabla de transiciones ======");
 		// System.out.println(this.ultimo.primeros);
 		DOT = "digraph structs {\n  bgcolor = \"#E3FFFA\"\n   node [shape=Mrecord fillcolor=\"#FFE3FF\" style =filled];\n";
-		DOT+= "label =\"" + this.name + "\"\n";
-		
-		
+		DOT += "label =\"" + this.name + "\"\n";
+
 		Estado_Inicial = new Estados(0, false, this.ultimo.primeros, this.siguientes, this.name);
 		Estado_Inicial.Inciando_tabla_transiciones(this.siguientes);
-		
+
 		if (isNoneLast() == false) {
 			Nodo_Simple_ER actual = this.ultimo;
 			GenerarArbol(actual);
-			
+
 		}
-		if(this.siguientes.isNone() == false) {
+		if (this.siguientes.isNone() == false) {
 			SiguinetesDot = this.siguientes.CrearGrafo(this.name);
 		}
-		
-		if(Estado_Inicial.listado.isNone() == false) {
+
+		if (Estado_Inicial.listado.isNone() == false) {
 			TransicionesDot = Estado_Inicial.Generar_transiciones();
 		}
-		
-		
+
 		System.out.println(TransicionesDot);
-		
+
 		DOT += "\n}";
-		
+
 		Draw_GraphizSiguientes(this.name);
 		Draw_GraphizArbol(this.name);
-		//openimgSiguientes(this.name);
-		//openimgArbol(this.name);
-		
+		// openimgSiguientes(this.name);
+		// openimgArbol(this.name);
+
 	}
 
 	public void GenerarArbol(Nodo_Simple_ER actual) {
 
-		DOT += "    struct" + actual.hashCode() + "    [label=\"{{" + actual.primeros + "|<here>" ;
-		Valor_Tipo data = new Valor_Tipo(actual.info,actual.tipo);
+		DOT += "    struct" + actual.hashCode() + "    [label=\"{{" + actual.primeros + "|<here>";
+		Valor_Tipo data = new Valor_Tipo(actual.info, actual.tipo);
 		DOT += validacionTipo(data);
-		DOT+=  "|"+ actual.ultimos + "}|";
-	
-			
+		DOT += "|" + actual.ultimos + "}|";
+
 		if (actual.Anulable) {
 			DOT += "Anulable}\"];\n";
 		} else {
@@ -485,24 +555,21 @@ public class SimpleER {
 	public void Draw_GraphizSiguientes(String name) {
 
 		try {
-			if(isNone()) {
-				String graph = "digraph L {\r\n"
-						+ "node[shape=note fillcolor=\"#A181FF\" style =filled]\r\n"
-						+ "subgraph cluster_p{\r\n"
-						+ "    bgcolor = \"#FF7878\"\r\n"
-						+ "Nodo1008925772[label=\"Vacio\",fillcolor=\"#81FFDA\"]\r\n"
-						+ "\r\n"
-						+ "}}";
-				Create_File("SIGUIENTES_202000119\\Siguientes_"+ name+".dot", graph);
-			}else {
-				
-				Create_File("SIGUIENTES_202000119\\Siguientes_"+ name+".dot",SiguinetesDot);
+			if (isNone()) {
+				String graph = "digraph L {\r\n" + "node[shape=note fillcolor=\"#A181FF\" style =filled]\r\n"
+						+ "subgraph cluster_p{\r\n" + "    bgcolor = \"#FF7878\"\r\n"
+						+ "Nodo1008925772[label=\"Vacio\",fillcolor=\"#81FFDA\"]\r\n" + "\r\n" + "}}";
+				Create_File("SIGUIENTES_202000119\\Siguientes_" + name + ".dot", graph);
+			} else {
+
+				Create_File("SIGUIENTES_202000119\\Siguientes_" + name + ".dot", SiguinetesDot);
 			}
-			
-			//System.out.println(Text_Graphivz());
+
+			// System.out.println(Text_Graphivz());
 			ProcessBuilder pb;
-			//AFD_202000119
-			pb = new ProcessBuilder("dot", "-Tpng", "-o", "SIGUIENTES_202000119\\Siguientes_"+name+".png", "SIGUIENTES_202000119\\Siguientes_"+ name+".dot");
+			// AFD_202000119
+			pb = new ProcessBuilder("dot", "-Tpng", "-o", "SIGUIENTES_202000119\\Siguientes_" + name + ".png",
+					"SIGUIENTES_202000119\\Siguientes_" + name + ".dot");
 			pb.redirectErrorStream(true);
 			pb.start();
 
@@ -510,21 +577,21 @@ public class SimpleER {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void openimgSiguientes(String name) {
-			try {
-				String url ="SIGUIENTES_202000119\\Siguientes_"+ name+".png";
-				ProcessBuilder p = new ProcessBuilder();
-				p.command("cmd.exe", "/c", url);
-				p.start();
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		try {
+			String url = "SIGUIENTES_202000119\\Siguientes_" + name + ".png";
+			ProcessBuilder p = new ProcessBuilder();
+			p.command("cmd.exe", "/c", url);
+			p.start();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	//-----------------------------------------------------------
-	
-	//Creacion arbol graphivz
+	// -----------------------------------------------------------
+
+	// Creacion arbol graphivz
 	private void Create_File(String route, String contents) {
 
 		FileWriter fw = null;
@@ -543,28 +610,25 @@ public class SimpleER {
 		}
 
 	}
-	
+
 	public void Draw_GraphizArbol(String name) {
 
 		try {
-			if(isNone()) {
-				String graph = "digraph L {\r\n"
-						+ "node[shape=note fillcolor=\"#A181FF\" style =filled]\r\n"
-						+ "subgraph cluster_p{\r\n"
-						+ "    bgcolor = \"#FF7878\"\r\n"
-						+ "Nodo1008925772[label=\"Vacio\",fillcolor=\"#81FFDA\"]\r\n"
-						+ "\r\n"
-						+ "}}";
-				Create_File("ARBOLES_202000119\\Arbol_"+ name+".dot", graph);
-			}else {
-				
-				Create_File("ARBOLES_202000119\\Arbol_"+ name+".dot",DOT);
+			if (isNone()) {
+				String graph = "digraph L {\r\n" + "node[shape=note fillcolor=\"#A181FF\" style =filled]\r\n"
+						+ "subgraph cluster_p{\r\n" + "    bgcolor = \"#FF7878\"\r\n"
+						+ "Nodo1008925772[label=\"Vacio\",fillcolor=\"#81FFDA\"]\r\n" + "\r\n" + "}}";
+				Create_File("ARBOLES_202000119\\Arbol_" + name + ".dot", graph);
+			} else {
+
+				Create_File("ARBOLES_202000119\\Arbol_" + name + ".dot", DOT);
 			}
-			
-			//System.out.println(Text_Graphivz());
+
+			// System.out.println(Text_Graphivz());
 			ProcessBuilder pb;
-			//AFD_202000119
-			pb = new ProcessBuilder("dot", "-Tpng", "-o", "ARBOLES_202000119\\Arbol_"+name+".png", "ARBOLES_202000119\\Arbol_"+ name+".dot");
+			// AFD_202000119
+			pb = new ProcessBuilder("dot", "-Tpng", "-o", "ARBOLES_202000119\\Arbol_" + name + ".png",
+					"ARBOLES_202000119\\Arbol_" + name + ".dot");
 			pb.redirectErrorStream(true);
 			pb.start();
 
@@ -572,55 +636,51 @@ public class SimpleER {
 			e.printStackTrace();
 		}
 	}
-	
-	public void openimgArbol(String name) {
-			try {
-				String url ="ARBOLES_202000119\\Arbol_"+ name+".png";
-				ProcessBuilder p = new ProcessBuilder();
-				p.command("cmd.exe", "/c", url);
-				p.start();
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-	}
-	//-----------------------------------------------------------
 
-	
-	
-	
-	
+	public void openimgArbol(String name) {
+		try {
+			String url = "ARBOLES_202000119\\Arbol_" + name + ".png";
+			ProcessBuilder p = new ProcessBuilder();
+			p.command("cmd.exe", "/c", url);
+			p.start();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	// -----------------------------------------------------------
+
 	public String validacionTipo(Valor_Tipo text) {
-		String DOT ="";
+		String DOT = "";
 		if (text.tipo.equals("PHRASE") || text.tipo.equals("SPACE")) {
 			for (int letra = 0; letra < text.valor.length(); letra++) {
 				if (letra == 0) {
-					DOT+=("\\\"");
+					DOT += ("\\\"");
 				} else if (letra + 1 == text.valor.length()) {
-					DOT+=("\\\"");
+					DOT += ("\\\"");
 				} else {
-					DOT+=(text.valor.charAt(letra));
+					DOT += (text.valor.charAt(letra));
 				}
 			}
 
 		} else if (text.tipo.equals("S_DQUOTES")) {
-			
-			DOT+=("\\\\\\\"");
+
+			DOT += ("\\\\\\\"");
 		} else if (text.tipo.equals("S_QUOTE")) {
-			DOT+=("\\\\'");
+			DOT += ("\\\\'");
 		} else if (text.tipo.equals("S_LBREAK")) {
-			DOT+=("\\\\n");
+			DOT += ("\\\\n");
 		} else if (text.valor.equals("|")) {
-			DOT+=("\\|");
-			
+			DOT += ("\\|");
+
 		} else {
-			DOT+=(text.valor);
+			DOT += (text.valor);
 		}
 		return DOT;
 	}
 
 	public void GenrarGrafo() {
-		//Estado_Inicial.Inciando_tabla_transiciones(this.siguientes);
+		// Estado_Inicial.Inciando_tabla_transiciones(this.siguientes);
 		verGrafo();
 	}
 
