@@ -793,7 +793,7 @@ public class SimpleSiguientesTransiciones {
 			}
 
 		}
-		// return CopyTerminales;
+	
 
 		return probando;
 
@@ -813,7 +813,8 @@ public class SimpleSiguientesTransiciones {
 					} else {
 						TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">S" + actual.EstadoDestino
 								+ "</TD>\n";
-					}
+					} 
+					
 
 				} else {
 					if (actual.Aceptacion) {
