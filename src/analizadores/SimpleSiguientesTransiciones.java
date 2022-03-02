@@ -934,9 +934,9 @@ public class SimpleSiguientesTransiciones {
 	public void ValidacionPivote(Nodo_SimpleSiguientesTransiciones cabezera, String letter, String letterSig) {
 
 		if (cabezera == Estados.encabezadoEstado) {
-			ValidacionCadenaInicial(cabezera, letter,letterSig);
+			ValidacionCadenaInicial(cabezera, letter, letterSig);
 		} else {
-			ValidacionCadena(cabezera, letter,letterSig);
+			ValidacionCadena(cabezera, letter, letterSig);
 		}
 
 	}
@@ -946,20 +946,15 @@ public class SimpleSiguientesTransiciones {
 		if (cabezera != null) {
 			Nodo_SimpleSiguientesTransiciones actual = cabezera;
 			while (actual != null) {
-				if(budquedaAceptacion(actual,letter,letterSig)== false) {					
+				if (budquedaAceptacion(actual, letter, letterSig) == false) {
 					break;
 				}
 
 				actual = actual.next;
 			}
-			
-			if(actual==null) {
-				if(Estados.EstadoAceptacion) {
-					System.out.println("aceptado");
-				}else {
-					System.out.println("fallo");
-				}
-				
+
+			if (actual == null) {
+				System.out.println("fallo");
 			}
 		}
 	}
@@ -970,42 +965,36 @@ public class SimpleSiguientesTransiciones {
 			Nodo_SimpleSiguientesTransiciones actual = cabezera;
 			while (actual != null) {
 
-					if(budquedaAceptacion(actual,letter,letterSig)== false) {					
-						break;
-					}
-					
+				if (budquedaAceptacion(actual, letter, letterSig) == false) {
+					break;
+				}
+
 				actual = actual.next;
 			}
-			if(actual==null) {
-				if(Estados.EstadoAceptacion) {
-					if(letterSig!= null) {
-						Estados.ActualValidacion = Estados.encabezadoEstado;
-						ValidacionCadenaInicial(Estados.ActualValidacion,letter,letterSig);
-					}else {
-						System.out.println("Cadena aceptada");
-					}
-				}else {
-					System.out.println("fallo");
-				}
+			if (actual == null) {
+
+				System.out.println("fallo");
 			}
+
 		}
+
 	}
-	
-	public Boolean budquedaAceptacion( Nodo_SimpleSiguientesTransiciones actual,String letter, String letterSig) {
-		boolean continuar=true;
+
+	public Boolean budquedaAceptacion(Nodo_SimpleSiguientesTransiciones actual, String letter, String letterSig) {
+		boolean continuar = true;
 		for (Valor_Tipo i : actual.DatosAceptados) {
 			if (i.tipo == "REFCONJ") {
 
 			} else if (i.tipo == "PHRASE" || i.tipo == "SPACE") {
 				String valor = i.valor.replace("\"", "");
 				if (valor.equals(letter)) {
-					NuevaAsignacion(actual.Aceptacion, actual, letter,letterSig);
+					NuevaAsignacion(actual.Aceptacion, actual, letter, letterSig);
 					continuar = false;
 					break;
 				}
 			} else {
 				if (i.valor.equals(letter)) {
-					NuevaAsignacion(actual.Aceptacion, actual, letter,letterSig);
+					NuevaAsignacion(actual.Aceptacion, actual, letter, letterSig);
 					continuar = false;
 					break;
 				}
@@ -1014,30 +1003,35 @@ public class SimpleSiguientesTransiciones {
 		return continuar;
 	}
 
-	public void NuevaAsignacion(Boolean Aceptacion, Nodo_SimpleSiguientesTransiciones actual, String letter, String letterSig) {
+	public void NuevaAsignacion(Boolean Aceptacion, Nodo_SimpleSiguientesTransiciones actual, String letter,
+			String letterSig) {
 		System.out.println("con: " + letter + " hacia " + actual.Estado);
 		try {
 
 			if (Aceptacion) {
-				if(letterSig == null) {
-					
+				if (letterSig == null) {
+
 					System.out.println("Cadena aceptada");
-					
-				}else {
-					
+
+				} else {
+
 					if (actual.listado.primero == null) {
 						Estados.ActualValidacion = Estados.encabezadoEstado;
 					} else {
 						Estados.ActualValidacion = actual.listado.primero;
 					}
-					
+
 				}
-				
 
 			} else {
-				Estados.ActualValidacion = actual.listado.primero;
+				if (letterSig == null) {;
+					Estados.ActualValidacion = actual;
+				}else {
+					Estados.ActualValidacion = actual.listado.primero;
+				}
+				
 			}
-			
+
 		} catch (Exception e) {
 			System.out.println(e);
 		}
