@@ -678,9 +678,9 @@ public class SimpleSiguientesTransiciones {
 		}
 		TransicionesDot += "  </TR>\n";
 		verArbolMainTransiciones(Aceptacion);
-		//System.out.println("=============das=============");
+		// System.out.println("=============das=============");
 		TransicionesDot += "\n</TABLE>>];}}";
-		//System.out.println(TransicionesDot);
+		// System.out.println(TransicionesDot);
 	}
 
 	public List<String> QuitarDupicadosString(List<String> lista) {
@@ -749,11 +749,11 @@ public class SimpleSiguientesTransiciones {
 				actual = actual.next;
 			}
 			probando = QuitarDupicadosAceptacion(probando);
-			//System.out.println("_________________________________________");
-			//for (Valor_Tipo valor_Tipo : probando) {
-				// System.out.println(valor_Tipo.valor + " = " + valor_Tipo.Estado);
-			//}
-			//System.out.println("_________________________________________");
+			// System.out.println("_________________________________________");
+			// for (Valor_Tipo valor_Tipo : probando) {
+			// System.out.println(valor_Tipo.valor + " = " + valor_Tipo.Estado);
+			// }
+			// System.out.println("_________________________________________");
 			Temp = QuitarDupicadosString(Temp);
 
 			Boolean continuar = true;
@@ -761,7 +761,7 @@ public class SimpleSiguientesTransiciones {
 			for (Valor_Tipo i : Terminales) {
 				CopyTerminales.add(i);
 			}
-			//System.out.println("==========================");
+			// System.out.println("==========================");
 			while (descartado) {
 
 				if (CopyTerminales.size() != 0) {
@@ -788,12 +788,11 @@ public class SimpleSiguientesTransiciones {
 				}
 			}
 
-			//for (Valor_Tipo valor_Tipo : CopyTerminales) {
-				//System.out.println(valor_Tipo.valor);
-			//}
+			// for (Valor_Tipo valor_Tipo : CopyTerminales) {
+			// System.out.println(valor_Tipo.valor);
+			// }
 
 		}
-	
 
 		return probando;
 
@@ -813,12 +812,12 @@ public class SimpleSiguientesTransiciones {
 					} else {
 						TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">S" + actual.EstadoDestino
 								+ "</TD>\n";
-					} 
-					
+					}
 
 				} else {
 					if (actual.Aceptacion) {
-						TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">$  S" + actual.Estado + "</TD>\n";
+						TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">$  S" + actual.Estado
+								+ "</TD>\n";
 					} else {
 						TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">S" + actual.Estado + "</TD>\n";
 					}
@@ -909,14 +908,14 @@ public class SimpleSiguientesTransiciones {
 		}
 	}
 
-	public void ValidacionCadenaAEstados(Nodo_SimpleSiguientesTransiciones cabezera,String letter) {
+	public void ValidacionCadenaAEstados(Nodo_SimpleSiguientesTransiciones cabezera, String letter) {
 		if (cabezera != null) {
 			Nodo_SimpleSiguientesTransiciones actual = cabezera;
 			while (actual != null) {
 
 				if (actual.Aceptacion) {
 					System.out.println("S" + actual.Estado + "* a:");
-					
+
 				} else {
 					System.out.println("S" + actual.Estado + " a:");
 				}
@@ -926,111 +925,124 @@ public class SimpleSiguientesTransiciones {
 
 				System.out.println("");
 
-				//aceptacionesSubEstados(actual.listado.primero);
+				// aceptacionesSubEstados(actual.listado.primero);
 				actual = actual.next;
 			}
 		}
 	}
-	
-	public void ValidacionPivote(Nodo_SimpleSiguientesTransiciones cabezera,String letter) {
-		
-		if(cabezera  == Estados.encabezadoEstado) {
-			ValidacionCadenaInicial(cabezera,letter);
-		}else {
-			ValidacionCadena(cabezera,letter);
+
+	public void ValidacionPivote(Nodo_SimpleSiguientesTransiciones cabezera, String letter, String letterSig) {
+
+		if (cabezera == Estados.encabezadoEstado) {
+			ValidacionCadenaInicial(cabezera, letter,letterSig);
+		} else {
+			ValidacionCadena(cabezera, letter,letterSig);
 		}
-		
+
 	}
-	
-	public void ValidacionCadenaInicial(Nodo_SimpleSiguientesTransiciones cabezera,String letter) {
-		Boolean continuar= true;
+
+	public void ValidacionCadenaInicial(Nodo_SimpleSiguientesTransiciones cabezera, String letter, String letterSig) {
+
 		if (cabezera != null) {
 			Nodo_SimpleSiguientesTransiciones actual = cabezera;
 			while (actual != null) {
-				if(continuar== false) {
+				if(budquedaAceptacion(actual,letter,letterSig)== false) {					
 					break;
 				}
-				
-				if(letter.equals("ƒ")) {
-					if(Estados.EstadoAceptacion) {
-						System.out.println("Cadena aceptada con exito");
-					}else {
-						System.out.println("Cadena rechazada?");
-					}
-				}
-				
-				for (Valor_Tipo i : actual.DatosAceptados) {
-					if(i.tipo=="REFCONJ") {
-						
-					}else if (i.tipo=="PHRASE" || i.tipo=="SPACE") {
-						String valor = i.valor.replace("\"", "");
-						if(valor.equals(letter)) {
-							System.out.println("con: " + letter + " hacia " + actual.Estado);
-							Estados.ActualValidacion= actual.listado.primero;
-							continuar = false;
-							break;
-						}
-					}else{
-						if(i.valor.equals(letter)) {
-							System.out.println(letter + " aceptada en " + actual.Estado);
-							Estados.ActualValidacion= actual.listado.primero;
-							continuar = false;
-							break;
-						}
-					}
-				}
-
 
 				actual = actual.next;
 			}
+			
+			if(actual==null) {
+				if(Estados.EstadoAceptacion) {
+					System.out.println("aceptado");
+				}else {
+					System.out.println("fallo");
+				}
+				
+			}
 		}
 	}
-	
 
-	public void ValidacionCadena(Nodo_SimpleSiguientesTransiciones cabezera,String letter) {
-		Boolean continuar= true;
+	public void ValidacionCadena(Nodo_SimpleSiguientesTransiciones cabezera, String letter, String letterSig) {
+
 		if (cabezera != null) {
 			Nodo_SimpleSiguientesTransiciones actual = cabezera;
 			while (actual != null) {
-				if(continuar== false) {
-					break;
-				}
-				
-				if(letter.equals("ƒ")) {
-					if(actual.Aceptacion) {
-						System.out.println("Cadena aceptada con exito");
-					}else {
-						System.out.println("Cadena rechazada?");
-					}
-				}
-				
-				for (Valor_Tipo i : actual.DatosAceptados) {
-					if(i.tipo=="REFCONJ") {
-						
-					}else if (i.tipo=="PHRASE" || i.tipo=="SPACE") {
-						String valor = i.valor.replace("\"", "");
-						if(valor.equals(letter)) {
-							System.out.println("con: " + letter + " hacia " + actual.Estado);
-							Estados.ActualValidacion= actual.listado.primero;
-							continuar = false;
-							break;
-						}
-					}else{
-						if(i.valor.equals(letter)) {
-							System.out.println(letter + " aceptada en " + actual.Estado);
-							Estados.ActualValidacion= actual.listado.primero;
-							continuar = false;
-							break;
-						}
-					}
-				}
 
-
+					if(budquedaAceptacion(actual,letter,letterSig)== false) {					
+						break;
+					}
+					
 				actual = actual.next;
+			}
+			if(actual==null) {
+				if(Estados.EstadoAceptacion) {
+					if(letterSig!= null) {
+						Estados.ActualValidacion = Estados.encabezadoEstado;
+						ValidacionCadenaInicial(Estados.ActualValidacion,letter,letterSig);
+					}else {
+						System.out.println("Cadena aceptada");
+					}
+				}else {
+					System.out.println("fallo");
+				}
 			}
 		}
 	}
 	
+	public Boolean budquedaAceptacion( Nodo_SimpleSiguientesTransiciones actual,String letter, String letterSig) {
+		boolean continuar=true;
+		for (Valor_Tipo i : actual.DatosAceptados) {
+			if (i.tipo == "REFCONJ") {
+
+			} else if (i.tipo == "PHRASE" || i.tipo == "SPACE") {
+				String valor = i.valor.replace("\"", "");
+				if (valor.equals(letter)) {
+					NuevaAsignacion(actual.Aceptacion, actual, letter,letterSig);
+					continuar = false;
+					break;
+				}
+			} else {
+				if (i.valor.equals(letter)) {
+					NuevaAsignacion(actual.Aceptacion, actual, letter,letterSig);
+					continuar = false;
+					break;
+				}
+			}
+		}
+		return continuar;
+	}
+
+	public void NuevaAsignacion(Boolean Aceptacion, Nodo_SimpleSiguientesTransiciones actual, String letter, String letterSig) {
+		System.out.println("con: " + letter + " hacia " + actual.Estado);
+		try {
+
+			if (Aceptacion) {
+				if(letterSig == null) {
+					
+					System.out.println("Cadena aceptada");
+					
+				}else {
+					
+					if (actual.listado.primero == null) {
+						Estados.ActualValidacion = Estados.encabezadoEstado;
+					} else {
+						Estados.ActualValidacion = actual.listado.primero;
+					}
+					
+				}
+				
+
+			} else {
+				Estados.ActualValidacion = actual.listado.primero;
+			}
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
 	public void ShowArbolTest(Nodo_SimpleSiguientesTransiciones cabezera) {
 		if (cabezera != null) {
 			Nodo_SimpleSiguientesTransiciones actual = cabezera;
@@ -1049,22 +1061,22 @@ public class SimpleSiguientesTransiciones {
 
 				System.out.println("");
 
-				//ShowAceptaciones(actual.listado.primero);
+				// ShowAceptaciones(actual.listado.primero);
 				actual = actual.next;
 			}
 		}
 	}
 
 	public void ValidarEstado() {
-		
+
 	}
-	
+
 }
 
 class Nodo_SimpleSiguientesTransiciones {
 	Nodo_SimpleSiguientesTransiciones next, previous;
-	String CadenaAceptacion="";
-	
+	String CadenaAceptacion = "";
+
 	Integer Numeracion;
 	Boolean Verificado = false;
 	Integer Estado;

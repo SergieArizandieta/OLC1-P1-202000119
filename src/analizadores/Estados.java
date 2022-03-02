@@ -89,21 +89,36 @@ public class Estados {
 	public void validadarCadena(String cadena) {
 		EstadoAceptacion = Aceptacion;
 		ActualValidacion = listado.primero;
-		cadena+="ƒ";
+		//cadena+="ƒ";
 		
 		System.out.println(cadena);
 		for (int i = 0; i < cadena.length(); i++) {
-			String letter = String.valueOf(cadena.charAt(i));
+			String letter = String.valueOf(cadena.charAt(i));	
+			String letterSig;
 			//System.out.println(letter);
-			ValidacionGuia(ActualValidacion,letter);
+			
+			if(i+1<cadena.length()) {
+				letterSig = String.valueOf(cadena.charAt(i+1));	
+			}else {
+				letterSig = null;
+			}
+			ValidacionGuia(ActualValidacion,letter,letterSig);
 		}
+		if(ActualValidacion == encabezadoEstado) {
+			System.out.println("Estado en: S0");
+		}else {
+			System.out.println("Estado en: " + ActualValidacion.Estado );
+		}
+		
+		
 	}
 	
-	public void ValidacionGuia(Nodo_SimpleSiguientesTransiciones actual, String letter) {
+	public void ValidacionGuia(Nodo_SimpleSiguientesTransiciones actual, String letter, String letterSig) {
 		//System.out.println("____________________________________________________");
 		//System.out.println("Estado " + actual.Estado + " letra: " + letter);
 		//System.out.println("=====================================================");
-		actual.listado.ValidacionPivote(actual,letter);
+		actual.listado.ValidacionPivote(actual,letter,letterSig);
+		
 		
 
 	}
