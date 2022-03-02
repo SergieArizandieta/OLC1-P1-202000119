@@ -3,7 +3,9 @@
 // error por no tener datos ExpReg1 : "#";
 //error por no encontrar estado ExpReg1 : "#1";
 //error no encontro ningun estado ExpReg1 : "p";
-
+//error no encontro estado para 1 ExpReg1 : "D1";
+//error no encontro estado para 1 ExpReg1 : "DL1";
+//error no encontro estado para 1 ExpReg1 : "DLLD1";
 
 //ExpReg1 -> |.*|{L}{D}?{L}."#"{L};
 
@@ -12,6 +14,6 @@ ExpReg1 -> |.*|"L""D"?"L"."#""L";
 %%
 
 //ExpReg1 : "";
-ExpReg1 : "#";
+ExpReg1 : "DLLD1";
 
 }

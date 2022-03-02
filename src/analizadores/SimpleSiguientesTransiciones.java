@@ -1018,9 +1018,11 @@ public class SimpleSiguientesTransiciones {
 				} else {
 
 					if (actual.listado.primero == null) {
+						Estados.anteriorEstado = actual;
 						Estados.ActualValidacion = Estados.encabezadoEstado;
 					} else {
-						Estados.ActualValidacion = actual.listado.primero;
+						Estados.anteriorEstado = actual;
+						Estados.ActualValidacion = actual;
 					}
 
 				}
