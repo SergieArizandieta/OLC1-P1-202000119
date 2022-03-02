@@ -3,6 +3,7 @@ package analizadores;
 public class Conj {
 	String tipo, nombre,var1,var2,text;
 	String[] letras;
+	Boolean validado = false;
 	
 	public Conj(String tipo , String nombre,String var1,String var2,String text) {
 	
@@ -16,9 +17,33 @@ public class Conj {
 	}
 	
 	public void define() {
+
 		if(isRank() == false) {
 			letras = text.split(",");
 		}
+	}
+	
+	public Boolean validar(String letter) {
+		validado = false;
+		if(isRank()) {
+			ValidacionRango();
+		}else {
+			validacionComas(letter);
+		}
+		return validado;
+	}
+	
+	public void validacionComas(String letter) {
+		for (String i : letras) {
+			if(i.equals(letter)) {
+				validado = true;
+				break;
+			}
+		}
+	}
+	
+	public void ValidacionRango() {
+		
 	}
 	
 	public Boolean isRank() {

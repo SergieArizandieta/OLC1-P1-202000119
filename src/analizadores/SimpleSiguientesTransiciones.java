@@ -988,8 +988,18 @@ public class SimpleSiguientesTransiciones {
 			if (i.tipo == "REFCONJ") {
 				//System.out.println("Se encontro conjunto " + i.valor );
 				for (Conj conjunto : Estados.ListaConjuntos) {
+					if(conjunto.nombre.equals(i.valor)) {
+						//System.out.println(conjunto.show());
+						if(conjunto.validar(letter)) {
+							NuevaAsignacion(actual.Aceptacion, actual, letter, letterSig);
+							continuar = false;
+							break;
+						}else {
+							
+						}
+						
+					}
 					
-					System.out.println(conjunto.show());
 				}
 			} else if (i.tipo == "PHRASE" || i.tipo == "SPACE") {
 				String valor = i.valor.replace("\"", "");
@@ -1023,7 +1033,10 @@ public class SimpleSiguientesTransiciones {
 
 					if (actual.listado.primero == null) {
 						Estados.anteriorEstado = actual;
-						Estados.ActualValidacion = Estados.encabezadoEstado;
+						Estados.ActualValidacion = actual;
+						Estados.CadenaValida = false;
+						//Estados.anteriorEstado = actual;
+						//Estados.ActualValidacion = Estados.encabezadoEstado;
 					} else {
 						Estados.anteriorEstado = actual;
 						Estados.ActualValidacion = actual;
@@ -1033,7 +1046,7 @@ public class SimpleSiguientesTransiciones {
 
 			} else {
 				
-				if (letterSig == null) {;
+				if (letterSig == null) {
 					Estados.anteriorEstado = actual;
 					Estados.CadenaValida = false;
 				}else {

@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.sound.midi.Soundbank;
 
-
 public class Estados {
 	static LinkedList<Conj> ListaConjuntos;
 	static Boolean CadenaValida;
@@ -91,7 +90,7 @@ public class Estados {
 	}
 
 	public void validadarCadena(String cadena, LinkedList<Conj> conjList) {
-		ListaConjuntos =conjList;
+		ListaConjuntos = conjList;
 		CadenaValida = true;
 		anteriorEstado = null;
 		ActualValidacion = listado.primero;
@@ -103,20 +102,24 @@ public class Estados {
 				String letter = String.valueOf(cadena.charAt(i));
 				String letterSig;
 				// System.out.println(letter);
+				if (CadenaValida) {
 
-				if (i + 1 < cadena.length()) {
-					letterSig = String.valueOf(cadena.charAt(i + 1));
-				} else {
-					letterSig = null;
+					if (i + 1 < cadena.length()) {
+						letterSig = String.valueOf(cadena.charAt(i + 1));
+					} else {
+						letterSig = null;
+					}
+					ValidacionGuia(ActualValidacion, letter, letterSig);
+				}else {
+					break;
 				}
-				ValidacionGuia(ActualValidacion, letter, letterSig);
 			}
-			
-			if(CadenaValida) {
+
+			if (CadenaValida) {
 				if (ActualValidacion.Aceptacion) {
 					System.out.println("Estado en: " + ActualValidacion.Estado);
-				} 
-			}else {
+				}
+			} else {
 				if (anteriorEstado == null) {
 					System.out.println("Fallo en : 0");
 				} else {
