@@ -908,6 +908,157 @@ public class SimpleSiguientesTransiciones {
 			e.printStackTrace();
 		}
 	}
+
+	public void ValidacionCadenaAEstados(Nodo_SimpleSiguientesTransiciones cabezera,String letter) {
+		if (cabezera != null) {
+			Nodo_SimpleSiguientesTransiciones actual = cabezera;
+			while (actual != null) {
+
+				if (actual.Aceptacion) {
+					System.out.println("S" + actual.Estado + "* a:");
+					
+				} else {
+					System.out.println("S" + actual.Estado + " a:");
+				}
+				if (actual.Estado == 5) {
+					System.out.print("");
+				}
+
+				System.out.println("");
+
+				//aceptacionesSubEstados(actual.listado.primero);
+				actual = actual.next;
+			}
+		}
+	}
+	
+	public void ValidacionPivote(Nodo_SimpleSiguientesTransiciones cabezera,String letter) {
+		
+		if(cabezera  == Estados.encabezadoEstado) {
+			ValidacionCadenaInicial(cabezera,letter);
+		}else {
+			ValidacionCadena(cabezera,letter);
+		}
+		
+	}
+	
+	public void ValidacionCadenaInicial(Nodo_SimpleSiguientesTransiciones cabezera,String letter) {
+		Boolean continuar= true;
+		if (cabezera != null) {
+			Nodo_SimpleSiguientesTransiciones actual = cabezera;
+			while (actual != null) {
+				if(continuar== false) {
+					break;
+				}
+				
+				if(letter.equals("ƒ")) {
+					if(Estados.EstadoAceptacion) {
+						System.out.println("Cadena aceptada con exito");
+					}else {
+						System.out.println("Cadena rechazada?");
+					}
+				}
+				
+				for (Valor_Tipo i : actual.DatosAceptados) {
+					if(i.tipo=="REFCONJ") {
+						
+					}else if (i.tipo=="PHRASE" || i.tipo=="SPACE") {
+						String valor = i.valor.replace("\"", "");
+						if(valor.equals(letter)) {
+							System.out.println("con: " + letter + " hacia " + actual.Estado);
+							Estados.ActualValidacion= actual.listado.primero;
+							continuar = false;
+							break;
+						}
+					}else{
+						if(i.valor.equals(letter)) {
+							System.out.println(letter + " aceptada en " + actual.Estado);
+							Estados.ActualValidacion= actual.listado.primero;
+							continuar = false;
+							break;
+						}
+					}
+				}
+
+
+				actual = actual.next;
+			}
+		}
+	}
+	
+
+	public void ValidacionCadena(Nodo_SimpleSiguientesTransiciones cabezera,String letter) {
+		Boolean continuar= true;
+		if (cabezera != null) {
+			Nodo_SimpleSiguientesTransiciones actual = cabezera;
+			while (actual != null) {
+				if(continuar== false) {
+					break;
+				}
+				
+				if(letter.equals("ƒ")) {
+					if(actual.Aceptacion) {
+						System.out.println("Cadena aceptada con exito");
+					}else {
+						System.out.println("Cadena rechazada?");
+					}
+				}
+				
+				for (Valor_Tipo i : actual.DatosAceptados) {
+					if(i.tipo=="REFCONJ") {
+						
+					}else if (i.tipo=="PHRASE" || i.tipo=="SPACE") {
+						String valor = i.valor.replace("\"", "");
+						if(valor.equals(letter)) {
+							System.out.println("con: " + letter + " hacia " + actual.Estado);
+							Estados.ActualValidacion= actual.listado.primero;
+							continuar = false;
+							break;
+						}
+					}else{
+						if(i.valor.equals(letter)) {
+							System.out.println(letter + " aceptada en " + actual.Estado);
+							Estados.ActualValidacion= actual.listado.primero;
+							continuar = false;
+							break;
+						}
+					}
+				}
+
+
+				actual = actual.next;
+			}
+		}
+	}
+	
+	public void ShowArbolTest(Nodo_SimpleSiguientesTransiciones cabezera) {
+		if (cabezera != null) {
+			Nodo_SimpleSiguientesTransiciones actual = cabezera;
+			while (actual != null) {
+
+				if (actual.Aceptacion) {
+					System.out.println("S" + actual.Estado + "* a:");
+					EstadosAceptacion.add(actual.Estado);
+					EstadosAceptacion = QuitarDupicados(EstadosAceptacion);
+				} else {
+					System.out.println("S" + actual.Estado + " a:");
+				}
+				if (actual.Estado == 5) {
+					System.out.print("");
+				}
+
+				System.out.println("");
+
+				//ShowAceptaciones(actual.listado.primero);
+				actual = actual.next;
+			}
+		}
+	}
+
+	public void ValidarEstado() {
+		
+	}
+	
 }
 
 class Nodo_SimpleSiguientesTransiciones {

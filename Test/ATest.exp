@@ -3,6 +3,6 @@
 ExpReg1 -> |.*|{L}{D}?{L}."#"{L};
 %%
 
-ExpresionReg2 : "34.44";
+ExpReg1 : "34.44";
 
 }

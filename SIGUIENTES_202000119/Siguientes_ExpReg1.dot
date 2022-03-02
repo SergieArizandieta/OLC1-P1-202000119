@@ -3,13 +3,11 @@ digraph structs {
  node [shape=Mrecord fillcolor="#E3EBFF" style =filled];
 label ="ExpReg1"
 struct1 [label="SIGUIENTES| { Valor | Hoja| Siguinetes } | 
-{ \" \"| 1 | [2]}|
-{ \"h\"| 2 | [3]}|
-{ \"o\"| 3 | [4]}|
-{ \"l\"| 4 | [5]}|
-{ \"a\"| 5 | [6]}|
-{ \" \"| 6 | [8]}|
-{ \"h\"| 7 | [8]}|
-{ $| 8 | []}
+{ \"3\"| 1 | [2]}|
+{ \"4\"| 2 | [3]}|
+{ \".\"| 3 | [4]}|
+{ \"4\"| 4 | [5]}|
+{ \"4\"| 5 | [6]}|
+{ $| 6 | []}
 "];
  }

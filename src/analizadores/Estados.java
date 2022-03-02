@@ -6,11 +6,11 @@ import java.util.List;
 
 public class Estados {
 	
-	
+	static Nodo_SimpleSiguientesTransiciones ActualValidacion;
 	static String dot;
 	static Integer estadosGestion=0;
 	static Nodo_SimpleSiguientesTransiciones encabezadoEstado;
-	
+	static Boolean EstadoAceptacion =false;
 	String name;
 	Integer Estado;
 	Boolean Aceptacion;
@@ -87,12 +87,27 @@ public class Estados {
 	}
 	
 	public void validadarCadena(String cadena) {
+		EstadoAceptacion = Aceptacion;
+		ActualValidacion = listado.primero;
+		cadena+="ƒ";
+		
 		System.out.println(cadena);
 		for (int i = 0; i < cadena.length(); i++) {
-			System.out.println(cadena.charAt(i));
-
+			String letter = String.valueOf(cadena.charAt(i));
+			//System.out.println(letter);
+			ValidacionGuia(ActualValidacion,letter);
 		}
 	}
+	
+	public void ValidacionGuia(Nodo_SimpleSiguientesTransiciones actual, String letter) {
+		//System.out.println("____________________________________________________");
+		//System.out.println("Estado " + actual.Estado + " letra: " + letter);
+		//System.out.println("=====================================================");
+		actual.listado.ValidacionPivote(actual,letter);
+		
+
+	}
+	
 	
 	public void verGrafo() {
 		listado.openimg(this.name);

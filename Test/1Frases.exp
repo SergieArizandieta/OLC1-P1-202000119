@@ -1,6 +1,6 @@
 {
 //ExpresionReg2 : "34.44";
-ExpReg1 -> |" hola ""h";
+ExpReg1 -> ."3"."4"."."."4""4";
 %%
 %%
 %%
@@ -8,6 +8,6 @@ ExpReg1 -> |" hola ""h";
 %%
 
 %%
-ExpresionReg2 : "34.44";
+//ExpresionReg2 : "34.44";
 ExpReg1: "34.44";
 }
