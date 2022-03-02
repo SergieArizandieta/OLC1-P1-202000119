@@ -955,6 +955,7 @@ public class SimpleSiguientesTransiciones {
 
 			if (actual == null) {
 				System.out.println("fallo");
+				Estados.CadenaValida = false;
 			}
 		}
 	}
@@ -974,6 +975,7 @@ public class SimpleSiguientesTransiciones {
 			if (actual == null) {
 
 				System.out.println("fallo");
+				Estados.CadenaValida = false;
 			}
 
 		}
@@ -1024,9 +1026,12 @@ public class SimpleSiguientesTransiciones {
 				}
 
 			} else {
+				
 				if (letterSig == null) {;
-					Estados.ActualValidacion = actual;
+					Estados.anteriorEstado = actual;
+					Estados.CadenaValida = false;
 				}else {
+					Estados.anteriorEstado = actual;
 					Estados.ActualValidacion = actual.listado.primero;
 				}
 				
@@ -1034,6 +1039,7 @@ public class SimpleSiguientesTransiciones {
 
 		} catch (Exception e) {
 			System.out.println(e);
+			Estados.CadenaValida = false;
 		}
 	}
 

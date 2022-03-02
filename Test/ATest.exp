@@ -1,5 +1,10 @@
 {
 //ExpReg1 -> |.*|"L""D"?"L"."#""L";
+// error por no tener datos ExpReg1 : "#";
+//error por no encontrar estado ExpReg1 : "#1";
+//error no encontro ningun estado ExpReg1 : "p";
+
+
 //ExpReg1 -> |.*|{L}{D}?{L}."#"{L};
 
 ExpReg1 -> |.*|"L""D"?"L"."#""L";

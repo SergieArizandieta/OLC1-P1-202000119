@@ -6,12 +6,13 @@ import java.util.List;
 import javax.sound.midi.Soundbank;
 
 public class Estados {
-
+	static Boolean CadenaValida;
 	static Nodo_SimpleSiguientesTransiciones ActualValidacion;
 	static String dot;
 	static Integer estadosGestion = 0;
 	static Nodo_SimpleSiguientesTransiciones encabezadoEstado;
-	static Boolean EstadoAceptacion = false;
+	static Nodo_SimpleSiguientesTransiciones anteriorEstado = null;
+
 	String name;
 	Integer Estado;
 	Boolean Aceptacion;
@@ -87,7 +88,8 @@ public class Estados {
 	}
 
 	public void validadarCadena(String cadena) {
-		EstadoAceptacion = Aceptacion;
+		CadenaValida = true;
+		anteriorEstado = null;
 		ActualValidacion = listado.primero;
 		// cadena+="ƒ";
 
@@ -106,12 +108,17 @@ public class Estados {
 				ValidacionGuia(ActualValidacion, letter, letterSig);
 			}
 			
-			if (ActualValidacion.Aceptacion) {
-				System.out.println("Estado en: " + ActualValidacion.Estado);
-			} else {
-				System.out.println("Fallo en : " + ActualValidacion.Estado);
+			if(CadenaValida) {
+				if (ActualValidacion.Aceptacion) {
+					System.out.println("Estado en: " + ActualValidacion.Estado);
+				} 
+			}else {
+				if (anteriorEstado == null) {
+					System.out.println("Fallo en : 0");
+				} else {
+					System.out.println("Fallo en anterior: " + anteriorEstado.Estado);
+				}
 			}
-			
 
 		} else {
 			if (Aceptacion) {
@@ -120,8 +127,6 @@ public class Estados {
 				System.out.println("fallo");
 			}
 		}
-
-		
 
 	}
 

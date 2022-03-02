@@ -2,30 +2,30 @@ digraph structs {
   bgcolor = "#E3FFFA"
    node [shape=Mrecord fillcolor="#FFE3FF" style =filled];
 label ="ExpReg1"
-    struct1055564916    [label="{{[1, 2, 3, 4, 6]|<here>.|[6]}|No Anulable}"];
-    struct1055564916-> struct590605508
-    struct590605508    [label="{{[1, 2, 3, 4]|<here>\||[1, 2, 3, 5]}|Anulable}"];
-    struct590605508-> struct580973216
-    struct580973216    [label="{{[1, 2, 3]|<here>.|[1, 2, 3]}|Anulable}"];
-    struct580973216-> struct568919078
-    struct568919078    [label="{{[1, 2]|<here>*|[1, 2]}|Anulable}"];
-    struct568919078-> struct1246481771
-    struct1246481771    [label="{{[1, 2]|<here>\||[1, 2]}|No Anulable}"];
-    struct1246481771-> struct1981963562
-    struct1981963562    [label="{{[1]|<here>\"L\"|[1]}|No Anulable}"];
-    struct1246481771-> struct1404212412
-    struct1404212412    [label="{{[2]|<here>\"D\"|[2]}|No Anulable}"];
-    struct580973216-> struct974353112
-    struct974353112    [label="{{[3]|<here>?|[3]}|Anulable}"];
-    struct974353112-> struct774361188
-    struct774361188    [label="{{[3]|<here>\"L\"|[3]}|No Anulable}"];
-    struct590605508-> struct1250427783
-    struct1250427783    [label="{{[4]|<here>.|[5]}|No Anulable}"];
-    struct1250427783-> struct232290590
-    struct232290590    [label="{{[4]|<here>\"#\"|[4]}|No Anulable}"];
-    struct1250427783-> struct746348495
-    struct746348495    [label="{{[5]|<here>\"L\"|[5]}|No Anulable}"];
-    struct1055564916-> struct1011359444
-    struct1011359444    [label="{{[6]|<here>$|[6]}|No Anulable}"];
+    struct1597441766    [label="{{[1, 2, 3, 4, 6]|<here>.|[6]}|No Anulable}"];
+    struct1597441766-> struct2044987896
+    struct2044987896    [label="{{[1, 2, 3, 4]|<here>\||[1, 2, 3, 5]}|Anulable}"];
+    struct2044987896-> struct1502864544
+    struct1502864544    [label="{{[1, 2, 3]|<here>.|[1, 2, 3]}|Anulable}"];
+    struct1502864544-> struct1917371417
+    struct1917371417    [label="{{[1, 2]|<here>*|[1, 2]}|Anulable}"];
+    struct1917371417-> struct355462272
+    struct355462272    [label="{{[1, 2]|<here>\||[1, 2]}|No Anulable}"];
+    struct355462272-> struct1281203220
+    struct1281203220    [label="{{[1]|<here>\"L\"|[1]}|No Anulable}"];
+    struct355462272-> struct179161051
+    struct179161051    [label="{{[2]|<here>\"D\"|[2]}|No Anulable}"];
+    struct1502864544-> struct1047634587
+    struct1047634587    [label="{{[3]|<here>?|[3]}|Anulable}"];
+    struct1047634587-> struct1422922297
+    struct1422922297    [label="{{[3]|<here>\"L\"|[3]}|No Anulable}"];
+    struct2044987896-> struct1959631243
+    struct1959631243    [label="{{[4]|<here>.|[5]}|No Anulable}"];
+    struct1959631243-> struct272239574
+    struct272239574    [label="{{[4]|<here>\"#\"|[4]}|No Anulable}"];
+    struct1959631243-> struct594282032
+    struct594282032    [label="{{[5]|<here>\"L\"|[5]}|No Anulable}"];
+    struct1597441766-> struct2012842430
+    struct2012842430    [label="{{[6]|<here>$|[6]}|No Anulable}"];
 
 }
