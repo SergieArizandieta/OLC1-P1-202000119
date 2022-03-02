@@ -11,6 +11,7 @@
 //cadena combinada triple aceptada ExpReg1 : "DLLD#LL";
 //error en cadena super combinada  ExpReg1 : "DLLD#LLDLLD#LLDLLD#LLDLLD#LLDLLD#LLDLLD#LL0";
 //ExpReg1 -> |.*|{L}{D}?{L}."#"{L};
+//exitoso
 
 ExpReg1 -> |.*|"L""D"?"L"."#""L";
 
