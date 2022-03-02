@@ -67,7 +67,7 @@ CONTENIDO::=
     | ER CONTENIDOR  {:/*System.out.println("<CONTENIDO>");*/:};
 
 CONJUNTO ::= 
-    CONJ S_DOTS IDENTIFICADOR:a S_ARROW DEFCONJ {:/*System.out.println("<CONJUNTO>: " + a);*/TempConjName =(String) a;
+    CONJ S_DOTS NAMECOBJ:a S_ARROW DEFCONJ {:/*System.out.println("<CONJUNTO>: " + a);*/TempConjName =(String) a;
                                                 ConjTemp = new Conj(TempConjType,(String) a,TempConjVar1,TempConjVar2,TempConjText);
                                                 ConjList.add(ConjTemp);
                                                 TempConjText = "";TempConjVar1="";TempConjVar2="";

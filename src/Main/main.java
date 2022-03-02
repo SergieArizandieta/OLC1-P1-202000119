@@ -36,6 +36,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import analizadores.Analizador_Lexico;
 import analizadores.Analizador_sintactico;
 import analizadores.Cadenas;
+import analizadores.Conj;
 import analizadores.Reportes;
 import analizadores.SimpleER;
 import analizadores.errorList;
@@ -313,6 +314,10 @@ public class main extends JFrame {
 							 * System.out.println("Tokens"); for (tokens token : lexico.TokensList) {
 							 * System.out.println(token.show()); }
 							 */
+
+							
+						
+
 							if (Errores == false) {
 								System.out.println("\n\nMostrando ERs");
 
@@ -389,7 +394,7 @@ public class main extends JFrame {
 								for (SimpleER er : sintactico.ERList) {
 									if (i.name.equals(er.name)) {
 										System.out.println("cadena: " + i.string + " para: " + er.name);
-										er.ValidarCadena(i.string);
+										er.ValidarCadena(i.string,sintactico.ConjList);
 										encontrado = true;
 										break;
 									}
@@ -401,7 +406,7 @@ public class main extends JFrame {
 								}
 							}
 
-						}else {
+						} else {
 							System.out.println("no hay cadenas");
 						}
 					} else {

@@ -10,14 +10,17 @@
 //cadena combinada aceptada ExpReg1 : "DLLD#L";
 //cadena combinada triple aceptada ExpReg1 : "DLLD#LL";
 //error en cadena super combinada  ExpReg1 : "DLLD#LLDLLD#LLDLLD#LLDLLD#LLDLLD#LLDLLD#LL0";
-//ExpReg1 -> |.*|{L}{D}?{L}."#"{L};
+
+//ExpReg1 -> |.*|"L""D"?"L"."#""L";
 //exitoso
+//ExpReg1 -> |.*|{L}{D}?{L}."#"{L};
 
-ExpReg1 -> |.*|"L""D"?"L"."#""L";
-
+CONJ: digito -> 0,1,2,3,4;
+Conj: L-> D,L;
+ExpReg2 -> {L};
 %%
 
 //ExpReg1 : "";
-ExpReg1 : "DLLD#LLDLLD#LLDLLD#LLDLLD#LLDLLD#LLDLLD#LL0";
+ExpReg2 : "DL";
 
 }

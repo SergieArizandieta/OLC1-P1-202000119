@@ -3,6 +3,7 @@ package analizadores;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -793,9 +794,9 @@ public class SimpleER {
 		}
 	}
 	
-	public void ValidarCadena(String cadena) {
+	public void ValidarCadena(String cadena, LinkedList<Conj> conjList) {
 		
-		Estado_Inicial.validadarCadena(cadena);
+		Estado_Inicial.validadarCadena(cadena, conjList);
 	}
 
 }

@@ -986,7 +986,11 @@ public class SimpleSiguientesTransiciones {
 		boolean continuar = true;
 		for (Valor_Tipo i : actual.DatosAceptados) {
 			if (i.tipo == "REFCONJ") {
-
+				//System.out.println("Se encontro conjunto " + i.valor );
+				for (Conj conjunto : Estados.ListaConjuntos) {
+					
+					System.out.println(conjunto.show());
+				}
 			} else if (i.tipo == "PHRASE" || i.tipo == "SPACE") {
 				String valor = i.valor.replace("\"", "");
 				if (valor.equals(letter)) {

@@ -1,11 +1,14 @@
 package analizadores;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.sound.midi.Soundbank;
 
+
 public class Estados {
+	static LinkedList<Conj> ListaConjuntos;
 	static Boolean CadenaValida;
 	static Nodo_SimpleSiguientesTransiciones ActualValidacion;
 	static String dot;
@@ -87,7 +90,8 @@ public class Estados {
 		return dot;
 	}
 
-	public void validadarCadena(String cadena) {
+	public void validadarCadena(String cadena, LinkedList<Conj> conjList) {
+		ListaConjuntos =conjList;
 		CadenaValida = true;
 		anteriorEstado = null;
 		ActualValidacion = listado.primero;
