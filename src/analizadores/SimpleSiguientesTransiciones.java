@@ -931,9 +931,9 @@ public class SimpleSiguientesTransiciones {
 		}
 	}
 
-	public void ValidacionPivote(Nodo_SimpleSiguientesTransiciones cabezera, String letter, String letterSig) {
+	public void ValidacionPivote(Nodo_SimpleSiguientesTransiciones cabezera, String letter, String letterSig,boolean primero) {
 
-		if (cabezera == Estados.encabezadoEstado) {
+		if (primero) {
 			ValidacionCadenaInicial(cabezera, letter, letterSig);
 		} else {
 			ValidacionCadena(cabezera, letter, letterSig);
@@ -1021,7 +1021,13 @@ public class SimpleSiguientesTransiciones {
 
 	public void NuevaAsignacion(Boolean Aceptacion, Nodo_SimpleSiguientesTransiciones actual, String letter,
 			String letterSig) {
-		System.out.println("con: " + letter + " hacia " + actual.Estado);
+		if(actual.EstadoRepetido) {
+			System.out.println("con: " + letter + " hacia " + actual.EstadoDestino);
+		}else{
+			System.out.println("con: " + letter + " hacia " + actual.Estado);
+		}
+		
+		
 		try {
 
 			if (Aceptacion) {
@@ -1032,14 +1038,17 @@ public class SimpleSiguientesTransiciones {
 				} else {
 
 					if (actual.listado.primero == null) {
+						//Estados.ActualValidacio{}n = actual;
+						if(actual.EstadoRepetido)
 						Estados.anteriorEstado = actual;
-						Estados.ActualValidacion = actual;
 						Estados.CadenaValida = false;
 						//Estados.anteriorEstado = actual;
 						//Estados.ActualValidacion = Estados.encabezadoEstado;
 					} else {
 						Estados.anteriorEstado = actual;
-						Estados.ActualValidacion = actual;
+						Estados.ActualValidacion = actual.listado.primero;
+
+						
 					}
 
 				}

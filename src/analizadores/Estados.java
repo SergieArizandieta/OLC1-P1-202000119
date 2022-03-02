@@ -123,7 +123,12 @@ public class Estados {
 				if (anteriorEstado == null) {
 					System.out.println("Fallo en : 0");
 				} else {
-					System.out.println("Fallo en anterior: " + anteriorEstado.Estado);
+					if(anteriorEstado.EstadoRepetido) {
+						System.out.println("Fallo en anterior: " + anteriorEstado.EstadoDestino);
+					}else {
+						System.out.println("Fallo en anterior: " + anteriorEstado.Estado);
+					}
+					
 				}
 			}
 
@@ -141,7 +146,12 @@ public class Estados {
 		// System.out.println("____________________________________________________");
 		// System.out.println("Estado " + actual.Estado + " letra: " + letter);
 		// System.out.println("=====================================================");
-		actual.listado.ValidacionPivote(actual, letter, letterSig);
+		if(anteriorEstado == null) {
+			actual.listado.ValidacionPivote(actual, letter, letterSig,true);
+		}else {
+			actual.listado.ValidacionPivote(actual, letter, letterSig,false);
+		}
+		
 
 	}
 

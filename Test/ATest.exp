@@ -15,12 +15,14 @@
 //exitoso
 //ExpReg1 -> |.*|{L}{D}?{L}."#"{L};
 
-CONJ: digito -> 0,1,2,3,4;
-Conj: L-> D,L;
-ExpReg2 -> {L};
-%%
+ExpReg1 -> |.*|"L""D"?"L"."#""L";
 
-//ExpReg1 : "";
-ExpReg2 : "DL";
+//CONJ: digito -> 0,1,2,3,4;
+//Conj: L-> D,L;
+//ExpReg2 -> {L};
+%%
+ExpReg1 : "DL#L";
+
+//ExpReg2 : "DL";
 
 }
