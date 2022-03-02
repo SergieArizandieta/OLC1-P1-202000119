@@ -9,14 +9,17 @@ digraph G { bgcolor="black"
   <TR>
       <TD border="3" bgcolor="#FFF97B">Estados\Terminales  </TD>
       <TD border="3" bgcolor="#FFF97B">L</TD>
+      <TD border="3" bgcolor="#FFF97B">digito</TD>
   </TR>
   <TR>
       <TD border="3" bgcolor="#FFF97B">0 S0</TD>
       <TD border="3" > S1</TD>
+      <TD border="3" > -- </TD>
   </TR>
   <TR>
-      <TD border="3" bgcolor="#FFF97B">$  S1</TD>
-      <TD border="3" > -- </TD>
+      <TD border="3" bgcolor="#FFF97B">S1</TD>
+      <TD border="3" > S1</TD>
+      <TD border="3" > S2</TD>
   </TR>
 
 </TABLE>>];}}

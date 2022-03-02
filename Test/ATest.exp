@@ -1,28 +1,40 @@
 {
 //ExpReg1 -> |.*|"L""D"?"L"."#""L";
-// error por no tener datos ExpReg1 : "#";
-//error por no encontrar estado ExpReg1 : "#1";
-//error no encontro ningun estado ExpReg1 : "p";
-//error no encontro estado para 1 ExpReg1 : "D1";
-//error no encontro estado para 1 ExpReg1 : "DL1";
-//error no encontro estado para 1 ExpReg1 : "DLLD1";
-//error no tuvo datos para continuar ExpReg1 : "DLLD#";
-//cadena combinada aceptada ExpReg1 : "DLLD#L";
-//cadena combinada triple aceptada ExpReg1 : "DLLD#LL";
-//error en cadena super combinada  ExpReg1 : "DLLD#LLDLLD#LLDLLD#LLDLLD#LLDLLD#LLDLLD#LL0";
-
+// error por no tener datos ExpReg1 : "#"; confirmado
+//error por no encontrar estado ExpReg1 : "#1"; confirmado
+//error no encontro ningun estado ExpReg1 : "p"; confirmado
+//error no encontro estado para 1 ExpReg1 : "D1"; confirmado
+//error no encontro estado para 1 ExpReg1 : "DL1"; confirmado
+//error no encontro estado para 1 ExpReg1 : "DLLD1"; confirmado
+//error no encontro estado para # ExpReg1 : "DLLD#"; confirmado
+//error no encontro estado para # ExpReg1 : "DLLD#L";
+//error no encontro estado para # ExpReg1 : "DLLD#LL";
+//error no encontro estado para # ExpReg1 : "DLLD#LLDLLD#LLDLLD#LLDLLD#LLDLLD#LLDLLD#LL0";
+// cadena aceptada ExpReg1 : "LLDLDLDLLDLDLDLDLDLDLDLDLDLDLDLDLD";
+// cadena aceptada ExpReg1 : "#L";
+// error no encontro estado para 1 ExpReg1 : "#L1";
 //ExpReg1 -> |.*|"L""D"?"L"."#""L";
 //exitoso
+
+//ExpReg2 : "DDLDLDLDLL421123423421341234DL";
+//ExpReg2 : "DDLDLDLDLL421123423421341234#"; error
+//ExpReg2 : "#DDLDLDLDLL421123423421341234" error
+//ExpReg2 : "DDLDLDLDLL421123423421341234"; aceptada
+//ExpReg2 : "DDLDLDLDLL#421123423421341234"; error
+//ExpReg2 : "12DDLDLDLDLL421123423421341234"; error
+//ExpReg2 -> .+{L}+{digito} ;
+
 //ExpReg1 -> |.*|{L}{D}?{L}."#"{L};
 
-ExpReg1 -> |.*|"L""D"?"L"."#""L";
 
-//CONJ: digito -> 0,1,2,3,4;
-//Conj: L-> D,L;
-//ExpReg2 -> {L};
+CONJ: digito -> 0,1,2,3,4;
+Conj: L-> D,L;
+ExpReg2 -> .+{L}+{digito} ;
+
 %%
-ExpReg1 : "DL#L";
 
-//ExpReg2 : "DL";
+ExpReg2 : "DDLDLDLDLL421123423421341234";
+
+
 
 }

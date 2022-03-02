@@ -1034,16 +1034,20 @@ public class SimpleSiguientesTransiciones {
 				if (letterSig == null) {
 
 					System.out.println("Cadena aceptada");
-
+					Estados.anteriorEstado = actual;
 				} else {
 
 					if (actual.listado.primero == null) {
-						//Estados.ActualValidacio{}n = actual;
-						if(actual.EstadoRepetido)
-						Estados.anteriorEstado = actual;
-						Estados.CadenaValida = false;
-						//Estados.anteriorEstado = actual;
-						//Estados.ActualValidacion = Estados.encabezadoEstado;
+
+						if(actual.EstadoRepetido) {
+							Estados.anteriorEstado = actual;
+							Estados.ActualValidacion = actual;
+						}else {
+							Estados.anteriorEstado = actual;
+							Estados.CadenaValida = false;
+						}
+
+
 					} else {
 						Estados.anteriorEstado = actual;
 						Estados.ActualValidacion = actual.listado.primero;
@@ -1060,7 +1064,11 @@ public class SimpleSiguientesTransiciones {
 					Estados.CadenaValida = false;
 				}else {
 					Estados.anteriorEstado = actual;
-					Estados.ActualValidacion = actual.listado.primero;
+					if(actual.EstadoRepetido) {
+						Estados.ActualValidacion = actual;
+					}else {
+						Estados.ActualValidacion = actual.listado.primero;
+					}
 				}
 				
 			}

@@ -3,7 +3,8 @@ digraph structs {
  node [shape=Mrecord fillcolor="#E3EBFF" style =filled];
 label ="ExpReg2"
 struct1 [label="SIGUIENTES| { Valor | Hoja| Siguinetes } | 
-{ L| 1 | [2]}|
-{ $| 2 | []}
+{ L| 1 | [1, 2]}|
+{ digito| 2 | [2, 3]}|
+{ $| 3 | []}
 "];
  }

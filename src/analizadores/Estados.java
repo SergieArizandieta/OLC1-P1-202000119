@@ -116,9 +116,17 @@ public class Estados {
 			}
 
 			if (CadenaValida) {
+				
+				
 				if (ActualValidacion.Aceptacion) {
-					System.out.println("Estado en: " + ActualValidacion.Estado);
+					if(anteriorEstado.EstadoRepetido) {
+						System.out.println("Estado en: " + ActualValidacion.EstadoDestino);
+					}else {
+						System.out.println("Estado en: " + ActualValidacion.Estado);
+					}
 				}
+				
+				
 			} else {
 				if (anteriorEstado == null) {
 					System.out.println("Fallo en : 0");
