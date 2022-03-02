@@ -26,7 +26,7 @@ public class Conj {
 	public Boolean validar(String letter) {
 		validado = false;
 		if(isRank()) {
-			ValidacionRango();
+			ValidacionRango(letter);
 		}else {
 			validacionComas(letter);
 		}
@@ -42,7 +42,12 @@ public class Conj {
 		}
 	}
 	
-	public void ValidacionRango() {
+	public void ValidacionRango(String letter) {
+		
+		
+	}
+	
+	public void isNum() {
 		
 	}
 	

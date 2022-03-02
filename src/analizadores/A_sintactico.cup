@@ -82,20 +82,21 @@ SEPCOMAS ::=
 
 DATOSEP ::=  
     NUMBER:a {:RESULT = a;:}  
-    |  LETTER:a {:RESULT = a;:}  
+    | LETTER:a {:RESULT = a;:}  
     | RANGE:a {:RESULT = a;:}   
     | S_ASTERISK:a {:RESULT = a;:}   
     | S_PLUS:a {:RESULT = a;:}   
     | S_COLON:a {:RESULT = a;:}   
     | S_DOT:a {:RESULT = a;:}    
-    |  S_DOTS:a {:RESULT = a;:}    
+    | S_DOTS:a {:RESULT = a;:}    
     | S_SEMICOLON:a {:RESULT = a;:}   
-    |  S_QMARK:a {:RESULT = a;:}    
+    | S_QMARK:a {:RESULT = a;:}    
     | S_LA:a {:RESULT = a;:}    
-    |  S_LINE:a {:RESULT = a;:}    
-    |  S_LLC:a {:RESULT = a;:}   
-    |S_DQUOTES:a {:RESULT = a;:}   
-    | S_QUOTE:a {:RESULT = a;:}   ;
+    | S_LINE:a {:RESULT = a;:}    
+    | S_LLC:a {:RESULT = a;:}   
+    | S_DQUOTES:a {:RESULT = a;:}   
+    | S_QUOTE:a {:RESULT = a;:}
+    | S_LBREAK:a {:RESULT = a;:}  ;
 
 SEPCOMASR ::= 
     S_COLON SEPCOMAS {:/*System.out.println("<SEPCOMASR>");*/:}
@@ -121,7 +122,8 @@ DATORANGO ::=
     | S_LINE:a {:RESULT =a; :} 
     | S_LLC:a {:RESULT =a; :}
     | S_DQUOTES:a {:RESULT =a; :}
-    | S_QUOTE:a {:RESULT =a; :}  ;
+    | S_QUOTE:a {:RESULT =a; :} 
+    | S_LBREAK:a {:RESULT = a;:} ;
 
 ER ::= 
     IDENTIFICADOR:a S_ARROW DEFER {:System.out.println("<ER> " + a + " : ");temp.name = (String) a;ERList.add(temp);:};
