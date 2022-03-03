@@ -4,11 +4,13 @@ CONJ: digito -> " "~$;
 //CONJ: digito -> 0,1,2,3,4;
 
 Conj: L-> D,L;
-ExpReg2 -> .+{L}+{digito} ;
+//ExpReg2 -> .+{L}+{digito} ; actual
+coliflor-> .+{L}+{digito}; 
 
 %%
 
-ExpReg2 : "DL !#$";
+ExpReg2 : "DL !#$"; 
+
 
 
 //CONJ: digito -> " "~$;
