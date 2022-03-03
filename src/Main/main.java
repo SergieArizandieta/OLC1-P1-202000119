@@ -41,6 +41,7 @@ import analizadores.Conj;
 import analizadores.Reportes;
 import analizadores.SimpleER;
 import analizadores.errorList;
+import javax.swing.JTextArea;
 
 public class main extends JFrame {
 
@@ -147,10 +148,6 @@ public class main extends JFrame {
 		Label_img.setHorizontalAlignment(SwingConstants.LEFT);
 		Label_img.setBounds(10, 11, 407, 339);
 		panel.add(Label_img);
-		
-		TextArea textEditable_1 = new TextArea();
-		textEditable_1.setBounds(-355, 385, 782, 139);
-		panel.add(textEditable_1);
 
 		TextArea textEditable = new TextArea();
 		textEditable.setBounds(14, 50, 569, 555);
@@ -166,6 +163,11 @@ public class main extends JFrame {
 
 		button_ComprobarCadeas.setBounds(607, 122, 161, 23);
 		contentPane.add(button_ComprobarCadeas);
+		
+		TextArea textOut = new TextArea();
+		textOut.setEditable(false);
+		textOut.setBounds(607, 472, 779, 133);
+		contentPane.add(textOut);
 
 		// Acciones------------------------------------------------------------------------------------
 		// Menu------------------------------------------------------------------------------------
@@ -415,7 +417,7 @@ public class main extends JFrame {
 									System.out.println("La cadena: " + i.string + " es INVALIDA con la ER: " + i.name );
 								}
 							}
-							//textOut.setText(text);
+							textOut.setText(text);
 
 						} else {
 							System.out.println("no hay cadenas");
