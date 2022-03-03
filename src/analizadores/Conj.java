@@ -2,6 +2,7 @@ package analizadores;
 
 public class Conj {
 	String tipo, nombre,var1,var2,text;
+	Integer CharVar1,CharVar2;
 	String[] letras;
 	Boolean validado = false;
 	
@@ -20,6 +21,20 @@ public class Conj {
 
 		if(isRank() == false) {
 			letras = text.split(",");
+		}else {
+			if(var1.equals(" ")) {
+				this.CharVar1 = 32;
+			}else {
+				char character1=this.var1.charAt(0);
+				this.CharVar1 = (int) character1;
+			}
+			
+			char character2=this.var1.charAt(0);
+			this.CharVar2 = (int) character2;
+			
+			if(CharVar1>CharVar2) {
+				System.out.println("Rango invalido");
+			}
 		}
 	}
 	
@@ -43,8 +58,14 @@ public class Conj {
 	}
 	
 	public void ValidacionRango(String letter) {
-		
-		
+		System.out.println("________________________");
+
+		System.out.println(var1);
+		System.out.println(var2);
+		char character=letter.charAt(0);
+		int numberLetter = (int) character;
+		System.out.println(character + "/////" + numberLetter);
+		System.out.println("________________________");
 	}
 	
 	public void isNum() {

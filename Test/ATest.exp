@@ -24,19 +24,20 @@
 //ExpReg2 : "12DDLDLDLDLL421123423421341234"; error
 //ExpReg2 -> .+{L}+{digito} ;
 
+//CONJ: digito -> @,!,#,3,4; 
+//ExpReg2 : "DD@!#!@#!@#!#@34343444433333"; aceptada
+
 //ExpReg1 -> |.*|{L}{D}?{L}."#"{L};
 
-//CONJ: digito -> 0~4;
-
+CONJ: digito -> 0~4;
 //CONJ: digito -> 0,1,2,3,4;
 
-CONJ: digito -> @,!,#,3,4;
 Conj: L-> D,L;
 ExpReg2 -> .+{L}+{digito} ;
 
 %%
 
-ExpReg2 : "DD@!#!@#!@#!#@34343444433333";
+ExpReg2 : "DD4343444433333";
 
 
 
