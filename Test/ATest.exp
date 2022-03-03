@@ -1,8 +1,53 @@
 {
 
-ExpReg1 -> |.*|{L}{D}?{L}."#"{L};
+CONJ: digito -> " "~$;
+//CONJ: digito -> 0,1,2,3,4;
+
+Conj: L-> D,L;
+//ExpReg2 -> .+{L}+{digito} ; actual
+coliflor-> .+{L}+{digito}; 
+
 %%
 
-ExpresionReg2 : "34.44";
+ExpReg2 : "DL !#$"; 
+
+
+
+//CONJ: digito -> " "~$;
+//ExpReg2 : "DL !#$"; aceptado
+
+//CONJ: digito -> 0~2;
+//ExpReg2 : "DL"; aceptado
+
+
+//ExpReg1 -> |.*|"L""D"?"L"."#""L";
+// error por no tener datos ExpReg1 : "#"; confirmado
+//error por no encontrar estado ExpReg1 : "#1"; confirmado
+//error no encontro ningun estado ExpReg1 : "p"; confirmado
+//error no encontro estado para 1 ExpReg1 : "D1"; confirmado
+//error no encontro estado para 1 ExpReg1 : "DL1"; confirmado
+//error no encontro estado para 1 ExpReg1 : "DLLD1"; confirmado
+//error no encontro estado para # ExpReg1 : "DLLD#"; confirmado
+//error no encontro estado para # ExpReg1 : "DLLD#L";
+//error no encontro estado para # ExpReg1 : "DLLD#LL";
+//error no encontro estado para # ExpReg1 : "DLLD#LLDLLD#LLDLLD#LLDLLD#LLDLLD#LLDLLD#LL0";
+// cadena aceptada ExpReg1 : "LLDLDLDLLDLDLDLDLDLDLDLDLDLDLDLDLD";
+// cadena aceptada ExpReg1 : "#L";
+// error no encontro estado para 1 ExpReg1 : "#L1";
+//ExpReg1 -> |.*|"L""D"?"L"."#""L";
+//exitoso
+
+//ExpReg2 : "DDLDLDLDLL421123423421341234DL";
+//ExpReg2 : "DDLDLDLDLL421123423421341234#"; error
+//ExpReg2 : "#DDLDLDLDLL421123423421341234" error
+//ExpReg2 : "DDLDLDLDLL421123423421341234"; aceptada
+//ExpReg2 : "DDLDLDLDLL#421123423421341234"; error
+//ExpReg2 : "12DDLDLDLDLL421123423421341234"; error
+//ExpReg2 -> .+{L}+{digito} ;
+
+//CONJ: digito -> @,!,#,3,4; 
+//ExpReg2 : "DD@!#!@#!@#!#@34343444433333"; aceptada
+
+//ExpReg1 -> |.*|{L}{D}?{L}."#"{L};
 
 }

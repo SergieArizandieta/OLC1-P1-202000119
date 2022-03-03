@@ -1,0 +1,22 @@
+
+
+{
+	//este comentario es de una linea
+
+	CONJ:letra -> a~x;
+    CONJ:numero -> 1~4;
+	CONJ:numero2 -> 7~9;
+	
+	expre1-> .{letra}*|{numero}|{letra}{numero2}  ;
+	
+	%%
+	%%
+    //ahora toca evaluar las cadenas
+
+	expre1:"mabbbbbbfdsb";   //esta cadena es CORRECTA
+	expre1:"mabbbbbbfdsbz";  //esta cadena es INCORRECTA
+    expre1:"f"; //esta cadena es CORRECTA  
+    expre1:"a56"; <! esta cadena es INCORRECTA !>
+	
+
+}

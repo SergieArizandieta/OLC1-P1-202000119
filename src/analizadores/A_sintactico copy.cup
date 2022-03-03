@@ -1,0 +1,157 @@
+package analizadores;
+import java_cup.runtime.Symbol;
+import java.util.LinkedList;
+
+parser code
+{:
+    public  LinkedList<errorList> errores = new LinkedList<errorList>(); 
+    public  LinkedList<tokens> TokensList  = new LinkedList<tokens>();
+    public  LinkedList<SimpleER> ERList  = new LinkedList<SimpleER>();
+    public  LinkedList<Conj> ConjList  = new LinkedList<Conj>();
+    public  LinkedList<Cadenas> CadenasList  = new LinkedList<Cadenas>();
+    Cadenas CadenasTemp;
+    SimpleER temp;
+    Conj ConjTemp;
+    String TempConjText = "";
+    String TempConjName = "";
+    String TempConjType = "";
+    String TempConjVar2 = "";
+    String TempConjVar1 = "";
+    String TempNameEr = "";
+    //Metodo al que se llama automaticamente ante algun error sintactico
+    public void syntax_error(Symbol s)
+    {        
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
+      
+        System.out.println("!!!!!!! Error Sintactico Recuperado !!!!!!!");
+        System.out.println("\t\tLexema: "+lexema);
+        System.out.println("\t\tFila: "+fila);
+        System.out.println("\t\tColumna: "+columna);
+
+        errorList tmp = new errorList("Sintactico",lexema,"Caracter no esperado",fila,columna);
+        errores.add(tmp);
+        
+    }
+
+    //Metodo al que se llama en el momento en que ya no es posible una recuperacion de errores
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+    {        
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
+        
+        System.out.println("!!!!!!! Error Sintactico, Panic Mode !!!!!!! ");
+        System.out.println("\t\tLexema: "+lexema);
+        System.out.println("\t\tFila: "+fila);
+        System.out.println("\t\tColumna: "+columna);
+        
+        errorList tmp = new errorList("Sintactico",lexema, "Caracter no esperado, No se pudo recuperar",fila,columna);
+        errores.add(tmp);
+     
+    }
+:}
+
+
+terminal NUMBER,S_LA,S_LLC,S_DOTS,S_SEMICOLON,S_ARROW,S_PCENTS,S_RANK, S_COLON,S_DOT, S_LINE,S_ASTERISK,S_PLUS,S_QMARK,S_LBREAK,S_QUOTE,S_DQUOTES,RANGE,SPACE,CONJ,IDENTIFICADOR,PHRASE,LETTER;
+non terminal INICIO,STARTS,CONTENIDO,CONJUNTO, CONTENIDOR, ER,DEFCONJ,SEPCOMAS,RANGO,DATOSEP,SEPCOMASR,DATORANGO,DEFER,OP,REFCONJ,CADENAS,CADENASR,NAMECOBJ;
+start with INICIO;
+
+INICIO::= STARTS;
+
+STARTS::= S_LA CONTENIDO ;
+
+CONTENIDO::= 
+    CONJUNTO CONTENIDOR 
+    | ER CONTENIDOR ;
+
+CONJUNTO ::= 
+    CONJ S_DOTS IDENTIFICADOR S_ARROW DEFCONJ;
+
+DEFCONJ ::= 
+    SEPCOMAS 
+    | RANGO;
+
+SEPCOMAS ::= 
+    DATOSEP SEPCOMASR;
+
+DATOSEP ::=  
+    NUMBER
+    |  LETTER
+    | RANGE  
+    | S_ASTERISK 
+    | S_PLUS  
+    | S_COLON  
+    | S_DOT  
+    |  S_DOTS
+    | S_SEMICOLON
+    |  S_QMARK   
+    | S_LA  
+    |  S_LINE  
+    |  S_LLC  
+    |S_DQUOTES  
+    | S_QUOTE;
+
+SEPCOMASR ::= 
+    S_COLON SEPCOMAS 
+    | S_SEMICOLON ;
+
+RANGO ::= 
+    DATORANGO S_RANK DATORANGO:b S_SEMICOLON ;
+
+DATORANGO ::= 
+    NUMBER
+    | LETTER
+    | RANGE
+    | SPACE
+    | S_ASTERISK
+    | S_PLUS
+    | S_COLON
+    | S_DOT
+    | S_DOTS
+    | S_SEMICOLON
+    | S_QMARK
+    | S_LA
+    | S_LINE
+    | S_LLC
+    | S_DQUOTES
+    | S_QUOTE ;
+
+ER ::= 
+    IDENTIFICADOR S_ARROW DEFER ;
+
+DEFER ::= 
+    OP
+    | REFCONJ
+    | PHRASE DEFER 
+    | SPACE DEFER 
+    | S_LBREAK DEFER 
+    | S_QUOTE DEFER 
+    | S_DQUOTES DEFER 
+    |S_SEMICOLON ;
+
+OP ::= 
+    S_LINE DEFER 
+    | S_ASTERISK DEFER
+    | S_PLUS DEFER
+    | S_QMARK DEFER  
+    | S_DOT DEFER ;
+
+REFCONJ ::= 
+    S_LA NAMECOBJ S_LLC DEFER;
+
+NAMECOBJ::=IDENTIFICADOR 
+            | LETTER;
+
+CONTENIDOR ::= 
+    S_PCENTS CADENASR 
+    | CONTENIDO ;
+
+CADENAS ::= S_PCENTS CADENASR
+    |IDENTIFICADOR:a S_DOTS PHRASE:b S_SEMICOLON CADENASR ;
+
+CADENASR ::= 
+     S_LLC 
+     | CADENAS;
+

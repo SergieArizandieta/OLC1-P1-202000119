@@ -4,19 +4,26 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.DataOutput;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.rmi.Naming;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -32,12 +39,20 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
+
 import analizadores.Analizador_Lexico;
 import analizadores.Analizador_sintactico;
 import analizadores.Cadenas;
+import analizadores.Conj;
 import analizadores.Reportes;
 import analizadores.SimpleER;
 import analizadores.errorList;
+import javax.swing.JTextArea;
 
 public class main extends JFrame {
 
@@ -110,23 +125,16 @@ public class main extends JFrame {
 		button_generate.setBounds(607, 88, 145, 23);
 		contentPane.add(button_generate);
 
-		JComboBox comboBoxImage = new JComboBox();
-		comboBoxImage.setModel(new DefaultComboBoxModel(new String[] { "Arbol", "Siguientes" }));
-		comboBoxImage.setBounds(1007, 54, 193, 22);
+		JComboBox<String> comboBoxImage = new JComboBox<String>();
+		comboBoxImage.setModel(new DefaultComboBoxModel<String>(
+				new String[] { "Arbol", "Siguientes", "Transiciones", "AFD", "AFND" }));
+		comboBoxImage.setBounds(1100, 54, 193, 22);
 		contentPane.add(comboBoxImage);
 
 		JButton button_view = new JButton("Ver");
-		button_view.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		button_view.setBounds(1210, 54, 67, 23);
-		contentPane.add(button_view);
 
-		JTextPane textOut = new JTextPane();
-		textOut.setEnabled(false);
-		textOut.setBounds(607, 478, 776, 127);
-		contentPane.add(textOut);
+		button_view.setBounds(1319, 54, 67, 23);
+		contentPane.add(button_view);
 
 		JLabel lblNewLabel = new JLabel("Ruta:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -141,13 +149,13 @@ public class main extends JFrame {
 		contentPane.add(lblNewLabel_1);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(959, 88, 427, 361);
+		panel.setBounds(806, 88, 580, 361);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		JLabel Label_img = new JLabel("");
 		Label_img.setHorizontalAlignment(SwingConstants.LEFT);
-		Label_img.setBounds(10, 11, 407, 339);
+		Label_img.setBounds(10, 11, 560, 339);
 		panel.add(Label_img);
 
 		TextArea textEditable = new TextArea();
@@ -165,6 +173,15 @@ public class main extends JFrame {
 		button_ComprobarCadeas.setBounds(607, 122, 161, 23);
 		contentPane.add(button_ComprobarCadeas);
 
+		TextArea textOut = new TextArea();
+		textOut.setEditable(false);
+		textOut.setBounds(607, 472, 779, 133);
+		contentPane.add(textOut);
+
+		JComboBox<String> comboBoxER = new JComboBox<String>();
+		comboBoxER.setBounds(806, 54, 267, 22);
+		contentPane.add(comboBoxER);
+
 		// Acciones------------------------------------------------------------------------------------
 		// Menu------------------------------------------------------------------------------------
 		// Abrir
@@ -175,7 +192,10 @@ public class main extends JFrame {
 						// System.out.println("Archivo seleccionado de: " + fc.getSelectedFile());
 						// String text = Files.readString(Path.of(fc.getSelectedFile().toString()));
 						// System.out.println(fc.getSelectedFile());
-
+						textOut.setText(" ");
+						Label_img.setIcon(null);
+						List<String> ErTemp = new ArrayList<>();
+						comboBoxER.setModel(new DefaultComboBoxModel(ErTemp.toArray()));
 						String text = readUnicodeClassic(fc.getSelectedFile().toString());
 						textEditable.setText(text);
 						label_ruta.setText(fc.getSelectedFile().toString());
@@ -196,6 +216,10 @@ public class main extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (fc.showSaveDialog(Item_SaveHow) == JFileChooser.APPROVE_OPTION) {
 					try {
+						textOut.setText(" ");
+						Label_img.setIcon(null);
+						List<String> ErTemp = new ArrayList<>();
+						comboBoxER.setModel(new DefaultComboBoxModel(ErTemp.toArray()));
 						System.out.println(" se ecogio");
 						System.out.println(fc.getSelectedFile());
 
@@ -224,6 +248,10 @@ public class main extends JFrame {
 					System.out.println("Primero debe guardar el archivo en el sistema");
 					JOptionPane.showMessageDialog(null, "Primero debe guardar el archivo en el sistema");
 				} else {
+					textOut.setText(" ");
+					Label_img.setIcon(null);
+					List<String> ErTemp = new ArrayList<>();
+					comboBoxER.setModel(new DefaultComboBoxModel(ErTemp.toArray()));
 					try (FileWriter fw = new FileWriter(label_ruta.getText())) {
 						analizado = false;
 						AutomataCreado = false;
@@ -240,6 +268,10 @@ public class main extends JFrame {
 		// Nurvo
 		Item_New.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				textOut.setText(" ");
+				Label_img.setIcon(null);
+				List<String> ErTemp = new ArrayList<>();
+				comboBoxER.setModel(new DefaultComboBoxModel(ErTemp.toArray()));
 				analizado = false;
 				AutomataCreado = false;
 				generado = false;
@@ -295,23 +327,7 @@ public class main extends JFrame {
 							System.out.println("=======ERRORES FIN=========");
 
 							reportes.GenerarReporte(lexico.errores, sintactico.errores);
-							// System.out.println("\n\n ***Reporte de errores encontrados ");
-							/*
-							 * 
-							 * 
-							 * 
-							 * 
-							 * for (Conj conjunto : sintactico.ConjList) {
-							 * System.out.println(conjunto.show()); } for (Cadenas cadenas :
-							 * sintactico.CadenasList) { System.out.println(cadenas.show()); }
-							 * 
-							 * 
-							 * 
-							 */
-							/*
-							 * System.out.println("Tokens"); for (tokens token : lexico.TokensList) {
-							 * System.out.println(token.show()); }
-							 */
+
 							if (Errores == false) {
 								System.out.println("\n\nMostrando ERs");
 
@@ -321,6 +337,7 @@ public class main extends JFrame {
 									System.out.println("=========ER=========  " + er.name);
 									// er.initialize();
 									// er.showList();
+
 									er.GestionArbol();
 
 									// er.showListInverse();
@@ -328,6 +345,13 @@ public class main extends JFrame {
 								System.out.println("=====Analidis completado=====");
 								analizado = true;
 
+								List<String> ErTemp = new ArrayList<>();
+								for (SimpleER er : sintactico.ERList) {
+
+									ErTemp.add(er.name);
+								}
+
+								comboBoxER.setModel(new DefaultComboBoxModel(ErTemp.toArray()));
 								// System.out.println("=====================================");
 								JOptionPane.showMessageDialog(null, "Archivo analizado con exito");
 							}
@@ -353,8 +377,8 @@ public class main extends JFrame {
 						JOptionPane.showMessageDialog(null, "Se crearon Automatas correctamente");
 						for (SimpleER er : sintactico.ERList) {
 							System.out.println("=========ER=========  " + er.name);
-							//er.GenrarGrafo();
-							//er.verGrafo();
+							// er.GenrarGrafo();
+							// er.verGrafo();
 						}
 						generado = true;
 						System.out.println("=====Creacion de Automatas finalizada=====");
@@ -367,20 +391,133 @@ public class main extends JFrame {
 				}
 			}
 		});
-		
+
 		// comprobar cadenas
 		button_ComprobarCadeas.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+
+					if (AutomataCreado) {
+						System.out.println("==== Validando Cadenas ====");
+
+						if (sintactico.CadenasList.size() > 0) {
+
+							boolean encontrado = false;
+
+							for (Cadenas i : sintactico.CadenasList) {
+								encontrado = false;
+
+								for (SimpleER er : sintactico.ERList) {
+									if (i.name.equals(er.name)) {
+										System.out.println("===== cadena: " + i.string + " para: " + er.name + "=====");
+										er.ValidarCadena(i.string, sintactico.ConjList, i);
+										encontrado = true;
+										break;
+									}
+
+								}
+								if (encontrado == false) {
+									System.out.println("No se encontro er: " + i.name + " para la cadena: " + i.string);
+
+								}
+							}
+							String text = "";
+							JSONArray Main = new JSONArray();
+							JSONObject sub;
+							for (Cadenas i : sintactico.CadenasList) {
+								sub = new JSONObject();
+
+								if (i.validacion) {
+									text += "La cadena: " + i.string + " es VALIDA con la ER: " + i.name + "\n";
+									System.out.println("La cadena: " + i.string + " es VALIDA con la ER: " + i.name);
+									sub.put("Resultado", "Cadena Valida");
+									sub.put("ExpresionRegular", i.name);
+									sub.put("Valor", i.string);
+
+								} else {
+									text += "La cadena: " + i.string + " es INVALIDA con la ER: " + i.name + "\n";
+									System.out.println("La cadena: " + i.string + " es INVALIDA con la ER: " + i.name);
+									sub.put("Resultado", "Cadena Invalida");
+									sub.put("ExpresionRegular", i.name);
+									sub.put("Valor", i.string);
+
+								}
+
+								Main.put(sub);
+							}
+
+							String Salida = new GsonBuilder().setPrettyPrinting().create()
+									.toJson(new JsonParser().parse(Main.toString()));
+
+							// System.out.println(Salida);
+							// System.out.println(json);
+							// System.out.println(ja);
+
+							Create_File("SALIDAS_202000119\\Salida.JSON", Salida);
+							JOptionPane.showMessageDialog(null, "Se creo archivo de salida");
+							System.out.println("======= Se creo archivo de salida ======");
+
+							textOut.setText(text);
+
+						} else {
+							System.out.println("no hay cadenas");
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "Se deben genera Automatas para validar cadenas");
+					}
+				} catch (Exception e2) {
+					System.out.println(e2);
+				}
+			}
+
+		});
+
+		button_view.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (AutomataCreado) {
-					for (Cadenas i : sintactico.CadenasList) {
-						System.out.println(i.name + " - " + i.string);
+					String er = "";
+					String opcion = "";
+					if (comboBoxER.getSelectedItem() != null && comboBoxImage.getSelectedItem() != null) {
+						er = comboBoxER.getSelectedItem().toString();
+						opcion = comboBoxImage.getSelectedItem().toString();
+						
+						
+						
+						if(opcion.equals("Arbol")) {
+							String ruta ="ARBOLES_202000119\\Arbol_" + er + ".png";
+							ImageIcon imagen = new ImageIcon(ruta);
+							Label_img.setIcon(new ImageIcon (imagen.getImage().getScaledInstance(Label_img.getWidth(), Label_img.getHeight(), Image.SCALE_SMOOTH)));
+
+						}else if (opcion.equals("Siguientes")) {
+							String ruta ="SIGUIENTES_202000119\\Siguientes_" + er + ".png";
+							ImageIcon imagen = new ImageIcon(ruta);
+							Label_img.setIcon(new ImageIcon (imagen.getImage().getScaledInstance(Label_img.getWidth(), Label_img.getHeight(), Image.SCALE_SMOOTH)));
+						}else if (opcion.equals("Transiciones")) {
+							String ruta ="TRANSICIONES_202000119\\Transiciones" + er + ".png";
+							ImageIcon imagen = new ImageIcon(ruta);
+							Label_img.setIcon(new ImageIcon (imagen.getImage().getScaledInstance(Label_img.getWidth(), Label_img.getHeight(), Image.SCALE_SMOOTH)));
+						}else if (opcion.equals("AFD")) {
+							String ruta ="AFD_202000119\\" + er + ".png";
+							System.out.println(ruta);
+							ImageIcon imagen = new ImageIcon(ruta);
+							Label_img.setIcon(new ImageIcon (imagen.getImage().getScaledInstance(Label_img.getWidth(), Label_img.getHeight(), Image.SCALE_SMOOTH)));
+						}else if (opcion.equals("AFND")) {
+							
+						}
+						//"Arbol", "Siguientes", "Transiciones", "ADF", "AFND"
+						//System.out.println("Probando: " + er + " -- " + opcion);
+					} else {
+						JOptionPane.showMessageDialog(null, "Seleccione una opcion en las listas obligatorias");
 					}
-				}else {
+				} else {
+
 					JOptionPane.showMessageDialog(null, "Se deben genera Automatas para validar cadenas");
+
 				}
 			}
 		});
-
 	}
 
 	public String readUnicodeClassic(String fileName) {
@@ -402,5 +539,24 @@ public class main extends JFrame {
 			e.printStackTrace();
 		}
 		return "";
+	}
+
+	private void Create_File(String route, String contents) {
+
+		FileWriter fw = null;
+		PrintWriter pw = null;
+		try {
+			fw = new FileWriter(route);
+			pw = new PrintWriter(fw);
+			pw.write(contents);
+			pw.close();
+			fw.close();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			if (pw != null)
+				pw.close();
+		}
+
 	}
 }

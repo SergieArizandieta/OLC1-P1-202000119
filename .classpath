@@ -11,5 +11,11 @@
 	<classpathentry kind="lib" path="src/analizadores/java-cup-11b.jar"/>
 	<classpathentry kind="lib" path="src/analizadores/java-cup-11b-runtime.jar"/>
 	<classpathentry kind="lib" path="src/analizadores/jflex-full-1.8.2.jar"/>
+	<classpathentry kind="lib" path="Librarys/json-20211205.jar"/>
+	<classpathentry kind="lib" path="Librarys/gson-2.8.9.jar"/>
+	<classpathentry kind="lib" path="Librarys/jackson-annotations-2.13.1.jar"/>
+	<classpathentry kind="lib" path="Librarys/jackson-core-2.13.1.jar"/>
+	<classpathentry kind="lib" path="Librarys/jackson-databind-2.13.1.jar"/>
+	<classpathentry kind="lib" path="Librarys/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

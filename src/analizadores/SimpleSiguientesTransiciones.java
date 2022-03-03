@@ -678,9 +678,9 @@ public class SimpleSiguientesTransiciones {
 		}
 		TransicionesDot += "  </TR>\n";
 		verArbolMainTransiciones(Aceptacion);
-		//System.out.println("=============das=============");
+		// System.out.println("=============das=============");
 		TransicionesDot += "\n</TABLE>>];}}";
-		//System.out.println(TransicionesDot);
+		// System.out.println(TransicionesDot);
 	}
 
 	public List<String> QuitarDupicadosString(List<String> lista) {
@@ -749,11 +749,11 @@ public class SimpleSiguientesTransiciones {
 				actual = actual.next;
 			}
 			probando = QuitarDupicadosAceptacion(probando);
-			//System.out.println("_________________________________________");
-			//for (Valor_Tipo valor_Tipo : probando) {
-				// System.out.println(valor_Tipo.valor + " = " + valor_Tipo.Estado);
-			//}
-			//System.out.println("_________________________________________");
+			// System.out.println("_________________________________________");
+			// for (Valor_Tipo valor_Tipo : probando) {
+			// System.out.println(valor_Tipo.valor + " = " + valor_Tipo.Estado);
+			// }
+			// System.out.println("_________________________________________");
 			Temp = QuitarDupicadosString(Temp);
 
 			Boolean continuar = true;
@@ -761,7 +761,7 @@ public class SimpleSiguientesTransiciones {
 			for (Valor_Tipo i : Terminales) {
 				CopyTerminales.add(i);
 			}
-			//System.out.println("==========================");
+			// System.out.println("==========================");
 			while (descartado) {
 
 				if (CopyTerminales.size() != 0) {
@@ -788,12 +788,11 @@ public class SimpleSiguientesTransiciones {
 				}
 			}
 
-			//for (Valor_Tipo valor_Tipo : CopyTerminales) {
-				//System.out.println(valor_Tipo.valor);
-			//}
+			// for (Valor_Tipo valor_Tipo : CopyTerminales) {
+			// System.out.println(valor_Tipo.valor);
+			// }
 
 		}
-	
 
 		return probando;
 
@@ -813,12 +812,12 @@ public class SimpleSiguientesTransiciones {
 					} else {
 						TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">S" + actual.EstadoDestino
 								+ "</TD>\n";
-					} 
-					
+					}
 
 				} else {
 					if (actual.Aceptacion) {
-						TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">$  S" + actual.Estado + "</TD>\n";
+						TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">$  S" + actual.Estado
+								+ "</TD>\n";
 					} else {
 						TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">S" + actual.Estado + "</TD>\n";
 					}
@@ -908,10 +907,203 @@ public class SimpleSiguientesTransiciones {
 			e.printStackTrace();
 		}
 	}
+
+	public void ValidacionCadenaAEstados(Nodo_SimpleSiguientesTransiciones cabezera, String letter) {
+		if (cabezera != null) {
+			Nodo_SimpleSiguientesTransiciones actual = cabezera;
+			while (actual != null) {
+
+				if (actual.Aceptacion) {
+					System.out.println("S" + actual.Estado + "* a:");
+
+				} else {
+					System.out.println("S" + actual.Estado + " a:");
+				}
+				if (actual.Estado == 5) {
+					System.out.print("");
+				}
+
+				System.out.println("");
+
+				// aceptacionesSubEstados(actual.listado.primero);
+				actual = actual.next;
+			}
+		}
+	}
+
+	public void ValidacionPivote(Nodo_SimpleSiguientesTransiciones cabezera, String letter, String letterSig,
+			boolean primero) {
+
+		if (primero) {
+			ValidacionCadenaInicial(cabezera, letter, letterSig);
+		} else {
+			ValidacionCadena(cabezera, letter, letterSig);
+		}
+
+	}
+
+	public void ValidacionCadenaInicial(Nodo_SimpleSiguientesTransiciones cabezera, String letter, String letterSig) {
+
+		if (cabezera != null) {
+			Nodo_SimpleSiguientesTransiciones actual = cabezera;
+			while (actual != null) {
+				if (budquedaAceptacion(actual, letter, letterSig) == false) {
+					break;
+				}
+
+				actual = actual.next;
+			}
+
+			if (actual == null) {
+				System.out.println("fallo");
+				Estados.CadenaValida = false;
+			}
+		}
+	}
+
+	public void ValidacionCadena(Nodo_SimpleSiguientesTransiciones cabezera, String letter, String letterSig) {
+
+		if (cabezera != null) {
+			Nodo_SimpleSiguientesTransiciones actual = cabezera;
+			while (actual != null) {
+
+				if (budquedaAceptacion(actual, letter, letterSig) == false) {
+					break;
+				}
+
+				actual = actual.next;
+			}
+			if (actual == null) {
+
+				System.out.println("fallo");
+				Estados.CadenaValida = false;
+			}
+
+		}
+
+	}
+
+	public Boolean budquedaAceptacion(Nodo_SimpleSiguientesTransiciones actual, String letter, String letterSig) {
+		boolean continuar = true;
+		for (Valor_Tipo i : actual.DatosAceptados) {
+			if (i.tipo == "REFCONJ") {
+				for (Conj conjunto : Estados.ListaConjuntos) {
+					if (conjunto.nombre.equals(i.valor)) {
+						if (conjunto.validar(letter)) {
+							NuevaAsignacion(actual.Aceptacion, actual, letter, letterSig);
+							continuar = false;
+							break;
+						}
+					}
+				}
+			} else if (i.tipo == "PHRASE" || i.tipo == "SPACE") {
+				String valor = i.valor.replace("\"", "");
+				if (valor.equals(letter)) {
+					NuevaAsignacion(actual.Aceptacion, actual, letter, letterSig);
+					continuar = false;
+					break;
+				}
+			} else {
+				if (i.valor.equals(letter)) {
+					NuevaAsignacion(actual.Aceptacion, actual, letter, letterSig);
+					continuar = false;
+					break;
+				}
+			}
+		}
+		return continuar;
+	}
+
+	public void NuevaAsignacion(Boolean Aceptacion, Nodo_SimpleSiguientesTransiciones actual, String letter,
+			String letterSig) {
+		if (actual.EstadoRepetido) {
+			System.out.println("con: " + letter + " hacia " + actual.EstadoDestino);
+		} else {
+			System.out.println("con: " + letter + " hacia " + actual.Estado);
+		}
+
+		try {
+
+			if (Aceptacion) {
+				if (letterSig == null) {
+					Estados.cadenai.validacion = true;
+					System.out.println("Cadena aceptada");
+					Estados.anteriorEstado = actual;
+				} else {
+
+					if (actual.listado.primero == null) {
+
+						if (actual.EstadoRepetido) {
+							Estados.anteriorEstado = actual;
+							Estados.ActualValidacion = actual;
+						} else {
+							Estados.anteriorEstado = actual;
+							Estados.CadenaValida = false;
+						}
+
+					} else {
+						Estados.anteriorEstado = actual;
+						Estados.ActualValidacion = actual.listado.primero;
+
+					}
+
+				}
+
+			} else {
+
+				if (letterSig == null) {
+					Estados.anteriorEstado = actual;
+					Estados.CadenaValida = false;
+				} else {
+					Estados.anteriorEstado = actual;
+					if (actual.EstadoRepetido) {
+						Estados.ActualValidacion = actual;
+					} else {
+						Estados.ActualValidacion = actual.listado.primero;
+					}
+				}
+
+			}
+
+		} catch (Exception e) {
+			System.out.println(e);
+			Estados.CadenaValida = false;
+		}
+	}
+
+	public void ShowArbolTest(Nodo_SimpleSiguientesTransiciones cabezera) {
+		if (cabezera != null) {
+			Nodo_SimpleSiguientesTransiciones actual = cabezera;
+			while (actual != null) {
+
+				if (actual.Aceptacion) {
+					System.out.println("S" + actual.Estado + "* a:");
+					EstadosAceptacion.add(actual.Estado);
+					EstadosAceptacion = QuitarDupicados(EstadosAceptacion);
+				} else {
+					System.out.println("S" + actual.Estado + " a:");
+				}
+				if (actual.Estado == 5) {
+					System.out.print("");
+				}
+
+				System.out.println("");
+
+				// ShowAceptaciones(actual.listado.primero);
+				actual = actual.next;
+			}
+		}
+	}
+
+	public void ValidarEstado() {
+
+	}
+
 }
 
 class Nodo_SimpleSiguientesTransiciones {
 	Nodo_SimpleSiguientesTransiciones next, previous;
+	String CadenaAceptacion = "";
 
 	Integer Numeracion;
 	Boolean Verificado = false;

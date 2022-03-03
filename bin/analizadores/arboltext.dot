@@ -1,0 +1,17 @@
+digraph structs {
+    node [shape=Mrecord];
+    
+    struct1 [label="{ {Primeros|<here> d|Ultimos}| Anulable}"];
+    struct1 -> struct2:here;
+    struct2 -> struct3:here;
+    
+    struct2 [label="{ {c|<here> d|e}| Anulable}"];
+    struct3 [label="{ {c|<here> d|e}| no Anulable}"];
+  
+
+
+    struct4 [label="{ {c|<here> d|e}| no Anulable}"];
+    
+  
+    struct1 -> struct4:here;
+}
