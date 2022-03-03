@@ -257,6 +257,7 @@ public class Analizador_sintactico extends java_cup.runtime.lr_parser {
     public  LinkedList<tokens> TokensList  = new LinkedList<tokens>();
     public  LinkedList<SimpleER> ERList  = new LinkedList<SimpleER>();
     public  LinkedList<Conj> ConjList  = new LinkedList<Conj>();
+    public  LinkedList<errorList> AllErrors  = new LinkedList<errorList>();
     public  LinkedList<Cadenas> CadenasList  = new LinkedList<Cadenas>();
     Cadenas CadenasTemp;
     SimpleER temp;
@@ -384,7 +385,7 @@ class CUP$Analizador_sintactico$actions {
 		int aright = ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-2)).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-2)).value;
 		/*System.out.println("<CONJUNTO>: " + a);*/TempConjName =(String) a;
-                                                ConjTemp = new Conj(TempConjType,(String) a,TempConjVar1,TempConjVar2,TempConjText);
+                                                ConjTemp = new Conj(TempConjType,(String) a,TempConjVar1,TempConjVar2,TempConjText,AllErrors,aleft,aright);
                                                 ConjList.add(ConjTemp);
                                                 TempConjText = "";TempConjVar1="";TempConjVar2="";
                                                 

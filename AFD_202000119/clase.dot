@@ -1,0 +1,31 @@
+digraph finite_state_machine {
+	bgcolor = "#F6FFE3"
+	node [fontname="Helvetica,Arial,sans-serif" ]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	rankdir=LR;
+	node [shape = doublecircle, color = gold fillcolor="#EBE3FF" style =filled];15,16,17;
+	node [shape = circle, color = "#2CB5FF" fillcolor="#E3FFFA" style =filled];
+
+0->9[label = "\"a\""];
+9->10[label = "\"b\""];
+10->11[label = "\"a\""];
+11->11[label = "\"b\""];
+11->13[label = "\"a\""];
+13->14[label = "\"b\""];
+14->15[label = "\"b\""];
+12->16[label = "\"b\""];
+16->17[label = "\"a\""];
+17->17[label = "\"a\""];
+17->14[label = "\"b\""];
+12->17[label = "\"a\""];
+17->17[label = "\"a\""];
+17->14[label = "\"b\""];
+10->12[label = "\"b\""];
+12->16[label = "\"b\""];
+16->17[label = "\"a\""];
+17->17[label = "\"a\""];
+17->14[label = "\"b\""];
+12->17[label = "\"a\""];
+17->17[label = "\"a\""];
+17->14[label = "\"b\""];
+label= clase}

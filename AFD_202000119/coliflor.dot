@@ -1,0 +1,13 @@
+digraph finite_state_machine {
+	bgcolor = "#F6FFE3"
+	node [fontname="Helvetica,Arial,sans-serif" ]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	rankdir=LR;
+	node [shape = doublecircle, color = gold fillcolor="#EBE3FF" style =filled];2;
+	node [shape = circle, color = "#2CB5FF" fillcolor="#E3FFFA" style =filled];
+
+0->1[label = "L"];
+1->1[label = "L"];
+1->2[label = "digito"];
+2->2[label = "digito"];
+label= coliflor}

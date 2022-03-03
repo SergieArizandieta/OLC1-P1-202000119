@@ -8,14 +8,15 @@ public class Reportes {
 
 	
 	 String ReporteInicio="",ReporteFinal="",ReporteJuntar="";
-	 String ReporteLexico="",ReporteSintactico="";
-	 String ReporteMamiferos="",ReporteMoluscos="";
+	 String ReporteLexico="",ReporteSintactico="",ReporteTdos="";
+
 	
 	
-	public void GenerarReporte(LinkedList<errorList> errores, LinkedList<errorList> errores2) {
+	public void GenerarReporte(LinkedList<errorList> errores, LinkedList<errorList> errores2, LinkedList<errorList> allErrors) {
 		Starrt();
 		ReporteLexico(errores);
 		ReporteSintactico(errores2);
+		ReporteTodos(allErrors);
 		ReporteJuntar();
 		ReporteMostrar();
 	}
@@ -55,6 +56,39 @@ public class Reportes {
 		ReporteLexico += "</tbody></table><br> ";
 	}
 	
+	public void ReporteTodos(LinkedList<errorList> errores) {
+		ReporteTdos= "</br></br></br><table class=\"steelBlueCols\">\r\n"
+				+ "<thead>\r\n"
+				+ "<tr>\r\n"
+				+ "<th>Linea</th>\r\n"
+				+ "<th>Columna</th>\r\n"
+				+ "<th>Lexema</th>\r\n"
+				+ "<th>Tipo</th>\r\n"
+				+ "<th>Descripcion</th>\r\n"
+				+ "</tr>\r\n"
+				+ "</thead>\r\n"
+				+ "<tbody>\r\n"
+				+ "<tr>\r\n";
+		
+		for (errorList errorList : errores) {
+			ReporteTdos+= "<tr>\r\n";
+			
+			ReporteTdos+="<td>" + errorList.linea +" </td> " ;
+				
+			ReporteTdos+="<td>" + errorList.columna +" </td> " ;
+	 		
+	 	
+			ReporteTdos+="<td>" + errorList.lexema+" </td> " ;
+			
+			ReporteTdos+="<td>" + errorList.tipo +" </td> " ;
+			
+			ReporteTdos+="<td>" + errorList.descripcion +" </td> " ;
+			
+			ReporteTdos+= "</tr>\r\n";
+			
+		}
+		ReporteTdos += "</tbody></table><br></br></br> ";
+	}
 	public void ReporteSintactico(LinkedList<errorList> errores) {
 		ReporteSintactico= "</br></br></br><table class=\"steelBlueCols\">\r\n"
 				+ "<thead>\r\n"
@@ -95,7 +129,7 @@ public class Reportes {
 	//REPORTE JUNTA
 	public  void ReporteJuntar() {
 	
-		ReporteJuntar = ReporteLexico + ReporteSintactico;
+		ReporteJuntar = ReporteLexico + ReporteSintactico + ReporteTdos;
 
 			
 	}

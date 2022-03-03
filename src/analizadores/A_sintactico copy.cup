@@ -7,6 +7,7 @@ parser code
     public  LinkedList<errorList> errores = new LinkedList<errorList>(); 
     public  LinkedList<tokens> TokensList  = new LinkedList<tokens>();
     public  LinkedList<SimpleER> ERList  = new LinkedList<SimpleER>();
+    public  LinkedList<SimpleER> AllErrors  = new LinkedList<SimpleER>();
     public  LinkedList<Conj> ConjList  = new LinkedList<Conj>();
     public  LinkedList<Cadenas> CadenasList  = new LinkedList<Cadenas>();
     Cadenas CadenasTemp;

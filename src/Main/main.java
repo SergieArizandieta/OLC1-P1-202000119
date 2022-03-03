@@ -20,6 +20,7 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.rmi.Naming;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -286,6 +287,7 @@ public class main extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (label_ruta.getText() != "Null") {
 					try {
+						
 						Reportes reportes = new Reportes();
 						Boolean Errores = false;
 						System.out.println("\n\n\n");
@@ -295,7 +297,7 @@ public class main extends JFrame {
 						sintactico.parse();
 						System.out.println("===============ERRORES ===================");
 						try {
-							if (lexico.errores.size() > 0 || sintactico.errores.size() > 0) {
+							if (lexico.errores.size() > 0 || sintactico.errores.size() > 0 ||sintactico.AllErrors.size() > 0) {
 								if (lexico.errores.size() > 0) {
 									System.out.println("=======ERRORES LEXICOS=========");
 									JOptionPane.showMessageDialog(null,
@@ -314,6 +316,16 @@ public class main extends JFrame {
 										System.out.println(errore.show());
 									}
 								}
+								
+								if (sintactico.AllErrors.size() > 0) {
+									System.out.println("=======ERRORES SINTACTICOS=========");
+									JOptionPane.showMessageDialog(null,
+											"Ocurrio un error Sintactico, revisar tabla de errores");
+									for (errorList errore : sintactico.AllErrors) {
+
+										System.out.println(errore.show());
+									}
+								}
 								Errores = true;
 								analizado = false;
 								AutomataCreado = false;
@@ -326,7 +338,7 @@ public class main extends JFrame {
 
 							System.out.println("=======ERRORES FIN=========");
 
-							reportes.GenerarReporte(lexico.errores, sintactico.errores);
+							reportes.GenerarReporte(lexico.errores, sintactico.errores,sintactico.AllErrors);
 
 							if (Errores == false) {
 								System.out.println("\n\nMostrando ERs");

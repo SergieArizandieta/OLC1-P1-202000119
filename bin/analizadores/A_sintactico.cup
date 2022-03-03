@@ -8,6 +8,7 @@ parser code
     public  LinkedList<tokens> TokensList  = new LinkedList<tokens>();
     public  LinkedList<SimpleER> ERList  = new LinkedList<SimpleER>();
     public  LinkedList<Conj> ConjList  = new LinkedList<Conj>();
+    public  LinkedList<errorList> AllErrors  = new LinkedList<errorList>();
     public  LinkedList<Cadenas> CadenasList  = new LinkedList<Cadenas>();
     Cadenas CadenasTemp;
     SimpleER temp;
@@ -68,7 +69,7 @@ CONTENIDO::=
 
 CONJUNTO ::= 
     CONJ S_DOTS NAMECOBJ:a S_ARROW DEFCONJ {:/*System.out.println("<CONJUNTO>: " + a);*/TempConjName =(String) a;
-                                                ConjTemp = new Conj(TempConjType,(String) a,TempConjVar1,TempConjVar2,TempConjText);
+                                                ConjTemp = new Conj(TempConjType,(String) a,TempConjVar1,TempConjVar2,TempConjText,AllErrors,aleft,aright);
                                                 ConjList.add(ConjTemp);
                                                 TempConjText = "";TempConjVar1="";TempConjVar2="";
                                                 :};

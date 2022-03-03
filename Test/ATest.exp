@@ -1,5 +1,6 @@
 {
 
+CONJ: newus-> a~A;
 CONJ: digito -> " "~$;
 //CONJ: digito -> 0,1,2,3,4;
 

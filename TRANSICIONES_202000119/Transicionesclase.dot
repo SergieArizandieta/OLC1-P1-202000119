@@ -1,0 +1,50 @@
+digraph G { bgcolor="black"
+   fontname="Helvetica,Arial,sans-serif"
+  edge [fontname="Helvetica,Arial,sans-serif"]
+  subgraph cluster1 {fillcolor="skyblue" style="filled"
+  node [shape=Msquare fillcolor="gold:brown" style="radial" gradientangle=180]
+  label = " Tabla de transiciones de: clase"
+  a0 [label=<  
+  <TABLE border="10" cellspacing="10" cellpadding="10" style="rounded" gradientangle="315">
+  <TR>
+      <TD border="3" bgcolor="#FFF97B">Estados\Terminales  </TD>
+      <TD border="3" bgcolor="#FFF97B">"a"</TD>
+      <TD border="3" bgcolor="#FFF97B">"b"</TD>
+  </TR>
+  <TR>
+      <TD border="3" bgcolor="#FFF97B">0 S0</TD>
+      <TD border="3" > S9</TD>
+      <TD border="3" > -- </TD>
+  </TR>
+  <TR>
+      <TD border="3" bgcolor="#FFF97B">S9</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > S10</TD>
+  </TR>
+  <TR>
+      <TD border="3" bgcolor="#FFF97B">S10</TD>
+      <TD border="3" > S11</TD>
+      <TD border="3" > S12</TD>
+  </TR>
+  <TR>
+      <TD border="3" bgcolor="#FFF97B">S11</TD>
+      <TD border="3" > S13</TD>
+      <TD border="3" > S11</TD>
+  </TR>
+  <TR>
+      <TD border="3" bgcolor="#FFF97B">S12</TD>
+      <TD border="3" > S17</TD>
+      <TD border="3" > S16</TD>
+  </TR>
+  <TR>
+      <TD border="3" bgcolor="#FFF97B">$  S16</TD>
+      <TD border="3" > S17</TD>
+      <TD border="3" > -- </TD>
+  </TR>
+  <TR>
+      <TD border="3" bgcolor="#FFF97B">$  S17</TD>
+      <TD border="3" > S17</TD>
+      <TD border="3" > S14</TD>
+  </TR>
+
+</TABLE>>];}}

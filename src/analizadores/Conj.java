@@ -1,5 +1,10 @@
 package analizadores;
 
+import java.util.LinkedList;
+
+import javax.swing.JOptionPane;
+import Main.main;
+
 public class Conj {
 	String tipo, nombre, var1, var2, text;
 	Integer CharVar1, CharVar2;
@@ -7,19 +12,19 @@ public class Conj {
 	Boolean validado = false;
 	Boolean ValidarCadena;
 
-	public Conj(String tipo, String nombre, String var1, String var2, String text) {
+	public Conj(String tipo, String nombre, String var1, String var2, String text,LinkedList<errorList> todos,int fila,int columna) {
 
 		this.tipo = tipo;
 		this.nombre = nombre;
 		this.var1 = var1;
 		this.var2 = var2;
 		this.text = text;
-		this.define();
+		this.define(todos,fila,columna);
 		this.ValidarCadena = true;
 
 	}
 
-	public void define() {
+	public void define(LinkedList<errorList> todos, int fila, int columna) {
 
 		if (isRank() == false) {
 			letras = text.split(",");
@@ -33,8 +38,12 @@ public class Conj {
 
 			char character2 = this.var2.charAt(0);
 			this.CharVar2 = (int) character2;
+			
 
-			if (CharVar1 < CharVar2) {
+			if (CharVar1 > CharVar2) {
+				errorList temp = new errorList("Sintactico","Rango de datos de: " + this.nombre, "Rango1 debe ser > a Rango2",fila,columna);
+				todos.add(temp);
+				JOptionPane.showMessageDialog(null, "Rango invalido del conjunto: " + this.nombre );
 				System.out.println("Rango invalido");
 				this.ValidarCadena = false;
 			}
