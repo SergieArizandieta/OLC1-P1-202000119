@@ -1,0 +1,26 @@
+{
+	<!   Este es un 
+	comentario de 
+	muchas lineas
+	!>
+
+	//este comentario es de una linea
+
+    //definicion de conjuntos
+	CONJ:grupo_1 -> 7~8;
+
+    //definicion de expresiones regulares
+	
+	expre2->."a"."a"+{grupo_1};
+	
+	%%
+	%%
+    
+    //ahora toca evaluar las cadenas
+
+	expre2:"aa788787";  //esta cadena es CORRECTA
+    expre2:"aa"; //esta cadena es INCORRECTA  
+    expre2:"aazbbb"; <! esta cadena es INCORRECTA !>
+	
+
+}

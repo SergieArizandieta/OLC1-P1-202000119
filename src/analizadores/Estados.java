@@ -96,7 +96,7 @@ public class Estados {
 		ActualValidacion = listado.primero;
 		// cadena+="ƒ";
 
-		System.out.println(cadena);
+		//System.out.println(cadena);
 		if (cadena != "") {
 			for (int i = 0; i < cadena.length(); i++) {
 				String letter = String.valueOf(cadena.charAt(i));

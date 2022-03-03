@@ -986,20 +986,14 @@ public class SimpleSiguientesTransiciones {
 		boolean continuar = true;
 		for (Valor_Tipo i : actual.DatosAceptados) {
 			if (i.tipo == "REFCONJ") {
-				//System.out.println("Se encontro conjunto " + i.valor );
 				for (Conj conjunto : Estados.ListaConjuntos) {
 					if(conjunto.nombre.equals(i.valor)) {
-						//System.out.println(conjunto.show());
 						if(conjunto.validar(letter)) {
 							NuevaAsignacion(actual.Aceptacion, actual, letter, letterSig);
 							continuar = false;
 							break;
-						}else {
-							
 						}
-						
 					}
-					
 				}
 			} else if (i.tipo == "PHRASE" || i.tipo == "SPACE") {
 				String valor = i.valor.replace("\"", "");

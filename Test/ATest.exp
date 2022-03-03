@@ -1,4 +1,23 @@
 {
+
+CONJ: digito -> " "~$;
+//CONJ: digito -> 0,1,2,3,4;
+
+Conj: L-> D,L;
+ExpReg2 -> .+{L}+{digito} ;
+
+%%
+
+ExpReg2 : "DL !#$";
+
+
+//CONJ: digito -> " "~$;
+//ExpReg2 : "DL !#$"; aceptado
+
+//CONJ: digito -> 0~2;
+//ExpReg2 : "DL"; aceptado
+
+
 //ExpReg1 -> |.*|"L""D"?"L"."#""L";
 // error por no tener datos ExpReg1 : "#"; confirmado
 //error por no encontrar estado ExpReg1 : "#1"; confirmado
@@ -28,17 +47,5 @@
 //ExpReg2 : "DD@!#!@#!@#!#@34343444433333"; aceptada
 
 //ExpReg1 -> |.*|{L}{D}?{L}."#"{L};
-
-CONJ: digito -> 0~4;
-//CONJ: digito -> 0,1,2,3,4;
-
-Conj: L-> D,L;
-ExpReg2 -> .+{L}+{digito} ;
-
-%%
-
-ExpReg2 : "DD4343444433333";
-
-
 
 }

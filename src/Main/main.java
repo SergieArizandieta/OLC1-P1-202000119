@@ -393,7 +393,7 @@ public class main extends JFrame {
 
 								for (SimpleER er : sintactico.ERList) {
 									if (i.name.equals(er.name)) {
-										System.out.println("cadena: " + i.string + " para: " + er.name);
+										System.out.println("===== cadena: " + i.string + " para: " + er.name + "=====");
 										er.ValidarCadena(i.string,sintactico.ConjList);
 										encontrado = true;
 										break;
