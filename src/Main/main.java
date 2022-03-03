@@ -128,7 +128,7 @@ public class main extends JFrame {
 		JComboBox<String> comboBoxImage = new JComboBox<String>();
 		comboBoxImage.setModel(new DefaultComboBoxModel<String>(
 				new String[] { "Arbol", "Siguientes", "Transiciones", "AFD", "AFND" }));
-		comboBoxImage.setBounds(1116, 54, 193, 22);
+		comboBoxImage.setBounds(1100, 54, 193, 22);
 		contentPane.add(comboBoxImage);
 
 		JButton button_view = new JButton("Ver");
@@ -149,13 +149,13 @@ public class main extends JFrame {
 		contentPane.add(lblNewLabel_1);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(913, 88, 473, 361);
+		panel.setBounds(806, 88, 580, 361);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		JLabel Label_img = new JLabel("");
 		Label_img.setHorizontalAlignment(SwingConstants.LEFT);
-		Label_img.setBounds(10, 11, 453, 339);
+		Label_img.setBounds(10, 11, 560, 339);
 		panel.add(Label_img);
 
 		TextArea textEditable = new TextArea();
@@ -179,7 +179,7 @@ public class main extends JFrame {
 		contentPane.add(textOut);
 
 		JComboBox<String> comboBoxER = new JComboBox<String>();
-		comboBoxER.setBounds(913, 54, 193, 22);
+		comboBoxER.setBounds(806, 54, 267, 22);
 		contentPane.add(comboBoxER);
 
 		// Acciones------------------------------------------------------------------------------------
@@ -192,6 +192,8 @@ public class main extends JFrame {
 						// System.out.println("Archivo seleccionado de: " + fc.getSelectedFile());
 						// String text = Files.readString(Path.of(fc.getSelectedFile().toString()));
 						// System.out.println(fc.getSelectedFile());
+						textOut.setText(" ");
+						Label_img.setIcon(null);
 						List<String> ErTemp = new ArrayList<>();
 						comboBoxER.setModel(new DefaultComboBoxModel(ErTemp.toArray()));
 						String text = readUnicodeClassic(fc.getSelectedFile().toString());
@@ -214,6 +216,8 @@ public class main extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (fc.showSaveDialog(Item_SaveHow) == JFileChooser.APPROVE_OPTION) {
 					try {
+						textOut.setText(" ");
+						Label_img.setIcon(null);
 						List<String> ErTemp = new ArrayList<>();
 						comboBoxER.setModel(new DefaultComboBoxModel(ErTemp.toArray()));
 						System.out.println(" se ecogio");
@@ -244,6 +248,8 @@ public class main extends JFrame {
 					System.out.println("Primero debe guardar el archivo en el sistema");
 					JOptionPane.showMessageDialog(null, "Primero debe guardar el archivo en el sistema");
 				} else {
+					textOut.setText(" ");
+					Label_img.setIcon(null);
 					List<String> ErTemp = new ArrayList<>();
 					comboBoxER.setModel(new DefaultComboBoxModel(ErTemp.toArray()));
 					try (FileWriter fw = new FileWriter(label_ruta.getText())) {
@@ -262,6 +268,8 @@ public class main extends JFrame {
 		// Nurvo
 		Item_New.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				textOut.setText(" ");
+				Label_img.setIcon(null);
 				List<String> ErTemp = new ArrayList<>();
 				comboBoxER.setModel(new DefaultComboBoxModel(ErTemp.toArray()));
 				analizado = false;
