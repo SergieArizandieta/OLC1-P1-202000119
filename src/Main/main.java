@@ -15,6 +15,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.rmi.Naming;
 
@@ -33,6 +34,12 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
 
 import analizadores.Analizador_Lexico;
 import analizadores.Analizador_sintactico;
@@ -163,7 +170,7 @@ public class main extends JFrame {
 
 		button_ComprobarCadeas.setBounds(607, 122, 161, 23);
 		contentPane.add(button_ComprobarCadeas);
-		
+
 		TextArea textOut = new TextArea();
 		textOut.setEditable(false);
 		textOut.setBounds(607, 472, 779, 133);
@@ -317,9 +324,6 @@ public class main extends JFrame {
 							 * System.out.println(token.show()); }
 							 */
 
-							
-						
-
 							if (Errores == false) {
 								System.out.println("\n\nMostrando ERs");
 
@@ -396,7 +400,7 @@ public class main extends JFrame {
 								for (SimpleER er : sintactico.ERList) {
 									if (i.name.equals(er.name)) {
 										System.out.println("===== cadena: " + i.string + " para: " + er.name + "=====");
-										er.ValidarCadena(i.string,sintactico.ConjList,i);
+										er.ValidarCadena(i.string, sintactico.ConjList, i);
 										encontrado = true;
 										break;
 									}
@@ -407,16 +411,47 @@ public class main extends JFrame {
 
 								}
 							}
-							String text= "";
+							String text = "";
+							JSONArray Main = new JSONArray();
+							JSONObject sub;
 							for (Cadenas i : sintactico.CadenasList) {
-								if(i.validacion) {
-									text+="La cadena: " + i.string + " es VALIDA con la ER: " + i.name + "\n" ;
-									System.out.println("La cadena: " + i.string + " es VALIDA con la ER: " + i.name );
-								}else {
-									text+="La cadena: " + i.string + " es INVALIDA con la ER: " + i.name  + "\n" ;
-									System.out.println("La cadena: " + i.string + " es INVALIDA con la ER: " + i.name );
+								sub = new JSONObject();
+								
+								if (i.validacion) {
+									text += "La cadena: " + i.string + " es VALIDA con la ER: " + i.name + "\n";
+									System.out.println("La cadena: " + i.string + " es VALIDA con la ER: " + i.name);
+									sub.put("Resultado", "Cadena Valida");
+									sub.put("ExpresionRegular", i.name);
+									sub.put("Valor", i.string);
+									
+									
+								} else {
+									text += "La cadena: " + i.string + " es INVALIDA con la ER: " + i.name + "\n";
+									System.out.println("La cadena: " + i.string + " es INVALIDA con la ER: " + i.name);
+									sub.put("Resultado", "Cadena Invalida");
+									sub.put("ExpresionRegular", i.name);
+									sub.put("Valor", i.string);
+									
 								}
+								
+								Main.put(sub);
 							}
+
+							
+
+
+							String Salida = new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(Main.toString()));
+							
+							//System.out.println(Salida);
+							//System.out.println(json);
+							//System.out.println(ja);
+							
+							
+							Create_File("SALIDAS_202000119\\Salida.JSON", Salida);
+							JOptionPane.showMessageDialog(null, "Se creo archivo de salida");
+							
+							
+
 							textOut.setText(text);
 
 						} else {
@@ -454,4 +489,24 @@ public class main extends JFrame {
 		}
 		return "";
 	}
+	
+	private void Create_File(String route, String contents) {
+
+		FileWriter fw = null;
+		PrintWriter pw = null;
+		try {
+			fw = new FileWriter(route);
+			pw = new PrintWriter(fw);
+			pw.write(contents);
+			pw.close();
+			fw.close();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			if (pw != null)
+				pw.close();
+		}
+
+	}
+
 }

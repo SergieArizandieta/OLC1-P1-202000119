@@ -1,0 +1,171 @@
+package analizadores;
+import java_cup.runtime.Symbol;
+import java.util.LinkedList;
+
+parser code
+{:
+    public  LinkedList<errorList> errores = new LinkedList<errorList>(); 
+    public  LinkedList<tokens> TokensList  = new LinkedList<tokens>();
+    public  LinkedList<SimpleER> ERList  = new LinkedList<SimpleER>();
+    public  LinkedList<Conj> ConjList  = new LinkedList<Conj>();
+    public  LinkedList<Cadenas> CadenasList  = new LinkedList<Cadenas>();
+    Cadenas CadenasTemp;
+    SimpleER temp;
+    Conj ConjTemp;
+    String TempConjText = "";
+    String TempConjName = "";
+    String TempConjType = "";
+    String TempConjVar2 = "";
+    String TempConjVar1 = "";
+    String TempNameEr = "";
+    //Metodo al que se llama automaticamente ante algun error sintactico
+    public void syntax_error(Symbol s)
+    {        
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
+      
+        System.out.println("!!!!!!! Error Sintactico Recuperado !!!!!!!");
+        System.out.println("\t\tLexema: "+lexema);
+        System.out.println("\t\tFila: "+fila);
+        System.out.println("\t\tColumna: "+columna);
+
+        errorList tmp = new errorList("Sintactico",lexema,"Caracter no esperado",fila,columna);
+        errores.add(tmp);
+        
+    }
+
+    //Metodo al que se llama en el momento en que ya no es posible una recuperacion de errores
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+    {        
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
+        
+        System.out.println("!!!!!!! Error Sintactico, Panic Mode !!!!!!! ");
+        System.out.println("\t\tLexema: "+lexema);
+        System.out.println("\t\tFila: "+fila);
+        System.out.println("\t\tColumna: "+columna);
+        
+        errorList tmp = new errorList("Sintactico",lexema, "Caracter no esperado, No se pudo recuperar",fila,columna);
+        errores.add(tmp);
+     
+    }
+:}
+
+
+terminal NUMBER,S_LA,S_LLC,S_DOTS,S_SEMICOLON,S_ARROW,S_PCENTS,S_RANK, S_COLON,S_DOT, S_LINE,S_ASTERISK,S_PLUS,S_QMARK,S_LBREAK,S_QUOTE,S_DQUOTES,RANGE,SPACE,CONJ,IDENTIFICADOR,PHRASE,LETTER;
+non terminal INICIO,STARTS,CONTENIDO,CONJUNTO, CONTENIDOR, ER,DEFCONJ,SEPCOMAS,RANGO,DATOSEP,SEPCOMASR,DATORANGO,DEFER,OP,REFCONJ,CADENAS,CADENASR,NAMECOBJ;
+start with INICIO;
+
+INICIO::= STARTS  {:System.out.println("Fin de analisis de entrada");:};
+
+STARTS::= S_LA CONTENIDO {:System.out.println("<STARTS>");:};
+
+CONTENIDO::= 
+    CONJUNTO CONTENIDOR  {:/*System.out.println("<CONTENIDO>");*/:}
+    | ER CONTENIDOR  {:/*System.out.println("<CONTENIDO>");*/:};
+
+CONJUNTO ::= 
+    CONJ S_DOTS NAMECOBJ:a S_ARROW DEFCONJ {:/*System.out.println("<CONJUNTO>: " + a);*/TempConjName =(String) a;
+                                                ConjTemp = new Conj(TempConjType,(String) a,TempConjVar1,TempConjVar2,TempConjText);
+                                                ConjList.add(ConjTemp);
+                                                TempConjText = "";TempConjVar1="";TempConjVar2="";
+                                                :};
+
+DEFCONJ ::= 
+    SEPCOMAS {:System.out.println("<DEFCONJ> COMAS: ");TempConjType="comas";:}
+    | RANGO {:System.out.println("<DEFCONJ> RANGO: ");TempConjType="rango";:};
+
+SEPCOMAS ::= 
+    DATOSEP:a SEPCOMASR {:/*System.out.println("<SEPCOMAS> : " + a);*/TempConjText += a + ",";:};
+
+DATOSEP ::=  
+    NUMBER:a {:RESULT = a;:}  
+    | LETTER:a {:RESULT = a;:}  
+    | RANGE:a {:RESULT = a;:}   
+    | S_ASTERISK:a {:RESULT = a;:}   
+    | S_PLUS:a {:RESULT = a;:}   
+    | S_COLON:a {:RESULT = a;:}   
+    | S_DOT:a {:RESULT = a;:}    
+    | S_DOTS:a {:RESULT = a;:}    
+    | S_SEMICOLON:a {:RESULT = a;:}   
+    | S_QMARK:a {:RESULT = a;:}    
+    | S_LA:a {:RESULT = a;:}    
+    | S_LINE:a {:RESULT = a;:}    
+    | S_LLC:a {:RESULT = a;:}   
+    | S_DQUOTES:a {:RESULT = a;:}   
+    | S_QUOTE:a {:RESULT = a;:}
+    | S_LBREAK:a {:RESULT = a;:}  ;
+
+SEPCOMASR ::= 
+    S_COLON SEPCOMAS {:/*System.out.println("<SEPCOMASR>");*/:}
+    | S_SEMICOLON  {:/*System.out.println("<SEPCOMASR>");*/:};
+
+RANGO ::= 
+    DATORANGO:a S_RANK DATORANGO:b S_SEMICOLON {:/*System.out.println("<RANGO> " + a + " a " + b);*/
+    TempConjVar1 =(String) a; TempConjVar2 =(String) b;:};
+
+DATORANGO ::= 
+    NUMBER:a {:RESULT =a; :}
+    | LETTER:a {:RESULT =a; :}
+    | RANGE:a {:RESULT =a; :} 
+    | SPACE:a {:RESULT =a; :}
+    | S_ASTERISK:a {:RESULT =a; :} 
+    | S_PLUS:a {:RESULT =a; :} 
+    | S_COLON:a {:RESULT =a; :}
+    | S_DOT:a {:RESULT =a; :}
+    | S_DOTS:a {:RESULT =a; :}
+    | S_SEMICOLON:a {:RESULT =a; :}
+    | S_QMARK:a {:RESULT =a; :}
+    | S_LA:a {:RESULT =a; :} 
+    | S_LINE:a {:RESULT =a; :} 
+    | S_LLC:a {:RESULT =a; :}
+    | S_DQUOTES:a {:RESULT =a; :}
+    | S_QUOTE:a {:RESULT =a; :} 
+    | S_LBREAK:a {:RESULT = a;:} ;
+
+ER ::= 
+    IDENTIFICADOR:a S_ARROW DEFER {:System.out.println("<ER> " + a + " : ");temp.name = (String) a;ERList.add(temp);:};
+
+DEFER ::= 
+    OP:a {:/*System.out.println("<OP> " + a );*/temp.insert((String)a,"OP",false);:}
+    | REFCONJ:a {:/*System.out.println("<REFCONJ> " + a );*/ temp.insert((String)a,"REFCONJ",true);:}
+    | PHRASE:a DEFER {:/*System.out.println("<PHRASE> " + a );*/temp.insert((String)a,"PHRASE",true);:}
+    | SPACE:a DEFER {:/*System.out.println("<SPACE> " + a );*/temp.insert((String)a,"SPACE",true);:}
+    | S_LBREAK:a DEFER {:/*System.out.println("<S_LBREAK> " + a );*/temp.insert((String)a,"S_LBREAK",true);:}
+    | S_QUOTE:a DEFER  {:/*System.out.println("<S_QUOTE> " + a );*/temp.insert((String)a,"S_QUOTE",true);:}
+    | S_DQUOTES:a DEFER {:/*System.out.println("<S_DQUOTES> " + a );*/temp.insert((String)a,"S_DQUOTES",true);:}
+    |S_SEMICOLON:a {:/*System.out.println("<S_SEMICOLON> " + a );*/
+                    temp = new SimpleER();
+    
+                    :};
+
+OP ::= 
+    S_LINE:a DEFER {:RESULT = a;:}
+    | S_ASTERISK:a DEFER {:RESULT = a;:}
+    | S_PLUS:a DEFER {:RESULT = a;:}
+    | S_QMARK:a DEFER  {:RESULT = a;:}
+    | S_DOT:a DEFER {:RESULT = a;:};
+
+REFCONJ ::= 
+    S_LA NAMECOBJ:a S_LLC DEFER {:RESULT = a;:};
+
+NAMECOBJ::=IDENTIFICADOR:a {:RESULT = a;:}
+            | LETTER:a {:RESULT = a;:};
+
+CONTENIDOR ::= 
+    S_PCENTS CADENASR {:/*System.out.println("<CONTENIDOR>");*/:}
+    | CONTENIDO  {:/*System.out.println("<CONTENIDOR>");*/:};
+
+CADENAS ::= S_PCENTS CADENASR
+    |IDENTIFICADOR:a S_DOTS PHRASE:b S_SEMICOLON CADENASR  {:System.out.println("<CADENAS> " + a + " : " + b);
+    String temptext = (String) b;
+    CadenasTemp = new Cadenas((String) a ,((String) b).replace("\"",""));
+    CadenasList.add(CadenasTemp);
+    :};
+
+CADENASR ::= 
+     S_LLC {:/*System.out.println("<CADENASR>");*/:}
+     | CADENAS {:/*System.out.println("<CADENASR>");*/:};
+
