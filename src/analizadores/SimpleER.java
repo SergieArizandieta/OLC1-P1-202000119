@@ -794,9 +794,9 @@ public class SimpleER {
 		}
 	}
 	
-	public void ValidarCadena(String cadena, LinkedList<Conj> conjList) {
+	public void ValidarCadena(String cadena, LinkedList<Conj> conjList, Cadenas i) {
 		
-		Estado_Inicial.validadarCadena(cadena, conjList);
+		Estado_Inicial.validadarCadena(cadena, conjList,i);
 	}
 
 }

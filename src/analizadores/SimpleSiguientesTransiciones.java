@@ -931,7 +931,8 @@ public class SimpleSiguientesTransiciones {
 		}
 	}
 
-	public void ValidacionPivote(Nodo_SimpleSiguientesTransiciones cabezera, String letter, String letterSig,boolean primero) {
+	public void ValidacionPivote(Nodo_SimpleSiguientesTransiciones cabezera, String letter, String letterSig,
+			boolean primero) {
 
 		if (primero) {
 			ValidacionCadenaInicial(cabezera, letter, letterSig);
@@ -987,8 +988,8 @@ public class SimpleSiguientesTransiciones {
 		for (Valor_Tipo i : actual.DatosAceptados) {
 			if (i.tipo == "REFCONJ") {
 				for (Conj conjunto : Estados.ListaConjuntos) {
-					if(conjunto.nombre.equals(i.valor)) {
-						if(conjunto.validar(letter)) {
+					if (conjunto.nombre.equals(i.valor)) {
+						if (conjunto.validar(letter)) {
 							NuevaAsignacion(actual.Aceptacion, actual, letter, letterSig);
 							continuar = false;
 							break;
@@ -1015,56 +1016,53 @@ public class SimpleSiguientesTransiciones {
 
 	public void NuevaAsignacion(Boolean Aceptacion, Nodo_SimpleSiguientesTransiciones actual, String letter,
 			String letterSig) {
-		if(actual.EstadoRepetido) {
+		if (actual.EstadoRepetido) {
 			System.out.println("con: " + letter + " hacia " + actual.EstadoDestino);
-		}else{
+		} else {
 			System.out.println("con: " + letter + " hacia " + actual.Estado);
 		}
-		
-		
+
 		try {
 
 			if (Aceptacion) {
 				if (letterSig == null) {
-
+					Estados.cadenai.validacion = true;
 					System.out.println("Cadena aceptada");
 					Estados.anteriorEstado = actual;
 				} else {
 
 					if (actual.listado.primero == null) {
 
-						if(actual.EstadoRepetido) {
+						if (actual.EstadoRepetido) {
 							Estados.anteriorEstado = actual;
 							Estados.ActualValidacion = actual;
-						}else {
+						} else {
 							Estados.anteriorEstado = actual;
 							Estados.CadenaValida = false;
 						}
-
 
 					} else {
 						Estados.anteriorEstado = actual;
 						Estados.ActualValidacion = actual.listado.primero;
 
-						
 					}
 
 				}
 
 			} else {
-				
+
 				if (letterSig == null) {
 					Estados.anteriorEstado = actual;
 					Estados.CadenaValida = false;
-				}else {
+				} else {
 					Estados.anteriorEstado = actual;
-					if(actual.EstadoRepetido) {
+					if (actual.EstadoRepetido) {
 						Estados.ActualValidacion = actual;
-					}else {
+					} else {
 						Estados.ActualValidacion = actual.listado.primero;
 					}
 				}
-				
+
 			}
 
 		} catch (Exception e) {

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.sound.midi.Soundbank;
 
 public class Estados {
+	static Cadenas cadenai;
 	static LinkedList<Conj> ListaConjuntos;
 	static Boolean CadenaValida;
 	static Nodo_SimpleSiguientesTransiciones ActualValidacion;
@@ -89,7 +90,8 @@ public class Estados {
 		return dot;
 	}
 
-	public void validadarCadena(String cadena, LinkedList<Conj> conjList) {
+	public void validadarCadena(String cadena, LinkedList<Conj> conjList, Cadenas cadenai) {
+		Estados.cadenai = cadenai;
 		ListaConjuntos = conjList;
 		CadenaValida = true;
 		anteriorEstado = null;
@@ -119,6 +121,7 @@ public class Estados {
 				
 				
 				if (ActualValidacion.Aceptacion) {
+					cadenai.validacion = true;
 					if(anteriorEstado.EstadoRepetido) {
 						System.out.println("Estado en: " + ActualValidacion.EstadoDestino);
 					}else {
@@ -142,6 +145,7 @@ public class Estados {
 
 		} else {
 			if (Aceptacion) {
+				cadenai.validacion = true;
 				System.out.println("cadena aceptada");
 			} else {
 				System.out.println("fallo");

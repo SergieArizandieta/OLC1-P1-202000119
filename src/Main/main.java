@@ -16,6 +16,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.rmi.Naming;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -125,11 +126,6 @@ public class main extends JFrame {
 		button_view.setBounds(1210, 54, 67, 23);
 		contentPane.add(button_view);
 
-		JTextPane textOut = new JTextPane();
-		textOut.setEnabled(false);
-		textOut.setBounds(607, 478, 776, 127);
-		contentPane.add(textOut);
-
 		JLabel lblNewLabel = new JLabel("Ruta:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel.setForeground(Color.BLACK);
@@ -151,6 +147,10 @@ public class main extends JFrame {
 		Label_img.setHorizontalAlignment(SwingConstants.LEFT);
 		Label_img.setBounds(10, 11, 407, 339);
 		panel.add(Label_img);
+		
+		TextArea textEditable_1 = new TextArea();
+		textEditable_1.setBounds(-355, 385, 782, 139);
+		panel.add(textEditable_1);
 
 		TextArea textEditable = new TextArea();
 		textEditable.setBounds(14, 50, 569, 555);
@@ -394,7 +394,7 @@ public class main extends JFrame {
 								for (SimpleER er : sintactico.ERList) {
 									if (i.name.equals(er.name)) {
 										System.out.println("===== cadena: " + i.string + " para: " + er.name + "=====");
-										er.ValidarCadena(i.string,sintactico.ConjList);
+										er.ValidarCadena(i.string,sintactico.ConjList,i);
 										encontrado = true;
 										break;
 									}
@@ -405,6 +405,17 @@ public class main extends JFrame {
 
 								}
 							}
+							String text= "";
+							for (Cadenas i : sintactico.CadenasList) {
+								if(i.validacion) {
+									text+="La cadena: " + i.string + " es VALIDA con la ER: " + i.name + "\n" ;
+									System.out.println("La cadena: " + i.string + " es VALIDA con la ER: " + i.name );
+								}else {
+									text+="La cadena: " + i.string + " es INVALIDA con la ER: " + i.name  + "\n" ;
+									System.out.println("La cadena: " + i.string + " es INVALIDA con la ER: " + i.name );
+								}
+							}
+							//textOut.setText(text);
 
 						} else {
 							System.out.println("no hay cadenas");

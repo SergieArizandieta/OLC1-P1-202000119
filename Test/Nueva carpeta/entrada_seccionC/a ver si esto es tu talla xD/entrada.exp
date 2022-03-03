@@ -21,20 +21,20 @@
     
     //ahora toca evaluar las cadenas
 
-	expresionregular:"a";  //esta cadena es INCORRECTA
-    expre2:"aa788787";  //esta cadena es CORRECTA
-	expresionregular:"ab"; //esta cadena es CORRECTA  
-    expresionregular:"aCcCcCb"; <! esta cadena es CORRECTA !>
-	expresionregular:"aCc19CcCb"; <! esta cadena es CORRECTA !>
-	expresionregular:"aCc12CcCb"; <! esta cadena es INCORRECTA !>
-    expre2:"aa"; //esta cadena es INCORRECTA  
-    expre2:"aazbbb"; <! esta cadena es INCORRECTA !>
-	decimal:"1545.15";  //esta cadena es CORRECTA
-	decimal:"4.15";  //esta cadena es CORRECTA
-    decimal:"12"; //esta cadena es INCORRECTA  
-    decimal:"105."; <! esta cadena es INCORRECTA !>
-	decimal2:"1545.15";  //esta cadena es INCORRECTA
-	decimal2:"5.15";  //esta cadena es CORRECTA	
+expresionregular:"a";  //esta cadena es INCORRECTA
+ expre2:"aa788787";  //esta cadena es CORRECTA
+expresionregular:"ab"; //esta cadena es CORRECTA  
+expresionregular:"aCcCcCb"; <! esta cadena es CORRECTA !>
+expresionregular:"aCc19CcCb"; <! esta cadena es CORRECTA !>
+expresionregular:"aCc12CcCb"; <! esta cadena es INCORRECTA !>
+expre2:"aa"; //esta cadena es INCORRECTA  
+expre2:"aazbbb"; <! esta cadena es INCORRECTA !>
+decimal:"1545.15";  //esta cadena es CORRECTA
+decimal:"4.15";  //esta cadena es CORRECTA
+decimal:"12"; //esta cadena es INCORRECTA  
+decimal:"105."; <! esta cadena es INCORRECTA !>
+decimal2:"1545.15";  //esta cadena es INCORRECTA
+decimal2:"5.15";  //esta cadena es CORRECTA	
 	
 
 }
