@@ -383,6 +383,7 @@ public class main extends JFrame {
 
 		// comprobar cadenas
 		button_ComprobarCadeas.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 
 				try {
@@ -446,9 +447,10 @@ public class main extends JFrame {
 							//System.out.println(json);
 							//System.out.println(ja);
 							
-							
 							Create_File("SALIDAS_202000119\\Salida.JSON", Salida);
 							JOptionPane.showMessageDialog(null, "Se creo archivo de salida");
+							System.out.println("======= Se creo archivo de salida ======");
+							
 							
 							
 
