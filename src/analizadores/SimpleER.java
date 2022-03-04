@@ -496,8 +496,10 @@ public class SimpleER {
 		DOT = "digraph structs {\n  bgcolor = \"#E3FFFA\"\n   node [shape=Mrecord fillcolor=\"#FFE3FF\" style =filled];\n";
 		DOT += "label =\"" + this.name + "\"\n";
 
-		Estado_Inicial = new Estados(0, false, this.ultimo.primeros, this.siguientes, this.name);
+		Estado_Inicial = new Estados(0, false, this.ultimo.primeros, this.name);
+	
 		Estado_Inicial.Inciando_tabla_transiciones(this.siguientes);
+;
 
 		if (isNoneLast() == false) {
 			Nodo_Simple_ER actual = this.ultimo;

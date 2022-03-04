@@ -194,6 +194,8 @@ public class SimpleCalcSiguientes {
 	}
 	
 	public List<Integer> SerachPrimeros(Integer data) {
+		List<Integer> siguientes = new ArrayList<>();
+		
 		if (isNone() == false) {
 			Nodo_Simple actual = this.primero;
 			while (actual != null && actual.Hoja != data) {
@@ -204,8 +206,10 @@ public class SimpleCalcSiguientes {
 				}
 			}
 			if (actual != null && actual.Hoja == data) {
-				//System.out.println("Dato encontrado: " + data);
-				return actual.siguientes;
+				for (Integer integer : actual.siguientes) {
+					siguientes.add(integer);
+				}
+				return siguientes;
 			}
 		}
 		return null;

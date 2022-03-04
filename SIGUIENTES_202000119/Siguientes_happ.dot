@@ -1,0 +1,18 @@
+digraph structs { 
+  bgcolor = "#FFE8E3"   
+ node [shape=Mrecord fillcolor="#E3EBFF" style =filled];
+label ="happ"
+struct1 [label="SIGUIENTES| { Valor | Hoja| Siguinetes } | 
+{ \"a\"| 1 | [2]}|
+{ \"b\"| 2 | [3, 6, 7]}|
+{ \"c\"| 3 | [4, 5]}|
+{ \"d\"| 4 | [4, 5]}|
+{ \"c\"| 5 | [9]}|
+{ \"d\"| 6 | [7]}|
+{ \"d\"| 7 | [8]}|
+{ \"c\"| 8 | [8, 9]}|
+{ \"b\"| 9 | [10]}|
+{ \"b\"| 10 | [11]}|
+{ $| 11 | []}
+"];
+ }

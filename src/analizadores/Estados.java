@@ -7,6 +7,7 @@ import java.util.List;
 import javax.sound.midi.Soundbank;
 
 public class Estados {
+	static SimpleCalcSiguientes Sigeuintes;
 	static Cadenas cadenai;
 	static LinkedList<Conj> ListaConjuntos;
 	static Boolean CadenaValida;
@@ -23,12 +24,11 @@ public class Estados {
 	SimpleSiguientesTransiciones listado;
 	List<String> CaracteresAceptados = new ArrayList<>();
 
-	public Estados(Integer Estado, Boolean Aceptacion, List<Integer> Siguientes, SimpleCalcSiguientes siguientes,
-			String name) {
+	public Estados(Integer Estado, Boolean Aceptacion, List<Integer> Siguientes,String name) {
 		this.Estado = Estado;
 		this.Aceptacion = Aceptacion;
 		this.Valores = Siguientes;
-		this.listado = new SimpleSiguientesTransiciones(siguientes);
+		this.listado = new SimpleSiguientesTransiciones();
 		this.name = name;
 	}
 
@@ -40,11 +40,12 @@ public class Estados {
 		data += "\nTransiciones:";
 
 		System.out.println(data);
-		this.listado.Calcsiguientes.showList();
+		Estados.Sigeuintes.showList();
 		;
 	}
 
 	public void Inciando_tabla_transiciones(SimpleCalcSiguientes siguientes) {
+		Estados.Sigeuintes = siguientes;
 		dot = "";
 
 		// System.out.println("==== editando valores de estado: " + this.Estado + "
@@ -61,14 +62,17 @@ public class Estados {
 				Valor = siguientes.SerachInfo(i);
 				valor_tipo = new Valor_Tipo(Valor, Tipo);
 				Primeros = siguientes.SerachPrimeros(i);
-				listado.insert(valor_tipo, Primeros, siguientes);
+				listado.insert(valor_tipo, Primeros);
 
 			}
 		}
 		encabezadoEstado = listado.primero;
+		
+		
 		listado.AgregarDatos_Aceptados();
-
+		
 		System.out.println("==============Mostrando Arbol==============");
+		Estados.Sigeuintes.showList();
 		estadosGestion = 0;
 		System.out.println(this.name);
 		listado.verArbolMain(this.Aceptacion, this.name);

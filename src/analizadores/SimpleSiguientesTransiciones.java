@@ -3,14 +3,12 @@ package analizadores;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.sound.midi.Soundbank;
 
-import analizadores.Estados;
-import jflex.exceptions.MacroException;
+
+
 
 public class SimpleSiguientesTransiciones {
 	// Integer RegulacionEstado;
@@ -21,20 +19,18 @@ public class SimpleSiguientesTransiciones {
 
 	Integer RegulacionNumeroacion = 0;
 	Nodo_SimpleSiguientesTransiciones primero, ultimo;
-	SimpleCalcSiguientes Calcsiguientes = new SimpleCalcSiguientes();
+	//SimpleCalcSiguientes Calcsiguientes = new SimpleCalcSiguientes();
 
-	public SimpleSiguientesTransiciones(SimpleCalcSiguientes siguientes) {
+	public SimpleSiguientesTransiciones() {
 		this.primero = null;
 		this.primero = null;
-		this.Calcsiguientes = siguientes;
 		// this.RegulacionEstado = RegulacionEstado;
 	}
 
-	public void insert(Valor_Tipo valor_tipo, List<Integer> siguinetes, SimpleCalcSiguientes siguientes) {
+	public void insert(Valor_Tipo valor_tipo, List<Integer> siguinetes) {
 
 		RegulacionNumeroacion++;
-		Nodo_SimpleSiguientesTransiciones new_node = new Nodo_SimpleSiguientesTransiciones(valor_tipo, siguinetes,
-				siguientes);
+		Nodo_SimpleSiguientesTransiciones new_node = new Nodo_SimpleSiguientesTransiciones(valor_tipo, siguinetes);
 		new_node.Numeracion = RegulacionNumeroacion;
 		new_node.DatosAceptados.add(new_node.data);
 		if (isNone()) {
@@ -85,7 +81,7 @@ public class SimpleSiguientesTransiciones {
 
 	public void AgregarDatos_Aceptados() {
 		// System.out.println("====== agregar aceptados ======");
-
+		
 		if (isNoneLast() == false) {
 			Nodo_SimpleSiguientesTransiciones actualReverse = this.ultimo;
 			if (isNone() == false) {
@@ -129,6 +125,7 @@ public class SimpleSiguientesTransiciones {
 				}
 			}
 		}
+
 		verificadionEstadosRepetidos();
 		agregarValorEstado();
 	}
@@ -248,17 +245,19 @@ public class SimpleSiguientesTransiciones {
 					if (actual.Verificado == false) {
 						actual.Verificado = true;
 						for (Integer i : actual.primeros) {
-							Tipo = this.Calcsiguientes.SerachTipo(i);
+							Tipo = Estados.Sigeuintes.SerachTipo(i);
 							if (Tipo.equals("Finalizacion")) {
 								actual.Aceptacion = true;
 							} else {
-								Valor = this.Calcsiguientes.SerachInfo(i);
+								Valor = Estados.Sigeuintes.SerachInfo(i);
 								valor_tipo = new Valor_Tipo(Valor, Tipo);
-								Primeros = this.Calcsiguientes.SerachPrimeros(i);
-								actual.listado.insert(valor_tipo, Primeros, this.Calcsiguientes);
+								Primeros = Estados.Sigeuintes.SerachPrimeros(i);
+								actual.listado.insert(valor_tipo, Primeros);
+								
+								
 							}
 						}
-						if (this.Calcsiguientes.SerachTipo(actual.primeros.get(0)) == "Finalizacion") {
+						if (Estados.Sigeuintes.SerachTipo(actual.primeros.get(0)) == "Finalizacion") {
 
 							actual.Aceptacion = true;
 						}
@@ -350,7 +349,7 @@ public class SimpleSiguientesTransiciones {
 		if (cabezera != null) {
 			Nodo_SimpleSiguientesTransiciones actual = cabezera;
 			while (actual != null) {
-
+				actual.mostradoGrafo = true;
 				ShowAceptacionesReporte(actual.listado.primero, actual.Estado);
 				actual = actual.next;
 			}
@@ -388,7 +387,8 @@ public class SimpleSiguientesTransiciones {
 				System.out.println("");
 
 				if (actual.EstadoRepetido == false) {
-					ShowArbolReporte(actual);
+					if(actual.mostradoGrafo== false) {
+					ShowArbolReporte(actual);}
 				}
 				actual = actual.next;
 			}
@@ -519,7 +519,7 @@ public class SimpleSiguientesTransiciones {
 				}
 
 				System.out.println("");
-
+				actual.mostrado = true;
 				ShowAceptaciones(actual.listado.primero);
 				actual = actual.next;
 			}
@@ -561,10 +561,23 @@ public class SimpleSiguientesTransiciones {
 
 				System.out.println("");
 
+				
+				
+				actual = actual.next;
+				
+			}
+		}
+		
+		if (cabezera != null) {
+			Nodo_SimpleSiguientesTransiciones actual = cabezera;
+			while (actual != null) {
 				if (actual.EstadoRepetido == false) {
+					if(actual.mostrado == false) {
 					ShowArbol(actual);
+					}
 				}
 				actual = actual.next;
+				
 			}
 		}
 	}
@@ -664,7 +677,8 @@ public class SimpleSiguientesTransiciones {
 		TransicionesDot += "  <TABLE border=\"10\" cellspacing=\"10\" cellpadding=\"10\" style=\"rounded\" gradientangle=\"315\">\n";
 
 		Terminales = new ArrayList<>();
-		Terminales = this.Calcsiguientes.CrearCopiaTerminales();
+		Terminales = Estados.Sigeuintes.CrearCopiaTerminales();
+
 
 		TransicionesDot += "  <TR>\n";
 		TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">Estados\\Terminales  </TD>\n";
@@ -1104,6 +1118,9 @@ public class SimpleSiguientesTransiciones {
 class Nodo_SimpleSiguientesTransiciones {
 	Nodo_SimpleSiguientesTransiciones next, previous;
 	String CadenaAceptacion = "";
+	
+	Boolean mostrado = false;
+	Boolean mostradoGrafo = false;
 
 	Integer Numeracion;
 	Boolean Verificado = false;
@@ -1116,12 +1133,11 @@ class Nodo_SimpleSiguientesTransiciones {
 	Boolean EstadoRepetido = false;
 	Integer EstadoDestino = 0;
 
-	public Nodo_SimpleSiguientesTransiciones(Valor_Tipo data, List<Integer> siguinetes,
-			SimpleCalcSiguientes siguientes) {
+	public Nodo_SimpleSiguientesTransiciones(Valor_Tipo data, List<Integer> siguinetes) {
 		this.next = null;
 		this.previous = null;
 		this.data = data;
 		this.primeros = siguinetes;
-		this.listado = new SimpleSiguientesTransiciones(siguientes);
+		this.listado = new SimpleSiguientesTransiciones();
 	}
 }

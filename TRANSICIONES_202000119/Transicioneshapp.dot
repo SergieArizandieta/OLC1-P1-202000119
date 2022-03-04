@@ -1,0 +1,66 @@
+digraph G { bgcolor="black"
+   fontname="Helvetica,Arial,sans-serif"
+  edge [fontname="Helvetica,Arial,sans-serif"]
+  subgraph cluster1 {fillcolor="skyblue" style="filled"
+  node [shape=Msquare fillcolor="gold:brown" style="radial" gradientangle=180]
+  label = " Tabla de transiciones de: happ"
+  a0 [label=<  
+  <TABLE border="10" cellspacing="10" cellpadding="10" style="rounded" gradientangle="315">
+  <TR>
+      <TD border="3" bgcolor="#FFF97B">Estados\Terminales  </TD>
+      <TD border="3" bgcolor="#FFF97B">"a"</TD>
+      <TD border="3" bgcolor="#FFF97B">"b"</TD>
+      <TD border="3" bgcolor="#FFF97B">"c"</TD>
+      <TD border="3" bgcolor="#FFF97B">"d"</TD>
+  </TR>
+  <TR>
+      <TD border="3" bgcolor="#FFF97B">0 S0</TD>
+      <TD border="3" > S1</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+  </TR>
+  <TR>
+      <TD border="3" bgcolor="#FFF97B">S1</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > S2</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+  </TR>
+  <TR>
+      <TD border="3" bgcolor="#FFF97B">S2</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > S3</TD>
+      <TD border="3" > S4</TD>
+  </TR>
+  <TR>
+      <TD border="3" bgcolor="#FFF97B">S3</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > S5</TD>
+      <TD border="3" > S3</TD>
+  </TR>
+  <TR>
+      <TD border="3" bgcolor="#FFF97B">S4</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > S9</TD>
+      <TD border="3" > S8</TD>
+  </TR>
+  <TR>
+      <TD border="3" bgcolor="#FFF97B">$  S8</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > S9</TD>
+      <TD border="3" > -- </TD>
+  </TR>
+  <TR>
+      <TD border="3" bgcolor="#FFF97B">$  S9</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > S6</TD>
+      <TD border="3" > S9</TD>
+      <TD border="3" > -- </TD>
+  </TR>
+
+</TABLE>>];}}
