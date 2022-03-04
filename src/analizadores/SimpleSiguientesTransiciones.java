@@ -185,10 +185,11 @@ public class SimpleSiguientesTransiciones {
 				if (actual != ActualVerificando && actual.EstadoRepetido == false) {
 					// System.out.println(actual.Estado + " datos de aceptacion: " +
 					// actual.primeros);
-					if (actual.Aceptacion) {
-						ActualVerificando.Aceptacion = actual.Aceptacion;
-					}
+
 					if (primeros.equals(actual.primeros)) {
+						if (actual.Aceptacion) {
+							ActualVerificando.Aceptacion = actual.Aceptacion;
+						}
 						ActualVerificando.EstadoRepetido = true;
 						ActualVerificando.EstadoDestino = actual.Estado;
 					}
@@ -248,6 +249,7 @@ public class SimpleSiguientesTransiciones {
 							Tipo = Estados.Sigeuintes.SerachTipo(i);
 							if (Tipo.equals("Finalizacion")) {
 								actual.Aceptacion = true;
+								
 							} else {
 								Valor = Estados.Sigeuintes.SerachInfo(i);
 								valor_tipo = new Valor_Tipo(Valor, Tipo);
@@ -487,8 +489,8 @@ public class SimpleSiguientesTransiciones {
 
 				if (actual.Aceptacion) {
 					System.out.print("\tS" + actual.Estado + "* con ");
-					EstadosAceptacion.add(actual.Estado);
-					EstadosAceptacion = QuitarDupicados(EstadosAceptacion);
+					//EstadosAceptacion.add(actual.Estado);
+					//EstadosAceptacion = QuitarDupicados(EstadosAceptacion);
 				} else {
 					System.out.print("\tS" + actual.Estado + " con ");
 				}
@@ -536,8 +538,8 @@ public class SimpleSiguientesTransiciones {
 
 					if (actual.Aceptacion) {
 						System.out.print("\tS" + actual.Estado + "* con ");
-						EstadosAceptacion.add(actual.Estado);
-						EstadosAceptacion = QuitarDupicados(EstadosAceptacion);
+						//EstadosAceptacion.add(actual.Estado);
+						//EstadosAceptacion = QuitarDupicados(EstadosAceptacion);
 					} else {
 						System.out.print("\tS" + actual.Estado + " con ");
 					}

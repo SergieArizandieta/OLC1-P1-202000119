@@ -49,14 +49,14 @@ digraph G { bgcolor="black"
       <TD border="3" > S8</TD>
   </TR>
   <TR>
-      <TD border="3" bgcolor="#FFF97B">$  S8</TD>
+      <TD border="3" bgcolor="#FFF97B">S8</TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
       <TD border="3" > S9</TD>
       <TD border="3" > -- </TD>
   </TR>
   <TR>
-      <TD border="3" bgcolor="#FFF97B">$  S9</TD>
+      <TD border="3" bgcolor="#FFF97B">S9</TD>
       <TD border="3" > -- </TD>
       <TD border="3" > S6</TD>
       <TD border="3" > S9</TD>
