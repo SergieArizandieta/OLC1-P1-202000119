@@ -336,7 +336,7 @@ public class main extends JFrame {
 									// System.out.println("\nArbol tiene hojas: " + er.hojas);
 									System.out.println("=========ER=========  " + er.name);
 									// er.initialize();
-									// er.showList();
+									er.showList();
 
 									er.GestionArbol();
 

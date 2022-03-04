@@ -27,32 +27,31 @@ public class SimpleER {
 
 	public void insert(String info, String tipo, Boolean hoja) {
 		Nodo_Simple_ER new_node = new Nodo_Simple_ER(info, tipo, hoja);
+		if (comprobarCaderna(new_node) == false) {
+			if (isNone()) {
+				this.primero = new_node;
+				this.ultimo = this.primero;
+				if (hoja) {
 
-		if (isNone()) {
-			this.primero = new_node;
-			this.ultimo = this.primero;
-			if (hoja) {
-
-				if (comprobarCaderna(new_node) == false) {
 					SetHojas();
 					new_node.noHoja = this.hojas;
 					new_node.Anulable = false;
-				} else {
-					QuitarCadenas(new_node);
+
 				}
-			}
-		} else {
-			this.ultimo = new_node;
-			Nodo_Simple_ER actual = this.primero;
-			Nodo_Simple_ER anterior = null;
+			} else {
 
-			while (actual.next != null) {
-				anterior = actual;
-				actual = actual.next;
-				actual.previous = anterior;
+				this.ultimo = new_node;
 
-			}
-			if (comprobarCaderna(new_node) == false) {
+				Nodo_Simple_ER actual = this.primero;
+				Nodo_Simple_ER anterior = null;
+
+				while (actual.next != null) {
+					anterior = actual;
+					actual = actual.next;
+					actual.previous = anterior;
+
+				}
+
 				if (hoja) {
 					SetHojas();
 
@@ -61,9 +60,10 @@ public class SimpleER {
 				}
 				actual.next = new_node;
 				actual.next.previous = actual;
-			} else {
-				QuitarCadenas(new_node);
+
 			}
+		} else {
+			QuitarCadenas(new_node);
 		}
 	}
 
@@ -132,7 +132,7 @@ public class SimpleER {
 		System.out.println("======Show list ======");
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
-			System.out.println(this.name);
+			// System.out.println(this.name);
 			while (actual != null) {
 				if (actual.hoja) {
 					System.out.println(actual.info + " - " + actual.tipo + " hoja " + actual.noHoja);
@@ -148,27 +148,20 @@ public class SimpleER {
 	public void QuitarCadenas(Nodo_Simple_ER actual) {
 
 		String temp = actual.info.replace("\"", "");
-		Integer contador = 1;
+		Integer contador = 0;
 		Boolean primeraVez = true;
-		System.out.println(temp);
+		// System.out.println(temp);
 		SimpleER SimpleTemp = new SimpleER();
 
 		for (int i = temp.length() - 1; i >= 0; i--) {
 			String letter = String.valueOf(temp.charAt(i));
-			System.out.println(letter);
-			if (primeraVez) {
-				if (contador - 1 == 2) {
-					this.insertNormal(".", "OP", false);
-					primeraVez = false;
-					contador = null;
-				}
-			}
+			// System.out.println(letter);
 
 			if (letter.equals(" ")) {
 				this.insertNormal("\"" + letter + "\"", "SPACE", true);
 				// SimpleTemp.insertNormal("\"" + letter + "\"", "SPACE", true);
 			} else {
-				this.insertNormal("\"" + letter + "\"", "SPACE", true);
+				this.insertNormal("\"" + letter + "\"", "PHRASE", true);
 				// SimpleTemp.insertNormal("\"" + letter + "\"", "PHRASE", true);
 			}
 
@@ -177,6 +170,13 @@ public class SimpleER {
 			}
 			if (primeraVez) {
 				contador++;
+			}
+			if (primeraVez) {
+				if (contador == 2) {
+					this.insertNormal(".", "OP", false);
+					primeraVez = false;
+					contador = null;
+				}
 			}
 
 		}
@@ -497,9 +497,9 @@ public class SimpleER {
 		DOT += "label =\"" + this.name + "\"\n";
 
 		Estado_Inicial = new Estados(0, false, this.ultimo.primeros, this.name);
-	
+
 		Estado_Inicial.Inciando_tabla_transiciones(this.siguientes);
-;
+		;
 
 		if (isNoneLast() == false) {
 			Nodo_Simple_ER actual = this.ultimo;
@@ -795,10 +795,10 @@ public class SimpleER {
 			}
 		}
 	}
-	
+
 	public void ValidarCadena(String cadena, LinkedList<Conj> conjList, Cadenas i) {
-		
-		Estado_Inicial.validadarCadena(cadena, conjList,i);
+
+		Estado_Inicial.validadarCadena(cadena, conjList, i);
 	}
 
 }
