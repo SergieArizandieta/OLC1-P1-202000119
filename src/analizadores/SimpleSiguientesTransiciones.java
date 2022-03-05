@@ -819,7 +819,7 @@ public class SimpleSiguientesTransiciones {
 		if (cabezera != null) {
 			Nodo_SimpleSiguientesTransiciones actual = cabezera;
 			while (actual != null) {
-
+				if(actual.Estado != null) {
 				TransicionesDot += "  <TR>\n";
 				if (actual.EstadoRepetido) {
 					if (actual.Aceptacion) {
@@ -838,12 +838,14 @@ public class SimpleSiguientesTransiciones {
 						TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">S" + actual.Estado + "</TD>\n";
 					}
 				}
-				Nodo_SimpleSiguientesTransiciones temp = actual;
+				//Nodo_SimpleSiguientesTransiciones temp = actual;
+				subpartes(actual.listado.primero);
+				}
 				actual = actual.next;
 
-				if (temp.EstadoRepetido == false) {
-					subpartes(temp.listado.primero);
-				}
+				//if (temp.EstadoRepetido == false) {
+					
+				//}
 
 			}
 		}
@@ -873,9 +875,14 @@ public class SimpleSiguientesTransiciones {
 
 			}
 			TransicionesDot += "  </TR>\n";
+			//if (cabezera.EstadoRepetido == false) {
+			
 			if (cabezera.EstadoRepetido == false) {
-				ShowAceptacionesTransiociones(cabezera);
+				System.out.println(cabezera.Estado + " soy repetido");
 			}
+			
+				ShowAceptacionesTransiociones(cabezera);
+			//}
 
 		} else {
 			for (int i = 0; i < ContadorGeneral; i++) {

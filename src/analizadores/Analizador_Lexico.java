@@ -101,12 +101,12 @@ public class Analizador_Lexico implements java_cup.runtime.Scanner {
   private static final String ZZ_ACTION_PACKED_0 =
     "\2\0\1\1\1\2\3\3\1\4\1\5\1\6\1\3"+
     "\1\7\1\3\1\10\1\11\1\12\1\3\1\13\2\14"+
-    "\1\3\1\15\1\16\1\17\1\20\2\0\1\21\1\22"+
-    "\1\23\1\24\1\0\2\25\1\0\1\26\1\27\1\30"+
-    "\1\31\1\0\1\25\1\0\1\32\2\33";
+    "\1\15\1\16\1\17\1\20\2\0\1\21\1\0\1\22"+
+    "\1\23\1\24\1\0\2\25\1\0\1\26\1\21\3\0"+
+    "\1\25\1\0\1\27\1\30\1\31\1\32\2\33";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[45];
+    int [] result = new int[48];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -133,13 +133,13 @@ public class Analizador_Lexico implements java_cup.runtime.Scanner {
   private static final String ZZ_ROWMAP_PACKED_0 =
     "\0\0\0\41\0\102\0\102\0\102\0\143\0\204\0\102"+
     "\0\102\0\102\0\245\0\102\0\306\0\347\0\102\0\102"+
-    "\0\u0108\0\102\0\u0129\0\u014a\0\u016b\0\102\0\u018c\0\102"+
-    "\0\102\0\u01ad\0\u01ce\0\102\0\102\0\102\0\u01ef\0\u0210"+
-    "\0\u0129\0\u0231\0\u0252\0\102\0\102\0\102\0\102\0\u0273"+
-    "\0\u0294\0\u02b5\0\102\0\u0129\0\102";
+    "\0\u0108\0\102\0\u0129\0\u014a\0\102\0\u016b\0\102\0\102"+
+    "\0\u018c\0\u01ad\0\102\0\u01ce\0\102\0\102\0\u01ef\0\u0210"+
+    "\0\u0129\0\u0231\0\u0252\0\102\0\u0273\0\u0294\0\u02b5\0\u02d6"+
+    "\0\u02f7\0\u0318\0\102\0\102\0\102\0\102\0\u0129\0\102";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[45];
+    int [] result = new int[48];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -165,22 +165,23 @@ public class Analizador_Lexico implements java_cup.runtime.Scanner {
     "\1\3\2\4\1\0\1\4\1\5\1\6\1\5\1\7"+
     "\1\5\1\10\1\11\1\12\1\13\1\14\1\15\1\16"+
     "\1\17\1\20\1\21\1\5\1\22\1\23\1\24\3\23"+
-    "\1\25\1\5\1\26\1\27\1\30\1\31\1\3\2\4"+
-    "\1\0\1\4\34\3\41\0\4\32\1\33\1\32\1\34"+
-    "\32\32\10\0\1\35\54\0\1\36\33\0\1\37\41\0"+
-    "\1\16\25\0\1\40\53\0\1\41\5\0\5\41\1\0"+
-    "\1\41\24\0\1\41\5\0\4\41\1\42\1\0\1\41"+
-    "\1\0\1\43\10\0\1\44\2\0\1\45\17\0\1\46"+
-    "\41\0\1\43\3\0\1\43\2\0\6\32\1\34\40\32"+
-    "\1\47\32\32\2\37\1\0\36\37\5\40\1\50\16\40"+
-    "\1\0\14\40\20\0\1\41\5\0\3\41\1\51\1\41"+
-    "\1\0\1\41\1\0\1\52\33\0\1\52\4\0\1\52"+
-    "\26\0\1\53\34\0\1\41\5\0\2\41\1\54\2\41"+
-    "\1\0\1\41\1\0\1\55\32\0\1\55\5\0\1\55"+
-    "\2\0";
+    "\2\5\1\25\1\26\1\27\1\30\1\3\2\4\1\0"+
+    "\1\4\34\3\41\0\4\31\1\32\1\31\1\33\24\31"+
+    "\1\34\5\31\10\0\1\35\54\0\1\36\33\0\1\37"+
+    "\41\0\1\16\25\0\1\40\53\0\1\41\5\0\5\41"+
+    "\1\0\1\41\24\0\1\41\5\0\4\41\1\42\1\0"+
+    "\1\41\1\0\1\43\34\0\1\43\3\0\1\43\2\0"+
+    "\6\31\1\33\40\31\1\44\40\31\1\45\2\31\1\46"+
+    "\17\31\1\47\7\31\2\37\1\0\36\37\5\40\1\50"+
+    "\16\40\1\0\14\40\20\0\1\41\5\0\3\41\1\51"+
+    "\1\41\1\0\1\41\1\0\1\52\33\0\1\52\4\0"+
+    "\1\52\10\0\1\53\32\0\6\31\1\54\40\31\1\55"+
+    "\32\31\24\0\1\56\34\0\1\41\5\0\2\41\1\57"+
+    "\2\41\1\0\1\41\1\0\1\60\32\0\1\60\5\0"+
+    "\1\60\2\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[726];
+    int [] result = new int[825];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -224,12 +225,12 @@ public class Analizador_Lexico implements java_cup.runtime.Scanner {
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
     "\2\0\3\11\2\1\3\11\1\1\1\11\2\1\2\11"+
-    "\1\1\1\11\3\1\1\11\1\1\2\11\2\0\3\11"+
-    "\1\1\1\0\2\1\1\0\4\11\1\0\1\1\1\0"+
-    "\1\11\1\1\1\11";
+    "\1\1\1\11\2\1\1\11\1\1\2\11\2\0\1\11"+
+    "\1\0\2\11\1\1\1\0\2\1\1\0\1\11\1\1"+
+    "\3\0\1\1\1\0\4\11\1\1\1\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[45];
+    int [] result = new int[48];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -864,29 +865,29 @@ public class Analizador_Lexico implements java_cup.runtime.Scanner {
           case 48: break;
           case 22:
             { tokens tmp= new tokens( yytext(), yyline, yycolumn);
-        TokensList.add(tmp);//System.out.println("Reconocio token: <S_DQUOTES>: "+yytext());
-            return new Symbol(Simbolos.S_DQUOTES, yycolumn, yyline, yytext());
+        TokensList.add(tmp);//System.out.println("Reconocio token: <SPACE>: "+yytext());
+            return new Symbol(Simbolos.SPACE, yycolumn, yyline, yytext());
             }
             // fall through
           case 49: break;
           case 23:
             { tokens tmp= new tokens( yytext(), yyline, yycolumn);
-        TokensList.add(tmp);//System.out.println("Reconocio token: <S_QUOTE>: "+yytext());
-            return new Symbol(Simbolos.S_QUOTE, yycolumn, yyline, yytext());
+        TokensList.add(tmp);//System.out.println("Reconocio token: <S_DQUOTES>: "+yytext());
+            return new Symbol(Simbolos.S_DQUOTES, yycolumn, yyline, yytext());
             }
             // fall through
           case 50: break;
           case 24:
             { tokens tmp= new tokens( yytext(), yyline, yycolumn);
-        TokensList.add(tmp);//System.out.println("Reconocio token: <S_LBREAK>: "+yytext());
-            return new Symbol(Simbolos.S_LBREAK, yycolumn, yyline, yytext());
+        TokensList.add(tmp);//System.out.println("Reconocio token: <S_QUOTE>: "+yytext());
+            return new Symbol(Simbolos.S_QUOTE, yycolumn, yyline, yytext());
             }
             // fall through
           case 51: break;
           case 25:
             { tokens tmp= new tokens( yytext(), yyline, yycolumn);
-        TokensList.add(tmp);//System.out.println("Reconocio token: <SPACE>: "+yytext());
-            return new Symbol(Simbolos.SPACE, yycolumn, yyline, yytext());
+        TokensList.add(tmp);//System.out.println("Reconocio token: <S_LBREAK>: "+yytext());
+            return new Symbol(Simbolos.S_LBREAK, yycolumn, yyline, yytext());
             }
             // fall through
           case 52: break;
