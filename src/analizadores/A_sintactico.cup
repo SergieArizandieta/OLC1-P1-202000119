@@ -161,7 +161,12 @@ CONTENIDOR ::=
 CADENAS ::= S_PCENTS CADENASR
     |IDENTIFICADOR:a S_DOTS PHRASE:b S_SEMICOLON CADENASR  {:System.out.println("<CADENAS> " + a + " : " + b);
     String temptext = (String) b;
-    CadenasTemp = new Cadenas((String) a ,((String) b).replace("\"",""));
+    temptext = temptext.substring(0,0) + temptext.substring(0+1);
+    temptext = temptext.substring(0,temptext.length()-1);
+    temptext = temptext.replace("\\\"","\"");
+   // temptext = temptext.replace("\\\'","\'");
+    //temptext = temptext.replace("\\\n","\n");
+    CadenasTemp = new Cadenas((String) a , temptext);
     CadenasList.add(CadenasTemp);
     :};
 

@@ -1098,7 +1098,12 @@ class CUP$Analizador_sintactico$actions {
 		Object b = (Object)((java_cup.runtime.Symbol) CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-2)).value;
 		System.out.println("<CADENAS> " + a + " : " + b);
     String temptext = (String) b;
-    CadenasTemp = new Cadenas((String) a ,((String) b).replace("\"",""));
+    temptext = temptext.substring(0,0) + temptext.substring(0+1);
+    temptext = temptext.substring(0,temptext.length()-1);
+    temptext = temptext.replace("\\\"","\"");
+   // temptext = temptext.replace("\\\'","\'");
+    //temptext = temptext.replace("\\\n","\n");
+    CadenasTemp = new Cadenas((String) a , temptext);
     CadenasList.add(CadenasTemp);
     
               CUP$Analizador_sintactico$result = parser.getSymbolFactory().newSymbol("CADENAS",15, ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.elementAt(CUP$Analizador_sintactico$top-4)), ((java_cup.runtime.Symbol)CUP$Analizador_sintactico$stack.peek()), RESULT);

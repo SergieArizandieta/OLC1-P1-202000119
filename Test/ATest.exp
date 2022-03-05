@@ -1,7 +1,7 @@
 {
 
-CONJ: digito -> " "~$;
-//CONJ: digito -> 0,1,2,3,4;
+//CONJ: digito -> " "~$;
+CONJ: digito -> 0,1,2,3,4,"\n","\'","\"";
 
 Conj: L-> D,L;
 //ExpReg2 -> .+{L}+{digito} ; actual
@@ -9,7 +9,8 @@ coliflor-> .+{L}+{digito};
 
 %%
 
-ExpReg2 : "DL !#$"; 
+coliflor: "\"D\"L\"123\"4"; 
+//coliflor: "DL !#$"; 
 
 
 

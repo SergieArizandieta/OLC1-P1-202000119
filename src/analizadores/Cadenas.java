@@ -16,7 +16,7 @@ public class Cadenas {
 	public String show() {
 		String data = "";
 		data += "\nnombre:" + name;
-		data += "\ncadena:" + string;
+		data += "\ncadena:" + string.length();
 		return data;
 	}
 }
