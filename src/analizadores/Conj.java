@@ -71,7 +71,24 @@ public class Conj {
 
 	public void validacionComas(String letter) {
 		for (String i : letras) {
-			if (i.equals(letter)) {
+			if(i.equals("\"\\\"\"")){
+				if ("\"".equals(letter)) {
+					validado = true;
+					break;
+				}
+			}else if(i.equals("\"\\'\"")){
+				if ("\'".equals(letter)) {
+					validado = true;
+					break;
+				}
+			}else if(i.equals("\"\\n\"")){
+				if(letter.equals("\n")) {
+					validado = true;
+					break;
+				}
+
+				
+			}else if (i.equals(letter)) {
 				validado = true;
 				break;
 			}

@@ -2,18 +2,18 @@ digraph structs {
   bgcolor = "#E3FFFA"
    node [shape=Mrecord fillcolor="#FFE3FF" style =filled];
 label ="coliflor"
-    struct2040069525    [label="{{[1]|<here>.|[3]}|No Anulable}"];
-    struct2040069525-> struct1869630579
-    struct1869630579    [label="{{[1]|<here>.|[2]}|No Anulable}"];
-    struct1869630579-> struct2039697736
-    struct2039697736    [label="{{[1]|<here>+|[1]}|No Anulable}"];
-    struct2039697736-> struct375030054
-    struct375030054    [label="{{[1]|<here>L|[1]}|No Anulable}"];
-    struct1869630579-> struct680571437
-    struct680571437    [label="{{[2]|<here>+|[2]}|No Anulable}"];
-    struct680571437-> struct1173254296
-    struct1173254296    [label="{{[2]|<here>digito|[2]}|No Anulable}"];
-    struct2040069525-> struct647262332
-    struct647262332    [label="{{[3]|<here>$|[3]}|No Anulable}"];
+    struct1403305363    [label="{{[1]|<here>.|[3]}|No Anulable}"];
+    struct1403305363-> struct1693806783
+    struct1693806783    [label="{{[1]|<here>.|[2]}|No Anulable}"];
+    struct1693806783-> struct937596445
+    struct937596445    [label="{{[1]|<here>+|[1]}|No Anulable}"];
+    struct937596445-> struct1285360316
+    struct1285360316    [label="{{[1]|<here>L|[1]}|No Anulable}"];
+    struct1693806783-> struct975400601
+    struct975400601    [label="{{[2]|<here>+|[2]}|No Anulable}"];
+    struct975400601-> struct1973191146
+    struct1973191146    [label="{{[2]|<here>digito|[2]}|No Anulable}"];
+    struct1403305363-> struct1458414394
+    struct1458414394    [label="{{[3]|<here>$|[3]}|No Anulable}"];
 
 }

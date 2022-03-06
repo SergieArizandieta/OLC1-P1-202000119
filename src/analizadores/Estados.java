@@ -107,7 +107,7 @@ public class Estados {
 			for (int i = 0; i < cadena.length(); i++) {
 				String letter = String.valueOf(cadena.charAt(i));
 				String letterSig;
-				// System.out.println(letter);
+
 				if (CadenaValida) {
 
 					if (i + 1 < cadena.length()) {
