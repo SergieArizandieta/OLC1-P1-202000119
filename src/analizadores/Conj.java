@@ -87,10 +87,20 @@ public class Conj {
 					break;
 				}
 
-				
+			
 			}else if (i.equals(letter)) {
 				validado = true;
 				break;
+			}else {
+				if(i.length()>2) {
+				String temptext = i;
+				temptext = i.substring(0,0) + i.substring(0+1);
+				temptext = temptext.substring(0,temptext.length()-1);
+				if(temptext.equals(letter)) {
+					validado = true;
+					break;
+				}
+				}
 			}
 		}
 	}

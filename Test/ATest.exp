@@ -1,7 +1,7 @@
 {
 
 //CONJ: digito -> " "~$;
-CONJ: digito -> 0,1,2,3,4,"\n","\'","\"";
+CONJ: digito -> 0,1,2,3,4,"\n","\'","\"","+";
 
 Conj: L-> D,L;
 //ExpReg2 -> .+{L}+{digito} ; actual
@@ -14,7 +14,9 @@ coliflor-> .+{L}+{digito};
 //coliflor: "DL\"\"1\"2\"3\"\"\"\"4\""; 
 //coliflor: "DL'\"'\"'1'''\"''2''''\"3\"'\"\"'''\"4\"";  correcto
 
+coliflor: "DL+++";
 
+<!
 coliflor: "DL
 1'''
 \"
@@ -24,7 +26,7 @@ coliflor: "DL
 
 
 4'
-"; 
+"; !>
 
 
 

@@ -96,7 +96,8 @@ DATOSEP ::=
     | S_LLC:a {:RESULT = a;:}   
     | S_DQUOTES:a {:RESULT = a;:}   
     | S_QUOTE:a {:RESULT = a;:}
-    | S_LBREAK:a {:RESULT = a;:}  ;
+    | S_LBREAK:a {:RESULT = a;:}
+    | PHRASE:a {:RESULT = a;:} ;
 
 SEPCOMASR ::= 
     S_COLON SEPCOMAS {:/*System.out.println("<SEPCOMASR>");*/:}
