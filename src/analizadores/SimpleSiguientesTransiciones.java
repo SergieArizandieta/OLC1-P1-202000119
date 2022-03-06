@@ -6,10 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
-
-
-
 public class SimpleSiguientesTransiciones {
 	// Integer RegulacionEstado;
 	Integer ContadorGeneral = 0;
@@ -19,7 +15,7 @@ public class SimpleSiguientesTransiciones {
 
 	Integer RegulacionNumeroacion = 0;
 	Nodo_SimpleSiguientesTransiciones primero, ultimo;
-	//SimpleCalcSiguientes Calcsiguientes = new SimpleCalcSiguientes();
+	// SimpleCalcSiguientes Calcsiguientes = new SimpleCalcSiguientes();
 
 	public SimpleSiguientesTransiciones() {
 		this.primero = null;
@@ -81,7 +77,7 @@ public class SimpleSiguientesTransiciones {
 
 	public void AgregarDatos_Aceptados() {
 		// System.out.println("====== agregar aceptados ======");
-		
+
 		if (isNoneLast() == false) {
 			Nodo_SimpleSiguientesTransiciones actualReverse = this.ultimo;
 			if (isNone() == false) {
@@ -161,6 +157,7 @@ public class SimpleSiguientesTransiciones {
 						if (actual.Aceptacion) {
 							ActualVerificando.Aceptacion = actual.Aceptacion;
 						}
+
 						ActualVerificando.EstadoRepetido = true;
 						ActualVerificando.EstadoDestino = actual.Estado;
 					}
@@ -249,14 +246,13 @@ public class SimpleSiguientesTransiciones {
 							Tipo = Estados.Sigeuintes.SerachTipo(i);
 							if (Tipo.equals("Finalizacion")) {
 								actual.Aceptacion = true;
-								
+
 							} else {
 								Valor = Estados.Sigeuintes.SerachInfo(i);
 								valor_tipo = new Valor_Tipo(Valor, Tipo);
 								Primeros = Estados.Sigeuintes.SerachPrimeros(i);
 								actual.listado.insert(valor_tipo, Primeros);
-								
-								
+
 							}
 						}
 						if (Estados.Sigeuintes.SerachTipo(actual.primeros.get(0)) == "Finalizacion") {
@@ -389,8 +385,9 @@ public class SimpleSiguientesTransiciones {
 				System.out.println("");
 
 				if (actual.EstadoRepetido == false) {
-					if(actual.mostradoGrafo== false) {
-					ShowArbolReporte(actual);}
+					if (actual.mostradoGrafo == false) {
+						ShowArbolReporte(actual);
+					}
 				}
 				actual = actual.next;
 			}
@@ -489,8 +486,8 @@ public class SimpleSiguientesTransiciones {
 
 				if (actual.Aceptacion) {
 					System.out.print("\tS" + actual.Estado + "* con ");
-					//EstadosAceptacion.add(actual.Estado);
-					//EstadosAceptacion = QuitarDupicados(EstadosAceptacion);
+					// EstadosAceptacion.add(actual.Estado);
+					// EstadosAceptacion = QuitarDupicados(EstadosAceptacion);
 				} else {
 					System.out.print("\tS" + actual.Estado + " con ");
 				}
@@ -522,13 +519,13 @@ public class SimpleSiguientesTransiciones {
 
 				System.out.println("");
 				actual.mostrado = true;
-				ShowAceptaciones(actual.listado.primero);
+				ShowAceptaciones(actual.listado.primero, actual.Estado);
 				actual = actual.next;
 			}
 		}
 	}
 
-	public void ShowAceptaciones(Nodo_SimpleSiguientesTransiciones cabezera) {
+	public void ShowAceptaciones(Nodo_SimpleSiguientesTransiciones cabezera, Integer EstadoCabezera) {
 
 		if (cabezera != null) {
 			Nodo_SimpleSiguientesTransiciones actual = cabezera;
@@ -538,8 +535,8 @@ public class SimpleSiguientesTransiciones {
 
 					if (actual.Aceptacion) {
 						System.out.print("\tS" + actual.Estado + "* con ");
-						//EstadosAceptacion.add(actual.Estado);
-						//EstadosAceptacion = QuitarDupicados(EstadosAceptacion);
+						// EstadosAceptacion.add(actual.Estado);
+						// EstadosAceptacion = QuitarDupicados(EstadosAceptacion);
 					} else {
 						System.out.print("\tS" + actual.Estado + " con ");
 					}
@@ -556,30 +553,34 @@ public class SimpleSiguientesTransiciones {
 					 */
 
 				}
+				if (actual.EstadoRepetido) {
+					if (actual.EstadoDestino == EstadoCabezera) {
+						actual.repetidoAsiMimso = true;
+					}
+				}
 
 				for (Valor_Tipo i : actual.DatosAceptados) {
+
 					System.out.print(i.valor + ",");
 				}
 
 				System.out.println("");
 
-				
-				
 				actual = actual.next;
-				
+
 			}
 		}
-		
+
 		if (cabezera != null) {
 			Nodo_SimpleSiguientesTransiciones actual = cabezera;
 			while (actual != null) {
 				if (actual.EstadoRepetido == false) {
-					if(actual.mostrado == false) {
-					ShowArbol(actual);
+					if (actual.mostrado == false) {
+						ShowArbol(actual);
 					}
 				}
 				actual = actual.next;
-				
+
 			}
 		}
 	}
@@ -680,7 +681,6 @@ public class SimpleSiguientesTransiciones {
 
 		Terminales = new ArrayList<>();
 		Terminales = Estados.Sigeuintes.CrearCopiaTerminales();
-
 
 		TransicionesDot += "  <TR>\n";
 		TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">Estados\\Terminales  </TD>\n";
@@ -819,33 +819,34 @@ public class SimpleSiguientesTransiciones {
 		if (cabezera != null) {
 			Nodo_SimpleSiguientesTransiciones actual = cabezera;
 			while (actual != null) {
-				if(actual.Estado != null) {
-				TransicionesDot += "  <TR>\n";
-				if (actual.EstadoRepetido) {
-					if (actual.Aceptacion) {
-						TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">$  S" + actual.EstadoDestino
-								+ "</TD>\n";
-					} else {
-						TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">S" + actual.EstadoDestino
-								+ "</TD>\n";
-					}
+				if (actual.Estado != null) {
+					TransicionesDot += "  <TR>\n";
+					if (actual.EstadoRepetido) {
+						if (actual.Aceptacion) {
+							TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">$  S" + actual.EstadoDestino
+									+ "</TD>\n";
+						} else {
+							TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">S" + actual.EstadoDestino
+									+ "</TD>\n";
+						}
 
-				} else {
-					if (actual.Aceptacion) {
-						TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">$  S" + actual.Estado
-								+ "</TD>\n";
 					} else {
-						TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">S" + actual.Estado + "</TD>\n";
+						if (actual.Aceptacion) {
+							TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">$  S" + actual.Estado
+									+ "</TD>\n";
+						} else {
+							TransicionesDot += "      <TD border=\"3\" bgcolor=\"#FFF97B\">S" + actual.Estado
+									+ "</TD>\n";
+						}
 					}
-				}
-				//Nodo_SimpleSiguientesTransiciones temp = actual;
-				subpartes(actual.listado.primero);
+					// Nodo_SimpleSiguientesTransiciones temp = actual;
+					subpartes(actual.listado.primero);
 				}
 				actual = actual.next;
 
-				//if (temp.EstadoRepetido == false) {
-					
-				//}
+				// if (temp.EstadoRepetido == false) {
+
+				// }
 
 			}
 		}
@@ -875,14 +876,14 @@ public class SimpleSiguientesTransiciones {
 
 			}
 			TransicionesDot += "  </TR>\n";
-			//if (cabezera.EstadoRepetido == false) {
-			
+			// if (cabezera.EstadoRepetido == false) {
+
 			if (cabezera.EstadoRepetido == false) {
 				System.out.println(cabezera.Estado + " soy repetido");
 			}
-			
-				ShowAceptacionesTransiociones(cabezera);
-			//}
+
+			ShowAceptacionesTransiociones(cabezera);
+			// }
 
 		} else {
 			for (int i = 0; i < ContadorGeneral; i++) {
@@ -1026,23 +1027,23 @@ public class SimpleSiguientesTransiciones {
 					continuar = false;
 					break;
 				}
-			}else if(i.tipo == "S_LBREAK") {
-				if(letter.equals("\n")) {
+			} else if (i.tipo == "S_LBREAK") {
+				if (letter.equals("\n")) {
 					NuevaAsignacion(actual.Aceptacion, actual, letter, letterSig);
 					continuar = false;
 					break;
 				}
-				
-			}else if(i.tipo == "S_QUOTE") {
-				if(letter.equals("'")) {
+
+			} else if (i.tipo == "S_QUOTE") {
+				if (letter.equals("'")) {
 					NuevaAsignacion(actual.Aceptacion, actual, letter, letterSig);
 					continuar = false;
 					break;
 				}
-				
-			}else if(i.tipo == "S_DQUOTES") {
-				
-				if(letter.equals("\"")) {
+
+			} else if (i.tipo == "S_DQUOTES") {
+
+				if (letter.equals("\"")) {
 					NuevaAsignacion(actual.Aceptacion, actual, letter, letterSig);
 					continuar = false;
 					break;
@@ -1101,7 +1102,12 @@ public class SimpleSiguientesTransiciones {
 				} else {
 					Estados.anteriorEstado = actual;
 					if (actual.EstadoRepetido) {
+						if(actual.repetidoAsiMimso) {
 						Estados.ActualValidacion = actual;
+						}else {
+							System.out.println("Se debe buscar el estado:  " + actual.EstadoDestino);
+						}
+						
 					} else {
 						Estados.ActualValidacion = actual.listado.primero;
 					}
@@ -1148,7 +1154,9 @@ public class SimpleSiguientesTransiciones {
 class Nodo_SimpleSiguientesTransiciones {
 	Nodo_SimpleSiguientesTransiciones next, previous;
 	String CadenaAceptacion = "";
-	
+
+	Boolean repetidoAsiMimso = false;
+
 	Boolean mostrado = false;
 	Boolean mostradoGrafo = false;
 
