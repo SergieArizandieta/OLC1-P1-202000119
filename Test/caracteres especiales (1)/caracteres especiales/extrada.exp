@@ -4,8 +4,8 @@
 	muchas lineas
 	!>
 
-    //р este es un error lexico я
-    //зя este es otro error lexico
+    //? este es un error lexico ?
+    //?? este es otro error lexico
 
 
     <! Tiene que recuperarse de esos errores lexicos y ponerlos en una tabla o algun lugar para el reporte!>
@@ -52,17 +52,17 @@
     //Expre4: "\n\nbfin";
     //Expre4: "\'fin"; cambiar \' por '
 
-    Expre1: "'''";
-  //  Expre1: "76767";
-  //  Expre2: "nij]";
-  //  Expre2: "fd";
-  //  Expre3: "0444444a
-   // finish"; //tambien pueden hacer un salto de linea
-   // Expre3: "0444444a
-   // finis";
+   //Expre1: "'''"; 
+   // Expre1: "76767";
+   // Expre2: "nij]";
+   // Expre2: "fd";
+  Expre3: "0444444a
+finish"; //tambien pueden hacer un salto de linea 
+   <! Expre3: "0444444a
+finis";!>
    <! Expre4: "
 
-    bfin"; !>
+    bfin"; !> 
    // Expre4: "'fin";
 
 

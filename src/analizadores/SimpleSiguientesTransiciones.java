@@ -1026,6 +1026,27 @@ public class SimpleSiguientesTransiciones {
 					continuar = false;
 					break;
 				}
+			}else if(i.tipo == "S_LBREAK") {
+				if(letter.equals("\n")) {
+					NuevaAsignacion(actual.Aceptacion, actual, letter, letterSig);
+					continuar = false;
+					break;
+				}
+				
+			}else if(i.tipo == "S_QUOTE") {
+				if(letter.equals("'")) {
+					NuevaAsignacion(actual.Aceptacion, actual, letter, letterSig);
+					continuar = false;
+					break;
+				}
+				
+			}else if(i.tipo == "S_DQUOTES") {
+				
+				if(letter.equals("\"")) {
+					NuevaAsignacion(actual.Aceptacion, actual, letter, letterSig);
+					continuar = false;
+					break;
+				}
 			} else {
 				if (i.valor.equals(letter)) {
 					NuevaAsignacion(actual.Aceptacion, actual, letter, letterSig);
