@@ -1,0 +1,16 @@
+digraph structs { 
+  bgcolor = "#FFE8E3"   
+ node [shape=Mrecord fillcolor="#E3EBFF" style =filled];
+label ="Expre1"
+struct1 [label="SIGUIENTES| { Valor | Hoja| Siguinetes } | 
+{ \\'| 1 | [1, 9]}|
+{ conj1| 2 | [9]}|
+{ \"c\"| 3 | [3, 9]}|
+{ conj2| 4 | [9]}|
+{ \"e\"| 5 | [5, 9]}|
+{ \\\"| 6 | [9]}|
+{ conj4| 7 | [9]}|
+{ \"h\"| 8 | [8, 9]}|
+{ $| 9 | []}
+"];
+ }

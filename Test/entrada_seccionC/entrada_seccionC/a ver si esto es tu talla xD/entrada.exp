@@ -1,0 +1,40 @@
+
+
+{
+
+    //definicion de conjuntos
+	CONJ:impar -> 1,3,5,7,9;
+	CONJ:grupo_1 -> 7~8;
+	CONJ:letrac -> c,C;
+	CONJ:digito -> 0~9;
+
+
+    //definicion de expresiones regulares
+	
+	expresionregular-> .."a" * | {impar} {letrac} "b";  //esta es la nueva expresion Regular
+	expre2->."a"."a"+{grupo_1};	//esta expresion regular esta en carpeta: simple
+	decimal-> . + {digito} . "." + {digito};
+	decimal2-> . {digito} . "." + {digito};
+
+	%%
+	%%
+    
+    //ahora toca evaluar las cadenas
+
+	expresionregular:"a";  //esta cadena es INCORRECTA
+    expre2:"aa788787";  //esta cadena es CORRECTA
+	expresionregular:"ab"; //esta cadena es CORRECTA  
+    expresionregular:"aCcCcCb"; <! esta cadena es CORRECTA !>
+	expresionregular:"aCc19CcCb"; <! esta cadena es CORRECTA !>
+	expresionregular:"aCc12CcCb"; <! esta cadena es INCORRECTA !>
+    expre2:"aa"; //esta cadena es INCORRECTA  
+    expre2:"aazbbb"; <! esta cadena es INCORRECTA !>
+	decimal:"1545.15";  //esta cadena es CORRECTA
+	decimal:"4.15";  //esta cadena es CORRECTA
+    decimal:"12"; //esta cadena es INCORRECTA  
+    decimal:"105."; <! esta cadena es INCORRECTA !>
+	decimal2:"1545.15";  //esta cadena es INCORRECTA
+	decimal2:"5.15";  //esta cadena es CORRECTA	
+	
+
+}

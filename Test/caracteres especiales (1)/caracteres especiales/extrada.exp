@@ -1,0 +1,75 @@
+{
+	<!   Este es un 
+	comentario de  "esta cadena no tieen quedar error porque esta dentro de un comentario"
+	muchas lineas
+	!>
+
+    //р este es un error lexico я
+    //зя este es otro error lexico
+
+
+    <! Tiene que recuperarse de esos errores lexicos y ponerlos en una tabla o algun lugar para el reporte!>
+
+	//este comentario es de una linea
+
+    //definicion de conjuntos->
+	
+    CONJ:grupo_1 -> 7~8;
+    
+    CONJ:especiales1-> o,l,c, "\"";
+    CONJ:especiales2-> "\'", 1, 2;
+    CONJ:especiales3-> "\n", "\"","\'";
+    CONJ:especiales4-> a,b,c;
+    CONJ:especiales5-> b,2,c,3;
+
+    CONJ:conj1-> 0~3;
+    CONJ:conj2-> 4~5;
+    CONJ:conj3-> 6~7;
+    CONJ:conj4-> 8~9;
+
+    CONJ:conj5-> < ~ >;
+    CONJ:conj6-> # ~ &;
+    CONJ:conj7-> ] ~ _;
+    CONJ:conj8-> { ~ } ;
+
+    //definicion de expresiones regulares
+    //si pueden reconocer este tipo de archivos, ya estan listos para la calificacion
+
+    Expre1->  | | | * "\'" {conj1} | * "c" {conj2} | | * "e" "\"" | {conj4} + "h" ;    
+    Expre2->  | . . | | + {especiales3} {conj5} | * "c" {conj6}  * | "x" "y"  ? "e"  | | . "f" ? {especiales4}  . "n" . "i" . "j" ? {conj7}   | | "l" . {especiales5} * "n" . ? {conj8} + "q";
+    Expre3-> . . | . {conj1} + {conj2}  + "\"" | . "a" ? "\n" + . {conj3} * {conj4} "finish" ;
+    Expre4-> . | | + {especiales2} | . . * | "r" . "p" "q" | {especiales1} "x" ? "r" {grupo_1} . * "\n" * | "b" "c" "fin";
+   
+   
+    %%
+    //comenten en los foros sus resultados...si son validos o no validos
+    //Expre1: "\'\'\'"; cambiar \' por '
+    //Expre1: "76767";
+    //Expre2: "nij]";
+    //Expre2: "fd";
+    //Expre3: "0444444a\nfinish"; tambien pueden hacer un salto de linea 
+    //Expre3: "0444444a\nfinis";  cambiar \n por lit el salto
+    //Expre4: "\n\nbfin";
+    //Expre4: "\'fin"; cambiar \' por '
+
+    Expre1: "'''";
+  //  Expre1: "76767";
+  //  Expre2: "nij]";
+  //  Expre2: "fd";
+  //  Expre3: "0444444a
+   // finish"; //tambien pueden hacer un salto de linea
+   // Expre3: "0444444a
+   // finis";
+   <! Expre4: "
+
+    bfin"; !>
+   // Expre4: "'fin";
+
+
+
+
+
+
+	
+
+}

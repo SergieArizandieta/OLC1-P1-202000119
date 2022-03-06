@@ -1,0 +1,45 @@
+digraph finite_state_machine {
+	bgcolor = "#F6FFE3"
+	node [fontname="Helvetica,Arial,sans-serif" ]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	rankdir=LR;
+	node [shape = doublecircle, color = gold fillcolor="#EBE3FF" style =filled];0,1,2,3,4,5,6,7,8,15,10,11,13;
+	node [shape = circle, color = "#2CB5FF" fillcolor="#E3FFFA" style =filled];
+
+0->1[label = "especiales3"];
+0->2[label = "conj5"];
+0->3[label = "\"c\""];
+0->4[label = "conj6"];
+0->5[label = "\"x\""];
+0->6[label = "\"y\""];
+0->7[label = "\"e\""];
+0->8[label = "\"f\""];
+0->9[label = "\"n\""];
+0->10[label = "\"l\""];
+0->11[label = "especiales5"];
+0->12[label = "conj8"];
+0->13[label = "\"q\""];
+1->1[label = "especiales3"];
+1->6[label = "\"x\""];
+1->6[label = "\"y\""];
+1->10[label = "\"e\""];
+2->6[label = "\"x\",\"y\""];
+2->10[label = "\"e\""];
+3->3[label = "\"c\""];
+3->6[label = "\"x\""];
+3->6[label = "\"y\""];
+3->10[label = "\"e\""];
+4->6[label = "\"x\",\"y\""];
+4->10[label = "\"e\""];
+5->6[label = "\"x\",\"y\""];
+5->10[label = "\"e\""];
+6->6[label = "\"x\",\"y\""];
+6->10[label = "\"e\""];
+8->10[label = "especiales4"];
+9->14[label = "\"i\""];
+14->15[label = "\"j\""];
+15->10[label = "conj7"];
+11->11[label = "\"n\""];
+12->13[label = "\"q\""];
+13->13[label = "\"q\""];
+label= Expre2}
