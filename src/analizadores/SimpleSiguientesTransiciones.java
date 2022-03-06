@@ -557,6 +557,14 @@ public class SimpleSiguientesTransiciones {
 					if (actual.EstadoDestino == EstadoCabezera) {
 						actual.repetidoAsiMimso = true;
 					}
+
+					if (actual.repetidoAsiMimso == false) {
+						DesdeEncabezado(actual.EstadoDestino, actual);
+						if (actual.listado.primero != null) {
+						//	System.out.println("Logrado: " + actual.listado.primero.DatosAceptados);
+						}
+					}
+
 				}
 
 				for (Valor_Tipo i : actual.DatosAceptados) {
@@ -581,6 +589,46 @@ public class SimpleSiguientesTransiciones {
 				}
 				actual = actual.next;
 
+			}
+		}
+	}
+
+	public void DesdeEncabezado(Integer EstadoBuscado, Nodo_SimpleSiguientesTransiciones ActualVerificando) {
+
+		if (isNone() == false) {
+
+			Nodo_SimpleSiguientesTransiciones actual = Estados.encabezadoEstado;
+			while (actual != null) {
+				if (actual != ActualVerificando && actual.EstadoRepetido == false) {
+
+					if (EstadoBuscado == actual.Estado) {
+						ActualVerificando.listado = actual.listado;
+					}
+					DesdeOtraparte(EstadoBuscado, ActualVerificando, actual);
+				}
+				actual = actual.next;
+			}
+		}
+	}
+
+	public void DesdeOtraparte(Integer EstadoBuscado, Nodo_SimpleSiguientesTransiciones ActualVerificando,
+			Nodo_SimpleSiguientesTransiciones actualAnterior) {
+
+		if (isNone() == false) {
+
+			Nodo_SimpleSiguientesTransiciones actual = actualAnterior.listado.primero;
+
+			while (actual != null) {
+				if (actual != ActualVerificando && actual.EstadoRepetido == false) {
+
+					if (EstadoBuscado == actual.Estado) {
+						ActualVerificando.listado = actual.listado;
+					}
+
+					DesdeOtraparte(EstadoBuscado, ActualVerificando, actual);
+
+				}
+				actual = actual.next;
 			}
 		}
 	}
@@ -1102,12 +1150,13 @@ public class SimpleSiguientesTransiciones {
 				} else {
 					Estados.anteriorEstado = actual;
 					if (actual.EstadoRepetido) {
-						if(actual.repetidoAsiMimso) {
-						Estados.ActualValidacion = actual;
-						}else {
-							System.out.println("Se debe buscar el estado:  " + actual.EstadoDestino);
+						if (actual.repetidoAsiMimso) {
+							Estados.ActualValidacion = actual;
+						} else {
+							Estados.ActualValidacion = actual.listado.primero;
+							//System.out.println("Se debe buscar el estado:  " + actual.EstadoDestino);
 						}
-						
+
 					} else {
 						Estados.ActualValidacion = actual.listado.primero;
 					}
