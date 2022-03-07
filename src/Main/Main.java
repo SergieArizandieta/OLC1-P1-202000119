@@ -39,6 +39,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.jcp.xml.dsig.internal.SignerOutputStream;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -376,7 +377,8 @@ public class Main extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (analizado) {
 					if (generado == false) {
-						JOptionPane.showMessageDialog(null, "Se crearon Automatas correctamente");
+						
+						System.out.println("Generando Automatas");
 						for (SimpleER er : sintactico.ERList) {
 							System.out.println("=========ER=========  " + er.name);
 							// er.GenrarGrafo();
@@ -384,6 +386,7 @@ public class Main extends JFrame {
 							er.GenraraAFND();
 						}
 						generado = true;
+						JOptionPane.showMessageDialog(null, "Se crearon Automatas correctamente");
 						System.out.println("=====Creacion de Automatas finalizada=====");
 						AutomataCreado = true;
 					} else {

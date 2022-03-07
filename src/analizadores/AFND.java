@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package analizadores;
 
 
@@ -13,10 +9,7 @@ import java.util.List;
 import java.util.Stack;
 import java.util.Queue;
 import Main.*;
-/**
- *
- * @author Carlos
- */
+
 public class AFND<T> {
     private Automata afn;
    
@@ -26,15 +19,13 @@ public class AFND<T> {
         this.Elementos = Elementos;
     }
     
-    /*
-    * METODO QUE CONSTRUIRA EL AUTOMATA A PARTIR DE LA EXPRESION MANDADA
-    */
+
     public void construir(){
         try{
             Stack<Automata> pila = new Stack<Automata>();
             
             for(String c : Elementos){
-            	System.out.print(c + " ");
+            	//System.out.print(c + " ");
             	
                 switch(c){
                 case "*":
@@ -69,39 +60,6 @@ public class AFND<T> {
                 }
                 
             
-            /*switch(c){
-            case "*":
-                Automata kleene = cerraduraKleene((Automata)Cola.peek());
-                Cola.remove();
-                Cola.add(kleene);
-                this.afn = kleene;
-                break;
-            
-            case ".":
-                Automata op1 = (Automata)Cola.peek();
-                Cola.remove();
-                Automata op2 = (Automata)Cola.peek();
-                Cola.remove();
-                Automata concatenar = concatenacion(op1,op2);
-                Cola.add(concatenar);
-                this.afn = concatenar;
-                break;
-                
-            case "|":
-                Automata op1Or = (Automata)Cola.peek();
-                Cola.remove();
-                Automata op2Or = (Automata)Cola.peek();
-                Cola.remove();
-                Automata OR = union(op1Or,op2Or);
-                Cola.add(OR);
-                this.afn = OR;
-                break;
-             
-            default:
-                Automata simple = automataSimple((T)c);
-                Cola.add(simple);
-                this.afn = simple;
-                break;*/
             
             
             this.afn.crearSimbolos(Elementos);
@@ -207,14 +165,14 @@ public class AFND<T> {
 
         afnunion.addEstados(inicioNuevo);
         afnunion.setInicial(inicioNuevo);
-        int i=0;//llevar el contador del identificador de estados
-        //agregar los estados del segundo automata
+        int i=0;
+
         for (i=0; i < AFN1.getEstados().size(); i++) {
             Estado tmp = (Estado) AFN1.getEstados().get(i);
             tmp.setId(i + 1);
             afnunion.addEstados(tmp);
         }
-        //agregar los estados del primer automata
+       
         for (int j=0; j < AFN2.getEstados().size(); j++) {
             Estado tmp = (Estado) AFN2.getEstados().get(j);
             tmp.setId(i + 1);

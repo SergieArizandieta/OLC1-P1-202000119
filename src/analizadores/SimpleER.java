@@ -33,11 +33,11 @@ public class SimpleER {
 	}
 
 	public void GenerarHermano() {
-		System.out.println("Hemrnao");
+		//System.out.println("Hemrnao");
 		postorden(this.ultimo.hijo1);
 		//preorden(this.ultimo.hijo1);
 		//preordenOriginal(this.ultimo.hijo1);
-		System.out.println(ErTemp);
+		//System.out.println(ErTemp);
 		
 	}
 	
@@ -152,15 +152,13 @@ public class SimpleER {
 	}
 
 	public void GenraraAFND() {
-		System.out.println(ErTemp);
-		//Collections.reverse(ErTemp);
-		
 		//System.out.println(ErTemp);
+
 		
 		AFND afn = new AFND(ErTemp);
 		afn.construir();
 		automata = afn.getAfn();
-		System.out.println(automata);
+		//System.out.println(automata);
 		String tipo = "AFDN";
 		
 		CrearArchivo crear = new CrearArchivo(tipo + ".dot",tipo,automata);
