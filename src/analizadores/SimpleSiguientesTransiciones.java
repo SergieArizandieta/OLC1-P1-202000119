@@ -291,13 +291,14 @@ public class SimpleSiguientesTransiciones {
 	}
 
 	public void verArbolMainReporte() {
-
+		
 		if (isNone() == false) {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
+			Estados.dot += ("	flechainicio [style=invis];\n");
+			Estados.dot += ("	flechainicio -> 0 [label=\"inicio\"];\n");
 			while (actual != null) {
 				Integer contador = 1;
-				Estados.dot += ("	flechainicio [style=invis];\n");
-				Estados.dot += ("	flechainicio -> 0 [label=\"inicio\"];\n");
+				
 				Estados.dot += ("0->");
 				Estados.dot += (actual.Estado);
 				Estados.dot += ("[label = \"");

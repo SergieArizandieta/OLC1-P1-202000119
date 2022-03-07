@@ -3,7 +3,8 @@ digraph finite_state_machine {
 	node [fontname="Helvetica,Arial,sans-serif" ]
 	edge [fontname="Helvetica,Arial,sans-serif"]
 	rankdir=LR;
-	node [shape = doublecircle, color = gold fillcolor="#EBE3FF" style =filled];12;
+	node [shape = doublecircle, color = gold fillcolor="#EBE3FF" style =filled];
+12;
 	node [shape = circle, color = "#2CB5FF" fillcolor="#E3FFFA" style =filled];
 
 0->1[label = "conj1"];
