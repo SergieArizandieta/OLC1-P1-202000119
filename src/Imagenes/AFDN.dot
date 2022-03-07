@@ -10,7 +10,7 @@ digraph AUTOMATA{
 	1 -> 2 [label="ε"];
 	2 -> 5 [label="ε"];
 	2 -> 3 [label="ε"];
-	3 -> 4 [label="epsilon"];
+	3 -> 4 [label="ε"];
 	4 -> 15 [label="ε"];
 	5 -> 12 [label="ε"];
 	5 -> 6 [label="ε"];

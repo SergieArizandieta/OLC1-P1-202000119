@@ -48,7 +48,7 @@ public class SimpleER {
             if(n.info.equals("+")) {
             	GestionConversor(n);
             }else if (n.info.equals("?")) {
-            	ErTemp.add("epsilon");
+            	ErTemp.add("ε");
             	ErTemp.add("|");
        
 			}else {
