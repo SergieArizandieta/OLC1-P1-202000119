@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 import java.util.Stack;
 
 import java_cup.reduce_action;
-
 import net.miginfocom.layout.AC;
 
 public class SimpleER {
@@ -35,17 +34,27 @@ public class SimpleER {
 
 	public void GenerarHermano() {
 		System.out.println("Hemrnao");
-		preorden(this.ultimo.hijo1);
+		postorden(this.ultimo.hijo1);
+		//preorden(this.ultimo.hijo1);
 		// preordenOriginal(this.ultimo.hijo1);
 		
 	}
+	
+    private void postorden(Nodo_Simple_ER n) {
+        if (n != null) {
+            postorden(n.hijo1);
+            postorden(n.hijo2);
+            System.out.println(n.info);
+            ErTemp.add(n.info);
+        }
+    }
 
 	private void preordenOriginal(Nodo_Simple_ER n) {
 		if (n != null) {
 			ErTemp.add(n.info);
 			preordenOriginal(n.hijo1);
 			preordenOriginal(n.hijo2);
-
+			
 		}
 	}
 
@@ -111,9 +120,9 @@ public class SimpleER {
 
 	public void GenraraAFND() {
 		System.out.println(ErTemp);
-		Collections.reverse(ErTemp);
+		//Collections.reverse(ErTemp);
 		
-		System.out.println(ErTemp);
+		//System.out.println(ErTemp);
 		
 		AFND afn = new AFND(ErTemp);
 		afn.construir();

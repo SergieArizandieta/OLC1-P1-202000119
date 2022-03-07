@@ -31,45 +31,11 @@ public class AFND<T> {
     */
     public void construir(){
         try{
-            //Stack pila = new Stack();
+            Stack pila = new Stack();
             Queue<Automata> Cola = new LinkedList<Automata>();
             for(String c : Elementos){
             	System.out.print(c + " ");
-                switch(c){
-                    case "*":
-                        Automata kleene = cerraduraKleene((Automata)Cola.peek());
-                        Cola.remove();
-                        Cola.add(kleene);
-                        this.afn = kleene;
-                        break;
-                    
-                    case ".":
-                        Automata op1 = (Automata)Cola.peek();
-                        Cola.remove();
-                        Automata op2 = (Automata)Cola.peek();
-                        Cola.remove();
-                        Automata concatenar = concatenacion(op1,op2);
-                        Cola.add(concatenar);
-                        this.afn = concatenar;
-                        break;
-                        
-                    case "|":
-                        Automata op1Or = (Automata)Cola.peek();
-                        Cola.remove();
-                        Automata op2Or = (Automata)Cola.peek();
-                        Cola.remove();
-                        Automata OR = union(op1Or,op2Or);
-                        Cola.add(OR);
-                        this.afn = OR;
-                        break;
-                     
-                    default:
-                        Automata simple = automataSimple((T)c);
-                        Cola.add(simple);
-                        this.afn = simple;
-                        break;
-                }
-                /*
+            	
                 switch(c){
                 case "*":
                     Automata kleene = cerraduraKleene((Automata)pila.pop()); 
@@ -98,8 +64,45 @@ public class AFND<T> {
                     pila.push(simple);
                     this.afn = simple;
                     break;
-            }*/
             }
+               
+                }
+                
+            
+            /*switch(c){
+            case "*":
+                Automata kleene = cerraduraKleene((Automata)Cola.peek());
+                Cola.remove();
+                Cola.add(kleene);
+                this.afn = kleene;
+                break;
+            
+            case ".":
+                Automata op1 = (Automata)Cola.peek();
+                Cola.remove();
+                Automata op2 = (Automata)Cola.peek();
+                Cola.remove();
+                Automata concatenar = concatenacion(op1,op2);
+                Cola.add(concatenar);
+                this.afn = concatenar;
+                break;
+                
+            case "|":
+                Automata op1Or = (Automata)Cola.peek();
+                Cola.remove();
+                Automata op2Or = (Automata)Cola.peek();
+                Cola.remove();
+                Automata OR = union(op1Or,op2Or);
+                Cola.add(OR);
+                this.afn = OR;
+                break;
+             
+            default:
+                Automata simple = automataSimple((T)c);
+                Cola.add(simple);
+                this.afn = simple;
+                break;*/
+            
             
             this.afn.crearSimbolos(Elementos);
             this.afn.setTipoAutomata(0);
