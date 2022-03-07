@@ -3,15 +3,19 @@ package analizadores;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import java.util.Stack;
 
 import java_cup.reduce_action;
 
 import net.miginfocom.layout.AC;
 
 public class SimpleER {
+	Automata automata = null;
 	String TransicionesDot = "";
 	String SiguinetesDot = "";
 	String DOT = "digraph structs {\n    node [shape=Mrecord];\n";
@@ -32,15 +36,15 @@ public class SimpleER {
 	public void GenerarHermano() {
 		System.out.println("Hemrnao");
 		preorden(this.ultimo.hijo1);
-		//preordenOriginal(this.ultimo.hijo1);
-		 System.out.println(ErTemp);
+		// preordenOriginal(this.ultimo.hijo1);
+		
 	}
-	
+
 	private void preordenOriginal(Nodo_Simple_ER n) {
 		if (n != null) {
-				ErTemp.add(n.info);
-				preordenOriginal(n.hijo1);
-				preordenOriginal(n.hijo2);
+			ErTemp.add(n.info);
+			preordenOriginal(n.hijo1);
+			preordenOriginal(n.hijo2);
 
 		}
 	}
@@ -48,37 +52,37 @@ public class SimpleER {
 	private void preorden(Nodo_Simple_ER n) {
 		if (n != null) {
 			if (n.info.equals("+")) {
-				
+
 				Temp = new ArrayList<>();
 				Temp2 = new ArrayList<>();
 				gestionmas(n.hijo1);
-				
+
 				for (String string : Temp) {
 					Temp2.add(string);
 				}
-				
+
 				Temp.add("*");
-				
+
 				for (String string : Temp2) {
 					Temp.add(string);
 				}
-				
-				//System.out.println(Temp);
+
+				// System.out.println(Temp);
 				for (String string : Temp) {
 					ErTemp.add(string);
 				}
-				
+
 			} else if (n.info.equals("?")) {
 				Temp = new ArrayList<>();
 				Temp.add("|");
 				gestionmas(n.hijo1);
 				Temp.add("E");
-				
-				//System.out.println(Temp);
+
+				// System.out.println(Temp);
 				for (String string : Temp) {
 					ErTemp.add(string);
 				}
-				
+
 			} else {
 				ErTemp.add(n.info);
 				System.out.println("Nodo: " + n.info);
@@ -95,6 +99,24 @@ public class SimpleER {
 			gestionmas(n.hijo1);
 			gestionmas(n.hijo2);
 		}
+	}
+
+	public void GenraraAFND() {
+
+		Collections.reverse(ErTemp);
+		
+		System.out.println(ErTemp);
+		
+		AFND afn = new AFND(ErTemp);
+		afn.construir();
+		automata = afn.getAfn();
+		System.out.println(automata);
+		String tipo = "AFDN";
+		
+		CrearArchivo crear = new CrearArchivo(tipo + ".dot",tipo,automata);
+        crear.crearImagen();
+      
+
 	}
 
 	public void insert(String info, String tipo, Boolean hoja) {

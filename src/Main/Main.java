@@ -54,8 +54,9 @@ import analizadores.SimpleER;
 import analizadores.errorList;
 import javax.swing.JTextArea;
 
-public class main extends JFrame {
-
+public class Main extends JFrame {
+    public static String EPSILON = "ε";
+    public static char EPSILON_CHAR = EPSILON.charAt(0);
 	boolean analizado = false;
 	boolean generado = false;
 	boolean AutomataCreado = false;
@@ -72,7 +73,7 @@ public class main extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					main frame = new main();
+					Main frame = new Main();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -84,7 +85,7 @@ public class main extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public main() {
+	public Main() {
 		JFileChooser fc = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("*.exp", "exp");
 		fc.setFileFilter(filter);
@@ -380,6 +381,7 @@ public class main extends JFrame {
 							System.out.println("=========ER=========  " + er.name);
 							// er.GenrarGrafo();
 							// er.verGrafo();
+							er.GenraraAFND();
 						}
 						generado = true;
 						System.out.println("=====Creacion de Automatas finalizada=====");
