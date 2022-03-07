@@ -62,9 +62,9 @@ public class SimpleER {
     public void GestionConversor(Nodo_Simple_ER n) {
     	Temp = new ArrayList<>();
     	Temp2 = new ArrayList<>();
-    	Temp.add("*");
-    	postordenSimbolos(n.hijo1);
     	
+    	postordenSimbolos(n.hijo1);
+    	Temp.add("*");
     	Temp.add(".");
     	
     	for (String string : Temp) {

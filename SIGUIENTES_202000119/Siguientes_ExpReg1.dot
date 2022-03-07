@@ -3,10 +3,10 @@ digraph structs {
  node [shape=Mrecord fillcolor="#E3EBFF" style =filled];
 label ="ExpReg1"
 struct1 [label="SIGUIENTES| { Valor | Hoja| Siguinetes } | 
-{ L| 1 | [2, 3, 4, 5]}|
-{ Q| 2 | [5]}|
-{ L| 3 | [5]}|
-{ D| 4 | [5]}|
+{ L| 1 | [2, 3, 4]}|
+{ Q| 2 | [2, 3, 4, 5]}|
+{ L| 3 | [2, 3, 4, 5]}|
+{ D| 4 | [2, 3, 4, 5]}|
 { $| 5 | []}
 "];
  }

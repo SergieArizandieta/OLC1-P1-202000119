@@ -31,8 +31,8 @@ public class AFND<T> {
     */
     public void construir(){
         try{
-            Stack pila = new Stack();
-            Queue<Automata> Cola = new LinkedList<Automata>();
+            Stack<Automata> pila = new Stack<Automata>();
+            
             for(String c : Elementos){
             	System.out.print(c + " ");
             	
