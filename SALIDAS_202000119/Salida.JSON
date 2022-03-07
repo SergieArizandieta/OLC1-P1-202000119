@@ -1,42 +1,12 @@
 [
   {
-    "Resultado": "Cadena Valida",
-    "ExpresionRegular": "Expre4",
-    "Valor": "\u0027fin"
-  },
-  {
-    "Resultado": "Cadena Valida",
-    "ExpresionRegular": "Expre4",
-    "Valor": "\n\nbfin"
+    "Resultado": "Cadena Invalida",
+    "ExpresionRegular": "ExpresionReg2",
+    "Valor": "34.44"
   },
   {
     "Resultado": "Cadena Invalida",
-    "ExpresionRegular": "Expre3",
-    "Valor": "0444444a\nfinis"
-  },
-  {
-    "Resultado": "Cadena Valida",
-    "ExpresionRegular": "Expre3",
-    "Valor": "0444444a\nfinish"
-  },
-  {
-    "Resultado": "Cadena Invalida",
-    "ExpresionRegular": "Expre2",
-    "Valor": "fd"
-  },
-  {
-    "Resultado": "Cadena Valida",
-    "ExpresionRegular": "Expre2",
-    "Valor": "nij]"
-  },
-  {
-    "Resultado": "Cadena Invalida",
-    "ExpresionRegular": "Expre1",
-    "Valor": "76767"
-  },
-  {
-    "Resultado": "Cadena Valida",
-    "ExpresionRegular": "Expre1",
-    "Valor": "\u0027\u0027\u0027"
+    "ExpresionRegular": "ExpReg1",
+    "Valor": "primerLexemaCokoa"
   }
 ]

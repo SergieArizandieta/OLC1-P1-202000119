@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import java_cup.reduce_action;
+
 import net.miginfocom.layout.AC;
 
 public class SimpleER {
@@ -19,10 +20,81 @@ public class SimpleER {
 	public String name;
 	SimpleCalcSiguientes siguientes = new SimpleCalcSiguientes();
 	public Integer hojas = 0;
+	List<String> ErTemp = new ArrayList<>();
+	List<String> Temp;
+	List<String> Temp2;
 
 	public SimpleER() {
 		this.primero = null;
 		this.ultimo = null;
+	}
+
+	public void GenerarHermano() {
+		System.out.println("Hemrnao");
+		preorden(this.ultimo.hijo1);
+		//preordenOriginal(this.ultimo.hijo1);
+		 System.out.println(ErTemp);
+	}
+	
+	private void preordenOriginal(Nodo_Simple_ER n) {
+		if (n != null) {
+				ErTemp.add(n.info);
+				preordenOriginal(n.hijo1);
+				preordenOriginal(n.hijo2);
+
+		}
+	}
+
+	private void preorden(Nodo_Simple_ER n) {
+		if (n != null) {
+			if (n.info.equals("+")) {
+				
+				Temp = new ArrayList<>();
+				Temp2 = new ArrayList<>();
+				gestionmas(n.hijo1);
+				
+				for (String string : Temp) {
+					Temp2.add(string);
+				}
+				
+				Temp.add("*");
+				
+				for (String string : Temp2) {
+					Temp.add(string);
+				}
+				
+				//System.out.println(Temp);
+				for (String string : Temp) {
+					ErTemp.add(string);
+				}
+				
+			} else if (n.info.equals("?")) {
+				Temp = new ArrayList<>();
+				Temp.add("|");
+				gestionmas(n.hijo1);
+				Temp.add("E");
+				
+				//System.out.println(Temp);
+				for (String string : Temp) {
+					ErTemp.add(string);
+				}
+				
+			} else {
+				ErTemp.add(n.info);
+				System.out.println("Nodo: " + n.info);
+				preorden(n.hijo1);
+				preorden(n.hijo2);
+			}
+			System.out.println("Nodo: " + n.info);
+		}
+	}
+
+	private void gestionmas(Nodo_Simple_ER n) {
+		if (n != null) {
+			Temp.add(n.info);
+			gestionmas(n.hijo1);
+			gestionmas(n.hijo2);
+		}
 	}
 
 	public void insert(String info, String tipo, Boolean hoja) {
@@ -284,6 +356,7 @@ public class SimpleER {
 
 	public void AsignarAnulables() {
 		System.out.println("====== Asignando Anulables ======");
+
 		if (isNone() == false) {
 			Nodo_Simple_ER actual = this.primero;
 

@@ -10,11 +10,13 @@ CONJ: digito -> 0,1,2,3,4;
 
 
 //ER1
-ExpReg1 ->.{letra} * |"_" | {letra} {digito};
+//ExpReg1 ->.{L} ? |{Q} | {L} {D};
+ExpReg1 ->.{L} + |{Q} | {L} {D};
+//ExpReg1 ->.{letra} + |"_" | {letra} {digito};
 //ER2
-ExpresionReg2 ->. {digito} ."."+{digito};
+//ExpresionReg2 ->. {digito} ."."+{digito};
 //ER3
-RegEx3 ->. {digito} *|"_"| {letra} {digito};
+//RegEx3 ->. {digito} *|"_"| {letra} {digito};
 
 //SEPARACION
 %%
