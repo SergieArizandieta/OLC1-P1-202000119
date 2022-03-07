@@ -41,19 +41,23 @@ public class CrearArchivo {
     */
     
     public void crearImagen(){
-        String path = new File("").getAbsolutePath() + "/src";
-        String texto = "digraph AUTOMATA{\n";
+        String path = "AFND_202000119\\";
+        String texto = "digraph finite_state_machine{\n";
+        texto +="\tbgcolor = \"#F6FFE3\""+"\n";
         texto +="\trankdir=LR;"+"\n";
-        texto +="\tnode [shape=doublecircle, style = filled,color = mediumseagreen];";
+        texto+="\tnode [fontname=\"Helvetica,Arial,sans-serif\" ]\n";
+        texto+="\tedge [fontname=\"Helvetica,Arial,sans-serif\"]\n";
+        texto +="\tnode [shape = doublecircle, color = gold fillcolor=\"#EBE3FF\" style =filled];";
         
         for(int i = 0; i < automata.getAceptacion().size(); i++){
             texto += " " + automata.getAceptacion().get(i);
         }
         
         texto += ";" + "\n";
-        texto += "\tnode [shape=circle];" + "\n";
-        texto += "\tnode [color=midnightblue,fontcolor=white];\n" + "	edge [color=red];" + "\n";
-        texto += "\tsecret_node [style=invis];\n" + "	secret_node -> " + automata.getInicial() + " [label=\"inicio\"];" + "\n";
+        texto +="\tnode [shape = circle, color = \"#2CB5FF\" fillcolor=\"#E3FFFA\" style =filled];\n";
+        
+       
+        texto += "\tflechainicio [style=invis];\n" + "	flechainicio -> " + automata.getInicial() + " [label=\"inicio\"];" + "\n";
         
         for(int i = 0; i < automata.getEstados().size(); i++){
             ArrayList<Transicion> temp = automata.getEstados().get(i).getTransiciones();
@@ -62,7 +66,7 @@ public class CrearArchivo {
             }
         }
         texto += "}";
-        File file = new File(path + "/Imagenes/" + direccion);
+        File file = new File(path  + direccion);
         FileWriter out;
         salida = texto;
         try{
@@ -71,7 +75,7 @@ public class CrearArchivo {
             out.close();
         }catch(Exception e){}
        
-        String comando = "dot -Tpng \"" + path + "/Imagenes/" + direccion + "\" -o \"" + path + "/Imagenes/" + tipo + ".png\"";
+        String comando = "dot -Tpng \"" + path + direccion + "\" -o \"" + path  + tipo + ".png\"";
         try
         {
             ProcessBuilder pbuilder;
@@ -87,7 +91,7 @@ public class CrearArchivo {
                 System.out.println(line);
             }
             
-            comando = path + "/Imagenes/" + tipo + ".png";
+            comando = path + tipo + ".png";
              pbuilder = new ProcessBuilder("cmd.exe", "/c", comando);
             pbuilder.redirectErrorStream( true );
             //Ejecuta el proceso

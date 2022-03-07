@@ -159,7 +159,7 @@ public class SimpleER {
 		afn.construir();
 		automata = afn.getAfn();
 		//System.out.println(automata);
-		String tipo = "AFDN";
+		String tipo = this.name;
 		
 		CrearArchivo crear = new CrearArchivo(tipo + ".dot",tipo,automata);
         crear.crearImagen();

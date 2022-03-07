@@ -296,6 +296,8 @@ public class SimpleSiguientesTransiciones {
 			Nodo_SimpleSiguientesTransiciones actual = this.primero;
 			while (actual != null) {
 				Integer contador = 1;
+				Estados.dot += ("	flechainicio [style=invis];\n");
+				Estados.dot += ("	flechainicio -> 0 [label=\"inicio\"];\n");
 				Estados.dot += ("0->");
 				Estados.dot += (actual.Estado);
 				Estados.dot += ("[label = \"");
@@ -469,8 +471,8 @@ public class SimpleSiguientesTransiciones {
 		Estados.dot += ("	node [fontname=\"Helvetica,Arial,sans-serif\" ]\n");
 		Estados.dot += ("	edge [fontname=\"Helvetica,Arial,sans-serif\"]\n");
 		Estados.dot += ("	rankdir=LR;\n");
-		Estados.dot += ("	node [shape = doublecircle, color = gold fillcolor=\"#EBE3FF\" style =filled];");
-
+		Estados.dot += ("	node [shape = doublecircle, color = gold fillcolor=\"#EBE3FF\" style =filled];\n");
+		
 		EstadosAceptacion = new ArrayList<>();
 
 		if (Aceptacion) {
