@@ -56,7 +56,7 @@ public class SimpleER {
 				Temp = new ArrayList<>();
 				Temp2 = new ArrayList<>();
 				gestionmas(n.hijo1);
-
+				
 				for (String string : Temp) {
 					Temp2.add(string);
 				}
@@ -66,9 +66,17 @@ public class SimpleER {
 				for (String string : Temp2) {
 					Temp.add(string);
 				}
-
-				// System.out.println(Temp);
+			
+				List<String> TempFinal = new ArrayList<>();
+				TempFinal.add(".");
+				
+			
 				for (String string : Temp) {
+					TempFinal.add(string);
+				}
+				
+				System.out.println(TempFinal);
+				for (String string : TempFinal) {
 					ErTemp.add(string);
 				}
 
@@ -85,11 +93,11 @@ public class SimpleER {
 
 			} else {
 				ErTemp.add(n.info);
-				System.out.println("Nodo: " + n.info);
+				//System.out.println("Nodo: " + n.info);
 				preorden(n.hijo1);
 				preorden(n.hijo2);
 			}
-			System.out.println("Nodo: " + n.info);
+			//System.out.println("Nodo: " + n.info);
 		}
 	}
 
