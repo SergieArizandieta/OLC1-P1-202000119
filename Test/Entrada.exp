@@ -12,6 +12,7 @@ CONJ: digito -> 0,1,2,3,4;
 //ER1
 //ExpReg1 ->.{L} ? |{Q} | {L} {D};
 ExpReg1 ->.{L} + |{Q} | {L} {D};
+//ExpReg1 ->.|{x}{y}{a};
 //ExpReg1 ->.{letra} + |"_" | {letra} {digito};
 //ER2
 //ExpresionReg2 ->. {digito} ."."+{digito};

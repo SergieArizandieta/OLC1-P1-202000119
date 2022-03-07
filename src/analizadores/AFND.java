@@ -17,7 +17,7 @@ import Main.*;
  *
  * @author Carlos
  */
-public class AFND {
+public class AFND<T> {
     private Automata afn;
    
     private  List<String> Elementos;
@@ -34,7 +34,7 @@ public class AFND {
             //Stack pila = new Stack();
             Queue<Automata> Cola = new LinkedList<Automata>();
             for(String c : Elementos){
-            	System.out.println(c);
+            	System.out.print(c + " ");
                 switch(c){
                     case "*":
                         Automata kleene = cerraduraKleene((Automata)Cola.peek());
@@ -64,15 +64,45 @@ public class AFND {
                         break;
                      
                     default:
-                        Automata simple = automataSimple(c);
+                        Automata simple = automataSimple((T)c);
                         Cola.add(simple);
                         this.afn = simple;
                         break;
                 }
+                /*
+                switch(c){
+                case "*":
+                    Automata kleene = cerraduraKleene((Automata)pila.pop()); 
+                    pila.push(kleene);
+                    this.afn = kleene;
+                    break;
+                
+                case ".":
+                    Automata op1 = (Automata)pila.pop();
+                    Automata op2 = (Automata)pila.pop();
+                    Automata concatenar = concatenacion(op1,op2);
+                    pila.push(concatenar);
+                    this.afn = concatenar;
+                    break;
+                    
+                case "|":
+                    Automata op1Or = (Automata)pila.pop();
+                    Automata op2Or = (Automata)pila.pop();
+                    Automata OR = union(op1Or,op2Or);
+                    pila.push(OR);
+                    this.afn = OR;
+                    break;
+                 
+                default:
+                    Automata simple = automataSimple((T)c);
+                    pila.push(simple);
+                    this.afn = simple;
+                    break;
+            }*/
             }
             
             this.afn.crearSimbolos(Elementos);
-            this.afn.setTipoAutomata(1);
+            this.afn.setTipoAutomata(0);
             
         }catch(Exception e){
             System.out.println("ERROR CONSTRUIR AUTOMATA: " + e.getMessage());
@@ -104,7 +134,7 @@ public class AFND {
             i++;
         }
         
-        List<String> simbolos = new ArrayList<>();
+        HashSet simbolos = new HashSet();
         simbolos.addAll(op1.getSimbolos());
         simbolos.addAll(op2.getSimbolos());
         a.setSimbolos(simbolos);
@@ -113,7 +143,7 @@ public class AFND {
         return a;
     }
 
-    public Automata automataSimple(String simbolo){
+    public Automata automataSimple(T simbolo){
         Automata a = new Automata();
         
         Estado inicio = new Estado(0);
@@ -205,7 +235,7 @@ public class AFND {
         for (int k =0; k<anteriorFin.size();k++)
             anteriorFin2.get(k).getTransiciones().add(new Transicion(anteriorFin2.get(k),nuevoFin,Main.EPSILON));
         
-        List<String> alfabeto = new ArrayList<>();
+        HashSet alfabeto = new HashSet();
         alfabeto.addAll(AFN1.getSimbolos());
         alfabeto.addAll(AFN2.getSimbolos());
         afnunion.setSimbolos(alfabeto);

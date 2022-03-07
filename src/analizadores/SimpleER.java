@@ -110,7 +110,7 @@ public class SimpleER {
 	}
 
 	public void GenraraAFND() {
-
+		System.out.println(ErTemp);
 		Collections.reverse(ErTemp);
 		
 		System.out.println(ErTemp);

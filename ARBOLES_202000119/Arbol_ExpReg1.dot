@@ -2,24 +2,24 @@ digraph structs {
   bgcolor = "#E3FFFA"
    node [shape=Mrecord fillcolor="#FFE3FF" style =filled];
 label ="ExpReg1"
-    struct1065400592    [label="{{[1]|<here>.|[5]}|No Anulable}"];
-    struct1065400592-> struct268764912
-    struct268764912    [label="{{[1]|<here>.|[2, 3, 4]}|No Anulable}"];
+    struct1788655294    [label="{{[1]|<here>.|[5]}|No Anulable}"];
+    struct1788655294-> struct335671730
+    struct335671730    [label="{{[1]|<here>.|[2, 3, 4]}|No Anulable}"];
+    struct335671730-> struct1606292114
+    struct1606292114    [label="{{[1]|<here>L|[1]}|No Anulable}"];
+    struct335671730-> struct733035231
+    struct733035231    [label="{{[2, 3, 4]|<here>+|[2, 3, 4]}|No Anulable}"];
+    struct733035231-> struct613896273
+    struct613896273    [label="{{[2, 3, 4]|<here>\||[2, 3, 4]}|No Anulable}"];
+    struct613896273-> struct1065400592
+    struct1065400592    [label="{{[2]|<here>Q|[2]}|No Anulable}"];
+    struct613896273-> struct268764912
+    struct268764912    [label="{{[3, 4]|<here>\||[3, 4]}|No Anulable}"];
     struct268764912-> struct851485165
-    struct851485165    [label="{{[1]|<here>L|[1]}|No Anulable}"];
+    struct851485165    [label="{{[3]|<here>L|[3]}|No Anulable}"];
     struct268764912-> struct743143996
-    struct743143996    [label="{{[2, 3, 4]|<here>+|[2, 3, 4]}|No Anulable}"];
-    struct743143996-> struct381226652
-    struct381226652    [label="{{[2, 3, 4]|<here>\||[2, 3, 4]}|No Anulable}"];
-    struct381226652-> struct783525949
-    struct783525949    [label="{{[2]|<here>Q|[2]}|No Anulable}"];
-    struct381226652-> struct432782287
-    struct432782287    [label="{{[3, 4]|<here>\||[3, 4]}|No Anulable}"];
-    struct432782287-> struct1848031312
-    struct1848031312    [label="{{[3]|<here>L|[3]}|No Anulable}"];
-    struct432782287-> struct817207014
-    struct817207014    [label="{{[4]|<here>D|[4]}|No Anulable}"];
-    struct1065400592-> struct57942669
-    struct57942669    [label="{{[5]|<here>$|[5]}|No Anulable}"];
+    struct743143996    [label="{{[4]|<here>D|[4]}|No Anulable}"];
+    struct1788655294-> struct381226652
+    struct381226652    [label="{{[5]|<here>$|[5]}|No Anulable}"];
 
 }
