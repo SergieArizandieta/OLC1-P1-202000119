@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package analizadores;
 
 
@@ -13,32 +9,21 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-/**
- *
- * @author Carlos
- */
+
 public class CrearArchivo {
     String direccion;
     String tipo;
     Automata automata;
     String salida;
     
-    /*
-    * COSNTRUCTOR DE LA CLASE
-    * @param {direccion} nombre del archivo con su extension
-    * @param {tipo} AFN| AFD
-    * @param {automata} automata creado desde la expresion regular
-    */
+
     public CrearArchivo(String direccion, String tipo, Automata automata) {
         this.direccion = direccion;
         this.tipo = tipo;
         this.automata = automata;
     }
     
-    
-    /*
-    * METODO QUE SE ENCARGARA DE CREAR EL ARCHIVO DOT Y GENERAR LA IMAGEN CON GRAPHVIZ
-    */
+ 
     
     public void crearImagen(){
         String path = "AFND_202000119\\";
@@ -66,22 +51,30 @@ public class CrearArchivo {
             }
         }
         texto += "}";
+       
+        salida = texto;
+        
+        
+        
         File file = new File(path  + direccion);
         FileWriter out;
-        salida = texto;
         try{
             out = new FileWriter(file);
             out.write(texto);
             out.close();
         }catch(Exception e){}
        
+        
+        /*
+        
         String comando = "dot -Tpng \"" + path + direccion + "\" -o \"" + path  + tipo + ".png\"";
+      
+        
         try
         {
             ProcessBuilder pbuilder;
             pbuilder = new ProcessBuilder("cmd.exe", "/c", comando);
             pbuilder.redirectErrorStream( true );
-            //Ejecuta el proceso
             Process p = pbuilder.start();
             BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line;
@@ -94,7 +87,6 @@ public class CrearArchivo {
             comando = path + tipo + ".png";
              pbuilder = new ProcessBuilder("cmd.exe", "/c", comando);
             pbuilder.redirectErrorStream( true );
-            //Ejecuta el proceso
             p = pbuilder.start();
             r = new BufferedReader(new InputStreamReader(p.getInputStream()));
             while (true) {
@@ -108,9 +100,9 @@ public class CrearArchivo {
         {
            System.out.println("Erro crear imagen " +  e.getMessage());
         }
+        */
     }
 
-    //---------------------------------------- OBTENEMOS EL TEXTO PARA EL DOT --------------------------
     public String getSalida() {
         return salida;
     }

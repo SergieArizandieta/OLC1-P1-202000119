@@ -1,0 +1,31 @@
+digraph structs {
+  bgcolor = "#E3FFFA"
+   node [shape=Mrecord fillcolor="#FFE3FF" style =filled];
+label ="pankekes"
+    struct1591495228    [label="{{[1]|<here>.|[7]}|No Anulable}"];
+    struct1591495228-> struct638767220
+    struct638767220    [label="{{[1]|<here>.|[6]}|No Anulable}"];
+    struct638767220-> struct932800683
+    struct932800683    [label="{{[1]|<here>.|[5]}|No Anulable}"];
+    struct932800683-> struct447515110
+    struct447515110    [label="{{[1]|<here>\"f\"|[1]}|No Anulable}"];
+    struct932800683-> struct639479077
+    struct639479077    [label="{{[2]|<here>.|[5]}|No Anulable}"];
+    struct639479077-> struct373049570
+    struct373049570    [label="{{[2]|<here>\"r\"|[2]}|No Anulable}"];
+    struct639479077-> struct1788655294
+    struct1788655294    [label="{{[3]|<here>.|[5]}|No Anulable}"];
+    struct1788655294-> struct335671730
+    struct335671730    [label="{{[3]|<here>\"a\"|[3]}|No Anulable}"];
+    struct1788655294-> struct1606292114
+    struct1606292114    [label="{{[4]|<here>.|[5]}|No Anulable}"];
+    struct1606292114-> struct733035231
+    struct733035231    [label="{{[4]|<here>\"s\"|[4]}|No Anulable}"];
+    struct1606292114-> struct613896273
+    struct613896273    [label="{{[5]|<here>\"e\"|[5]}|No Anulable}"];
+    struct638767220-> struct1065400592
+    struct1065400592    [label="{{[6]|<here>frase|[6]}|No Anulable}"];
+    struct1591495228-> struct268764912
+    struct268764912    [label="{{[7]|<here>$|[7]}|No Anulable}"];
+
+}

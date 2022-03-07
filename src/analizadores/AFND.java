@@ -25,8 +25,8 @@ public class AFND<T> {
             Stack<Automata> pila = new Stack<Automata>();
             
             for(String c : Elementos){
-            	//System.out.print(c + " ");
             	
+
                 switch(c){
                 case "*":
                     Automata kleene = cerraduraKleene((Automata)pila.pop()); 
@@ -51,7 +51,23 @@ public class AFND<T> {
                     break;
                  
                 default:
-                    Automata simple = automataSimple((T)c);
+                	String temptext = (String) c;
+                	if (c.equals("\"\\\"\"")) {
+
+                		temptext = ("\\\\\\\"");
+            		} else if (c.equals("\"\\'\"")) {
+            			temptext = ("\\\\'");
+            		} else if (c.equals("\"\\n\"")) {
+            			temptext = ("\\\\n");
+            		}else if (c.equals("\"\\n\"")) {
+            			temptext = ("\\\\n");
+            		}else if (String.valueOf(c.charAt(0)).equals("\"") && String.valueOf(c.charAt(c.length()-1)).equals("\"") ) {
+            			 temptext = temptext.substring(0,0) + temptext.substring(0+1);
+                         temptext = temptext.substring(0,temptext.length()-1);
+            		}
+                	
+                   
+                    Automata simple = automataSimple((T)temptext);
                     pila.push(simple);
                     this.afn = simple;
                     break;
@@ -69,6 +85,35 @@ public class AFND<T> {
             System.out.println("ERROR CONSTRUIR AUTOMATA: " + e.getMessage());
         }
     }
+    
+	public String validacionTipo(Valor_Tipo text) {
+		String DOT = "";
+		if (text.tipo.equals("PHRASE") || text.tipo.equals("SPACE")) {
+			for (int letra = 0; letra < text.valor.length(); letra++) {
+				if (letra == 0) {
+					DOT += ("\\\"");
+				} else if (letra + 1 == text.valor.length()) {
+					DOT += ("\\\"");
+				} else {
+					DOT += (text.valor.charAt(letra));
+				}
+			}
+
+		} else if (text.tipo.equals("S_DQUOTES")) {
+
+			DOT += ("\\\\\\\"");
+		} else if (text.tipo.equals("S_QUOTE")) {
+			DOT += ("\\\\'");
+		} else if (text.tipo.equals("S_LBREAK")) {
+			DOT += ("\\\\n");
+		} else if (text.valor.equals("|")) {
+			DOT += ("\\|");
+
+		} else {
+			DOT += (text.valor);
+		}
+		return DOT;
+	}
     
     public Automata concatenacion(Automata op1, Automata op2){
         Automata a = new Automata();

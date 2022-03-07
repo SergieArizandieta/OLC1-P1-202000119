@@ -160,12 +160,43 @@ public class SimpleER {
 		automata = afn.getAfn();
 		//System.out.println(automata);
 		String tipo = this.name;
+		String dot= "";
 		
 		CrearArchivo crear = new CrearArchivo(tipo + ".dot",tipo,automata);
         crear.crearImagen();
-      
+		
+		dot = crear.getSalida();
+		//System.out.println(dot);
+        
+        
+        Draw_GraphizAFND(tipo,dot);
 
 	}
+	
+	public void Draw_GraphizAFND(String name,String Dot) {
+
+		try {
+			if (isNone()) {
+				String graph = "digraph L {\r\n" + "node[shape=note fillcolor=\"#A181FF\" style =filled]\r\n"
+						+ "subgraph cluster_p{\r\n" + "    bgcolor = \"#FF7878\"\r\n"
+						+ "Nodo1008925772[label=\"Vacio\",fillcolor=\"#81FFDA\"]\r\n" + "\r\n" + "}}";
+				Create_File("AFND_202000119\\" + name + ".dot", graph);
+			} else {
+
+				Create_File("AFND_202000119\\" + name + ".dot", Dot);
+			}
+
+			ProcessBuilder pb;
+			pb = new ProcessBuilder("dot", "-Tpng", "-o", "AFND_202000119\\" + name + ".png",
+					"AFND_202000119\\" + name + ".dot");
+			pb.redirectErrorStream(true);
+			pb.start();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 	public void insert(String info, String tipo, Boolean hoja) {
 		Nodo_Simple_ER new_node = new Nodo_Simple_ER(info, tipo, hoja);

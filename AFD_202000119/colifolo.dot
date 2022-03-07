@@ -12,4 +12,4 @@ digraph finite_state_machine {
 0->1[label = "\\n"];
 1->2[label = "\\'"];
 2->3[label = "\\\""];
-label= ExpReg1}
+label= colifolo}

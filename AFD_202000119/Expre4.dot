@@ -7,6 +7,8 @@ digraph finite_state_machine {
 12;
 	node [shape = circle, color = "#2CB5FF" fillcolor="#E3FFFA" style =filled];
 
+	flechainicio [style=invis];
+	flechainicio -> 0 [label="inicio"];
 0->1[label = "especiales2"];
 0->2[label = "\"r\""];
 0->3[label = "\"p\""];
