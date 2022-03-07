@@ -11,7 +11,7 @@ public class Automata {
     private Estado inicial;
     private final  ArrayList<Estado> aceptacion;
     private final ArrayList<Estado> estados;
-    private HashSet simbolos;
+    private List<String> simbolos;
     private int tipoAutomata;
     private String[] resultadoRegex;
     private String lenguaje;
@@ -20,7 +20,7 @@ public class Automata {
     public Automata() {
         this.aceptacion = new ArrayList<>();
         this.estados = new ArrayList<>();
-        this.simbolos = new HashSet();
+        this.simbolos = new ArrayList<>();
         this.resultadoRegex = new String[3];
     }
 
@@ -37,12 +37,12 @@ public class Automata {
     }
 
 
-    public HashSet getSimbolos() {
+    public List<String> getSimbolos() {
         return simbolos;
     }
 
 
-    public void setSimbolos(HashSet simbolos) {
+    public void setSimbolos(List<String> simbolos) {
         this.simbolos = simbolos;
     }
 
@@ -104,7 +104,7 @@ public class Automata {
 
     public void  crearSimbolos(List<String> Elementos){
         for(String c: Elementos){
-            if( c != "|" && c != "." && c != "*" && c != Main.EPSILON) this.simbolos.add(c);
+            if( !(c.equals("|") || c.equals(".") || c.equals("*") || c.equals("epsilon"))) this.simbolos.add(c);
         }
     }
 

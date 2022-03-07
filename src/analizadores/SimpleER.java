@@ -75,7 +75,7 @@ public class SimpleER {
 					TempFinal.add(string);
 				}
 				
-				System.out.println(TempFinal);
+				System.out.println(Temp);
 				for (String string : TempFinal) {
 					ErTemp.add(string);
 				}
@@ -84,7 +84,7 @@ public class SimpleER {
 				Temp = new ArrayList<>();
 				Temp.add("|");
 				gestionmas(n.hijo1);
-				Temp.add("E");
+				Temp.add("epsilon");
 
 				// System.out.println(Temp);
 				for (String string : Temp) {

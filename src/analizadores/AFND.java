@@ -17,7 +17,7 @@ import Main.*;
  *
  * @author Carlos
  */
-public class AFND<T> {
+public class AFND {
     private Automata afn;
    
     private  List<String> Elementos;
@@ -64,7 +64,7 @@ public class AFND<T> {
                         break;
                      
                     default:
-                        Automata simple = automataSimple((T)c);
+                        Automata simple = automataSimple(c);
                         Cola.add(simple);
                         this.afn = simple;
                         break;
@@ -72,7 +72,7 @@ public class AFND<T> {
             }
             
             this.afn.crearSimbolos(Elementos);
-            this.afn.setTipoAutomata(0);
+            this.afn.setTipoAutomata(1);
             
         }catch(Exception e){
             System.out.println("ERROR CONSTRUIR AUTOMATA: " + e.getMessage());
@@ -104,7 +104,7 @@ public class AFND<T> {
             i++;
         }
         
-        HashSet simbolos = new HashSet();
+        List<String> simbolos = new ArrayList<>();
         simbolos.addAll(op1.getSimbolos());
         simbolos.addAll(op2.getSimbolos());
         a.setSimbolos(simbolos);
@@ -113,7 +113,7 @@ public class AFND<T> {
         return a;
     }
 
-    public Automata automataSimple(T simbolo){
+    public Automata automataSimple(String simbolo){
         Automata a = new Automata();
         
         Estado inicio = new Estado(0);
@@ -205,7 +205,7 @@ public class AFND<T> {
         for (int k =0; k<anteriorFin.size();k++)
             anteriorFin2.get(k).getTransiciones().add(new Transicion(anteriorFin2.get(k),nuevoFin,Main.EPSILON));
         
-        HashSet alfabeto = new HashSet();
+        List<String> alfabeto = new ArrayList<>();
         alfabeto.addAll(AFN1.getSimbolos());
         alfabeto.addAll(AFN2.getSimbolos());
         afnunion.setSimbolos(alfabeto);
