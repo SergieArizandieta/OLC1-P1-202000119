@@ -53,54 +53,7 @@ public class CrearArchivo {
         texto += "}";
        
         salida = texto;
-        
-        
-        
-        File file = new File(path  + direccion);
-        FileWriter out;
-        try{
-            out = new FileWriter(file);
-            out.write(texto);
-            out.close();
-        }catch(Exception e){}
-       
-        
-        /*
-        
-        String comando = "dot -Tpng \"" + path + direccion + "\" -o \"" + path  + tipo + ".png\"";
-      
-        
-        try
-        {
-            ProcessBuilder pbuilder;
-            pbuilder = new ProcessBuilder("cmd.exe", "/c", comando);
-            pbuilder.redirectErrorStream( true );
-            Process p = pbuilder.start();
-            BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line;
-            while (true) {
-                line = r.readLine();
-                if (line == null) { break; }
-                System.out.println(line);
-            }
-            
-            comando = path + tipo + ".png";
-             pbuilder = new ProcessBuilder("cmd.exe", "/c", comando);
-            pbuilder.redirectErrorStream( true );
-            p = pbuilder.start();
-            r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            while (true) {
-                line = r.readLine();
-                if (line == null) { break; }
-                System.out.println(line);
-            }
-
-        }
-        catch (IOException e)
-        {
-           System.out.println("Erro crear imagen " +  e.getMessage());
-        }
-        */
+             
     }
 
     public String getSalida() {

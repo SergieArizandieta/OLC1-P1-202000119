@@ -67,7 +67,7 @@ public class AFND<T> {
             		}
                 	
                    
-                    Automata simple = automataSimple((T)temptext);
+                    Automata simple = automataSimple(temptext);
                     pila.push(simple);
                     this.afn = simple;
                     break;
@@ -149,7 +149,7 @@ public class AFND<T> {
         return a;
     }
 
-    public Automata automataSimple(T simbolo){
+    public Automata automataSimple(String simbolo){
         Automata a = new Automata();
         
         Estado inicio = new Estado(0);
