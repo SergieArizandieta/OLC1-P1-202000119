@@ -1,12 +1,22 @@
 [
   {
-    "Resultado": "Cadena Invalida",
-    "ExpresionRegular": "ExpresionReg2",
-    "Valor": "34.44"
+    "Resultado": "ExpresionRegular no encontrada",
+    "ExpresionRegular": "ExpReg1",
+    "Valor": "opop"
   },
   {
     "Resultado": "Cadena Invalida",
+    "ExpresionRegular": "asd",
+    "Valor": "opop"
+  },
+  {
+    "Resultado": "Cadena Invalida",
+    "ExpresionRegular": "happ",
+    "Valor": "abbabb"
+  },
+  {
+    "Resultado": "Cadena Valida",
     "ExpresionRegular": "ExpReg1",
-    "Valor": "primerLexemaCokoa"
+    "Valor": "abbabb"
   }
 ]

@@ -47,9 +47,6 @@ public class Estados {
 	public void Inciando_tabla_transiciones(SimpleCalcSiguientes siguientes) {
 		Estados.Sigeuintes = siguientes;
 		dot = "";
-
-		// System.out.println("==== editando valores de estado: " + this.Estado + "
-		// ====" );
 		String Tipo, Valor;
 		Valor_Tipo valor_tipo;
 		List<Integer> Primeros;
@@ -100,9 +97,7 @@ public class Estados {
 		CadenaValida = true;
 		anteriorEstado = null;
 		ActualValidacion = listado.primero;
-		// cadena+="ƒ";
-
-		//System.out.println(cadena);
+		
 		if (cadena != "") {
 			for (int i = 0; i < cadena.length(); i++) {
 				String letter = String.valueOf(cadena.charAt(i));
@@ -159,9 +154,7 @@ public class Estados {
 	}
 
 	public void ValidacionGuia(Nodo_SimpleSiguientesTransiciones actual, String letter, String letterSig) {
-		// System.out.println("____________________________________________________");
-		// System.out.println("Estado " + actual.Estado + " letra: " + letter);
-		// System.out.println("=====================================================");
+		
 		if(anteriorEstado == null) {
 			actual.listado.ValidacionPivote(actual, letter, letterSig,true);
 		}else {

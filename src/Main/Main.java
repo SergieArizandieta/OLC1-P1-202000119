@@ -418,6 +418,7 @@ public class Main extends JFrame {
 								for (SimpleER er : sintactico.ERList) {
 									if (i.name.equals(er.name)) {
 										System.out.println("===== cadena: " + i.string + " para: " + er.name + "=====");
+										i.Encontrado = true;
 										er.ValidarCadena(i.string, sintactico.ConjList, i);
 										encontrado = true;
 										break;
@@ -429,6 +430,7 @@ public class Main extends JFrame {
 
 								}
 							}
+							
 							String text = "";
 							JSONArray Main = new JSONArray();
 							JSONObject sub;
@@ -442,13 +444,19 @@ public class Main extends JFrame {
 									sub.put("ExpresionRegular", i.name);
 									sub.put("Valor", i.string);
 
-								} else {
+								} else if (i.Encontrado) {
+									text += "La cadena: " + i.string + " no se encontro la ER: " + i.name + "\n";
+									System.out.println("La cadena: " + i.string + " es INVALIDA con la ER: " + i.name);
+									sub.put("Resultado", "ExpresionRegular no encontrada");
+									sub.put("ExpresionRegular", i.name);
+									sub.put("Valor", i.string);
+
+								}else {
 									text += "La cadena: " + i.string + " es INVALIDA con la ER: " + i.name + "\n";
 									System.out.println("La cadena: " + i.string + " es INVALIDA con la ER: " + i.name);
 									sub.put("Resultado", "Cadena Invalida");
 									sub.put("ExpresionRegular", i.name);
 									sub.put("Valor", i.string);
-
 								}
 
 								Main.put(sub);
@@ -510,7 +518,10 @@ public class Main extends JFrame {
 							ImageIcon imagen = new ImageIcon(ruta);
 							Label_img.setIcon(new ImageIcon (imagen.getImage().getScaledInstance(Label_img.getWidth(), Label_img.getHeight(), Image.SCALE_SMOOTH)));
 						}else if (opcion.equals("AFND")) {
-							
+							String ruta ="AFND_202000119\\" + er + ".png";
+							System.out.println(ruta);
+							ImageIcon imagen = new ImageIcon(ruta);
+							Label_img.setIcon(new ImageIcon (imagen.getImage().getScaledInstance(Label_img.getWidth(), Label_img.getHeight(), Image.SCALE_SMOOTH)));
 						}
 						//"Arbol", "Siguientes", "Transiciones", "ADF", "AFND"
 						//System.out.println("Probando: " + er + " -- " + opcion);

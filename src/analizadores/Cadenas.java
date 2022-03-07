@@ -1,6 +1,7 @@
 package analizadores;
 
 public class Cadenas {
+	public Boolean Encontrado = false;
 	public String string;
 	public String name;
 	public boolean validacion;

@@ -1,6 +1,6 @@
 
 package analizadores;
-
+@SuppressWarnings({ "rawtypes"})
 public class Transicion<T> {
     private Estado inicial;
     private Estado fin;
@@ -12,41 +12,21 @@ public class Transicion<T> {
         this.simbolo = simbolo;
     }
 
-    public Estado getInicial() {
-        return inicial;
-    }
+    public Estado getInicial() {return inicial;}
     
-    public void setInicial(Estado inicial) {
-        this.inicial = inicial;
-    }
+    public void setInicial(Estado inicial) { this.inicial = inicial;}
 
-    public Estado getFin() {
-        return fin;
-    }
+    public Estado getFin() {return fin;}
 
-    public void setFin(Estado fin) {
-        this.fin = fin;
-    }
+    public void setFin(Estado fin) {this.fin = fin; }
 
-    public T getSimbolo() {
-        return simbolo;
-    }
+    public T getSimbolo() {return simbolo;}
 
-    public void setSimbolo(T simbolo) {
-        this.simbolo = simbolo;
-    }
-    
+    public void setSimbolo(T simbolo) {this.simbolo = simbolo;}
     
     @Override
-    public String toString(){
-        return "(" + inicial.getId() + "-" + simbolo + "-" + fin.getId() + ")";
-    }
+    public String toString(){return "(" + inicial.getId() + "-" + simbolo + "-" + fin.getId() + ")";}
     
-    public String DOT_String(){
-        return (this.inicial+" -> "+this.fin+" [label=\""+this.simbolo+"\"];");
-    }
-
-    
-        
-    
+    public String DOT_String(){return (this.inicial+" -> "+this.fin+" [label=\""+this.simbolo+"\"];");}
+   
 }

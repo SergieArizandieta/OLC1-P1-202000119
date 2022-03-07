@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Stack;
 import java.util.Queue;
 import Main.*;
-
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class AFND<T> {
     private Automata afn;
    
@@ -75,9 +75,6 @@ public class AFND<T> {
                
                 }
                 
-            
-            
-            
             this.afn.crearSimbolos(Elementos);
             this.afn.setTipoAutomata(0);
             
@@ -114,16 +111,19 @@ public class AFND<T> {
 		}
 		return DOT;
 	}
-    
+	
+	
     public Automata concatenacion(Automata op1, Automata op2){
         Automata a = new Automata();
         int i = 0;
         for ( i = 0; i < op2.getEstados().size(); i++){
+        	
             Estado temp = (Estado) op2.getEstados().get(i);
+            
             temp.setId(i);
             if(i == 0) a.setInicial(temp);
-            if(i == op2.getEstados().size() - 1) 
-            {
+            
+            if(i == op2.getEstados().size() - 1) {
                 
                 for(int k = 0; k < op2.getAceptacion().size(); k++){
                     temp.setTransiciones(new Transicion((Estado) op2.getAceptacion().get(k),op1.getInicial(),Main.EPSILON));
@@ -149,10 +149,12 @@ public class AFND<T> {
         return a;
     }
 
+
     public Automata automataSimple(String simbolo){
         Automata a = new Automata();
         
         Estado inicio = new Estado(0);
+        
         Estado fin = new Estado(1);
         
         Transicion tran = new Transicion(inicio,fin,simbolo);
@@ -160,30 +162,39 @@ public class AFND<T> {
         inicio.setTransiciones(tran);
         
         a.addEstados(inicio);
+        
         a.addEstados(fin);
+        
         a.setInicial(inicio);
+        
         a.addEstadoAceptacion(fin);
-        a.setLenguaje(simbolo + "");
         
-        
+        a.setLenguaje(simbolo + "");        
         return a;
     }
 
-    public Automata cerraduraKleene(Automata automata){
+	public Automata cerraduraKleene(Automata automata){
         Automata a = new Automata();
         
         Estado inicio = new Estado(0);
+        
         a.addEstados(inicio);
+        
         a.setInicial(inicio);
         
         for(int i = 0; i < automata.getEstados().size(); i++){
+        	
             Estado temp = (Estado)automata.getEstados().get(i);
+            
             temp.setId(i + 1);
+            
             a.addEstados(temp);
         }
         
         Estado fin = new Estado(automata.getEstados().size() + 1);
+        
         a.addEstados(fin);
+        
         a.addEstadoAceptacion(fin);
         
         Estado oldInicio = automata.getInicial();
@@ -191,47 +202,65 @@ public class AFND<T> {
         ArrayList<Estado> oldFin = automata.getAceptacion();
         
         inicio.getTransiciones().add(new Transicion(inicio,oldInicio,Main.EPSILON));
+        
         inicio.getTransiciones().add(new Transicion(inicio,fin,Main.EPSILON));
         
         for(int i = 0; i < oldFin.size(); i++){
+        	
             oldFin.get(i).getTransiciones().add(new Transicion(oldFin.get(i),oldInicio,Main.EPSILON));
+            
             oldFin.get(i).getTransiciones().add(new Transicion(oldFin.get(i),fin,Main.EPSILON));
         }
         a.setSimbolos(automata.getSimbolos());
+        
         a.setLenguaje(automata.getLenguaje());
         
         return a;
     }
 
-    public Automata union(Automata AFN1, Automata AFN2){
+   
+	public Automata union(Automata AFN1, Automata AFN2){
+    	
         Automata afnunion = new Automata();
+        
         Estado inicioNuevo = new Estado(0);
+        
         inicioNuevo.setTransiciones(new Transicion(inicioNuevo,AFN2.getInicial(),Main.EPSILON));
 
         afnunion.addEstados(inicioNuevo);
+        
         afnunion.setInicial(inicioNuevo);
         int i=0;
 
         for (i=0; i < AFN1.getEstados().size(); i++) {
             Estado tmp = (Estado) AFN1.getEstados().get(i);
+            
             tmp.setId(i + 1);
+            
             afnunion.addEstados(tmp);
         }
        
         for (int j=0; j < AFN2.getEstados().size(); j++) {
             Estado tmp = (Estado) AFN2.getEstados().get(j);
+            
             tmp.setId(i + 1);
+            
             afnunion.addEstados(tmp);
+            
             i++;
         }
         
         Estado nuevoFin = new Estado(AFN1.getEstados().size() +AFN2.getEstados().size()+ 1);
+        
         afnunion.addEstados(nuevoFin);
+        
         afnunion.addEstadoAceptacion(nuevoFin);
         
        
         Estado anteriorInicio = AFN1.getInicial();
+        
         ArrayList<Estado> anteriorFin    = AFN1.getAceptacion();
+        
         ArrayList<Estado> anteriorFin2    = AFN2.getAceptacion();
         
         inicioNuevo.getTransiciones().add(new Transicion(inicioNuevo, anteriorInicio, Main.EPSILON));
@@ -242,17 +271,18 @@ public class AFND<T> {
             anteriorFin2.get(k).getTransiciones().add(new Transicion(anteriorFin2.get(k),nuevoFin,Main.EPSILON));
         
         HashSet alfabeto = new HashSet();
+        
         alfabeto.addAll(AFN1.getSimbolos());
+        
         alfabeto.addAll(AFN2.getSimbolos());
+        
         afnunion.setSimbolos(alfabeto);
+        
         afnunion.setLenguaje(AFN1.getLenguaje()+" " + AFN2.getLenguaje()); 
+        
         return afnunion;
     }
 
-    public Automata getAfn() {
-        return afn;
-    }
-    
-    
-    
+    public Automata getAfn() {return afn; }
+
 }

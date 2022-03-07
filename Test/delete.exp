@@ -2,17 +2,19 @@
 
 //ExpReg1 ->|.{L}"#".?{L}*|{D}{L};
 
-//ExpReg1 -> ...."a""b"|.."a"*"b""a"...?"b""b""a"*"a""b""b";
+ExpReg1 -> ...."a""b"|.."a"*"b""a"...?"b""b""a"*"a""b""b";
 //sad -> ..."a""b"|.."a"*"b""a"..?"b""b"+"a"."b""b";
 
 //happ-> .."ho""\n"."\"""\'";
 
-happ-> ..."a""b"|.."c"*"d""c"..?"d""d"+"c"."b""b";
+//happ-> ..."a""b"|.."c"*"d""c"..?"d""d"+"c"."b""b";
 
-conj:simbols -> "\n","\'","\"",1,2,3;
+//conj:simbols -> "\n","\'","\"",1,2,3;
 
 %%
 
-sad : "abbabb";
-
+ExpReg1 : "abbabb";
+happ: "abbabb";
+asd: "opop";
+ExpReg1 : "opop";
 }

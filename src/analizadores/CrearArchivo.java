@@ -1,15 +1,7 @@
 
 package analizadores;
-
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-
-
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class CrearArchivo {
     String direccion;
     String tipo;
@@ -23,13 +15,12 @@ public class CrearArchivo {
         this.automata = automata;
     }
     
- 
-    
-    public void crearImagen(){
+    public void crearImagen(String name){
         String path = "AFND_202000119\\";
         String texto = "digraph finite_state_machine{\n";
         texto +="\tbgcolor = \"#F6FFE3\""+"\n";
         texto +="\trankdir=LR;"+"\n";
+        texto += "\tlabel=" + name +"\n";
         texto+="\tnode [fontname=\"Helvetica,Arial,sans-serif\" ]\n";
         texto+="\tedge [fontname=\"Helvetica,Arial,sans-serif\"]\n";
         texto +="\tnode [shape = doublecircle, color = gold fillcolor=\"#EBE3FF\" style =filled];";
@@ -56,9 +47,6 @@ public class CrearArchivo {
              
     }
 
-    public String getSalida() {
-        return salida;
-    }
-
+    public String getSalida() {return salida;}
     
 }

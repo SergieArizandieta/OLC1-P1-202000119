@@ -163,7 +163,7 @@ public class SimpleER {
 		String dot= "";
 		
 		CrearArchivo crear = new CrearArchivo(tipo + ".dot",tipo,automata);
-        crear.crearImagen();
+        crear.crearImagen(this.name);
 		
 		dot = crear.getSalida();
 		//System.out.println(dot);
