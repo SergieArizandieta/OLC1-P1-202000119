@@ -36,7 +36,8 @@ public class SimpleER {
 		System.out.println("Hemrnao");
 		postorden(this.ultimo.hijo1);
 		//preorden(this.ultimo.hijo1);
-		// preordenOriginal(this.ultimo.hijo1);
+		//preordenOriginal(this.ultimo.hijo1);
+		System.out.println(ErTemp);
 		
 	}
 	
@@ -44,10 +45,50 @@ public class SimpleER {
         if (n != null) {
             postorden(n.hijo1);
             postorden(n.hijo2);
-            System.out.println(n.info);
-            ErTemp.add(n.info);
+            if(n.info.equals("+")) {
+            	GestionConversor(n);
+            }else if (n.info.equals("+")) {
+				
+			}else {
+				ErTemp.add(n.info);
+			}
+            //System.out.println(n.info);
+           
         }
     }
+    
+    public void GestionConversor(Nodo_Simple_ER n) {
+    	Temp = new ArrayList<>();
+    	Temp2 = new ArrayList<>();
+    	postordenSimbolos(n.hijo1);
+    	
+    	System.out.println("Er: " + ErTemp.get(ErTemp.size()-1) );
+    	
+    	
+    	for (String string : Temp) {
+    		Temp2.add(string);
+		}
+    	
+    	Temp.add("*");
+    	
+    	for (String string : Temp2) {
+    		Temp.add(string);
+		}
+    	
+    	Temp.add(".");
+    	
+    	System.out.println(Temp);
+    	
+	}
+    
+    private void postordenSimbolos(Nodo_Simple_ER n) {
+        if (n != null) {
+        	postordenSimbolos(n.hijo1);
+        	postordenSimbolos(n.hijo2);
+            Temp.add(n.info);
+        }
+    }
+    
 
 	private void preordenOriginal(Nodo_Simple_ER n) {
 		if (n != null) {
