@@ -47,8 +47,10 @@ public class SimpleER {
             postorden(n.hijo2);
             if(n.info.equals("+")) {
             	GestionConversor(n);
-            }else if (n.info.equals("+")) {
-				
+            }else if (n.info.equals("?")) {
+            	ErTemp.add("epsilon");
+            	ErTemp.add("|");
+       
 			}else {
 				ErTemp.add(n.info);
 			}
@@ -60,25 +62,15 @@ public class SimpleER {
     public void GestionConversor(Nodo_Simple_ER n) {
     	Temp = new ArrayList<>();
     	Temp2 = new ArrayList<>();
-    	postordenSimbolos(n.hijo1);
-    	
-    	System.out.println("Er: " + ErTemp.get(ErTemp.size()-1) );
-    	
-    	
-    	for (String string : Temp) {
-    		Temp2.add(string);
-		}
-    	
     	Temp.add("*");
-    	
-    	for (String string : Temp2) {
-    		Temp.add(string);
-		}
+    	postordenSimbolos(n.hijo1);
     	
     	Temp.add(".");
     	
-    	System.out.println(Temp);
-    	
+    	for (String string : Temp) {
+    		ErTemp.add(string);
+		}
+    	//System.out.println(Temp);
 	}
     
     private void postordenSimbolos(Nodo_Simple_ER n) {
