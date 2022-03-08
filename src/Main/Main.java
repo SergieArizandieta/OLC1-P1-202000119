@@ -444,7 +444,7 @@ public class Main extends JFrame {
 									sub.put("ExpresionRegular", i.name);
 									sub.put("Valor", i.string);
 
-								} else if (i.Encontrado) {
+								} else if (i.Encontrado== false) {
 									text += "La cadena: " + i.string + " no se encontro la ER: " + i.name + "\n";
 									System.out.println("La cadena: " + i.string + " es INVALIDA con la ER: " + i.name);
 									sub.put("Resultado", "ExpresionRegular no encontrada");

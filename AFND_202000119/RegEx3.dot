@@ -1,14 +1,14 @@
 digraph finite_state_machine{
 	bgcolor = "#F6FFE3"
 	rankdir=LR;
-	label=ExpReg1
+	label=RegEx3
 	node [fontname="Helvetica,Arial,sans-serif" ]
 	edge [fontname="Helvetica,Arial,sans-serif"]
 	node [shape = doublecircle, color = gold fillcolor="#EBE3FF" style =filled]; 13;
 	node [shape = circle, color = "#2CB5FF" fillcolor="#E3FFFA" style =filled];
 	flechainicio [style=invis];
 	flechainicio -> 0 [label="inicio"];
-	0 -> 1 [label="letra"];
+	0 -> 1 [label="digito"];
 	1 -> 2 [label="ε"];
 	2 -> 3 [label="ε"];
 	2 -> 13 [label="ε"];

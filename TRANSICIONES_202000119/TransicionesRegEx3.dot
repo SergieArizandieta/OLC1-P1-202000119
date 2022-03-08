@@ -3,14 +3,14 @@ digraph G { bgcolor="black"
   edge [fontname="Helvetica,Arial,sans-serif"]
   subgraph cluster1 {fillcolor="skyblue" style="filled"
   node [shape=Msquare fillcolor="gold:brown" style="radial" gradientangle=180]
-  label = " Tabla de transiciones de: ExpReg1"
+  label = " Tabla de transiciones de: RegEx3"
   a0 [label=<  
   <TABLE border="10" cellspacing="10" cellpadding="10" style="rounded" gradientangle="315">
   <TR>
       <TD border="3" bgcolor="#FFF97B">Estados\Terminales  </TD>
-      <TD border="3" bgcolor="#FFF97B">letra</TD>
-      <TD border="3" bgcolor="#FFF97B">"_"</TD>
       <TD border="3" bgcolor="#FFF97B">digito</TD>
+      <TD border="3" bgcolor="#FFF97B">"_"</TD>
+      <TD border="3" bgcolor="#FFF97B">letra</TD>
   </TR>
   <TR>
       <TD border="3" bgcolor="#FFF97B">0 S0</TD>

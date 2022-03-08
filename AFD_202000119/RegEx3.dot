@@ -9,6 +9,6 @@ digraph finite_state_machine {
 
 	flechainicio [style=invis];
 	flechainicio -> 0 [label="inicio"];
-0->1[label = "letra"];
+0->1[label = "digito"];
 1->1[label = "\"_\",digito,letra"];
-label= ExpReg1}
+label= RegEx3}

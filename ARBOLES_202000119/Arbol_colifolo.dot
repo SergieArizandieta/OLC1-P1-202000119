@@ -1,0 +1,19 @@
+digraph structs {
+  bgcolor = "#E3FFFA"
+   node [shape=Mrecord fillcolor="#FFE3FF" style =filled];
+label ="colifolo"
+    struct1048528953    [label="{{[1]|<here>.|[4]}|No Anulable}"];
+    struct1048528953-> struct76519204
+    struct76519204    [label="{{[1]|<here>.|[3]}|No Anulable}"];
+    struct76519204-> struct1794080443
+    struct1794080443    [label="{{[1]|<here>\\n|[1]}|No Anulable}"];
+    struct76519204-> struct447145937
+    struct447145937    [label="{{[2]|<here>.|[3]}|No Anulable}"];
+    struct447145937-> struct1591495228
+    struct1591495228    [label="{{[2]|<here>\\'|[2]}|No Anulable}"];
+    struct447145937-> struct638767220
+    struct638767220    [label="{{[3]|<here>\\\"|[3]}|No Anulable}"];
+    struct1048528953-> struct932800683
+    struct932800683    [label="{{[4]|<here>$|[4]}|No Anulable}"];
+
+}

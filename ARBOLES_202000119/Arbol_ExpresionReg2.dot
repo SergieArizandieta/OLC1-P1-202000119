@@ -1,0 +1,23 @@
+digraph structs {
+  bgcolor = "#E3FFFA"
+   node [shape=Mrecord fillcolor="#FFE3FF" style =filled];
+label ="ExpresionReg2"
+    struct1727115747    [label="{{[1]|<here>.|[4]}|No Anulable}"];
+    struct1727115747-> struct1464176456
+    struct1464176456    [label="{{[1]|<here>.|[3]}|No Anulable}"];
+    struct1464176456-> struct1895161136
+    struct1895161136    [label="{{[1]|<here>+|[1]}|No Anulable}"];
+    struct1895161136-> struct1620649476
+    struct1620649476    [label="{{[1]|<here>digito|[1]}|No Anulable}"];
+    struct1464176456-> struct185396573
+    struct185396573    [label="{{[2]|<here>.|[3]}|No Anulable}"];
+    struct185396573-> struct1883774139
+    struct1883774139    [label="{{[2]|<here>\".\"|[2]}|No Anulable}"];
+    struct185396573-> struct780817375
+    struct780817375    [label="{{[3]|<here>+|[3]}|No Anulable}"];
+    struct780817375-> struct118155532
+    struct118155532    [label="{{[3]|<here>digito|[3]}|No Anulable}"];
+    struct1727115747-> struct1795201717
+    struct1795201717    [label="{{[4]|<here>$|[4]}|No Anulable}"];
+
+}
