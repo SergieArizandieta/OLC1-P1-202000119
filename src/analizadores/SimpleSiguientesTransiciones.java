@@ -351,7 +351,9 @@ public class SimpleSiguientesTransiciones {
 			Nodo_SimpleSiguientesTransiciones actual = cabezera;
 			while (actual != null) {
 				actual.mostradoGrafo = true;
+				if(actual.Estado!=null) {
 				ShowAceptacionesReporte(actual.listado.primero, actual.Estado);
+				}
 				actual = actual.next;
 			}
 		}
@@ -516,13 +518,13 @@ public class SimpleSiguientesTransiciones {
 				} else {
 					System.out.println("S" + actual.Estado + " a:");
 				}
-				if (actual.Estado == 5) {
-					System.out.print("");
-				}
+
 
 				System.out.println("");
 				actual.mostrado = true;
+				
 				ShowAceptaciones(actual.listado.primero, actual.Estado);
+				
 				actual = actual.next;
 			}
 		}
@@ -606,6 +608,9 @@ public class SimpleSiguientesTransiciones {
 
 					if (EstadoBuscado == actual.Estado) {
 						ActualVerificando.listado = actual.listado;
+						if(actual.Aceptacion) {
+							ActualVerificando.Aceptacion =actual.Aceptacion;
+							}
 					}
 					DesdeOtraparte(EstadoBuscado, ActualVerificando, actual);
 				}
@@ -626,6 +631,9 @@ public class SimpleSiguientesTransiciones {
 
 					if (EstadoBuscado == actual.Estado) {
 						ActualVerificando.listado = actual.listado;
+						if(actual.Aceptacion) {
+							ActualVerificando.Aceptacion =actual.Aceptacion;
+							}
 					}
 
 					DesdeOtraparte(EstadoBuscado, ActualVerificando, actual);

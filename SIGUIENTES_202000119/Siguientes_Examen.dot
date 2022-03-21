@@ -1,0 +1,15 @@
+digraph structs { 
+  bgcolor = "#FFE8E3"   
+ node [shape=Mrecord fillcolor="#E3EBFF" style =filled];
+label ="Examen"
+struct1 [label="SIGUIENTES| { Valor | Hoja| Siguinetes } | 
+{ a| 1 | [3, 4, 5, 6, 7, 8]}|
+{ b| 2 | [3, 4, 5, 6, 7, 8]}|
+{ a| 3 | [3, 4, 5, 6, 7, 8]}|
+{ b| 4 | [3, 4, 5, 6, 7, 8]}|
+{ a| 5 | [5, 6, 7, 8]}|
+{ c| 6 | [6, 7, 8]}|
+{ b| 7 | [8]}|
+{ $| 8 | []}
+"];
+ }

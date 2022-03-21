@@ -1,0 +1,47 @@
+digraph finite_state_machine{
+	bgcolor = "#F6FFE3"
+	rankdir=LR;
+	label=Examen
+	node [fontname="Helvetica,Arial,sans-serif" ]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	node [shape = doublecircle, color = gold fillcolor="#EBE3FF" style =filled]; 27;
+	node [shape = circle, color = "#2CB5FF" fillcolor="#E3FFFA" style =filled];
+	flechainicio [style=invis];
+	flechainicio -> 0 [label="inicio"];
+	0 -> 3 [label="ε"];
+	0 -> 1 [label="ε"];
+	1 -> 2 [label="b"];
+	2 -> 5 [label="ε"];
+	3 -> 4 [label="a"];
+	4 -> 5 [label="ε"];
+	5 -> 6 [label="ε"];
+	6 -> 7 [label="ε"];
+	6 -> 13 [label="ε"];
+	7 -> 10 [label="ε"];
+	7 -> 8 [label="ε"];
+	8 -> 9 [label="b"];
+	9 -> 12 [label="ε"];
+	10 -> 11 [label="a"];
+	11 -> 12 [label="ε"];
+	12 -> 7 [label="ε"];
+	12 -> 13 [label="ε"];
+	13 -> 14 [label="ε"];
+	14 -> 15 [label="ε"];
+	14 -> 17 [label="ε"];
+	15 -> 16 [label="a"];
+	16 -> 15 [label="ε"];
+	16 -> 17 [label="ε"];
+	17 -> 18 [label="ε"];
+	18 -> 19 [label="ε"];
+	18 -> 21 [label="ε"];
+	19 -> 20 [label="c"];
+	20 -> 19 [label="ε"];
+	20 -> 21 [label="ε"];
+	21 -> 22 [label="ε"];
+	22 -> 25 [label="ε"];
+	22 -> 23 [label="ε"];
+	23 -> 24 [label="ε"];
+	24 -> 27 [label="ε"];
+	25 -> 26 [label="b"];
+	26 -> 27 [label="ε"];
+}

@@ -8,7 +8,7 @@ digraph G { bgcolor="black"
   <TABLE border="10" cellspacing="10" cellpadding="10" style="rounded" gradientangle="315">
   <TR>
       <TD border="3" bgcolor="#FFF97B">Estados\Terminales  </TD>
-      <TD border="3" bgcolor="#FFF97B">especiales2</TD>
+      <TD border="3" bgcolor="#FFF97B">arizandieta</TD>
       <TD border="3" bgcolor="#FFF97B">"r"</TD>
       <TD border="3" bgcolor="#FFF97B">"p"</TD>
       <TD border="3" bgcolor="#FFF97B">"q"</TD>
@@ -25,43 +25,75 @@ digraph G { bgcolor="black"
   <TR>
       <TD border="3" bgcolor="#FFF97B">0 S0</TD>
       <TD border="3" > S1</TD>
-      <TD border="3" > S2</TD>
-      <TD border="3" > S3</TD>
       <TD border="3" > -- </TD>
-      <TD border="3" > S4</TD>
-      <TD border="3" > S5</TD>
-      <TD border="3" > S6</TD>
-      <TD border="3" > S7</TD>
-      <TD border="3" > S8</TD>
-      <TD border="3" > S9</TD>
-      <TD border="3" > S10</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
   </TR>
   <TR>
       <TD border="3" bgcolor="#FFF97B">S1</TD>
       <TD border="3" > S1</TD>
+      <TD border="3" > S2</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > S3</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > S4</TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > S10</TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
   </TR>
   <TR>
       <TD border="3" bgcolor="#FFF97B">S2</TD>
       <TD border="3" > -- </TD>
-      <TD border="3" > S2</TD>
-      <TD border="3" > S3</TD>
       <TD border="3" > -- </TD>
       <TD border="3" > S5</TD>
-      <TD border="3" > S5</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+  </TR>
+  <TR>
+      <TD border="3" bgcolor="#FFF97B">S5</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > S6</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+  </TR>
+  <TR>
+      <TD border="3" bgcolor="#FFF97B">S6</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > S2</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > S3</TD>
+      <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
@@ -75,78 +107,30 @@ digraph G { bgcolor="black"
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
-      <TD border="3" > S2</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > S7</TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-  </TR>
-  <TR>
-      <TD border="3" bgcolor="#FFF97B">S4</TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > S6</TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > S10</TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-  </TR>
-  <TR>
-      <TD border="3" bgcolor="#FFF97B">S5</TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > S6</TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > S10</TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-  </TR>
-  <TR>
-      <TD border="3" bgcolor="#FFF97B">S6</TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > S10</TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
   </TR>
   <TR>
       <TD border="3" bgcolor="#FFF97B">S7</TD>
       <TD border="3" > -- </TD>
+      <TD border="3" > S4</TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
+      <TD border="3" > S4</TD>
+      <TD border="3" > S8</TD>
       <TD border="3" > -- </TD>
-      <TD border="3" > S7</TD>
       <TD border="3" > S9</TD>
-      <TD border="3" > S9</TD>
-      <TD border="3" > S10</TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
   </TR>
@@ -160,30 +144,30 @@ digraph G { bgcolor="black"
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
-      <TD border="3" > S9</TD>
-      <TD border="3" > S9</TD>
+      <TD border="3" > -- </TD>
       <TD border="3" > S10</TD>
       <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-  </TR>
-  <TR>
-      <TD border="3" bgcolor="#FFF97B">S9</TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > -- </TD>
-      <TD border="3" > S9</TD>
-      <TD border="3" > S9</TD>
-      <TD border="3" > S10</TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
   </TR>
   <TR>
       <TD border="3" bgcolor="#FFF97B">S10</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > S8</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > S9</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+  </TR>
+  <TR>
+      <TD border="3" bgcolor="#FFF97B">S9</TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
@@ -227,6 +211,22 @@ digraph G { bgcolor="black"
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+  </TR>
+  <TR>
+      <TD border="3" bgcolor="#FFF97B">S4</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > S4</TD>
+      <TD border="3" > S8</TD>
+      <TD border="3" > -- </TD>
+      <TD border="3" > S9</TD>
       <TD border="3" > -- </TD>
       <TD border="3" > -- </TD>
   </TR>
